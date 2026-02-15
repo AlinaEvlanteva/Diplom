@@ -1,0 +1,14 @@
+# Файлы macOS
+.DS_Store
+
+# Файлы Windows
+Thumbs.db
+desktop.ini
+
+# Папки редакторов
+.vscode/
+.idea/
+
+# Временные файлы
+*.log
+*.tmp
