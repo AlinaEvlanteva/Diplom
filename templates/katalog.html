@@ -3,16 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../resources/css/katalog_design.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/katalog_design.css') }}">
     <title>ИнТехЛайт - Каталог</title>
 </head>
 <body>
     <header>
         <div class="header_inner">
             <div class="header_logo">
-                <img src="../resources/img/icons.png" alt="Логотип ИнТехЛайт"/>
+                <a href="{{ url_for('index') }}"><img src="{{ url_for('static', filename='img/icons.png') }}" alt="Логотип ИнТехЛайт"/></a>
             </div>
-            <a href="katalog.html"><button class="but_catalog">Каталог</button></a>
+            <a href="{{ url_for('katalog') }}"><button class="but_catalog">Каталог</button></a>
          
             <nav>
                 <ul class="header_nav_menu">
@@ -40,13 +40,13 @@
 
             <div class="header_button_icons">
                 <button>
-                    <img src="../resources/img/Vector1.png" alt="Аккаунт"/>
+                    <img src="{{ url_for('static', filename='img/Vector1.png') }}"/>
                 </button>
                 <button>
-                    <img src="../resources/img/Vector2.png" alt="Избранное"/>
+                    <img src="{{ url_for('static', filename='img/Vector2.png') }}" alt="Избранное"/>
                 </button>
                 <button>
-                    <img src="../resources/img/Vector3.png" alt="Корзина"/>
+                    <img src="{{ url_for('static', filename='img/Vector3.png') }}" alt="Корзина"/>
                 </button>
             </div>
         </div>
@@ -59,13 +59,15 @@
                 <h3>Каталог</h3>
             </div>
             <div class="section_products_post">
+                {% for category in categories %}
                 <div class="post">
-                    <a href="kat_podshipniki.html">
-                        <img src="../resources/img/poshipniki.png"/>
-                        <h3>Подшипники</h3>
+                    <a href="{{ url_for('category_products', cat_id=category.id) }}">
+                        <img src="{{ url_for('static', filename='img/' + category.image) }}"/>
+                        <h3>{{ category.name }}</h3>
                     </a>
                 </div>
-                <div class="post">
+                {% endfor %}
+                <!-- <div class="post">
                     <a href="#">
                         <img src="../resources/img/cepi.png"/>
                         <h3>Цепи</h3>
@@ -94,7 +96,7 @@
                         <img src="../resources/img/silikon.png"/>
                         <h3>Силиконовые материалы</h3>
                     </a>
-                </div>
+                </div> -->
             </div>
         </section>
 
@@ -104,8 +106,8 @@
             <h3 class="footer_title">Меню сайта</h3>
             <nav>
                 <ul class="footer_menu">
-                    <li><a href="glavanaya.html">Главная страница</a></li>
-                    <li><a href="#">Каталог</a></li>
+                    <li><a href="{{ url_for('index') }}">Главная страница</a></li>
+                    <li><a href="{{ url_for('katalog') }}">Каталог</a></li>
                     <li><a href="#">Доставка</a></li>
                     <li><a href="#">Реквизиты</a></li>
                     <li><a href="#">Контакты</a></li>
@@ -119,8 +121,8 @@
             <ul class="footer_menu">
                 <li><a>г. Ростов-на-Дону, ул. Буквенная д. 25, / <br/>
                     ДНР, г. Донецк, ул. Баумана, д. 11</a></li>
-                <li><a href="tel:+79498256121">+7 ХХХ-ХХ-ХХ</a></li>
-                <li><a href="tel:+79281242620">+7 ХХХ-ХХ-ХХ</a></li>
+                <li><a href="tel:+79498256121">+7 ХХХ ХХХ-ХХ-ХХ</a></li>
+                <li><a href="tel:+79281242620">+7 ХХХ ХХХ-ХХ-ХХ</a></li>
                 <li><a href="mailto:sgpz-bearings@mail.ru">Эл. почта: eeeeeee@mail.ru</a></li>
             </ul>
         </div>

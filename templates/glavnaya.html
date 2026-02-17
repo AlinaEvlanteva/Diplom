@@ -3,16 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../resources/css/glavnaya_design.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+    <!-- <link rel="stylesheet" href="../resources/css/glavnaya_design.css"> -->
     <title>ИнТехЛайт - Главная</title>
 </head>
 <body>
     <header>
         <div class="header_inner">
             <div class="header_logo">
-                <img src="../resources/img/icons.png" alt="Логотип ИнТехЛайт"/>
+                <a href="{{ url_for('index') }}"><img src="{{ url_for('static', filename='img/icons.png') }}" alt="Логотип ИнТехЛайт"/></a>
             </div>
-            <a href="katalog.html"><button class="but_catalog">Каталог</button></a>
+            <a href="{{ url_for('katalog') }}"><button class="but_catalog">Каталог</button></a>
          
             <nav>
                 <ul class="header_nav_menu">
@@ -40,13 +41,13 @@
 
             <div class="header_button_icons">
                 <button>
-                    <img src="../resources/img/Vector1.png" alt="Аккаунт"/>
+                    <img src="{{ url_for('static', filename='img/Vector1.png') }}"/>
                 </button>
                 <button>
-                    <img src="../resources/img/Vector2.png" alt="Избранное"/>
+                    <img src="{{ url_for('static', filename='img/Vector2.png') }}" alt="Избранное"/>
                 </button>
                 <button>
-                    <img src="../resources/img/Vector3.png" alt="Корзина"/>
+                    <img src="{{ url_for('static', filename='img/Vector3.png') }}" alt="Корзина"/>
                 </button>
             </div>
         </div>
@@ -89,13 +90,14 @@
                 <h3>Наша продукция</h3>
             </div>
             <div class="products_section_post">
+                {% for category in categories %}
                 <div class="post">
-                    <a href="#">
-                        <img src="../resources/img/poshipniki.png"/>
-                        <h3>Подшипники</h3>
+                    <a href="{{ url_for('category_products', cat_id=category.id) }}">
+                        <img src="{{ url_for('static', filename='img/' + category.image) }}" alt="{{ category.name }}"/>
+                        <h3>{{ category.name }}</h3>
                     </a>
                 </div>
-                <div class="post">
+                <!-- <div class="post">
                     <a href="#">
                         <img src="../resources/img/cepi.png"/>
                         <h3>Цепи</h3>
@@ -124,7 +126,8 @@
                         <img src="../resources/img/silikon.png"/>
                         <h3>Силиконовые материалы</h3>
                     </a>
-                </div>
+                </div> -->
+                {% endfor %}
             </div>
         </section>
 
@@ -140,7 +143,7 @@
                 <div class="advantages_post">
                     <div class="advantages_post_header">
                         <h3>Ассортимент</h3>
-                        <img src="../resources/img/assortiment.png" alt=""/>
+                        <img src="{{ url_for('static', filename='img/assortiment.png') }}" alt="Ассортимент"/>
                     </div>
                     <p>Более 10 000 позиций <br/>
                         подшипников, цепей, РТИ и <br/>
@@ -151,7 +154,7 @@
                 <div class="advantages_post">
                     <div class="advantages_post_header">
                         <h3>Доставка</h3>
-                        <img src="../resources/img/delivery.png" id="img_delivery" alt=""/>
+                        <img src="{{ url_for('static', filename='img/delivery.png') }}" id="img_delivery" alt="Доставка"/>
                     </div>
                     <p>Отправка в день заказа. <br/>
                         Работаем по всей России и ДНР
@@ -161,7 +164,7 @@
                 <div class="advantages_post">
                     <div class="advantages_post_header">
                         <h3>Качество</h3>
-                        <img src="../resources/img/kachestvo.png" alt=""/>
+                        <img src="{{ url_for('static', filename='img/kachestvo.png') }}" alt=""/>
                     </div>
                     <p>Вся продукция <br/>
                         сертифицирована, только <br/>
@@ -273,7 +276,7 @@
             <nav>
                 <ul class="footer_menu">
                     <li><a href="#">Главная страница</a></li>
-                    <li><a href="katalog.html">Каталог</a></li>
+                    <li><a href="{{ url_for('katalog') }}">Каталог</a></li>
                     <li><a href="#">Доставка</a></li>
                     <li><a href="#">Реквизиты</a></li>
                     <li><a href="#">Контакты</a></li>

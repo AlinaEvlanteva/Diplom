@@ -3,16 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../resources/css/kat_podshipniki_design.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/kat_podshipniki_design.css') }}">
     <title>ИнТехЛайт - Каталог - Подшипники</title>
 </head>
 <body>
     <header>
         <div class="header_inner">
             <div class="header_logo">
-                <img src="../resources/img/icons.png" alt="Логотип ИнТехЛайт"/>
+                <a href="{{ url_for('index') }}"><img src="{{ url_for('static', filename='img/icons.png') }}" alt="Логотип ИнТехЛайт"/></a>
             </div>
-            <a href="katalog.html"><button class="but_catalog">Каталог</button></a>
+            <a href="{{ url_for('katalog') }}"><button class="but_catalog">Каталог</button></a>
          
             <nav>
                 <ul class="header_nav_menu">
@@ -40,13 +40,13 @@
 
             <div class="header_button_icons">
                 <button>
-                    <img src="../resources/img/Vector1.png" alt="Аккаунт"/>
+                    <img src="{{ url_for('static', filename='img/Vector1.png') }}"/>
                 </button>
                 <button>
-                    <img src="../resources/img/Vector2.png" alt="Избранное"/>
+                    <img src="{{ url_for('static', filename='img/Vector2.png') }}" alt="Избранное"/>
                 </button>
                 <button>
-                    <img src="../resources/img/Vector3.png" alt="Корзина"/>
+                    <img src="{{ url_for('static', filename='img/Vector3.png') }}" alt="Корзина"/>
                 </button>
             </div>
         </div>
@@ -55,11 +55,24 @@
     <main>
         <section class="section_kategory">
             <div class="section_catalog_info">
-                <h3 id="cat_info_nav">Главная / Каталог / Подшипники</h3>
-                <h3>Подшипники</h3>
+                <h3 id="cat_info_nav">Главная / Каталог / {{ category.name }}</h3>
+                <h3>{{ category.name }}</h3>
             </div>
             <div class="section_products_podship">
+                {% for product in products %}
                 <div class="post_poshipniki">
+                    <div class="izb_wrapper">
+                        <img src="{{ url_for('static', filename='img/izbrannoe.png') }}" id="but_izb" alt="В избранное"/>
+                    </div>
+                    <div class="product_image">
+                        <img src="{{ url_for('static', filename='img/' + product.image) }}" alt="Подшипник SKF"/>
+                    </div>
+                    <h3 id="post_name">{{ product.name }}</h3>
+                    <p>{{ product.short_specs }}</p>
+                    <h3>{{ product.price }} ₽ / шт</h3>
+                </div>
+                {% endfor %}
+                <!-- <div class="post_poshipniki">
                     <div class="izb_wrapper">
                         <img src="../resources/img/izbrannoe.png" id="but_izb" alt="В избранное"/>
                     </div>
@@ -91,18 +104,7 @@
                     <h3 id="post_name">Подшипник SKF и NTN</h3>
                     <p>7x19x6мм</p>
                     <h3>608 ₽ / шт</h3>
-                </div>
-                <div class="post_poshipniki">
-                    <div class="izb_wrapper">
-                        <img src="../resources/img/izbrannoe.png" id="but_izb" alt="В избранное"/>
-                    </div>
-                    <div class="product_image">
-                        <img src="../resources/img/podship_skf.png" alt="Подшипник SKF"/>
-                    </div>
-                    <h3 id="post_name">Подшипник SKF и NTN</h3>
-                    <p>7x19x6мм</p>
-                    <h3>608 ₽ / шт</h3>
-                </div>
+                </div> -->
             </div>
 
         </section>
