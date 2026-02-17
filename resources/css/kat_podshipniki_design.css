@@ -176,21 +176,50 @@ main {
     display: flex;
     flex-direction: column;
     align-items: center;
+    position: relative;
 }
 
-.post_poshipniki a{
+/* .post_poshipniki_but{
     width: 100%;
-    height: 350px;
+    height: 50px;
+    background-color: aqua;
     display: flex;
-    flex-direction: column;
+    justify-content: end;
+    border-radius: 20px;
+    margin-right: 20px;
+} */
+
+.izb_wrapper{
+    width: 100%; /* Занимает всю ширину родителя */
+    display: flex;
+    justify-content: flex-end; /* Прижимает картинку к правому краю */
+}
+#but_izb{
+    width: 28.5px;
+    height: 26.92px;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    margin-right: 20px;
+    margin-top: 20px;
+    cursor: pointer;
+    display: block;
+}
+
+.product_image{
+    width: 100%;
+    display: flex;
+    justify-content: center;
     align-items: center;
-    text-decoration: none;
 }
 
 .post_poshipniki img{
-    width: 220px;
-    height: 213px;
+    width: 183px;
+    height: 154px;
 
+}
+#post_name{
+    margin-top: 30px;
 }
 .post_poshipniki h3{
     font-size: 20px;
