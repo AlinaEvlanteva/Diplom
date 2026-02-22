@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/tovars_detali.css') }}">
+    <title>ИнТехЛайт - Каталог - Подшипники - Товар</title>
+</head>
+<body>
+    <header>
+        <div class="header_inner">
+            <div class="header_logo">
+                <a href="{{ url_for('index') }}"><img src="{{ url_for('static', filename='img/small/icons.png') }}" alt="Логотип ИнТехЛайт"/></a>
+            </div>
+            <a href="{{ url_for('catalog') }}"><button class="but_catalog">Каталог</button></a>
+         
+            <nav>
+                <ul class="header_nav_menu">
+                    <li>
+                        <a href="#">
+                            Доставка
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            Реквизиты
+                        </a>
+                    </li>
+                    <li><a href="#">
+                        Контакты
+                    </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            Сертификаты
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+
+            <div class="header_button_icons">
+                <button>
+                    <img src="{{ url_for('static', filename='img/small/Vector1.png') }}"/>
+                </button>
+                <button>
+                    <img src="{{ url_for('static', filename='img/small/Vector2.png') }}" alt="Избранное"/>
+                </button>
+                <button>
+                    <img src="{{ url_for('static', filename='img/small/Vector3.png') }}" alt="Корзина"/>
+                </button>
+            </div>
+        </div>
+    </header>
+    <main>
+        <section class="section_detali_tovara">
+            <div class="section_detali_tovara_info">
+                <h3 id="detali_tovara_info_nav">Главная / Каталог / {{ product.category.name }} / {{ product.name }}</h3>
+                <h3>{{ product.name }}</h3>
+            </div>
+            <div class="section_detali_tovara_post">
+                <img src="{{ url_for('static', filename='img/big/' + product.image) }}"/>
+                <p>Артикул</p>
+                <p>Внутренний диаметр</p>
+                <p>Наружный диаметр</p>
+                <p>Ширина</p>
+            </div>
+            
+        </section>
+    </main>
+</body>
+</html>

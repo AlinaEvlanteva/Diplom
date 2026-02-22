@@ -3,16 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/kat_podshipniki_design.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/kat_tovars.css') }}">
     <title>ИнТехЛайт - Каталог - Подшипники</title>
 </head>
 <body>
     <header>
         <div class="header_inner">
             <div class="header_logo">
-                <a href="{{ url_for('index') }}"><img src="{{ url_for('static', filename='img/icons.png') }}" alt="Логотип ИнТехЛайт"/></a>
+                <a href="{{ url_for('index') }}"><img src="{{ url_for('static', filename='img/small/icons.png') }}" alt="Логотип ИнТехЛайт"/></a>
             </div>
-            <a href="{{ url_for('katalog') }}"><button class="but_catalog">Каталог</button></a>
+            <a href="{{ url_for('catalog') }}"><button class="but_catalog">Каталог</button></a>
          
             <nav>
                 <ul class="header_nav_menu">
@@ -40,13 +40,13 @@
 
             <div class="header_button_icons">
                 <button>
-                    <img src="{{ url_for('static', filename='img/Vector1.png') }}"/>
+                    <img src="{{ url_for('static', filename='img/small/Vector1.png') }}"/>
                 </button>
                 <button>
-                    <img src="{{ url_for('static', filename='img/Vector2.png') }}" alt="Избранное"/>
+                    <img src="{{ url_for('static', filename='img/small/Vector2.png') }}" alt="Избранное"/>
                 </button>
                 <button>
-                    <img src="{{ url_for('static', filename='img/Vector3.png') }}" alt="Корзина"/>
+                    <img src="{{ url_for('static', filename='img/small/Vector3.png') }}" alt="Корзина"/>
                 </button>
             </div>
         </div>
@@ -62,14 +62,20 @@
                 {% for product in products %}
                 <div class="post_poshipniki">
                     <div class="izb_wrapper">
-                        <img src="{{ url_for('static', filename='img/izbrannoe.png') }}" id="but_izb" alt="В избранное"/>
+                        <img src="{{ url_for('static', filename='img/small/izbrannoe.png') }}" id="but_izb" alt="В избранное"/>
                     </div>
                     <div class="product_image">
-                        <img src="{{ url_for('static', filename='img/' + product.image) }}" alt="Подшипник SKF"/>
+                        <img src="{{ url_for('static', filename='img/small/' + product.image) }}" alt="Картинка товара"/>
                     </div>
-                    <h3 id="post_name">{{ product.name }}</h3>
-                    <p>{{ product.short_specs }}</p>
-                    <h3>{{ product.price }} ₽ / шт</h3>
+                    <a href="{{ url_for('product_detail', product_id=product.id) }}">
+                        <h3 class="post_name">{{ product.name }}</h3>
+                    </a>
+                    <a href="{{ url_for('product_detail', product_id=product.id) }}">
+                        <p>{{ product.short_specs }}</p>
+                    </a>
+                    <a href="{{ url_for('product_detail', product_id=product.id) }}">
+                        <h3>{{ product.price }} ₽ / шт</h3>
+                    </a>
                 </div>
                 {% endfor %}
                 <!-- <div class="post_poshipniki">

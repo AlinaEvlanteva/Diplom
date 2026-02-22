@@ -115,7 +115,7 @@ main {
 
 .main_intro_inner_photo {
     width: 51.45%;
-    background-image: url('../img/intro.png');
+    background-image: url('../img/big/intro.png');
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center; 
@@ -247,7 +247,7 @@ main {
     color: #42546E;
     margin: 0;
     margin-top: 10px;
-    font-size: 24px;
+    font-size: 22px;
     font-weight: bold;
 } 
 

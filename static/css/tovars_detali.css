@@ -94,142 +94,51 @@ main {
     margin-top: 100px;
 }
 
-.section_katalog{
-    width: 100%;
-    height: 963px;
-    display: flex;
-    flex-direction: column;
-}
-
-
-.section_catalog_info{
-    width: 100%;
-    height: 230px;
-    margin: 0;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    gap: 50px;
-}
-
-.section_catalog_info h3{
-    color: #42546E;
-    font-size: 30px;
-    font-weight: bold;
-    margin: 0;
-    margin-left: 150px;
-}
-
-#cat_info_nav{
-    font-size: 20px;
-    margin: 0;
-    margin-left: 150px;
-}
-
-/* main{
-
-} */
-.section_kategory{
+.section_detali_tovara{
     width: 100%;
     height: auto;
-    /* background-color: brown; */
+    background-color: #42546E;
+    display: flex;
+    flex-direction: column;
+    /* gap: 50px; */
 }
 
-.section_catalog_info{
+.section_detali_tovara_info{
     width: 100%;
     height: 230px;
-    /* background-color: chocolate; */
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    gap: 50px;
-}
-
-.section_catalog_info h3{
-    color: #42546E;
-    font-size: 30px;
-    font-weight: bold;
-    margin: 0;
-    margin-left: 150px;
-}
-
-#cat_info_nav{
-    font-size: 20px;
-    margin: 0;
-    margin-left: 150px;
-}
-
-.section_products_podship{
-    width: 100%;
-    height: auto;
-    /* background-color: rgb(59, 115, 115); */
-    display: flex;
-    justify-content: center;
-    gap: 55px;
-}
-.post_poshipniki{
-    width: 20%;
-    height: 350px;
-    /* background-color: cornflowerblue; */
-    border-radius: 20px;
-    border: 2px solid #42546E;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    position: relative;
-}
-
-/* .post_poshipniki_but{
-    width: 100%;
-    height: 50px;
     background-color: aqua;
+    margin: 0;
     display: flex;
-    justify-content: end;
-    border-radius: 20px;
-    margin-right: 20px;
-} */
-
-.izb_wrapper{
-    width: 100%; /* Занимает всю ширину родителя */
-    display: flex;
-    justify-content: flex-end; /* Прижимает картинку к правому краю */
-}
-#but_izb{
-    width: 28.5px;
-    height: 26.92px;
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: center;
-    margin-right: 20px;
-    margin-top: 20px;
-    cursor: pointer;
-    display: block;
-}
-
-.product_image{
-    width: 100%;
-    display: flex;
+    flex-direction: column;
     justify-content: center;
-    align-items: center;
+    gap: 50px;
 }
 
-.post_poshipniki img{
-    width: 183px;
-    height: 154px;
-
-}
-#post_name{
-    margin-top: 30px;
-}
-.post_poshipniki h3{
+#detali_tovara_info_nav{
     font-size: 20px;
-    color: #42546E;
     margin: 0;
-    margin-top: 15px;
+    margin-left: 150px;
 }
-.post_poshipniki p{
-    font-size: 15px;
+
+.section_detali_tovara_info h3{
     color: #42546E;
+    font-size: 30px;
+    font-weight: bold;
     margin: 0;
-    margin-top: 12px;
+    margin-left: 150px;
+}
+
+.section_detali_tovara_post{
+    width: 100%;
+    height: 859px;
+    background-color: bisque;
+}
+
+.section_detali_tovara_post img{
+    width: 324px;
+    height: 273px;
+}
+.section_detali_tovara_post p{
+    margin: 0;
+    text-decoration: underline;
 }

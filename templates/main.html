@@ -11,9 +11,9 @@
     <header>
         <div class="header_inner">
             <div class="header_logo">
-                <a href="{{ url_for('index') }}"><img src="{{ url_for('static', filename='img/icons.png') }}" alt="Логотип ИнТехЛайт"/></a>
+                <a href="{{ url_for('index') }}"><img src="{{ url_for('static', filename='img/small/icons.png') }}" alt="Логотип ИнТехЛайт"/></a>
             </div>
-            <a href="{{ url_for('katalog') }}"><button class="but_catalog">Каталог</button></a>
+            <a href="{{ url_for('catalog') }}"><button class="but_catalog">Каталог</button></a>
          
             <nav>
                 <ul class="header_nav_menu">
@@ -41,13 +41,13 @@
 
             <div class="header_button_icons">
                 <button>
-                    <img src="{{ url_for('static', filename='img/Vector1.png') }}"/>
+                    <img src="{{ url_for('static', filename='img/small/Vector1.png') }}"/>
                 </button>
                 <button>
-                    <img src="{{ url_for('static', filename='img/Vector2.png') }}" alt="Избранное"/>
+                    <img src="{{ url_for('static', filename='img/small/Vector2.png') }}" alt="Избранное"/>
                 </button>
                 <button>
-                    <img src="{{ url_for('static', filename='img/Vector3.png') }}" alt="Корзина"/>
+                    <img src="{{ url_for('static', filename='img/small/Vector3.png') }}" alt="Корзина"/>
                 </button>
             </div>
         </div>
@@ -93,7 +93,7 @@
                 {% for category in categories %}
                 <div class="post">
                     <a href="{{ url_for('category_products', cat_id=category.id) }}">
-                        <img src="{{ url_for('static', filename='img/' + category.image) }}" alt="{{ category.name }}"/>
+                        <img src="{{ url_for('static', filename='img/small/' + category.image) }}" alt="{{ category.name }}"/>
                         <h3>{{ category.name }}</h3>
                     </a>
                 </div>
@@ -143,7 +143,7 @@
                 <div class="advantages_post">
                     <div class="advantages_post_header">
                         <h3>Ассортимент</h3>
-                        <img src="{{ url_for('static', filename='img/assortiment.png') }}" alt="Ассортимент"/>
+                        <img src="{{ url_for('static', filename='img/small/assortiment.png') }}" alt="Ассортимент"/>
                     </div>
                     <p>Более 10 000 позиций <br/>
                         подшипников, цепей, РТИ и <br/>
@@ -154,7 +154,7 @@
                 <div class="advantages_post">
                     <div class="advantages_post_header">
                         <h3>Доставка</h3>
-                        <img src="{{ url_for('static', filename='img/delivery.png') }}" id="img_delivery" alt="Доставка"/>
+                        <img src="{{ url_for('static', filename='img/small/delivery.png') }}" id="img_delivery" alt="Доставка"/>
                     </div>
                     <p>Отправка в день заказа. <br/>
                         Работаем по всей России и ДНР
@@ -164,7 +164,7 @@
                 <div class="advantages_post">
                     <div class="advantages_post_header">
                         <h3>Качество</h3>
-                        <img src="{{ url_for('static', filename='img/kachestvo.png') }}" alt=""/>
+                        <img src="{{ url_for('static', filename='img/small/kachestvo.png') }}" alt=""/>
                     </div>
                     <p>Вся продукция <br/>
                         сертифицирована, только <br/>
@@ -276,7 +276,7 @@
             <nav>
                 <ul class="footer_menu">
                     <li><a href="#">Главная страница</a></li>
-                    <li><a href="{{ url_for('katalog') }}">Каталог</a></li>
+                    <li><a href="{{ url_for('catalog') }}">Каталог</a></li>
                     <li><a href="#">Доставка</a></li>
                     <li><a href="#">Реквизиты</a></li>
                     <li><a href="#">Контакты</a></li>
