@@ -97,7 +97,7 @@ main {
 .section_detali_tovara{
     width: 100%;
     height: auto;
-    background-color: #42546E;
+    /* background-color: #c9dbf6; */
     display: flex;
     flex-direction: column;
     /* gap: 50px; */
@@ -106,7 +106,7 @@ main {
 .section_detali_tovara_info{
     width: 100%;
     height: 230px;
-    background-color: aqua;
+    /* background-color: aqua; */
     margin: 0;
     display: flex;
     flex-direction: column;
@@ -130,15 +130,74 @@ main {
 
 .section_detali_tovara_post{
     width: 100%;
-    height: 859px;
-    background-color: bisque;
+    height: 413px;
+    /* background-color: bisque; */
+    display: flex;
+    justify-content: center;
 }
 
-.section_detali_tovara_post img{
+.section_detali_tovara_post_photo{
+    width: 324px;
+    height: 275px;
+
+
+}
+
+.section_detali_tovara_post_photo img{
     width: 324px;
     height: 273px;
 }
-.section_detali_tovara_post p{
-    margin: 0;
-    text-decoration: underline;
+
+.section_detali_tovara_post_attributes{
+    width: 50%;
+    /* background-color: blue; */
+    height: 275px;
+    margin-left: 100px;
+}
+.attributes_items{
+    width: 100%;
+    height: 275px;
+    /* background-color: chartreuse; */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.attributes_row {
+    display: flex;
+    align-items: end;
+    width: 80%;
+    margin-bottom: 15px;
+}
+
+.attr_name{
+    font-size: 20px;
+    color: #42546E;
+    font-weight: bold;
+}
+
+.attr-line {
+    flex: 1;              
+    height: 1px;
+    border-bottom: 2px solid #42546E;
+    margin: 0 10px;
+    /* min-width: 20px;       */
+}
+
+.attr-value{
+    font-size: 20px;
+    color: #42546E;
+    font-weight: bold;
+}
+
+.attributes_items button{
+    /* margin-top: 10px; */
+    width: 141px;
+    height: 44px;
+    background-color: #42546E;
+    border-radius: 44px;
+    border: none;
+    color: white;
+    font-size: 17px;
 }

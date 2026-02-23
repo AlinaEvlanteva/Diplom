@@ -166,6 +166,7 @@ main {
     display: flex;
     justify-content: center;
     gap: 55px;
+    flex-wrap: wrap;
 }
 .post_poshipniki{
     width: 20%;

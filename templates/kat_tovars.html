@@ -74,7 +74,7 @@
                         <p>{{ product.short_specs }}</p>
                     </a>
                     <a href="{{ url_for('product_detail', product_id=product.id) }}">
-                        <h3>{{ product.price }} ₽ / шт</h3>
+                        <h3>{{ product.price }} ₽ / {{ product.unit or 'шт' }}</h3>
                     </a>
                 </div>
                 {% endfor %}

@@ -58,12 +58,29 @@
                 <h3>{{ product.name }}</h3>
             </div>
             <div class="section_detali_tovara_post">
-                <img src="{{ url_for('static', filename='img/big/' + product.image) }}"/>
-                <p>Артикул</p>
-                <p>Внутренний диаметр</p>
-                <p>Наружный диаметр</p>
-                <p>Ширина</p>
+                <div class="section_detali_tovara_post_photo">
+                    <img src="{{ url_for('static', filename='img/big/' + product.image) }}"/>
+                </div>
+                <div class="section_detali_tovara_post_attributes">
+                    <div class="attributes_items">
+                        <div class="attributes_row">
+                            <span class="attr_name">Артикул</span>
+                            <span class="attr-line"></span>
+                            <span class="attr-value">{{ product.article }}</span>
+                        </div>
+
+                        {% for attr in attributes %}
+                        <div class="attributes_row">
+                            <span class="attr_name">{{ attr.attribute.name }}</span>
+                            <span class="attr-line"></span>
+                            <span class="attr-value">{{ attr.value }} {{ attr.attribute.unit or '' }}</span>
+                        </div>
+                        {% endfor %}
+                        <button>Заказать</button>
+                    </div>
+                </div>
             </div>
+
             
         </section>
     </main>
