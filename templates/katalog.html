@@ -10,9 +10,9 @@
     <header>
         <div class="header_inner">
             <div class="header_logo">
-                <a href="{{ url_for('index') }}"><img src="{{ url_for('static', filename='img/small/icons.png') }}" alt="Логотип ИнТехЛайт"/></a>
+                <a href="{{ url_for('main.index') }}"><img src="{{ url_for('static', filename='img/small/icons.png') }}" alt="Логотип ИнТехЛайт"/></a>
             </div>
-            <a href="{{ url_for('catalog') }}"><button class="but_catalog">Каталог</button></a>
+            <a href="{{ url_for('main.catalog') }}"><button class="but_catalog">Каталог</button></a>
          
             <nav>
                 <ul class="header_nav_menu">
@@ -61,7 +61,7 @@
             <div class="section_products_post">
                 {% for category in categories %}
                 <div class="post">
-                    <a href="{{ url_for('category_products', cat_id=category.id) }}">
+                    <a href="{{ url_for('main.category_products', cat_id=category.id) }}">
                         <img src="{{ url_for('static', filename='img/small/' + category.image) }}"/>
                         <h3>{{ category.name }}</h3>
                     </a>
@@ -106,8 +106,8 @@
             <h3 class="footer_title">Меню сайта</h3>
             <nav>
                 <ul class="footer_menu">
-                    <li><a href="{{ url_for('index') }}">Главная страница</a></li>
-                    <li><a href="{{ url_for('catalog') }}">Каталог</a></li>
+                    <li><a href="{{ url_for('main.index') }}">Главная страница</a></li>
+                    <li><a href="{{ url_for('main.catalog') }}">Каталог</a></li>
                     <li><a href="#">Доставка</a></li>
                     <li><a href="#">Реквизиты</a></li>
                     <li><a href="#">Контакты</a></li>

@@ -10,9 +10,9 @@
     <header>
         <div class="header_inner">
             <div class="header_logo">
-                <a href="{{ url_for('index') }}"><img src="{{ url_for('static', filename='img/small/icons.png') }}" alt="Логотип ИнТехЛайт"/></a>
+                <a href="{{ url_for('main.index') }}"><img src="{{ url_for('static', filename='img/small/icons.png') }}" alt="Логотип ИнТехЛайт"/></a>
             </div>
-            <a href="{{ url_for('catalog') }}"><button class="but_catalog">Каталог</button></a>
+            <a href="{{ url_for('main.catalog') }}"><button class="but_catalog">Каталог</button></a>
          
             <nav>
                 <ul class="header_nav_menu">

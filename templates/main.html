@@ -11,9 +11,9 @@
     <header>
         <div class="header_inner">
             <div class="header_logo">
-                <a href="{{ url_for('index') }}"><img src="{{ url_for('static', filename='img/small/icons.png') }}" alt="Логотип ИнТехЛайт"/></a>
+                <a href="{{ url_for('main.index') }}"><img src="{{ url_for('static', filename='img/small/icons.png') }}" alt="Логотип ИнТехЛайт"/></a>
             </div>
-            <a href="{{ url_for('catalog') }}"><button class="but_catalog">Каталог</button></a>
+            <a href="{{ url_for('main.catalog') }}"><button class="but_catalog">Каталог</button></a>
          
             <nav>
                 <ul class="header_nav_menu">
@@ -40,7 +40,7 @@
             </nav>
 
             <div class="header_button_icons">
-                <button>
+                <button onclick="openModal()">
                     <img src="{{ url_for('static', filename='img/small/Vector1.png') }}"/>
                 </button>
                 <button>
@@ -92,7 +92,7 @@
             <div class="products_section_post">
                 {% for category in categories %}
                 <div class="post">
-                    <a href="{{ url_for('category_products', cat_id=category.id) }}">
+                    <a href="{{ url_for('main.category_products', cat_id=category.id) }}">
                         <img src="{{ url_for('static', filename='img/small/' + category.image) }}" alt="{{ category.name }}"/>
                         <h3>{{ category.name }}</h3>
                     </a>
@@ -276,7 +276,7 @@
             <nav>
                 <ul class="footer_menu">
                     <li><a href="#">Главная страница</a></li>
-                    <li><a href="{{ url_for('catalog') }}">Каталог</a></li>
+                    <li><a href="{{ url_for('main.catalog') }}">Каталог</a></li>
                     <li><a href="#">Доставка</a></li>
                     <li><a href="#">Реквизиты</a></li>
                     <li><a href="#">Контакты</a></li>
@@ -312,6 +312,37 @@
             </div>
         </div>
     </footer>
-    
+
+    <!-- Модальное окно для входа/регистрации -->
+     <div id="authModal" class="modal">
+        <div class="modal_content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <!-- Вкладки -->
+             <div class="auth_nav">
+                <button class="nav_log active" onclick="switchTab('login')">Вход</button>
+                <button class="nav_log" onclick="switchTab('register')">Регистрация</button>
+            </div>
+            
+            <!-- Форма входа -->
+             <div id="loginTab" class="tab_content active">
+                <form onsubmit="submitLogin(event)">
+                    <input type="text" name="username" placeholder="Имя пользователя" required>
+                    <input type="password" name="password" placeholder="Пароль" required>
+                    <button type="submit">Войти</button>
+                </form>
+            </div>
+            <!-- Форма регистрации -->
+             <div id="registerTab" class="tab_content">
+                <form onsubmit="submitRegister(event)">
+                    <input type="text" name="username" placeholder="Имя пользователя" required>
+                    <input type="email" name="email" placeholder="Email" required>
+                    <input type="password" name="password" placeholder="Пароль" required>
+                    <input type="password" name="confirm_password" placeholder="Подтвердите пароль" required>
+                    <button type="submit">Зарегистрироваться</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
 </body>
 </html>

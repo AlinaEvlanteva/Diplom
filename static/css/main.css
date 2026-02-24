@@ -5,6 +5,7 @@ body{
     margin: 0;
     padding: 0;
     /* scrollbar-gutter: stable; */
+    /* overflow-y: scroll; */
 }
 
 header{
@@ -574,3 +575,108 @@ main {
     color: #989898;
     font-size: 18px;
 }
+
+/* Модальное окно */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(5px);
+    /* scrollbar-gutter: stable; */
+    /* overflow-y: scroll; */
+}
+
+
+.modal_content {
+    background-color: white;
+    margin: 10% auto;
+    padding: 30px;
+    border-radius: 10px;
+    width: 30%;
+    /* max-width: 400px; */
+    box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+}
+
+.close {
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    color: #666;
+    cursor: pointer;
+}
+
+.close:hover {
+    color: #333;
+}
+
+/* Вкладки */
+.auth_nav {
+    display: flex;
+    margin-bottom: 30px;
+    border-bottom: 2px solid #eee;
+}
+
+.nav_log {
+    flex: 1;
+    padding: 10px;
+    background: none;
+    border: none;
+    font-size: 18px;
+    cursor: pointer;
+    color: #666;
+}
+
+.nav_log.active {
+    color: #42546E;
+    border-bottom: 3px solid #42546E;
+    font-weight: bold;
+}
+
+/* Формы */
+.tab_content {
+    display: none;
+}
+
+.tab_content.active {
+    display: block;
+}
+
+.tab_content input {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 16px;
+    box-sizing: border-box;
+}
+
+.tab_content input:focus {
+    outline: none;
+    border-color: #42546E;
+}
+
+.tab_content button {
+    width: 100%;
+    padding: 12px;
+    background-color: #42546E;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.tab_content button:hover {
+    background-color: #2a3a4e;
+}
+
+/* * {
+    outline: 1px solid red !important;
+} */
