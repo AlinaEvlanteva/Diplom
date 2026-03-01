@@ -1,0 +1,237 @@
+html,
+body{
+    width: 100%;
+    height: auto;
+    margin: 0;
+    padding: 0;
+    /* scrollbar-gutter: stable; */
+    /* overflow-y: scroll; */
+}
+
+header{
+    width: 100%;
+    height: 100px;
+    background-color: #FAFAFA;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    top: 0;              /* Прижимаем к верху */
+    left: 0;              /* Прижимаем к левому краю */
+    right: 0;             /* Растягиваем на всю ширину */
+    z-index: 1000;
+}
+
+.header_inner{
+    width: 100%;
+    height: 100px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.header_logo{
+    width: auto;
+    margin-left: 80px;
+}
+
+.header_logo > img{
+    width: 100%;
+    height: auto;
+}
+
+.but_catalog{
+    width: 125px;
+    height: 50px;
+    border-radius: 33px;
+    background-color: #42546E;
+    color: white;
+    font-size: 20px;
+    border: none;
+    cursor: pointer;
+}
+
+.header_nav_menu{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    list-style: none;
+    gap: 60px;
+    padding: 0;
+    margin: 0;
+}
+
+.header_nav_menu a{
+    margin: 0;
+    padding: 0;
+    text-decoration: none;
+    color: black;
+    font-size: 25px;
+
+}
+
+
+.header_button_icons{
+    width: 230px;
+    height: 50px; 
+    display: flex;
+    justify-content: center;
+    gap: 35px;
+    align-items: center;
+    margin-right: 80px;
+}
+
+.but_acc{
+    width: 50px;
+    height: 50px;
+    background-color: #E9F1F7;
+    border: none;
+    border-radius: 10px;
+}
+
+main {
+    width: 100%;
+    margin-top: 100px;
+
+}
+.profile_section {
+    width: 100%;
+    min-height: 100vh;        /* вместо height: 650px */
+    background-color: #f5f5f5;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;  /* прижать к верху */
+    align-items: center;
+    padding: 20px 0;           /* добавить отступы */
+}
+
+.profile_container {
+    width: 60%;
+    height: auto;              /* уже правильно */
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+    padding: 20px 0;           /* добавить внутренние отступы */
+}
+
+/* .profile_section {
+    width: 100%;
+    height: 650px;
+    background-color: #f5f5f5;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    
+}
+
+.profile_container {
+    width: 60%;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+} */
+
+
+.profile_header {
+    width: 100%;
+    height: 100px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    border-bottom: 2px solid #eee;
+}
+
+.profile_avatar {
+    width: 80px;
+    height: 80px;
+    background-color: #42546E;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 36px;
+    font-weight: bold;
+    margin-left: 30px;
+}
+
+.profile_info h1 {
+    color: #42546E;
+    margin: 0;
+    font-size: 28px;
+    
+}
+
+.profile_info p {
+    color: #666;
+    margin: 0;
+}
+
+
+
+.profile_data_section,
+.profile_orders_section,
+.profile_favorites_section {
+    margin-left: 30px
+}
+
+.profile_data_section h2,
+.profile_orders_section h2,
+.profile_favorites_section h2 {
+    color: #42546E;
+    margin-bottom: 15px;
+    font-size: 22px;
+}
+
+.profile_field_list {
+    width: 97%;
+    display: flex;
+    flex-direction: column;
+}
+
+.profile_field {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 10px;
+    padding: 10px;
+    background-color: #f9f9f9;
+    border-radius: 5px;
+}
+
+.profile_field_label {
+    width: 300px;
+    color: #666;
+}
+
+
+.profile_actions {
+    width: 100%;
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.logout_but {
+    width: 150px;
+    height: 50px;
+    background-color: #42546E;
+    color: white;
+    border: none;
+    border-radius: 33px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    min-width: 200px;
+}
+
+.logout_but:hover {
+    background-color: #2a3a4e;
+}

@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/profile.css') }}">
+    <title>Личный кабинет - ИнТехЛайт</title>
+</head>
+<body>
+    <header>
+        <div class="header_inner">
+            <div class="header_logo">
+                <a href="{{ url_for('main.index') }}"><img src="{{ url_for('static', filename='img/small/icons.png') }}" alt="Логотип ИнТехЛайт"/></a>
+            </div>
+            <a href="{{ url_for('main.catalog') }}"><button class="but_catalog">Каталог</button></a>
+         
+            <nav>
+                <ul class="header_nav_menu">
+                    <li><a href="#">Доставка</a></li>
+                    <li><a href="#">Реквизиты</a></li>
+                    <li><a href="#">Контакты</a></li>
+                    <li><a href="#">Сертификаты</a></li>
+                </ul>
+            </nav>
+            
+            <div class="header_button_icons">
+                {% if current_user.is_authenticated %}
+                <a href="{{ url_for('auth.profile') }}">
+                    <button class="but_acc">
+                        <img src="{{ url_for('static', filename='img/small/Vector1.png') }}" alt="Личный кабинет"/>
+                    </button>
+                </a>
+                {% else %}
+                <button onclick="openModal()" class="but_acc">
+                    <img src="{{ url_for('static', filename='img/small/Vector1.png') }}" alt="Вход"/>
+                </button>
+                {% endif %}
+                <button class="but_acc">
+                    <img src="{{ url_for('static', filename='img/small/Vector2.png') }}" alt="Избранное"/>
+                </button>
+                <button class="but_acc">
+                    <img src="{{ url_for('static', filename='img/small/Vector3.png') }}" alt="Корзина"/>
+                </button>
+            </div>
+        </div>
+    </header>
+    
+    <main>
+        <!-- Секция профиля пользователя -->
+        <section class="profile_section">
+            <div class="profile_container">
+                <!-- Хедер профиля -->
+                <div class="profile_header">
+                    <div class="profile_avatar">
+                        {{ current_user.username[0]|upper }}
+                    </div>
+                    <div class="profile_info">
+                        <h1>{{ current_user.username }}</h1>
+                        <p>{{ current_user.email }}</p>
+                        <p>Статус: {{ 'Администратор' if current_user.role == 'admin' else 'Пользователь' }}</p>
+                    </div>
+                </div>
+                
+                <!-- Секция личных данных -->
+                <section class="profile_data_section">
+                    <h2>Личные данные</h2>
+                    <div class="profile_field_list">
+                        <div class="profile_field">
+                            <div class="profile_field_label">
+                                <b>Имя пользователя:</b> {{ current_user.username }}
+                            </div>
+                        </div>
+                        <div class="profile_field">
+                            <div class="profile_field_label">Email: {{ current_user.email }}</div>
+                        </div>
+                        <div class="profile_field">
+                            <div class="profile_field_label">Дата регистрации: {{ current_user.created_at.strftime('%d.%m.%Y') if current_user.created_at else 'Не указана' }}</div>
+                        </div>
+                    </div>
+                </section>
+                
+                <!-- Секция заказов -->
+                <section class="profile_orders_section">
+                    <h2>Мои заказы</h2>
+                    <div class="profile_field_list">
+                        <div class="profile_field">
+                            <div class="profile_field_label">У вас пока нет заказов</div>
+                        </div>
+                    </div> <!-- Закрывающий тег был пропущен -->
+                </section>
+                
+                <!-- Секция избранного -->
+                <section class="profile_favorites_section">
+                    <h2>Избранное</h2>
+                    <div class="profile_field_list">
+                        <div class="profile_field">
+                            <div class="profile_field_label">В избранном пока ничего нет</div>
+                        </div>
+                    </div> <!-- Закрывающий тег был пропущен -->
+                </section>
+                
+                <!-- Кнопка выхода -->
+                <footer class="profile_actions">
+                    <button onclick="logoutUser()" class="logout_but">Выйти из аккаунта</button>
+                </footer>
+            </div>
+        </section>
+    </main>
+    <div id="notificationContainer" class="notification_container"></div>
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html>
