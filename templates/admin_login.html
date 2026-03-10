@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/admin_login.css') }}">
+    <title>Вход в админку - ИнТехЛайт</title>
+</head>
+<body>
+    <header>
+        <div class="header_inner">
+            <div class="header_logo">
+                <a href="{{ url_for('main.index') }}"><img src="{{ url_for('static', filename='img/small/icons.png') }}" alt="Логотип ИнТехЛайт"/></a>
+            </div>
+            <a href="{{ url_for('main.catalog') }}"><button class="but_catalog">Каталог</button></a>
+         
+            <nav>
+                <ul class="header_nav_menu">
+                    <li><a href="#">Доставка</a></li>
+                    <li><a href="#">Реквизиты</a></li>
+                    <li><a href="#">Контакты</a></li>
+                    <li><a href="#">Сертификаты</a></li>
+                </ul>
+            </nav>
+            <div class="header_button_icons">
+                <button class="but_acc">
+                    <img src="{{ url_for('static', filename='img/small/Vector3.png') }}" alt="Корзина"/>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section class="login_section">
+            <form method="POST" action="{{ url_for('admin.admin_login') }}" class="login_form">
+                <!-- Flash сообщения (будут показываться если есть) -->
+                 {% with messages = get_flashed_messages(with_categories=true) %}
+                 {% if messages %}
+                 <div class="flash_messages">
+                    {% for category, message in messages %}
+                    <div class="flash flash-{{ category }}">{{ message }}</div>
+                    {% endfor %}
+                </div>
+                {% endif %}
+                {% endwith %}
+                <h3>Вход</h3>
+                <div id="form_data">
+                    <label>
+                        Логин
+                    </label>
+                    <input type="text" id="username" placeholder="Введите логин" name="username" required/>
+                </div>
+                <div id="form_data2">
+                    <label>
+                        Пароль
+                    </label>
+                    <input type="password" id="password" placeholder="Введите пароль" name="password" required/>
+                </div>
+                <button type="submit" class="but_vhod">
+                    Войти
+                </button>
+                <a href="{{ url_for('main.index') }}" class="back_link">
+                    На главную
+                </a>
+            </form>
+
+
+        </section>
+    </main>
+</body>
+</html>

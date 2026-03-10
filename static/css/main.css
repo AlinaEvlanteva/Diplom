@@ -579,7 +579,7 @@ main {
 }
 
 /* Модальное окно */
-.modal {
+/* .modal {
     display: none;
     position: fixed;
     z-index: 1000;
@@ -588,23 +588,23 @@ main {
     width: 100%;
     height: 100%;
     background-color: rgba(0, 0, 0, 0.5);
-    backdrop-filter: blur(5px);
+    backdrop-filter: blur(5px); */
     /* scrollbar-gutter: stable; */
     /* overflow-y: scroll; */
-}
+/* } */
 
 
-.modal_content {
+/* .modal_content {
     background-color: white;
     margin: 10% auto;
     padding: 30px;
     border-radius: 10px;
-    width: 30%;
+    width: 30%; */
     /* max-width: 400px; */
-    box-shadow: 0 5px 20px rgba(0,0,0,0.2);
-}
+    /* box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+} */
 
-.close {
+/* .close {
     float: right;
     font-size: 28px;
     font-weight: bold;
@@ -614,10 +614,10 @@ main {
 
 .close:hover {
     color: #333;
-}
+} */
 
 /* Вкладки */
-.auth_nav {
+/* .auth_nav {
     display: flex;
     margin-bottom: 30px;
     border-bottom: 2px solid #eee;
@@ -637,10 +637,10 @@ main {
     color: #42546E;
     border-bottom: 3px solid #42546E;
     font-weight: bold;
-}
+} */
 
 /* Формы */
-.tab_content {
+/* .tab_content {
     display: none;
 }
 
@@ -677,10 +677,10 @@ main {
 
 .tab_content button:hover {
     background-color: #2a3a4e;
-}
+} */
 
 /* Контейнер для уведомлений */
-.notification-container {
+/* .notification-container {
     position: fixed;
     bottom: 20px;
     right: 20px;
@@ -688,10 +688,10 @@ main {
     display: flex;
     flex-direction: column;
     gap: 10px;
-}
+} */
 
 /* Само уведомление */
-.notification {
+/* .notification {
     background-color: white;
     border-left: 4px solid #42546E;
     border-radius: 8px;
@@ -701,10 +701,10 @@ main {
     max-width: 350px;
     animation: slideIn 0.3s ease-out;
     position: relative;
-}
+} */
 
 /* Анимация появления */
-@keyframes slideIn {
+/* @keyframes slideIn {
     from {
         transform: translateX(100%);
         opacity: 0;
@@ -713,10 +713,10 @@ main {
         transform: translateX(0);
         opacity: 1;
     }
-}
+} */
 
 /* Анимация исчезновения */
-.notification.fade-out {
+/* .notification.fade-out {
     animation: fadeOut 0.3s ease-out forwards;
 }
 
@@ -725,26 +725,26 @@ main {
         opacity: 0;
         transform: translateX(100%);
     }
-}
+} */
 
 /* Заголовок уведомления */
-.notification-title {
+/* .notification-title {
     font-size: 18px;
     font-weight: bold;
     color: #42546E;
     margin-bottom: 5px;
-}
+} */
 
 /* Текст уведомления */
-.notification-message {
+/* .notification-message {
     font-size: 14px;
     color: #666;
     margin-bottom: 10px;
     line-height: 1.4;
-}
+} */
 
 /* Кнопка в уведомлении */
-.notification-button {
+/* .notification-button {
     background-color: #42546E;
     color: white;
     border: none;
@@ -758,10 +758,10 @@ main {
 
 .notification-button:hover {
     background-color: #2a3a4e;
-}
+} */
 
 /* Кнопка закрытия */
-.notification-close {
+/* .notification-close {
     position: absolute;
     top: 10px;
     right: 10px;
@@ -774,10 +774,10 @@ main {
 
 .notification-close:hover {
     color: #333;
-}
+} */
 
 /* Разные типы уведомлений */
-.notification.success {
+/* .notification.success {
     border-left-color: #4CAF50;
 }
 
@@ -807,4 +807,4 @@ main {
 
 .notification.warning .notification-title {
     color: #ff9800;
-}
+} */

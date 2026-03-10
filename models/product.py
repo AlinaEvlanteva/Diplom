@@ -30,6 +30,7 @@ class Attribute(db.Model):
     name = db.Column(db.String(100), nullable=False)
     unit = db.Column(db.String(20))
     values = db.relationship('ProductAttribute', backref='attribute', lazy=True)
+    category = db.relationship('Category', backref='attributes')
 
 class ProductAttribute(db.Model):
     __tablename__ = 'product_attributes'

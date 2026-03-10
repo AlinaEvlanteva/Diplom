@@ -38,28 +38,12 @@
                 </ul>
             </nav>
             <div class="header_button_icons">
-                {% if current_user.is_authenticated %}
-                <!-- Если пользователь вошел - иконка ведет в личный кабинет -->
-                <a href="{{ url_for('auth.profile') }}">
-                    <button class="but_acc">
-                        <img src="{{ url_for('static', filename='img/small/Vector1.png') }}" alt="Личный кабинет"/>
-                    </button>
-                </a>
-                {% else %}
-                <!-- Если не вошел - иконка открывает модалку входа -->
-                 <button onclick="openModal()" class="but_acc">
-                    <img src="{{ url_for('static', filename='img/small/Vector1.png') }}" alt="Вход"/>
-                </button>
-                {% endif %}
-                <button class="but_acc">
-                    <img src="{{ url_for('static', filename='img/small/Vector2.png') }}" alt="Избранное"/>
-                </button>
                 <button class="but_acc">
                     <img src="{{ url_for('static', filename='img/small/Vector3.png') }}" alt="Корзина"/>
                 </button>
             </div>
-<!-- 
-            <div class="header_button_icons">
+
+            <!-- <div class="header_button_icons">
                 <button onclick="openModal()">
                     <img src="{{ url_for('static', filename='img/small/Vector1.png') }}"/>
                 </button>
@@ -322,6 +306,10 @@
                 <li><a href="#" class="messenger-link">Написать в WhatsApp</a></li>
                 <li><a href="#" class="messenger-link">Написать в Telegram</a></li>
                 <li><a href="#" class="messenger-link">Сообщество ВКонтакте</a></li>
+                <!-- ВРЕМЕННАЯ ССЫЛКА ДЛЯ АДМИНА (удалить потом) -->
+                 <div style="position: fixed; bottom: 10px; right: 10px; opacity: 0.3; font-size: 12px; background: #333; padding: 5px 10px; border-radius: 5px; z-index: 9999;">
+                    <a href="{{ url_for('admin.admin_login') }}" style="color: white; text-decoration: none;">🔐 Админка</a>
+                </div>
             </ul>
         </div>
 
@@ -332,38 +320,6 @@
             </div>
         </div>
     </footer>
-    <!-- Модальное окно для входа/регистрации -->
-    <div id="authModal" class="modal">
-        <div class="modal_content">
-            <span class="close" onclick="closeModal()">&times;</span>
-            <!-- Вкладки -->
-            <div class="auth_nav">
-                <button class="nav_log active" onclick="switchTab('login')">Вход</button>
-                <button class="nav_log" onclick="switchTab('register')">Регистрация</button>
-            </div>
-            <!-- Форма входа -->
-            <div id="loginTab" class="tab_content active">
-                <form onsubmit="submitLogin(event)">
-                    <input type="text" name="username" placeholder="Имя пользователя" required>
-                    <input type="password" name="password" placeholder="Пароль" required>
-                    <button type="submit">Войти</button>
-                </form>
-            </div>
-            <!-- Форма регистрации -->
-            <div id="registerTab" class="tab_content">
-                <form onsubmit="submitRegister(event)">
-                    <input type="text" name="username" placeholder="Имя пользователя" required>
-                    <input type="email" name="email" placeholder="Email" required>
-                    <input type="password" name="password" placeholder="Пароль" required>
-                    <input type="password" name="confirm_password" placeholder="Подтвердите пароль" required>
-                    <button type="submit">Зарегистрироваться</button>
-                </form>
-            </div>
-        </div>
-    </div>
-    <!-- Контейнер для уведомлений -->
-     <div id="notificationContainer" class="notification-container"></div>
-     
     <script src="{{ url_for('static', filename='js/main.js') }}"></script>
 </body>
 </html>

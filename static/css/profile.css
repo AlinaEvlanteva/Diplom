@@ -235,3 +235,52 @@ main {
 .logout_but:hover {
     background-color: #2a3a4e;
 }
+
+.profile_admin_button {
+    margin-left: auto;  /* прижимаем к правому краю */
+    margin-right: 20px;
+}
+
+.profile_admin_link {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background-color: #42546E;
+    color: white;
+    text-decoration: none;
+    padding: 8px 16px;
+    border-radius: 33px;
+    font-size: 14px;
+    font-weight: bold;
+    transition: background-color 0.3s;
+    white-space: nowrap;
+    border: 2px solid #42546E;
+}
+
+.profile_admin_link:hover {
+    background-color: #2a3a4e;
+    transform: scale(1.02);
+}
+
+.admin_icon {
+    font-size: 16px;
+}
+
+.admin_text {
+    font-size: 14px;
+}
+
+.profile_header {
+    flex-wrap: wrap;
+}
+    
+.profile_admin_button {
+    margin-right: 30px;
+    text-align: center;
+    display: flex;
+    justify-content: flex-end
+}
+    
+.profile_admin_link {
+    justify-content: center;
+}

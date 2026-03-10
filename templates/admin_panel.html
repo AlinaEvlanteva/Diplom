@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/admin_panel.css') }}">
+    <title>Админ-панель - ИнТехЛайт</title>
+</head>
+<body>
+    <header>
+        <div class="header_inner">
+            <div class="header_logo">
+                <a href="{{ url_for('main.index') }}"><img src="{{ url_for('static', filename='img/small/icons.png') }}" alt="Логотип ИнТехЛайт"/></a>
+            </div>
+            <a href="{{ url_for('main.catalog') }}"><button class="but_catalog">Каталог</button></a>
+            <nav>
+                <ul class="header_nav_menu">
+                    <li><a href="#">Доставка</a></li>
+                    <li><a href="#">Реквизиты</a></li>
+                    <li><a href="#">Контакты</a></li>
+                    <li><a href="#">Сертификаты</a></li>
+                </ul>
+            </nav>
+            <div class="header_button_icons">
+                <button class="but_acc">
+                    <img src="{{ url_for('static', filename='img/small/Vector3.png') }}" alt="Корзина"/>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section class="admin_section">
+            
+        </section>
+            <!-- Верхняя панель -->
+            <!-- <div class="admin_header_bar">
+                <h1 class="admin_title">Админ-панель</h1>
+                <div class="admin_user_info">
+                    <span class="admin_username">👤 {{ session.get('admin_username', 'Администратор') }}</span>
+                    <a href="{{ url_for('admin.admin_logout') }}" class="admin_logout_btn" onclick="return confirm('Выйти?')">🚪 Выйти</a>
+                </div>
+            </div> -->
+
+            <!-- Flash сообщения -->
+            <!-- <div class="flash_container">
+                {% with messages = get_flashed_messages(with_categories=true) %}
+                    {% if messages %}
+                        {% for category, message in messages %}
+                            <div class="flash flash-{{ category }}">{{ message }}</div>
+                        {% endfor %}
+                    {% endif %}
+                {% endwith %}
+            </div> -->
+
+            <!-- Навигация по вкладкам -->
+            <!-- <nav class="admin_tabs">
+                <button class="tab_btn active" onclick="showTab('products', this)">📦 Товары</button>
+                <button class="tab_btn" onclick="showTab('categories', this)">📁 Категории</button>
+                <button class="tab_btn" onclick="showTab('attributes', this)">⚙️ Характеристики</button>
+            </nav> -->
+
+            <!-- ========== ВКЛАДКА ТОВАРЫ ========== -->
+            <!-- <section id="products" class="tab_content active">
+                <header class="tab_header">
+                    <h2>Управление товарами</h2>
+                    <button class="btn_add" onclick="showAddForm('product')">➕ Добавить товар</button>
+                </header> -->
+
+                <!-- Список товаров карточками (flex) -->
+                <!-- <div class="cards_container">
+                    {% for product in products %}
+                    <article class="card_item">
+                        <div class="card_header">
+                            <span class="card_id">#{{ product.id }}</span>
+                            <div class="card_actions">
+                                <a href="{{ url_for('admin.edit_product', product_id=product.id) }}" class="btn_edit_small" title="Редактировать">✏️</a>
+                                <a href="{{ url_for('admin.delete_product', product_id=product.id) }}" class="btn_delete_small" onclick="return confirm('Удалить товар?')" title="Удалить">🗑️</a>
+                            </div>
+                        </div>
+                        <h3 class="card_title">{{ product.name }}</h3>
+                        <div class="card_meta">
+                            <span class="card_category">{{ product.category.name if product.category else '—' }}</span>
+                            <span class="card_price">{{ product.price }} ₽</span>
+                        </div>
+                        {% if product.short_specs %}
+                        <p class="card_specs">{{ product.short_specs }}</p>
+                        {% endif %}
+                    </article>
+                    {% endfor %}
+                </div> -->
+
+                <!-- Форма добавления товара -->
+                <!-- <article id="product_form" class="admin_card hidden">
+                    <h3>➕ Новый товар</h3>
+                    <form method="POST" action="{{ url_for('admin.add_product') }}" enctype="multipart/form-data">
+                        <div class="form_row"><input type="text" name="name" placeholder="Название" required></div>
+                        <div class="form_row"><input type="text" name="article" placeholder="Артикул" required></div>
+                        <div class="form_row">
+                            <select name="category_id" required>
+                                <option value="">— Категория —</option>
+                                {% for cat in categories %}<option value="{{ cat.id }}">{{ cat.name }}</option>{% endfor %}
+                            </select>
+                            <input type="number" name="price" placeholder="Цена" step="0.01" required>
+                            <select name="unit">
+                                <option value="шт">шт</option>
+                                <option value="м">м</option>
+                                <option value="компл">компл</option>
+                            </select>
+                        </div>
+                        <div class="form_row"><input type="text" name="short_specs" placeholder="Краткое описание"></div>
+                        <div class="form_row"><textarea name="full_description" placeholder="Полное описание" rows="4"></textarea></div>
+                        <div class="form_row"><input type="file" name="image" accept="image/*"></div>
+                        <footer class="form_footer">
+                            <button type="submit" class="btn_add">💾 Сохранить</button>
+                            <button type="button" class="btn_cancel" onclick="hideAddForm('product')">Отмена</button>
+                        </footer>
+                    </form>
+                </article>
+            </section> -->
+
+            <!-- ========== ВКЛАДКА КАТЕГОРИИ ========== -->
+            <!-- <section id="categories" class="tab_content">
+                <header class="tab_header">
+                    <h2>Управление категориями</h2>
+                    <button class="btn_add" onclick="showAddForm('category')">➕ Добавить категорию</button>
+                </header>
+
+                <div class="cards_container">
+                    {% for cat in categories %}
+                    <article class="card_item card_item_small">
+                        <div class="card_header">
+                            <span class="card_id">#{{ cat.id }}</span>
+                            <div class="card_actions">
+                                <a href="{{ url_for('admin.edit_category', category_id=cat.id) }}" class="btn_edit_small">✏️</a>
+                                <a href="{{ url_for('admin.delete_category', category_id=cat.id) }}" class="btn_delete_small" onclick="return confirm('Удалить категорию?')">🗑️</a>
+                            </div>
+                        </div>
+                        <h3 class="card_title">{{ cat.name }}</h3>
+                        <p class="card_specs">Изобр.: {{ cat.image or '—' }}</p>
+                    </article>
+                    {% endfor %}
+                </div>
+
+                <article id="category_form" class="admin_card hidden">
+                    <h3>➕ Новая категория</h3>
+                    <form method="POST" action="{{ url_for('admin.add_category') }}">
+                        <div class="form_row"><input type="text" name="name" placeholder="Название" required></div>
+                        <div class="form_row"><input type="text" name="image" placeholder="Имя файла (например: cat.png)"></div>
+                        <footer class="form_footer">
+                            <button type="submit" class="btn_add">💾 Сохранить</button>
+                            <button type="button" class="btn_cancel" onclick="hideAddForm('category')">Отмена</button>
+                        </footer>
+                    </form>
+                </article>
+            </section> -->
+
+            <!-- ========== ВКЛАДКА ХАРАКТЕРИСТИКИ ========== -->
+            <!-- <section id="attributes" class="tab_content">
+                <header class="tab_header">
+                    <h2>Управление характеристиками</h2>
+                    <button class="btn_add" onclick="showAddForm('attribute')">➕ Добавить характеристику</button>
+                </header>
+
+                <div class="cards_container">
+                    {% for attr in attributes %}
+                    <article class="card_item card_item_small">
+                        <div class="card_header">
+                            <span class="card_id">#{{ attr.id }}</span>
+                            <div class="card_actions">
+                                <a href="{{ url_for('admin.edit_attribute', attribute_id=attr.id) }}" class="btn_edit_small">✏️</a>
+                                <a href="{{ url_for('admin.delete_attribute', attribute_id=attr.id) }}" class="btn_delete_small" onclick="return confirm('Удалить характеристику?')">🗑️</a>
+                            </div>
+                        </div>
+                        <h3 class="card_title">{{ attr.name }}</h3>
+                        <p class="card_specs">
+                            {{ attr.category.name if attr.category else '—' }} 
+                            {% if attr.unit %} | {{ attr.unit }}{% endif %}
+                        </p>
+                    </article>
+                    {% endfor %}
+                </div>
+
+                <article id="attribute_form" class="admin_card hidden">
+                    <h3>➕ Новая характеристика</h3>
+                    <form method="POST" action="{{ url_for('admin.add_attribute') }}">
+                        <div class="form_row">
+                            <select name="category_id" required>
+                                <option value="">— Категория —</option>
+                                {% for cat in categories %}<option value="{{ cat.id }}">{{ cat.name }}</option>{% endfor %}
+                            </select>
+                            <input type="text" name="name" placeholder="Название" required>
+                            <input type="text" name="unit" placeholder="Единица (мм, МПа...)">
+                        </div>
+                        <footer class="form_footer">
+                            <button type="submit" class="btn_add">💾 Сохранить</button>
+                            <button type="button" class="btn_cancel" onclick="hideAddForm('attribute')">Отмена</button>
+                        </footer>
+                    </form>
+                </article>
+            </section>
+        </section> -->
+    </main>
+
+    <script>
+        function showTab(tabName, el) {
+            document.querySelectorAll('.tab_content').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.tab_btn').forEach(b => b.classList.remove('active'));
+            document.getElementById(tabName).classList.add('active');
+            el.classList.add('active');
+        }
+        function showAddForm(type) {
+            document.querySelectorAll('.admin_card').forEach(f => f.classList.add('hidden'));
+            document.getElementById(type + '_form').classList.remove('hidden');
+        }
+        function hideAddForm(type) {
+            document.getElementById(type + '_form').classList.add('hidden');
+        }
+    </script>
+</body>
+</html>

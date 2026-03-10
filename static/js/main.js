@@ -131,110 +131,110 @@ document.addEventListener('keydown', function(e) {
 //         alert('Произошла ошибка при регистрации');
 //     });
 // }
-function submitLogin(event) {
-    event.preventDefault();
-    var formData = new FormData(event.target);
+// function submitLogin(event) {
+//     event.preventDefault();
+//     var formData = new FormData(event.target);
     
-    fetch('/auth/login', {
-        method: 'POST',
-        body: formData
-    })
-    .then(response => response.json())
-    .then(data => {
-        if (data.success) {
-            closeModal();
-            showSuccess('Вход выполнен', 'Состав корзины мог измениться. Проверьте свои товары');
-            setTimeout(() => location.reload(), 1500);
-        } else {
-            showError('Ошибка входа', data.message);
-        }
-    });
-}
+//     fetch('/auth/login', {
+//         method: 'POST',
+//         body: formData
+//     })
+//     .then(response => response.json())
+//     .then(data => {
+//         if (data.success) {
+//             closeModal();
+//             showSuccess('Вход выполнен', 'Состав корзины мог измениться. Проверьте свои товары');
+//             setTimeout(() => location.reload(), 1500);
+//         } else {
+//             showError('Ошибка входа', data.message);
+//         }
+//     });
+// }
 
-function submitRegister(event) {
-    event.preventDefault();
-    var formData = new FormData(event.target);
+// function submitRegister(event) {
+//     event.preventDefault();
+//     var formData = new FormData(event.target);
     
-    fetch('/auth/register', {
-        method: 'POST',
-        body: formData
-    })
-    .then(response => response.json())
-    .then(data => {
-        if (data.success) {
-            closeModal();
-            showSuccess('Регистрация выполнена', 'Пожалуйста, войдите в аккаунт');
-            setTimeout(() => location.reload(), 1500);
-        } else {
-            showError('Ошибка регистрации', data.message);
-        }
-    });
-}
+//     fetch('/auth/register', {
+//         method: 'POST',
+//         body: formData
+//     })
+//     .then(response => response.json())
+//     .then(data => {
+//         if (data.success) {
+//             closeModal();
+//             showSuccess('Регистрация выполнена', 'Пожалуйста, войдите в аккаунт');
+//             setTimeout(() => location.reload(), 1500);
+//         } else {
+//             showError('Ошибка регистрации', data.message);
+//         }
+//     });
+// }
 
 // Функция для выхода
-function logoutUser() {
-    fetch('/auth/logout')
-    .then(response => response.json())
-    .then(data => {
-        if (data.success) {
-            showInfo('Выход выполнен', 'Вы вышли из аккаунта');
+// function logoutUser() {
+//     fetch('/auth/logout')
+//     .then(response => response.json())
+//     .then(data => {
+//         if (data.success) {
+            // showInfo('Выход выполнен', 'Вы вышли из аккаунта');
             // Перенаправляем на главную через секунду
-            setTimeout(() => {
-                window.location.href = '/';
-            }, 1500);
-        }
-    });
-}
+//             setTimeout(() => {
+//                 window.location.href = '/';
+//             }, 1500);
+//         }
+//     });
+// }
 
 // Функция для показа уведомления
-function showNotification(title, message, type = 'info', buttonText = null, buttonAction = null) {
-    const container = document.getElementById('notificationContainer');
+// function showNotification(title, message, type = 'info', buttonText = null, buttonAction = null) {
+//     const container = document.getElementById('notificationContainer');
     
-    // Создаем уведомление
-    const notification = document.createElement('div');
-    notification.className = `notification ${type}`;
+//     // Создаем уведомление
+//     const notification = document.createElement('div');
+//     notification.className = `notification ${type}`;
     
-    // Содержимое уведомления
-    let html = `
-        <button class="notification-close" onclick="this.parentElement.remove()">&times;</button>
-        <div class="notification-title">${title}</div>
-        <div class="notification-message">${message}</div>
-    `;
+//     // Содержимое уведомления
+//     let html = `
+//         <button class="notification-close" onclick="this.parentElement.remove()">&times;</button>
+//         <div class="notification-title">${title}</div>
+//         <div class="notification-message">${message}</div>
+//     `;
     
-    // Добавляем кнопку, если есть
-    if (buttonText && buttonAction) {
-        html += `<button class="notification-button" onclick="${buttonAction}">${buttonText}</button>`;
-    }
+//     // Добавляем кнопку, если есть
+//     if (buttonText && buttonAction) {
+//         html += `<button class="notification-button" onclick="${buttonAction}">${buttonText}</button>`;
+//     }
     
-    notification.innerHTML = html;
+//     notification.innerHTML = html;
     
-    // Добавляем в контейнер
-    container.appendChild(notification);
+//     // Добавляем в контейнер
+//     container.appendChild(notification);
     
-    // Автоматически скрываем через 5 секунд
-    setTimeout(() => {
-        notification.classList.add('fade-out');
-        setTimeout(() => {
-            if (notification.parentElement) {
-                notification.remove();
-            }
-        }, 300);
-    }, 5000);
-}
+//     // Автоматически скрываем через 5 секунд
+//     setTimeout(() => {
+//         notification.classList.add('fade-out');
+//         setTimeout(() => {
+//             if (notification.parentElement) {
+//                 notification.remove();
+//             }
+//         }, 300);
+//     }, 5000);
+// }
 
-// Функция для разных типов уведомлений
-function showSuccess(title, message, buttonText = null, buttonAction = null) {
-    showNotification(title, message, 'success', buttonText, buttonAction);
-}
+// // Функция для разных типов уведомлений
+// function showSuccess(title, message, buttonText = null, buttonAction = null) {
+//     showNotification(title, message, 'success', buttonText, buttonAction);
+// }
 
-function showError(title, message) {
-    showNotification(title, message, 'error');
-}
+// function showError(title, message) {
+//     showNotification(title, message, 'error');
+// }
 
-function showInfo(title, message) {
-    showNotification(title, message, 'info');
-}
+// function showInfo(title, message) {
+//     showNotification(title, message, 'info');
+// }
 
-function showWarning(title, message) {
-    showNotification(title, message, 'warning');
-}
+// function showWarning(title, message) {
+//     showNotification(title, message, 'warning');
+// }
