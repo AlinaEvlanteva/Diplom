@@ -64,7 +64,15 @@
                     <div class="izb_wrapper">
                         <img src="{{ url_for('static', filename='img/small/izbrannoe.png') }}" id="but_izb" alt="В избранное"/>
                     </div>
-                    <div class="product_image">
+                    <a href="{{ url_for('main.product_detail', product_id=product.id) }}" class="product_link">
+                        <div class="product_image">
+                            <img src="{{ url_for('static', filename='img/small/' + product.image) }}" alt="Картинка товара"/>
+                        </div>
+                        <h3 class="post_name">{{ product.name }}</h3>
+                        <p>{{ product.short_specs }}</p>
+                        <h3>{{ product.price }} ₽ / {{ product.unit or 'шт' }}</h3>
+                    </a>
+                    <!-- <div class="product_image">
                         <img src="{{ url_for('static', filename='img/small/' + product.image) }}" alt="Картинка товара"/>
                     </div>
                     <a href="{{ url_for('main.product_detail', product_id=product.id) }}">
@@ -75,7 +83,7 @@
                     </a>
                     <a href="{{ url_for('main.product_detail', product_id=product.id) }}">
                         <h3>{{ product.price }} ₽ / {{ product.unit or 'шт' }}</h3>
-                    </a>
+                    </a> -->
                 </div>
                 {% endfor %}
                 <!-- <div class="post_poshipniki">

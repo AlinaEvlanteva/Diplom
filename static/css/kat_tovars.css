@@ -220,9 +220,15 @@ main {
 
 }
 
-.post_poshipniki a{
+.product_link{
+    width: 81%;
     text-decoration: none;
     margin: 0;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    word-break: break-word;
+    /* overflow-wrap: break-word */
 }
 
 .post_name{
