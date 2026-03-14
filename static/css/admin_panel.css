@@ -8,7 +8,8 @@ body{
     /* overflow-y: scroll; */
 }
 
-header{
+
+header {
     width: 100%;
     height: 100px;
     background-color: #FAFAFA;
@@ -16,87 +17,216 @@ header{
     justify-content: center;
     align-items: center;
     position: fixed;
-    top: 0;              /* Прижимаем к верху */
-    left: 0;              /* Прижимаем к левому краю */
-    right: 0;             /* Растягиваем на всю ширину */
+    top: 0;
+    left: 0;
+    right: 0;
     z-index: 1000;
 }
 
-.header_inner{
-    width: 100%;
+.header_inner {
+    width: 90%;              /* вместо 100% + отступы */
+
     height: 100px;
     display: flex;
-    justify-content: space-between;
+    justify-content: space-between;  /* равномерное распределение */
     align-items: center;
+   
 }
 
-.header_logo{
+.header_logo {
+
+    margin-right: 20px;
+}
+
+.header_logo img {
+    height: 60px;              /* фиксированная высота */
     width: auto;
-    margin-left: 80px;
+    object-fit: contain;
 }
 
-.header_logo > img{
-    width: 100%;
-    height: auto;
-}
-
-.but_catalog{
-    width: 125px;
-    height: 50px;
-    border-radius: 33px;
-    background-color: #42546E;
-    color: white;
-    font-size: 20px;
-    border: none;
-    cursor: pointer;
-}
-/* .but_catalog a{
-    margin: 0;
-} */
-
-.header_nav_menu{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    list-style: none;
-    gap: 60px;
-    padding: 0;
-    margin: 0;
-}
-
-.header_nav_menu a{
-    margin: 0;
-    padding: 0;
-    text-decoration: none;
-    color: black;
-    font-size: 25px;
-
-}
-
-
-.header_button_icons{
-    width: 230px;
-    height: 50px; 
+.header_nav {
     display: flex;
     justify-content: center;
-    gap: 35px;
+}
+
+.header_nav_menu {
+    display: flex;
+    gap: 40px;                 /* уменьшил с 60px для компактности */
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.header_nav_menu a {
+    text-decoration: none;
+    color: black;
+    font-size: 22px;           /* уменьшил с 25px */
+    font-weight: 500;
+}
+
+.header_link_icons {
+    display: flex;
+    gap: 20px;
     align-items: center;
-    margin-right: 80px;
 }
 
-.but_acc{
-    width: 50px;
-    height: 50px;
-    background-color: #E9F1F7;
-    border: none;
-    border-radius: 10px;
+.link_catalog,
+.link_cart {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    color: black;
+    font-size: 16px;
+    min-width: 60px;            /* минимальная ширина */
 }
 
+.link_catalog img,
+.link_cart img {
+    width: 28px;                /* фиксированный размер иконок */
+    height: 28px;
+    margin-bottom: 4px;
+
+}
+
+/* Адаптивность */
+@media (max-width: 992px) {
+    .header_nav_menu {
+        gap: 20px;
+    }
+    
+    .header_nav_menu a {
+        font-size: 18px;
+    }
+}
+
+@media (max-width: 768px) {
+    .header_inner {
+        width: 95%;
+    }
+    
+    .header_nav_menu {
+        gap: 15px;
+    }
+    
+    .header_nav_menu a {
+        font-size: 16px;
+    }
+}
 
 /* Интро */
 
 main {
-    width: 100%;
     margin-top: 100px;
 
 }
+
+.admin_section{
+    width: 100%;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.admin_panel_acc{
+    width: 80%;
+    height: auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.admin_panel_acc h3{
+    font-size: 25px;
+    color: #42546E;
+    font-weight: bold;
+    margin: 0;
+}
+.admin_logout{
+    width: 23%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+}
+.admin_logout h3{
+    font-size: 24px;
+    color: #42546E;
+
+}
+
+.admin_logout button{
+    width: 150px;
+    height: 50px;
+    border-radius: 33px;
+    border: none;
+    font-size: 20px;
+    color: #42546E;
+}
+
+.nav_admin{
+    width: 80%;
+    display: flex;
+    gap: 60px;
+    justify-content: flex-start;
+    /* background-color: aqua; */
+    margin-top: 10px;
+    align-items: center;
+}
+
+.nav_admin button{
+    color: #42546E;
+    font-size: 20px;
+    border: none;
+    background-color: white;
+    cursor: pointer;
+}
+.line{
+    width: 80%;
+    height: 3px;
+    background-color: #E2E2E2;
+    margin-top: 10px;
+    content: "";
+    display: block;
+    overflow: hidden;
+}
+
+.section_products{
+    width: 80%;
+    height: auto;
+    /* background-color: blanchedalmond; */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 10px;
+}
+.section_products button{
+    width: 150px;
+    height: 50px;
+    border-radius: 33px;
+    border: none;
+    color: #42546E;
+    font-size: 20px;
+}
+.section_products h3{
+    color: #42546E;
+    font-size: 23px;
+}
+
+.card_container{
+    width: 80%;
+    background-color: aquamarine;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 55px;
+}
+.card_inner{
+    width: 25.5%;
+    height: 350px;
+    background-color: brown;
+}
+

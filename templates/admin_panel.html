@@ -12,8 +12,7 @@
             <div class="header_logo">
                 <a href="{{ url_for('main.index') }}"><img src="{{ url_for('static', filename='img/small/icons.png') }}" alt="Логотип ИнТехЛайт"/></a>
             </div>
-            <a href="{{ url_for('main.catalog') }}"><button class="but_catalog">Каталог</button></a>
-            <nav>
+            <nav class="header_nav">
                 <ul class="header_nav_menu">
                     <li><a href="#">Доставка</a></li>
                     <li><a href="#">Реквизиты</a></li>
@@ -21,17 +20,48 @@
                     <li><a href="#">Сертификаты</a></li>
                 </ul>
             </nav>
-            <div class="header_button_icons">
-                <button class="but_acc">
-                    <img src="{{ url_for('static', filename='img/small/Vector3.png') }}" alt="Корзина"/>
-                </button>
+            <div class="header_link_icons">
+                <a href="{{ url_for('main.catalog') }}" class="link_catalog"><img src="{{ url_for('static', filename='img/small/cat.svg') }}"/>Каталог</a>
+                <a href="#" class="link_cart"><img src="{{ url_for('static', filename='img/small/cart.svg') }}" alt="Корзина"/>Корзина</a>
             </div>
         </div>
     </header>
 
     <main>
         <section class="admin_section">
-            
+            <div class="admin_panel_acc">
+                <h3>Админ-панель</h3>
+                <div class="admin_logout">
+                    <h3>админ</h3>
+                    <button type="button" onclick="window.location.href='/admin/logout'">Выйти</button>
+                </div>
+            </div>
+            <!-- Флеш сообщения -->
+
+
+
+            <!-- Навигация по вкладкам -->
+            <nav class="nav_admin">
+                <button class="but_categ active">Категории</button>
+                <button class="but_tovar">Товары</button>
+                <button class="but_charakter">Характеристики</button>
+                <button class="but_zayavki">Заявки</button>
+            </nav>
+
+            <!-- Вкладка товары -->
+            <div class="line" onclick="showTab('products', this)"></div>
+            <div id="product" class="section_products active">
+                <h3>Управление категориями</h3>
+                <button type="button" onclick="showAddForm('product')">Добавить</button>
+            </div>
+            <div class="card_container">
+                {% for category in categories %}
+                <div class="card_inner">
+                    <img src="{{ url_for('static', filename='img/small/' + category.image) }}"/>
+                    <h3 class="card_title">{{ category.name }}</h3>
+                </div>
+                {% endfor %}
+            </div>
         </section>
             <!-- Верхняя панель -->
             <!-- <div class="admin_header_bar">

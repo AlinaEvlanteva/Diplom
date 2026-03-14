@@ -12,48 +12,18 @@
             <div class="header_logo">
                 <a href="{{ url_for('main.index') }}"><img src="{{ url_for('static', filename='img/small/icons.png') }}" alt="Логотип ИнТехЛайт"/></a>
             </div>
-            <a href="{{ url_for('main.catalog') }}"><button class="but_catalog">Каталог</button></a>
-         
-            <nav>
+            <nav class="header_nav">
                 <ul class="header_nav_menu">
-                    <li>
-                        <a href="#">
-                            Доставка
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#">
-                            Реквизиты
-                        </a>
-                    </li>
-                    <li><a href="#">
-                        Контакты
-                    </a>
-                    </li>
-                    <li>
-                        <a href="#">
-                            Сертификаты
-                        </a>
-                    </li>
+                    <li><a href="#">Доставка</a></li>
+                    <li><a href="#">Реквизиты</a></li>
+                    <li><a href="#">Контакты</a></li>
+                    <li><a href="#">Сертификаты</a></li>
                 </ul>
             </nav>
-            <div class="header_button_icons">
-                <button class="but_acc">
-                    <img src="{{ url_for('static', filename='img/small/Vector3.png') }}" alt="Корзина"/>
-                </button>
+            <div class="header_link_icons">
+                <a href="{{ url_for('main.catalog') }}" class="link_catalog"><img src="{{ url_for('static', filename='img/small/cat.svg') }}"/>Каталог</a>
+                <a href="#" class="link_cart"><img src="{{ url_for('static', filename='img/small/cart.svg') }}" alt="Корзина"/>Корзина</a>
             </div>
-
-            <!-- <div class="header_button_icons">
-                <button onclick="openModal()">
-                    <img src="{{ url_for('static', filename='img/small/Vector1.png') }}"/>
-                </button>
-                <button>
-                    <img src="{{ url_for('static', filename='img/small/Vector2.png') }}" alt="Избранное"/>
-                </button>
-                <button>
-                    <img src="{{ url_for('static', filename='img/small/Vector3.png') }}" alt="Корзина"/>
-                </button>
-            </div> -->
         </div>
     </header>
 
