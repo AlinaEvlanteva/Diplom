@@ -59,6 +59,10 @@
                 <div class="card_inner">
                     <img src="{{ url_for('static', filename='img/small/' + category.image) }}"/>
                     <h3 class="card_title">{{ category.name }}</h3>
+                    <div class="card_inner_button">
+                        <button>Редактировать</button>
+                        <button id="but_delete">Удалить</button>
+                    </div>
                 </div>
                 {% endfor %}
             </div>
