@@ -92,3 +92,17 @@ document.addEventListener('keydown', function(e) {
 });
 
 console.log('admin.js загружен успешно');
+
+// ===== АВТОМАТИЧЕСКОЕ СКРЫТИЕ FLASH-СООБЩЕНИЙ =====
+document.addEventListener('DOMContentLoaded', function() {
+    // Ждём 3 секунды, потом начинаем скрывать
+    setTimeout(function() {
+        var flashes = document.querySelectorAll('.flash');
+        flashes.forEach(function(flash) {
+            flash.classList.add('fade-out'); // Запускаем анимацию исчезновения
+            setTimeout(function() {
+                flash.remove(); // Удаляем из DOM после анимации
+            }, 500); // 0.5 секунды на анимацию
+        });
+    }, 3000); // 3 секунды показа
+});
