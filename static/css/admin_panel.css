@@ -277,9 +277,8 @@ main {
     border-top: 2px solid #2b3748;
 }
 /* Модальные окна */
-/* Модальные окна */
 .modal {
-    display: none;  /* Только none, без flex */
+    display: none;
     position: fixed;
     top: 0;
     left: 0;
@@ -290,15 +289,6 @@ main {
     z-index: 1000;
     justify-content: center;
     align-items: center;
-}
-
-.modal_content {
-    background: white;
-    padding: 30px;
-    border-radius: 20px;
-    width: 90%;
-    max-width: 500px;
-    border: 2px solid #42546E;
 }
 
 .close {
@@ -315,77 +305,136 @@ main {
     color: #333;
 }
 
+.form_cat {
+    background: white;
+    border-radius: 25px;
+    width: 45%;
+    height: auto;
+    border: 2px solid #42546E;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
 .modal_title {
     color: #42546E;
-    margin-bottom: 20px;
-    font-size: 24px;
+    font-size: 25px;
+    font-weight: bold;
+    text-align: center;
+    margin: 30px 0;
 }
 
 /* Формы в модальных окнах */
 .form_group {
+    display: flex;
+    flex-direction: column;
+    width: 90%;
     margin-bottom: 15px;
 }
-
-.form_label {
-    display: block;
-    color: #42546E;
+.form_label{
+    width: 95%;
+    font-size: 20px;
     font-weight: bold;
-    margin-bottom: 5px;
-    font-size: 14px;
+    color: #42546E;
 }
 
-.form_input {
+.form_label input{
     width: 100%;
-    padding: 10px;
-    border: 2px solid #DCDCDC;
+    font-size: 20px;
+    font-weight: bold;
+    color: #42546E;
+    padding: 13px;
+    border-radius: 15px;
+    border: 1.5px solid #42546E;
+
+}
+
+.form_input:focus {
+    outline: none;
+    border-color: #2a3a4e;
+}
+
+input[type="file"].form_input {
+    background-color: #E9F1F7;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    
+}
+
+.previiew {
+    display: none;
+    text-align: center;
+    margin-top: 15px;
+}
+
+.previiew img {
+    max-width: 200px;
+    max-height: 200px;
+    border: 2px solid #42546E;
     border-radius: 10px;
-    box-sizing: border-box;
 }
 
 .modal_actions {
     display: flex;
-    gap: 15px;
-    justify-content: flex-end;
-    margin-top: 20px;
+    gap: 20px;
+    justify-content: center;
+    margin: 30px 0;
 }
 
 .but_save {
-    width: 120px;
-    height: 40px;
-    border-radius: 33px;
+    width: 255px;
+    height: 50px;
+    border-radius: 60px;
     border: none;
     background-color: #42546E;
     color: white;
-    font-size: 16px;
+    font-size: 20px;
     cursor: pointer;
 }
 
 .but_cancel {
-    width: 120px;
-    height: 40px;
-    border-radius: 33px;
+    width: 255px;
+    height: 50px;
+    border-radius: 60px;
     border: 2px solid #42546E;
     background-color: white;
     color: #42546E;
-    font-size: 16px;
+    font-size: 20px;
     cursor: pointer;
 }
 
-
-/* Изображение в модальном окне */
 #current_category_image {
-    max-width: 100px;
-    max-height: 100px;
+    max-width: 200px;
+    max-height: 200px;
     border: 2px solid #42546E;
     border-radius: 10px;
-    padding: 5px;
-    margin: 5px 0;
 }
+
+.modal_delete{
+    width: 40%;
+    background: white;
+    border-radius: 25px;
+    height: auto;
+    border: 2px solid #42546E;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+
+
+#delete_message{
+    width: auto;
+    font-size: 18px;
+    margin: 0;
+}
+
 
 /* Кнопка удаления в модальном окне */
 .but_del {
-    width: 120px;
-    height: 40px;
+    width: 255px;
+    height: 50px;
     border-radius: 33px;
     border: none;
     background-color: #dc3545;

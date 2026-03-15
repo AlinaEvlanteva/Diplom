@@ -13,30 +13,14 @@ function showTab(tabId, element) {
 }
 
 // ===== ПЕРЕМЕННЫЕ ДЛЯ УДАЛЕНИЯ =====
-var currentDeleteId = null; // Используем var вместо let
+var currentDeleteId = null;
 
 // ===== МОДАЛЬНОЕ ОКНО ДЛЯ ДОБАВЛЕНИЯ =====
 function openAddCategoryModal() {
     document.getElementById('addCategoryModal').style.display = 'flex';
 }
 
-// ===== МОДАЛЬНОЕ ОКНО ДЛЯ РЕДАКТИРОВАНИЯ =====
-function openEditCategoryModal(id, name, image) {
-    document.getElementById('editCategoryModal').style.display = 'flex';
-    document.getElementById('edit_category_id').value = id;
-    document.getElementById('edit_category_name').value = name;
-    document.getElementById('editCategoryForm').action = '/admin/edit_category/' + id;
-    
-    let imgElement = document.getElementById('current_category_image');
-    if (image && image != 'default_category.png') {
-        imgElement.src = '/static/img/small/' + image;
-        imgElement.style.display = 'block';
-    } else {
-        imgElement.style.display = 'none';
-    }
-}
-
-// ===== ПРЕВЬЮ ИЗОБРАЖЕНИЯ ПРИ ДОБАВЛЕНИИ =====
+// ===== ПРЕВЬЮ ДЛЯ ДОБАВЛЕНИЯ =====
 function previewAddImage(input) {
     var previewContainer = document.getElementById('addImagePreviewContainer');
     var preview = document.getElementById('addImagePreview');
@@ -56,16 +40,66 @@ function previewAddImage(input) {
     }
 }
 
+// ===== МОДАЛЬНОЕ ОКНО ДЛЯ РЕДАКТИРОВАНИЯ =====
+function openEditCategoryModal(id, name, image) {
+    document.getElementById('editCategoryModal').style.display = 'flex';
+    document.getElementById('edit_category_id').value = id;
+    document.getElementById('edit_category_name').value = name;
+    document.getElementById('editCategoryForm').action = '/admin/edit_category/' + id;
+    
+    // Показываем текущее изображение
+    let currentImg = document.getElementById('current_category_image');
+    let previewContainer = document.getElementById('editImagePreviewContainer');
+    let preview = document.getElementById('editImagePreview');
+    
+    if (image && image != 'default_category.png') {
+        currentImg.src = '/static/img/small/' + image;
+        currentImg.style.display = 'block';
+    } else {
+        currentImg.style.display = 'none';
+    }
+    
+    // Скрываем превью нового
+    previewContainer.style.display = 'none';
+    preview.src = '#';
+    
+    // Очищаем поле file
+    let fileInput = document.getElementById('editCategoryImage');
+    if (fileInput) fileInput.value = '';
+}
+
+// ===== ПРЕВЬЮ ДЛЯ РЕДАКТИРОВАНИЯ =====
+function previewEditImage(input) {
+    var currentImg = document.getElementById('current_category_image');
+    var previewContainer = document.getElementById('editImagePreviewContainer');
+    var preview = document.getElementById('editImagePreview');
+    
+    if (input.files && input.files[0]) {
+        var reader = new FileReader();
+        
+        reader.onload = function(e) {
+            preview.src = e.target.result;
+            previewContainer.style.display = 'block';
+            currentImg.style.display = 'none';
+        }
+        
+        reader.readAsDataURL(input.files[0]);
+    } else {
+        previewContainer.style.display = 'none';
+        preview.src = '#';
+        currentImg.style.display = 'block';
+    }
+}
 
 // ===== МОДАЛЬНОЕ ОКНО ДЛЯ УДАЛЕНИЯ =====
 function deleteCategory(id) {
-    currentDeleteId = id; // Здесь используется
+    currentDeleteId = id;
     document.getElementById('delete_message').innerText = 'Вы действительно хотите удалить эту категорию?';
     document.getElementById('deleteCategoryModal').style.display = 'flex';
 }
 
 function confirmDelete() {
-    if (currentDeleteId) { // Здесь используется
+    if (currentDeleteId) {
         window.location.href = '/admin/delete_category/' + currentDeleteId;
     }
 }
@@ -73,12 +107,37 @@ function confirmDelete() {
 // ===== ЗАКРЫТИЕ МОДАЛЬНЫХ ОКОН =====
 function closeModal(modalId) {
     document.getElementById(modalId).style.display = 'none';
+    
+    // Если закрываем окно редактирования — сбрасываем всё
+    if (modalId === 'editCategoryModal') {
+        let currentImg = document.getElementById('current_category_image');
+        let previewContainer = document.getElementById('editImagePreviewContainer');
+        let preview = document.getElementById('editImagePreview');
+        let fileInput = document.getElementById('editCategoryImage');
+        
+        if (previewContainer) previewContainer.style.display = 'none';
+        if (preview) preview.src = '#';
+        if (currentImg) currentImg.style.display = 'block';
+        if (fileInput) fileInput.value = '';
+    }
+    
+    // Если закрываем окно добавления — сбрасываем превью
+    if (modalId === 'addCategoryModal') {
+        let previewContainer = document.getElementById('addImagePreviewContainer');
+        let preview = document.getElementById('addImagePreview');
+        let fileInput = document.getElementById('addCategoryImage');
+        
+        if (previewContainer) previewContainer.style.display = 'none';
+        if (preview) preview.src = '#';
+        if (fileInput) fileInput.value = '';
+    }
 }
 
 // ===== ЗАКРЫТИЕ ПО КЛИКУ ВНЕ МОДАЛЬНОГО ОКНА =====
 window.onclick = function(event) {
     if (event.target.classList.contains('modal')) {
-        event.target.style.display = 'none';
+        var modalId = event.target.id;
+        closeModal(modalId);
     }
 }
 
@@ -86,23 +145,20 @@ window.onclick = function(event) {
 document.addEventListener('keydown', function(e) {
     if (e.key === 'Escape') {
         document.querySelectorAll('.modal').forEach(modal => {
-            modal.style.display = 'none';
+            if (modal.style.display === 'flex') {
+                closeModal(modal.id);
+            }
         });
     }
 });
 
-console.log('admin.js загружен успешно');
-
 // ===== АВТОМАТИЧЕСКОЕ СКРЫТИЕ FLASH-СООБЩЕНИЙ =====
-document.addEventListener('DOMContentLoaded', function() {
-    // Ждём 3 секунды, потом начинаем скрывать
-    setTimeout(function() {
-        var flashes = document.querySelectorAll('.flash');
-        flashes.forEach(function(flash) {
-            flash.classList.add('fade-out'); // Запускаем анимацию исчезновения
-            setTimeout(function() {
-                flash.remove(); // Удаляем из DOM после анимации
-            }, 500); // 0.5 секунды на анимацию
-        });
-    }, 3000); // 3 секунды показа
-});
+setTimeout(function() {
+    document.querySelectorAll('.flash').forEach(function(msg) {
+        msg.style.transition = 'opacity 0.5s';
+        msg.style.opacity = '0';
+        setTimeout(() => msg.remove(), 500);
+    });
+}, 3000);
+
+console.log('admin.js загружен успешно');

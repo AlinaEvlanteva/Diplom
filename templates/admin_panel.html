@@ -109,71 +109,79 @@
             </div> -->
         </section>
     </main>
-
-    <!-- Модальное окно для добавления категории -->
+    
     <div id="addCategoryModal" class="modal">
-        <div class="modal_content">
-            <span class="close" onclick="closeModal('addCategoryModal')">&times;</span>
-            <h3 class="modal_title">➕ Добавление категории</h3>
-            <form method="POST" action="/admin/add_category" enctype="multipart/form-data">
-                <div class="form_group">
-                    <label class="form_label">Название категории:</label>
-                    <input type="text" name="name" class="form_input" required>
-                </div>
-                <div class="form_group">
-                    <label class="form_label">Изображение:</label>
+        <span class="close" onclick="closeModal('addCategoryModal')">&times;</span>
+        <form method="POST" action="/admin/add_category" enctype="multipart/form-data" class="form_cat">
+            <h3 class="modal_title">Добавление категории</h3>
+            <div class="form_group">
+                <label class="form_label">
+                    Название категории:
+                    <input type="text" name="name" class="form_input" placeholder="Название" required>
+                </label>
+            </div>
+            <div class="form_group">
+                <label class="form_label">
+                    Изображение:
                     <input type="file" name="image" id="addCategoryImage" class="form_input" accept="image/*" onchange="previewAddImage(this)">
-                </div>
+                </label>
+            </div>
+            <div id="addImagePreviewContainer" class="previiew">
+                <img id="addImagePreview" src="#" alt="Превью">
+            </div>
 
-                <!-- Блок для превью -->
-                <div id="addImagePreviewContainer" style="display: none; margin-bottom: 15px; text-align: center;">
-                    <img id="addImagePreview" src="#" alt="Превью" style="max-width: 200px; max-height: 200px; border: 2px solid #42546E; border-radius: 10px; padding: 5px;">
-                </div>
-
-                <div class="modal_actions">
-                    <button type="submit" class="btn_save">Сохранить</button>
-                    <button type="button" class="btn_cancel" onclick="closeModal('addCategoryModal')">Отмена</button>
-                </div>
-            </form>
-        </div>
+            <div class="modal_actions">
+                <button type="submit" class="but_save">Сохранить</button>
+                <button type="button" class="but_cancel" onclick="closeModal('addCategoryModal')">Отмена</button>
+            </div>
+        </form>
     </div>
+
 
     <!-- Модальное окно для редактирования категории -->
     <div id="editCategoryModal" class="modal">
-        <div class="modal_content">
-            <span class="close" onclick="closeModal('editCategoryModal')">&times;</span>
-            <h3 class="modal_title">✏️ Редактирование категории</h3>
-            <form id="editCategoryForm" method="POST" enctype="multipart/form-data">
-                <input type="hidden" id="edit_category_id" name="id">
-                
-                <div class="form_group">
-                    <label class="form_label">Название категории:</label>
+        <span class="close" onclick="closeModal('editCategoryModal')">&times;</span>
+        <form id="editCategoryForm" method="POST" enctype="multipart/form-data" class="form_cat">
+            <h3 class="modal_title">Редактирование категории</h3>
+            <input type="hidden" id="edit_category_id" name="id">
+            <div class="form_group">
+                <label class="form_label">
+                    Название категории:
                     <input type="text" id="edit_category_name" name="name" class="form_input" required>
-                </div>
-                
-                <div class="form_group">
-                    <label class="form_label">Текущее изображение:</label>
-                    <img id="current_category_image" src="" alt="Текущее изображение" style="max-width: 100px; max-height: 100px; display: block; margin: 5px 0;">
-                </div>
-                
-                <div class="form_group">
-                    <label class="form_label">Новое изображение (оставьте пустым, чтобы не менять):</label>
-                    <input type="file" name="image" class="form_input" accept="image/*">
-                </div>
-                
-                <div class="modal_actions">
-                    <button type="submit" class="but_save">Сохранить изменения</button>
-                    <button type="button" class="but_cancel" onclick="closeModal('editCategoryModal')">Отмена</button>
-                </div>
-            </form>
-        </div>
+                </label>
+            </div>
+            
+            <div class="form_group">
+                <label class="form_label">
+                    Текущее изображение:
+                    <img id="current_category_image" src="" alt="Текущее изображение" class="preview_img">
+                </label>
+            </div>
+            
+            <div class="form_group">
+                <label class="form_label">
+                    Новое изображение:
+                    <input type="file" name="image" id="editCategoryImage" class="form_input" accept="image/*" onchange="previewEditImage(this)">
+                </label>
+            </div>
+            
+            <!-- Блок для превью нового изображения -->
+             <div id="editImagePreviewContainer" class="previiew" style="display: none;">
+                <img id="editImagePreview" src="#" alt="Превью нового фото">
+            </div>
+            
+            <div class="modal_actions">
+                <button type="submit" class="but_save">Сохранить изменения</button>
+                <button type="button" class="but_cancel" onclick="closeModal('editCategoryModal')">Отмена</button>
+            </div>
+        </form>
     </div>
 
     <!-- Модальное окно для подтверждения удаления -->
     <div id="deleteCategoryModal" class="modal">
-        <div class="modal_content">
+        <div class="modal_delete">
             <span class="close" onclick="closeModal('deleteCategoryModal')">&times;</span>
-            <h3 class="modal_title">⚠️ Подтверждение удаления</h3>
+            <h3 class="modal_title">Подтверждение удаления</h3>
             <p id="delete_message">Вы действительно хотите удалить категорию?</p>
             <div class="modal_actions">
                 <button class="but_del" onclick="confirmDelete()">Удалить</button>
