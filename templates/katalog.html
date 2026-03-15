@@ -37,7 +37,7 @@
                 {% for category in categories %}
                 <div class="post">
                     <a href="{{ url_for('main.category_products', cat_id=category.id) }}">
-                        <img src="{{ url_for('static', filename='img/small/' + category.image) }}"/>
+                        <img src="{{ url_for('static', filename='img/small/' + (category.image if category.image else 'default.png')) }}"/>
                         <h3>{{ category.name }}</h3>
                     </a>
                 </div>

@@ -32,224 +32,147 @@
             <div class="admin_panel_acc">
                 <h3>Админ-панель</h3>
                 <div class="admin_logout">
-                    <h3>админ</h3>
+                    <h3>{{ session.get('admin_username', 'админ') }}</h3>
                     <button type="button" onclick="window.location.href='/admin/logout'">Выйти</button>
                 </div>
             </div>
-            <!-- Флеш сообщения -->
-
-
 
             <!-- Навигация по вкладкам -->
             <nav class="nav_admin">
-                <button class="but_categ active">Категории</button>
-                <button class="but_tovar">Товары</button>
-                <button class="but_charakter">Характеристики</button>
-                <button class="but_zayavki">Заявки</button>
+                <button class="but_categ active" onclick="showTab('categories', this)">Категории</button>
+                <button class="but_tovar" onclick="showTab('products', this)">Товары</button>
+                <button class="but_charakter" onclick="showTab('attributes', this)">Характеристики</button>
+                <button class="but_zayavki" onclick="showTab('orders', this)">Заявки</button>
             </nav>
 
-            <!-- Вкладка товары -->
-            <div class="line" onclick="showTab('products', this)"></div>
-            <div id="product" class="section_products active">
-                <h3>Управление категориями</h3>
-                <button type="button" onclick="showAddForm('product')">Добавить</button>
-            </div>
-            <div class="card_container">
-                {% for category in categories %}
-                <div class="card_inner">
-                    <img src="{{ url_for('static', filename='img/small/' + category.image) }}"/>
-                    <h3 class="card_title">{{ category.name }}</h3>
-                    <div class="card_inner_button">
-                        <button>Редактировать</button>
-                        <button id="but_delete">Удалить</button>
+            <div class="line"></div>
+
+            <!-- Вкладка КАТЕГОРИИ -->
+            <div id="categories" class="tab_content active">
+                <div class="section_panel_data">
+                    <h3>Управление категориями</h3>
+                    <button class="but_add" onclick="openAddCategoryModal()">Добавить</button>
+                </div>
+                <div class="card_container">
+                    {% for category in categories %}
+                    <div class="card_inner">
+                        <img src="{{ url_for('static', filename='img/small/' + (category.image or 'default_category.png')) }}" alt="{{ category.name }}" class="card_image"/>
+                        <h3 class="card_title">{{ category.name }}</h3>
+                        <div class="card_inner_button">
+                            <button onclick="openEditCategoryModal('{{ category.id }}', '{{ category.name }}', '{{ category.image }}')">Редактировать</button>
+                            <button id="but_delete" onclick="deleteCategory('{{ category.id }}')">Удалить</button>
+                        </div>
                     </div>
+                    {% endfor %}
                 </div>
-                {% endfor %}
             </div>
+
+            <!-- Вкладка ТОВАРЫ (пустая) -->
+            <!-- <div id="products" class="tab_content">
+                <div class="section_panel_data">
+                    <h3>Управление товарами</h3>
+                    <button class="but_add">Добавить</button>
+                </div>
+                <div class="card_container">
+                    <p style="text-align: center; width: 100%;">Раздел в разработке</p>
+                </div>
+            </div> -->
+
+            <!-- Вкладка ХАРАКТЕРИСТИКИ (пустая) -->
+            <!-- <div id="attributes" class="tab_content">
+                <div class="section_panel_data">
+                    <h3>Управление характеристиками</h3>
+                    <button class="but_add">Добавить</button>
+                </div>
+                <div class="card_container">
+                    <p style="text-align: center; width: 100%;">Раздел в разработке</p>
+                </div>
+            </div> -->
+
+            <!-- Вкладка ЗАЯВКИ (пустая) -->
+            <!-- <div id="orders" class="tab_content">
+                <div class="section_panel_data">
+                    <h3>Управление заявками</h3>
+                </div>
+                <div class="card_container">
+                    <p style="text-align: center; width: 100%;">Раздел в разработке</p>
+                </div>
+            </div> -->
         </section>
-            <!-- Верхняя панель -->
-            <!-- <div class="admin_header_bar">
-                <h1 class="admin_title">Админ-панель</h1>
-                <div class="admin_user_info">
-                    <span class="admin_username">👤 {{ session.get('admin_username', 'Администратор') }}</span>
-                    <a href="{{ url_for('admin.admin_logout') }}" class="admin_logout_btn" onclick="return confirm('Выйти?')">🚪 Выйти</a>
-                </div>
-            </div> -->
-
-            <!-- Flash сообщения -->
-            <!-- <div class="flash_container">
-                {% with messages = get_flashed_messages(with_categories=true) %}
-                    {% if messages %}
-                        {% for category, message in messages %}
-                            <div class="flash flash-{{ category }}">{{ message }}</div>
-                        {% endfor %}
-                    {% endif %}
-                {% endwith %}
-            </div> -->
-
-            <!-- Навигация по вкладкам -->
-            <!-- <nav class="admin_tabs">
-                <button class="tab_btn active" onclick="showTab('products', this)">📦 Товары</button>
-                <button class="tab_btn" onclick="showTab('categories', this)">📁 Категории</button>
-                <button class="tab_btn" onclick="showTab('attributes', this)">⚙️ Характеристики</button>
-            </nav> -->
-
-            <!-- ========== ВКЛАДКА ТОВАРЫ ========== -->
-            <!-- <section id="products" class="tab_content active">
-                <header class="tab_header">
-                    <h2>Управление товарами</h2>
-                    <button class="btn_add" onclick="showAddForm('product')">➕ Добавить товар</button>
-                </header> -->
-
-                <!-- Список товаров карточками (flex) -->
-                <!-- <div class="cards_container">
-                    {% for product in products %}
-                    <article class="card_item">
-                        <div class="card_header">
-                            <span class="card_id">#{{ product.id }}</span>
-                            <div class="card_actions">
-                                <a href="{{ url_for('admin.edit_product', product_id=product.id) }}" class="btn_edit_small" title="Редактировать">✏️</a>
-                                <a href="{{ url_for('admin.delete_product', product_id=product.id) }}" class="btn_delete_small" onclick="return confirm('Удалить товар?')" title="Удалить">🗑️</a>
-                            </div>
-                        </div>
-                        <h3 class="card_title">{{ product.name }}</h3>
-                        <div class="card_meta">
-                            <span class="card_category">{{ product.category.name if product.category else '—' }}</span>
-                            <span class="card_price">{{ product.price }} ₽</span>
-                        </div>
-                        {% if product.short_specs %}
-                        <p class="card_specs">{{ product.short_specs }}</p>
-                        {% endif %}
-                    </article>
-                    {% endfor %}
-                </div> -->
-
-                <!-- Форма добавления товара -->
-                <!-- <article id="product_form" class="admin_card hidden">
-                    <h3>➕ Новый товар</h3>
-                    <form method="POST" action="{{ url_for('admin.add_product') }}" enctype="multipart/form-data">
-                        <div class="form_row"><input type="text" name="name" placeholder="Название" required></div>
-                        <div class="form_row"><input type="text" name="article" placeholder="Артикул" required></div>
-                        <div class="form_row">
-                            <select name="category_id" required>
-                                <option value="">— Категория —</option>
-                                {% for cat in categories %}<option value="{{ cat.id }}">{{ cat.name }}</option>{% endfor %}
-                            </select>
-                            <input type="number" name="price" placeholder="Цена" step="0.01" required>
-                            <select name="unit">
-                                <option value="шт">шт</option>
-                                <option value="м">м</option>
-                                <option value="компл">компл</option>
-                            </select>
-                        </div>
-                        <div class="form_row"><input type="text" name="short_specs" placeholder="Краткое описание"></div>
-                        <div class="form_row"><textarea name="full_description" placeholder="Полное описание" rows="4"></textarea></div>
-                        <div class="form_row"><input type="file" name="image" accept="image/*"></div>
-                        <footer class="form_footer">
-                            <button type="submit" class="btn_add">💾 Сохранить</button>
-                            <button type="button" class="btn_cancel" onclick="hideAddForm('product')">Отмена</button>
-                        </footer>
-                    </form>
-                </article>
-            </section> -->
-
-            <!-- ========== ВКЛАДКА КАТЕГОРИИ ========== -->
-            <!-- <section id="categories" class="tab_content">
-                <header class="tab_header">
-                    <h2>Управление категориями</h2>
-                    <button class="btn_add" onclick="showAddForm('category')">➕ Добавить категорию</button>
-                </header>
-
-                <div class="cards_container">
-                    {% for cat in categories %}
-                    <article class="card_item card_item_small">
-                        <div class="card_header">
-                            <span class="card_id">#{{ cat.id }}</span>
-                            <div class="card_actions">
-                                <a href="{{ url_for('admin.edit_category', category_id=cat.id) }}" class="btn_edit_small">✏️</a>
-                                <a href="{{ url_for('admin.delete_category', category_id=cat.id) }}" class="btn_delete_small" onclick="return confirm('Удалить категорию?')">🗑️</a>
-                            </div>
-                        </div>
-                        <h3 class="card_title">{{ cat.name }}</h3>
-                        <p class="card_specs">Изобр.: {{ cat.image or '—' }}</p>
-                    </article>
-                    {% endfor %}
-                </div>
-
-                <article id="category_form" class="admin_card hidden">
-                    <h3>➕ Новая категория</h3>
-                    <form method="POST" action="{{ url_for('admin.add_category') }}">
-                        <div class="form_row"><input type="text" name="name" placeholder="Название" required></div>
-                        <div class="form_row"><input type="text" name="image" placeholder="Имя файла (например: cat.png)"></div>
-                        <footer class="form_footer">
-                            <button type="submit" class="btn_add">💾 Сохранить</button>
-                            <button type="button" class="btn_cancel" onclick="hideAddForm('category')">Отмена</button>
-                        </footer>
-                    </form>
-                </article>
-            </section> -->
-
-            <!-- ========== ВКЛАДКА ХАРАКТЕРИСТИКИ ========== -->
-            <!-- <section id="attributes" class="tab_content">
-                <header class="tab_header">
-                    <h2>Управление характеристиками</h2>
-                    <button class="btn_add" onclick="showAddForm('attribute')">➕ Добавить характеристику</button>
-                </header>
-
-                <div class="cards_container">
-                    {% for attr in attributes %}
-                    <article class="card_item card_item_small">
-                        <div class="card_header">
-                            <span class="card_id">#{{ attr.id }}</span>
-                            <div class="card_actions">
-                                <a href="{{ url_for('admin.edit_attribute', attribute_id=attr.id) }}" class="btn_edit_small">✏️</a>
-                                <a href="{{ url_for('admin.delete_attribute', attribute_id=attr.id) }}" class="btn_delete_small" onclick="return confirm('Удалить характеристику?')">🗑️</a>
-                            </div>
-                        </div>
-                        <h3 class="card_title">{{ attr.name }}</h3>
-                        <p class="card_specs">
-                            {{ attr.category.name if attr.category else '—' }} 
-                            {% if attr.unit %} | {{ attr.unit }}{% endif %}
-                        </p>
-                    </article>
-                    {% endfor %}
-                </div>
-
-                <article id="attribute_form" class="admin_card hidden">
-                    <h3>➕ Новая характеристика</h3>
-                    <form method="POST" action="{{ url_for('admin.add_attribute') }}">
-                        <div class="form_row">
-                            <select name="category_id" required>
-                                <option value="">— Категория —</option>
-                                {% for cat in categories %}<option value="{{ cat.id }}">{{ cat.name }}</option>{% endfor %}
-                            </select>
-                            <input type="text" name="name" placeholder="Название" required>
-                            <input type="text" name="unit" placeholder="Единица (мм, МПа...)">
-                        </div>
-                        <footer class="form_footer">
-                            <button type="submit" class="btn_add">💾 Сохранить</button>
-                            <button type="button" class="btn_cancel" onclick="hideAddForm('attribute')">Отмена</button>
-                        </footer>
-                    </form>
-                </article>
-            </section>
-        </section> -->
     </main>
 
-    <script>
-        function showTab(tabName, el) {
-            document.querySelectorAll('.tab_content').forEach(t => t.classList.remove('active'));
-            document.querySelectorAll('.tab_btn').forEach(b => b.classList.remove('active'));
-            document.getElementById(tabName).classList.add('active');
-            el.classList.add('active');
-        }
-        function showAddForm(type) {
-            document.querySelectorAll('.admin_card').forEach(f => f.classList.add('hidden'));
-            document.getElementById(type + '_form').classList.remove('hidden');
-        }
-        function hideAddForm(type) {
-            document.getElementById(type + '_form').classList.add('hidden');
-        }
-    </script>
+    <!-- Модальное окно для добавления категории -->
+    <div id="addCategoryModal" class="modal">
+        <div class="modal_content">
+            <span class="close" onclick="closeModal('addCategoryModal')">&times;</span>
+            <h3 class="modal_title">➕ Добавление категории</h3>
+            <form method="POST" action="/admin/add_category" enctype="multipart/form-data">
+                <div class="form_group">
+                    <label class="form_label">Название категории:</label>
+                    <input type="text" name="name" class="form_input" required>
+                </div>
+                <div class="form_group">
+                    <label class="form_label">Изображение:</label>
+                    <input type="file" name="image" id="addCategoryImage" class="form_input" accept="image/*" onchange="previewAddImage(this)">
+                </div>
+
+                <!-- Блок для превью -->
+                <div id="addImagePreviewContainer" style="display: none; margin-bottom: 15px; text-align: center;">
+                    <img id="addImagePreview" src="#" alt="Превью" style="max-width: 200px; max-height: 200px; border: 2px solid #42546E; border-radius: 10px; padding: 5px;">
+                </div>
+
+                <div class="modal_actions">
+                    <button type="submit" class="btn_save">Сохранить</button>
+                    <button type="button" class="btn_cancel" onclick="closeModal('addCategoryModal')">Отмена</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Модальное окно для редактирования категории -->
+    <div id="editCategoryModal" class="modal">
+        <div class="modal_content">
+            <span class="close" onclick="closeModal('editCategoryModal')">&times;</span>
+            <h3 class="modal_title">✏️ Редактирование категории</h3>
+            <form id="editCategoryForm" method="POST" enctype="multipart/form-data">
+                <input type="hidden" id="edit_category_id" name="id">
+                
+                <div class="form_group">
+                    <label class="form_label">Название категории:</label>
+                    <input type="text" id="edit_category_name" name="name" class="form_input" required>
+                </div>
+                
+                <div class="form_group">
+                    <label class="form_label">Текущее изображение:</label>
+                    <img id="current_category_image" src="" alt="Текущее изображение" style="max-width: 100px; max-height: 100px; display: block; margin: 5px 0;">
+                </div>
+                
+                <div class="form_group">
+                    <label class="form_label">Новое изображение (оставьте пустым, чтобы не менять):</label>
+                    <input type="file" name="image" class="form_input" accept="image/*">
+                </div>
+                
+                <div class="modal_actions">
+                    <button type="submit" class="but_save">Сохранить изменения</button>
+                    <button type="button" class="but_cancel" onclick="closeModal('editCategoryModal')">Отмена</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Модальное окно для подтверждения удаления -->
+    <div id="deleteCategoryModal" class="modal">
+        <div class="modal_content">
+            <span class="close" onclick="closeModal('deleteCategoryModal')">&times;</span>
+            <h3 class="modal_title">⚠️ Подтверждение удаления</h3>
+            <p id="delete_message">Вы действительно хотите удалить категорию?</p>
+            <div class="modal_actions">
+                <button class="but_del" onclick="confirmDelete()">Удалить</button>
+                <button class="but_cancel" onclick="closeModal('deleteCategoryModal')">Отмена</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/admin.js') }}"></script>
 </body>
 </html>

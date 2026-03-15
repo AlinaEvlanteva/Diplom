@@ -4,9 +4,17 @@ from models import db
 from models.product import Product, Category, Attribute
 from models.user import User
 from . import admin_bp
+import os
+from werkzeug.utils import secure_filename
+
+# ========== НАСТРОЙКИ ЗАГРУЗКИ ФАЙЛОВ ==========
+UPLOAD_FOLDER = os.path.join('static', 'img', 'small')
+ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif', 'svg'}
+
+def allowed_file(filename):
+    return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
 # ========== МАРШРУТЫ ДЛЯ ВХОДА ==========
-
 @admin_bp.route('/login', methods=['GET', 'POST'])
 def admin_login():
     """Страница входа в админку"""
@@ -37,7 +45,6 @@ def admin_logout():
     return redirect(url_for('admin.admin_login'))
 
 # ========== ГЛАВНАЯ АДМИНКИ ==========
-
 @admin_bp.route('/')
 def admin_panel():
     """Главная админ-панели"""
@@ -53,9 +60,7 @@ def admin_panel():
                          categories=categories, 
                          attributes=attributes)
 
-
 # ========== УПРАВЛЕНИЕ ТОВАРАМИ ==========
-
 @admin_bp.route('/add_product', methods=['POST'])
 def add_product():
     """Добавление нового товара"""
@@ -69,6 +74,15 @@ def add_product():
     unit = request.form.get('unit')
     short_specs = request.form.get('short_specs')
     
+    # Обработка изображения
+    image = 'default.png'
+    if 'image' in request.files:
+        file = request.files['image']
+        if file and file.filename and allowed_file(file.filename):
+            filename = secure_filename(file.filename)
+            file.save(os.path.join(UPLOAD_FOLDER, filename))
+            image = filename
+    
     new_product = Product(
         name=name,
         article=article,
@@ -76,7 +90,7 @@ def add_product():
         price=price,
         unit=unit,
         short_specs=short_specs,
-        image='default.png'
+        image=image
     )
     
     db.session.add(new_product)
@@ -114,6 +128,15 @@ def edit_product(product_id):
         product.unit = request.form.get('unit')
         product.short_specs = request.form.get('short_specs')
         product.full_description = request.form.get('full_description')
+        
+        # Обработка изображения
+        if 'image' in request.files:
+            file = request.files['image']
+            if file and file.filename and allowed_file(file.filename):
+                filename = secure_filename(file.filename)
+                file.save(os.path.join(UPLOAD_FOLDER, filename))
+                product.image = filename
+        
         db.session.commit()
         flash('Товар обновлен', 'success')
         return redirect(url_for('admin.admin_panel'))
@@ -122,7 +145,6 @@ def edit_product(product_id):
     return render_template('edit_product.html', product=product, categories=categories)
 
 # ========== УПРАВЛЕНИЕ КАТЕГОРИЯМИ ==========
-
 @admin_bp.route('/add_category', methods=['POST'])
 def add_category():
     """Добавление новой категории"""
@@ -130,7 +152,15 @@ def add_category():
         return redirect(url_for('admin.admin_login'))
     
     name = request.form.get('name')
-    image = request.form.get('image') or 'default_category.png'
+    
+    # Обработка изображения
+    image = 'default_category.png'
+    if 'image' in request.files:
+        file = request.files['image']
+        if file and file.filename and allowed_file(file.filename):
+            filename = secure_filename(file.filename)
+            file.save(os.path.join(UPLOAD_FOLDER, filename))
+            image = filename
     
     new_category = Category(name=name, image=image)
     db.session.add(new_category)
@@ -162,7 +192,15 @@ def edit_category(category_id):
     
     if request.method == 'POST':
         category.name = request.form.get('name')
-        category.image = request.form.get('image')
+        
+        # Обработка изображения
+        if 'image' in request.files:
+            file = request.files['image']
+            if file and file.filename and allowed_file(file.filename):
+                filename = secure_filename(file.filename)
+                file.save(os.path.join(UPLOAD_FOLDER, filename))
+                category.image = filename
+        
         db.session.commit()
         flash('Категория обновлена', 'success')
         return redirect(url_for('admin.admin_panel'))
@@ -170,7 +208,6 @@ def edit_category(category_id):
     return render_template('edit_category.html', category=category)
 
 # ========== УПРАВЛЕНИЕ ХАРАКТЕРИСТИКАМИ ==========
-
 @admin_bp.route('/add_attribute', methods=['POST'])
 def add_attribute():
     """Добавление новой характеристики"""

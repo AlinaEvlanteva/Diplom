@@ -193,17 +193,21 @@ main {
     display: block;
     overflow: hidden;
 }
+.tab_content{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
 
-.section_products{
+.section_panel_data{
     width: 80%;
     height: auto;
-    /* background-color: blanchedalmond; */
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin-top: 10px;
 }
-.section_products button{
+.section_panel_data button{
     width: 150px;
     height: 50px;
     border-radius: 33px;
@@ -211,13 +215,14 @@ main {
     color: #42546E;
     font-size: 20px;
 }
-.section_products h3{
+.section_panel_data h3{
     color: #42546E;
     font-size: 23px;
 }
 
 .card_container{
     width: 80%;
+    margin-top: 10px;
     /* background-color: aquamarine; */
     display: flex;
     flex-wrap: wrap;
@@ -270,4 +275,125 @@ main {
     border-bottom-left-radius: 17px;
     border-bottom-right-radius: 17px;
     border-top: 2px solid #2b3748;
+}
+/* Модальные окна */
+/* Модальные окна */
+.modal {
+    display: none;  /* Только none, без flex */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(8px);
+    z-index: 1000;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal_content {
+    background: white;
+    padding: 30px;
+    border-radius: 20px;
+    width: 90%;
+    max-width: 500px;
+    border: 2px solid #42546E;
+}
+
+.close {
+    position: absolute;
+    right: 20px;
+    top: 10px;
+    font-size: 28px;
+    font-weight: bold;
+    color: #666;
+    cursor: pointer;
+}
+
+.close:hover {
+    color: #333;
+}
+
+.modal_title {
+    color: #42546E;
+    margin-bottom: 20px;
+    font-size: 24px;
+}
+
+/* Формы в модальных окнах */
+.form_group {
+    margin-bottom: 15px;
+}
+
+.form_label {
+    display: block;
+    color: #42546E;
+    font-weight: bold;
+    margin-bottom: 5px;
+    font-size: 14px;
+}
+
+.form_input {
+    width: 100%;
+    padding: 10px;
+    border: 2px solid #DCDCDC;
+    border-radius: 10px;
+    box-sizing: border-box;
+}
+
+.modal_actions {
+    display: flex;
+    gap: 15px;
+    justify-content: flex-end;
+    margin-top: 20px;
+}
+
+.but_save {
+    width: 120px;
+    height: 40px;
+    border-radius: 33px;
+    border: none;
+    background-color: #42546E;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.but_cancel {
+    width: 120px;
+    height: 40px;
+    border-radius: 33px;
+    border: 2px solid #42546E;
+    background-color: white;
+    color: #42546E;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+
+/* Изображение в модальном окне */
+#current_category_image {
+    max-width: 100px;
+    max-height: 100px;
+    border: 2px solid #42546E;
+    border-radius: 10px;
+    padding: 5px;
+    margin: 5px 0;
+}
+
+/* Кнопка удаления в модальном окне */
+.but_del {
+    width: 120px;
+    height: 40px;
+    border-radius: 33px;
+    border: none;
+    background-color: #dc3545;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.but_del:hover {
+    background-color: #c82333;
 }
