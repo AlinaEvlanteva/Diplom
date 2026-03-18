@@ -80,7 +80,7 @@
             <div id="products" class="tab_content {% if active_tab == 'products' %}active{% endif %}">
                 <div class="section_panel_data">
                     <h3>Управление товарами</h3>
-                    <button class="but_add" onclick="openAddProductModal()">Добавить товар</button>
+                    <button class="but_add" onclick="openAddProductModal()">Добавить</button>
                 </div>
                 
                 <!-- Группируем товары по категориям -->
@@ -106,7 +106,7 @@
                             <p class="old_price">Старая цена: {{ product.old_price }} ₽</p>
                             {% endif %}
                             <div class="card_inner_button">
-                                <button onclick="openEditProductModal('{{ product.id }}', '{{ product.name }}', '{{ product.image }}', '{{ product.short_specs }}', '{{ product.price }}', '{{ product.unit }}')">Редактировать</button>
+                                <button onclick="openEditProductModal('{{ product.id }}', '{{ product.name }}', '{{ product.image }}', '{{ product.short_specs }}', '{{ product.price }}', '{{ product.unit }}','{{ product.article }}','{{ product.category_id }}','{{ product.full_description }}','{{ product.old_price }}')">Редактировать</button>
                                 <button id="but_delete" onclick="deleteProduct('{{ product.id }}')">Удалить</button>
                             </div>
                         </div>
@@ -190,7 +190,7 @@
             <div class="form_group">
                 <label class="form_label">
                     Новое изображение:
-                    <input type="file" name="image" id="editCategoryImage" class="form_input" accept="image/*" onchange="previewEditImage(this)">
+                    <input type="file" name="image" id="editCategoryImage" class="form_input" accept="image/*" onchange="previewEditImage(this, 'current_category_image', 'editImagePreviewContainer', 'editImagePreview')">
                 </label>
             </div>
             
@@ -250,20 +250,7 @@
                     <input type="text" name="article" class="form_input" placeholder="Например: 11000" required>
                 </label>
             </div>
-            
-            <!-- 3. Категория (выпадающий список) -->
-            <!-- <div class="form_group">
-                <label class="form_label">
-                    Категория:
-                    <select name="category_id" class="form_input" required>
-                        <option value="" id="vp_spisok">Выберите категорию</option>
-                        {% for category in categories %}
-                        <option value="{{ category.id }}">{{ category.name }}</option>
-                        {% endfor %}
-                    </select>
-                </label>
-            </div> -->
-            
+                   
             <!-- 4. Цена -->
             <div class="form_group">
                 <div class="form_group_inner">
@@ -282,16 +269,7 @@
                     </label>
                 </div>
             </div>
-            
-                                <!-- потом понадобится
-            {% if products.old_price %}
-                    <p style="color: #666; margin-top: 5px; font-size: 14px;">
-                        Предыдущая цена: {{ products.old_price }} ₽
-                    </p>
-                    {% endif %} -->
-
-
-            
+              
             <!-- 6. Краткое описание (спецификации) -->
             <div class="form_group">
                 <div class="form_group_inner">
@@ -305,20 +283,13 @@
                     </label>
                 </div>
             </div>
-            
-            <!-- 7. Полное описание (необязательно) -->
-            <!-- <div class="form_group">
-                <label class="form_label">
-                    Полное описание:
-                    <textarea name="full_description" class="form_input" rows="4" placeholder="Подробное описание товара..."></textarea>
-                </label>
-            </div> -->
-            
+                    
             <!-- 8. Изображение (с превью) -->
             <div class="form_group">
                 <label class="form_label">
                     Изображение:
                     <input type="file" name="image" id="addProductImage" class="form_input" accept="image/*" onchange="previewImage(this, 'addProductImagePreviewContainer', 'addProductImagePreview')">
+                </label>
             </div>
             
             <!-- Блок для превью -->
@@ -330,6 +301,101 @@
                 <button type="submit" class="but_save">Сохранить товар</button>
                 <button type="button" class="but_cancel" onclick="closeModal('addProductModal')">Отмена</button>
             </div>
+        </form>
+    </div>
+    <div id="editProductModal" class="modal">
+        <span class="close" onclick="closeModal('editProductModal')">&times;</span>
+        <form id="editProductForm" method="POST" enctype="multipart/form-data" class="form_cat">
+            <h3 class="modal_title">Редактирование товара</h3>
+            <input type="hidden" id="edit_product_id" name="id">
+            <div class="form_group">
+                <div class="form_group_inner">
+                    <label class="form_label">
+                        Название товара:
+                        <input type="text" id="edit_product_name" name="name" class="form_input" required>
+                    </label>
+                    <label class="form_label">
+                        Категория:
+                        <select id="edit_product_category" name="category_id" class="form_input" required>
+                            {% for category in categories %}
+                            <option value="{{ category.id }}">{{ category.name }}</option>
+                            {% endfor %}
+                        </select>
+                    </label>
+                </div>
+            </div>
+
+            <!-- 2. Артикул (уникальный) -->
+            <div class="form_group">
+                <div class="form_group_inner">
+                    <label class="form_label">
+                        Артикул:
+                        <input type="text" id="edit_product_article" name="article" class="form_input" required>
+                    </label>
+                    <label class="form_label">
+                        Новое изображение:
+                        <input type="file" name="image" id="editProductImage" class="form_input" accept="image/*" onchange="previewEditImage(this, 'edit_product_current_image', 'editProductImagePreviewContainer', 'editProductImagePreview')">
+                    </label>
+                </div>
+            </div>
+                   
+            <!-- 4. Цена -->
+            <div class="form_group">
+                <div class="form_group_inner">
+                    <label class="form_label">
+                        Цена (₽):
+                        <input type="number" id="edit_product_price" name="price" class="form_input" step="0.01" required>
+                    </label>
+                    <label class="form_label">
+                        Единица измерения:
+                        <select id="edit_product_unit" name="unit" class="form_input">
+                            <option value="шт">шт</option>
+                            <option value="м">м</option>
+                            <option value="10 шт">10 шт</option>
+                            <option value="50 м">50 м</option>
+                        </select>
+                    </label>
+                </div>
+                <div class="old_price_box">
+                    <span class="old_price_label">Старая цена:</span>
+                    <span id="edit_product_old_price_display" class="old_price_value"></span>
+                </div>
+
+                <input type="hidden" id="edit_product_old_price" name="old_price" value="">
+            </div>
+
+            <div class="form_group">
+                <div class="form_group_inner">
+                    <label class="form_label">
+                        Краткое описание (спецификации):
+                        <input type="text" id="edit_product_short_specs" name="short_specs" class="form_input" placeholder="Например: 7x19x6мм">
+                    </label>
+                    <label class="form_label">
+                        Полное описание:
+                        <textarea id="edit_product_full_description" name="full_description" class="form_input" rows="4" placeholder="Подробное описание товара..."></textarea>
+                    </label>
+                </div>
+            </div>
+
+            <div class="form_group">
+            <div class="form_group_inner">
+                <label class="form_label">
+                    Текущее изображение:
+                    <img id="edit_product_current_image" src="" alt="Текущее" class="preview_img">
+                </label>
+            </div>
+        </div>
+        
+        <!-- Превью нового изображения -->
+        <div id="editProductImagePreviewContainer" class="previiew">
+            <img id="editProductImagePreview" src="#" alt="Превью">
+        </div>
+        
+        <div class="modal_actions">
+            <button type="submit" class="but_save">Сохранить изменения</button>
+            <button type="button" class="but_cancel" onclick="closeModal('editProductModal')">Отмена</button>
+        </div>
+
         </form>
     </div>
 

@@ -214,7 +214,7 @@ main {
     margin: 10px 0;
 }
 .section_panel_data button{
-    width: 180px;
+    width: 150px;
     height: 50px;
     border-radius: 33px;
     border: none;
@@ -271,6 +271,13 @@ main {
     margin: 0;
     word-break: break-word;
     text-align: center;
+}
+
+.card_inner img {
+    width: 150px;
+    height: 130px;
+    object-fit: contain;
+    margin: 10px 0;
 }
 
 .card_inner p{
@@ -374,6 +381,8 @@ main {
     display: flex;
     gap: 5px;
     align-items: flex-start;
+    justify-content: space-between;
+    text-align: center;
 }
 
 
@@ -385,6 +394,9 @@ main {
     color: #42546E;
     display: block;
     margin-bottom: 5px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 
@@ -471,12 +483,17 @@ input[type="file"].form_input {
 .previiew {
     display: none;
     text-align: center;
-    margin-top: 10px;
+}
+
+#edit_product_current_image{
+    object-fit: contain;
+    border: 2px solid #42546E;
+    border-radius: 10px;
 }
 
 .previiew img {
-    max-width: 200px;
-    max-height: 200px;
+    width: 200px;
+    height: 200px;
     border: 2px solid #42546E;
     border-radius: 10px;
 }
@@ -516,6 +533,8 @@ input[type="file"].form_input {
     border: 2px solid #42546E;
     border-radius: 10px;
 }
+
+
 
 .modal_delete{
     width: 40%;

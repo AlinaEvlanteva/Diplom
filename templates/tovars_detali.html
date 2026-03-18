@@ -34,7 +34,7 @@
             </div>
             <div class="section_detali_tovara_post">
                 <div class="section_detali_tovara_post_photo">
-                    <img src="{{ url_for('static', filename='img/big/' + product.image) }}"/>
+                    <img src="{{ url_for('static', filename='img/big/' + (product.image_big if product.image_big else product.image if product.image else 'default.png')) }}" alt="{{ product.name }}">
                 </div>
                 <div class="section_detali_tovara_post_attributes">
                     <div class="attributes_items">

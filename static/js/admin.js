@@ -68,11 +68,11 @@ function openEditCategoryModal(id, name, image) {
     if (fileInput) fileInput.value = '';
 }
 
-// ===== ПРЕВЬЮ ДЛЯ РЕДАКТИРОВАНИЯ =====
-function previewEditImage(input) {
-    var currentImg = document.getElementById('current_category_image');
-    var previewContainer = document.getElementById('editImagePreviewContainer');
-    var preview = document.getElementById('editImagePreview');
+// ===== ПРЕВЬЮ ДЛЯ РЕДАКТИРОВАНИЯ (универсальная) =====
+function previewEditImage(input, currentImgId, previewContainerId, previewImgId) {
+    var currentImg = document.getElementById(currentImgId);
+    var previewContainer = document.getElementById(previewContainerId);
+    var preview = document.getElementById(previewImgId);
     
     if (input.files && input.files[0]) {
         var reader = new FileReader();
@@ -90,7 +90,6 @@ function previewEditImage(input) {
         currentImg.style.display = 'block';
     }
 }
-
 // ===== МОДАЛЬНОЕ ОКНО ДЛЯ УДАЛЕНИЯ =====
 function deleteCategory(id) {
     currentDeleteId = id;
@@ -163,15 +162,75 @@ setTimeout(function() {
 
 console.log('admin.js загружен успешно');
 
+
+// ===== РЕДАКТИРОВАНИЕ ТОВАРА =====
+function openEditProductModal(id, name, image, specs, price, unit, article, categoryId, fullDesc, oldPrice) {
+    document.getElementById('editProductModal').style.display = 'flex';
+    
+    // Устанавливаем action для формы
+    document.getElementById('editProductForm').action = '/admin/edit_product/' + id;
+    
+    // Заполняем поля
+    document.getElementById('edit_product_id').value = id;
+    document.getElementById('edit_product_name').value = name || '';
+    document.getElementById('edit_product_article').value = article || '';
+    document.getElementById('edit_product_price').value = price || '';
+    document.getElementById('edit_product_unit').value = unit || 'шт';
+    document.getElementById('edit_product_short_specs').value = specs || '';
+    document.getElementById('edit_product_full_description').value = fullDesc || '';
+    
+    // Отображение старой цены в span
+    let oldPriceDisplay = document.getElementById('edit_product_old_price_display');
+    if (oldPriceDisplay) {
+        if (oldPrice && oldPrice != 'None' && oldPrice != '') {
+            oldPriceDisplay.textContent = oldPrice + ' ₽';
+            oldPriceDisplay.style.display = 'inline';
+        } else {
+            oldPriceDisplay.textContent = '';
+            oldPriceDisplay.style.display = 'none';
+        }
+    }
+    
+    // Скрытое поле для отправки
+    document.getElementById('edit_product_old_price').value = oldPrice || '';
+    
+    // Устанавливаем категорию
+    if (categoryId) {
+        document.getElementById('edit_product_category').value = categoryId;
+    }
+    
+    // Показываем текущее изображение
+    let currentImg = document.getElementById('edit_product_current_image');
+    if (image && image != 'default.png' && image != 'default_category.png') {
+        currentImg.src = '/static/img/small/' + image;
+        currentImg.style.display = 'block';
+    } else {
+        currentImg.src = '';
+        currentImg.style.display = 'none';
+    }
+    
+    // Сбрасываем превью
+    let previewContainer = document.getElementById('editProductImagePreviewContainer');
+    let preview = document.getElementById('editProductImagePreview');
+    let fileInput = document.getElementById('editProductImage');
+    
+    if (previewContainer) previewContainer.style.display = 'none';
+    if (preview) preview.src = '#';
+    if (fileInput) fileInput.value = '';
+}
+
 // ===== ТОВАРЫ =====
 function openAddProductModal() {
     document.getElementById('addProductModal').style.display = 'flex';
-}
-
-function openEditProductModal(id, name, image, specs, price, unit) {
-    alert('Редактирование товара ' + id);
-    document.getElementById('editProductModal').style.display = 'flex';
-    // Здесь заполнишь поля формы
+    
+    // Сбрасываем превью при открытии
+    let previewContainer = document.getElementById('addProductImagePreviewContainer');
+    let preview = document.getElementById('addProductImagePreview');
+    let fileInput = document.getElementById('addProductImage');
+    
+    if (previewContainer) previewContainer.style.display = 'none';
+    if (preview) preview.src = '#';
+    if (fileInput) fileInput.value = '';
 }
 
 function deleteProduct(id) {

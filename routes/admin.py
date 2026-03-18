@@ -8,7 +8,8 @@ import os
 from werkzeug.utils import secure_filename
 
 # ========== НАСТРОЙКИ ЗАГРУЗКИ ФАЙЛОВ ==========
-UPLOAD_FOLDER = os.path.join('static', 'img', 'small')
+UPLOAD_FOLDER_SMALL = os.path.join('static', 'img', 'small')
+UPLOAD_FOLDER_BIG = os.path.join('static', 'img', 'big')
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif', 'svg'}
 
 def allowed_file(filename):
@@ -80,12 +81,25 @@ def add_product():
     
     # Обработка изображения
     image = 'default.png'
+    image_big = 'default.png'
+    
     if 'image' in request.files:
         file = request.files['image']
         if file and file.filename and allowed_file(file.filename):
             filename = secure_filename(file.filename)
-            file.save(os.path.join(UPLOAD_FOLDER, filename))
+            
+            # Сохраняем в small
+            small_path = os.path.join(UPLOAD_FOLDER_SMALL, filename)
+            file.save(small_path)
+            
+            # Сохраняем в big (копируем из small)
+            big_path = os.path.join(UPLOAD_FOLDER_BIG, filename)
+            with open(small_path, 'rb') as src:
+                with open(big_path, 'wb') as dst:
+                    dst.write(src.read())
+            
             image = filename
+            image_big = filename
     
     # При добавлении old_price = None
     new_product = Product(
@@ -96,6 +110,7 @@ def add_product():
         unit=unit,
         short_specs=short_specs,
         image=image,
+        image_big=image_big,
         old_price=None
     )
     
@@ -150,8 +165,19 @@ def edit_product(product_id):
             file = request.files['image']
             if file and file.filename and allowed_file(file.filename):
                 filename = secure_filename(file.filename)
-                file.save(os.path.join(UPLOAD_FOLDER, filename))
+                
+                # Сохраняем в small
+                small_path = os.path.join(UPLOAD_FOLDER_SMALL, filename)
+                file.save(small_path)
+                
+                # Сохраняем в big (копируем из small)
+                big_path = os.path.join(UPLOAD_FOLDER_BIG, filename)
+                with open(small_path, 'rb') as src:
+                    with open(big_path, 'wb') as dst:
+                        dst.write(src.read())
+                
                 product.image = filename
+                product.image_big = filename
         
         db.session.commit()
         flash('Товар обновлен', 'success')
@@ -175,7 +201,7 @@ def add_category():
         file = request.files['image']
         if file and file.filename and allowed_file(file.filename):
             filename = secure_filename(file.filename)
-            file.save(os.path.join(UPLOAD_FOLDER, filename))
+            file.save(os.path.join(UPLOAD_FOLDER_SMALL, filename))
             image = filename
     
     new_category = Category(name=name, image=image)
@@ -216,7 +242,7 @@ def edit_category(category_id):
             file = request.files['image']
             if file and file.filename and allowed_file(file.filename):
                 filename = secure_filename(file.filename)
-                file.save(os.path.join(UPLOAD_FOLDER, filename))
+                file.save(os.path.join(UPLOAD_FOLDER_SMALL, filename))
                 category.image = filename
         
         db.session.commit()

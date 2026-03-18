@@ -20,6 +20,7 @@ class Product(db.Model):
     old_price = db.Column(db.Numeric(10, 2))  # новое поле для старой цены
     unit = db.Column(db.String(20), default='шт')
     image = db.Column(db.String(150))
+    image_big = db.Column(db.String(150), default='default.png')
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
     updated_at = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
     attributes = db.relationship('ProductAttribute', backref='product', lazy=True)
