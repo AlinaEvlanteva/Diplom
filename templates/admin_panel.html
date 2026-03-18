@@ -77,15 +77,26 @@
             </div>
 
             <!-- Вкладка ТОВАРЫ (пустая) -->
-            <!-- <div id="products" class="tab_content">
+            <div id="products" class="tab_content">
                 <div class="section_panel_data">
                     <h3>Управление товарами</h3>
-                    <button class="but_add">Добавить</button>
+                    <button class="but_add"  onclick="openAddProductModal()">Добавить</button>
                 </div>
                 <div class="card_container">
-                    <p style="text-align: center; width: 100%;">Раздел в разработке</p>
+                    {% for product in products %}
+                    <div class="card_inner">
+                        <img src="{{ url_for('static', filename='img/small/' + (product.image or 'default.png')) }}" alt="{{ product.name }}" class="card_image"/>
+                        <h3 class="card_title">{{ product.name }}</h3>
+                        <p class="card_specs">{{ product.short_specs }}</p>
+                        <p class="card_price">{{ product.price }} ₽ / {{ product.unit or 'шт' }}</p>
+                        <div class="card_inner_button">
+                            <button onclick="openEditProductModal('{{ product.id }}', '{{ product.name }}', '{{ product.image }}', '{{ product.short_specs }}', '{{ product.price }}', '{{ product.unit }}')">Редактировать</button>
+                            <button id="but_delete" onclick="deleteProduct('{{ product.id }}')">Удалить</button>
+                        </div>
+                    </div>
+                    {% endfor %}
                 </div>
-            </div> -->
+            </div>
 
             <!-- Вкладка ХАРАКТЕРИСТИКИ (пустая) -->
             <!-- <div id="attributes" class="tab_content">
@@ -188,6 +199,15 @@
                 <button class="but_cancel" onclick="closeModal('deleteCategoryModal')">Отмена</button>
             </div>
         </div>
+    </div>
+
+    <!-- Модальное окно для добавления товара -->
+    <div id="addProductModal" class="modal">
+        <span class="close" onclick="closeModal('addProductModal')">&times;</span>
+        <form method="POST" action="/admin/add_product" enctype="multipart/form-data" class="form_cat">
+            <h3 class="modal_title">Добавление товара</h3>
+            <!-- Добавь поля -->
+        </form>
     </div>
 
     <script src="{{ url_for('static', filename='js/admin.js') }}"></script>

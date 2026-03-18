@@ -193,7 +193,13 @@ main {
     display: block;
     overflow: hidden;
 }
-.tab_content{
+.tab_content {
+    display: none;  /* все вкладки скрыты по умолчанию */
+    width: 100%;
+}
+
+.tab_content.active{
+    display: block;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -231,7 +237,7 @@ main {
 }
 .card_inner{
     width: 25.5%;
-    height: 350px;
+    height: auto;
     /* background-color: brown; */
     display: flex;
     flex-direction: column;
@@ -243,6 +249,7 @@ main {
 .card_title{
     font-size: 22px;
     color: #42546E;
+    align-items: center;
     margin: 0;
 }
 .card_inner_button{

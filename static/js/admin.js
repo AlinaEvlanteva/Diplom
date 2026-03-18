@@ -162,3 +162,20 @@ setTimeout(function() {
 }, 3000);
 
 console.log('admin.js загружен успешно');
+
+// ===== ТОВАРЫ =====
+function openAddProductModal() {
+    document.getElementById('addProductModal').style.display = 'flex';
+}
+
+function openEditProductModal(id, name, image, specs, price, unit) {
+    alert('Редактирование товара ' + id);
+    document.getElementById('editProductModal').style.display = 'flex';
+    // Здесь заполнишь поля формы
+}
+
+function deleteProduct(id) {
+    if (confirm('Вы действительно хотите удалить товар?')) {
+        window.location.href = '/admin/delete_product/' + id;
+    }
+}
