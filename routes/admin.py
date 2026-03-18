@@ -129,8 +129,24 @@ def delete_product(product_id):
         return redirect(url_for('admin.admin_login'))
     
     product = Product.query.get_or_404(product_id)
+    
+    # Удаляем файлы изображений, если это не дефолтные
+    if product.image and product.image != 'default.png':
+        try:
+            small_path = os.path.join(UPLOAD_FOLDER_SMALL, product.image)
+            big_path = os.path.join(UPLOAD_FOLDER_BIG, product.image)
+            
+            if os.path.exists(small_path):
+                os.remove(small_path)
+            if os.path.exists(big_path):
+                os.remove(big_path)
+        except Exception as e:
+            print(f"Ошибка при удалении файлов: {e}")
+    
     db.session.delete(product)
     db.session.commit()
+
+    session['active_tab'] = 'products'
     
     flash('Товар удален', 'success')
     return redirect(url_for('admin.admin_panel'))
@@ -180,6 +196,9 @@ def edit_product(product_id):
                 product.image_big = filename
         
         db.session.commit()
+
+        session['active_tab'] = 'products'
+
         flash('Товар обновлен', 'success')
         return redirect(url_for('admin.admin_panel'))
     
@@ -220,8 +239,20 @@ def delete_category(category_id):
         return redirect(url_for('admin.admin_login'))
     
     category = Category.query.get_or_404(category_id)
+    
+    # Удаляем файл изображения категории
+    if category.image and category.image != 'default_category.png':
+        try:
+            img_path = os.path.join(UPLOAD_FOLDER_SMALL, category.image)
+            if os.path.exists(img_path):
+                os.remove(img_path)
+        except Exception as e:
+            print(f"Ошибка при удалении файла: {e}")
+    
     db.session.delete(category)
     db.session.commit()
+
+    session['active_tab'] = 'categories'
     
     flash('Категория удалена', 'success')
     return redirect(url_for('admin.admin_panel'))
@@ -246,6 +277,9 @@ def edit_category(category_id):
                 category.image = filename
         
         db.session.commit()
+
+        session['active_tab'] = 'categories'
+
         flash('Категория обновлена', 'success')
         return redirect(url_for('admin.admin_panel'))
     

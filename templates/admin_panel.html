@@ -179,7 +179,13 @@
                     <input type="text" id="edit_category_name" name="name" class="form_input" required>
                 </label>
             </div>
-            
+
+            <div class="form_group">
+                <label class="form_label">
+                    <input type="file" name="image" id="editCategoryImage" class="form_input" accept="image/*" onchange="previewEditImage(this, 'current_category_image', 'editImagePreviewContainer', 'editImagePreview')">
+                </label>
+            </div>
+
             <div class="form_group">
                 <label class="form_label">
                     Текущее изображение:
@@ -187,15 +193,9 @@
                 </label>
             </div>
             
-            <div class="form_group">
-                <label class="form_label">
-                    Новое изображение:
-                    <input type="file" name="image" id="editCategoryImage" class="form_input" accept="image/*" onchange="previewEditImage(this, 'current_category_image', 'editImagePreviewContainer', 'editImagePreview')">
-                </label>
-            </div>
             
             <!-- Блок для превью нового изображения -->
-             <div id="editImagePreviewContainer" class="previiew" style="display: none;">
+            <div id="editImagePreviewContainer" class="previiew" style="display: none;">
                 <img id="editImagePreview" src="#" alt="Превью нового фото">
             </div>
             
