@@ -55,10 +55,14 @@ def admin_panel():
     categories = Category.query.all()
     attributes = Attribute.query.all()
     
+    # Получаем активную вкладку из сессии (по умолчанию 'categories')
+    active_tab = session.get('active_tab', 'categories')
+    
     return render_template('admin_panel.html', 
                          products=products, 
                          categories=categories, 
-                         attributes=attributes)
+                         attributes=attributes,
+                         active_tab=active_tab)
 
 # ========== УПРАВЛЕНИЕ ТОВАРАМИ ==========
 @admin_bp.route('/add_product', methods=['POST'])
@@ -83,6 +87,7 @@ def add_product():
             file.save(os.path.join(UPLOAD_FOLDER, filename))
             image = filename
     
+    # При добавлении old_price = None
     new_product = Product(
         name=name,
         article=article,
@@ -90,11 +95,14 @@ def add_product():
         price=price,
         unit=unit,
         short_specs=short_specs,
-        image=image
+        image=image,
+        old_price=None
     )
     
     db.session.add(new_product)
     db.session.commit()
+
+    session['active_tab'] = 'products'
     
     flash('Товар успешно добавлен', 'success')
     return redirect(url_for('admin.admin_panel'))
@@ -121,10 +129,18 @@ def edit_product(product_id):
     product = Product.query.get_or_404(product_id)
     
     if request.method == 'POST':
+        # Получаем новую цену
+        new_price = request.form.get('price')
+        
+        # Если цена изменилась, сохраняем старую
+        if float(new_price) != float(product.price):
+            product.old_price = product.price
+        
+        # Обновляем остальные поля
         product.name = request.form.get('name')
         product.article = request.form.get('article')
         product.category_id = request.form.get('category_id')
-        product.price = request.form.get('price')
+        product.price = new_price
         product.unit = request.form.get('unit')
         product.short_specs = request.form.get('short_specs')
         product.full_description = request.form.get('full_description')
@@ -165,6 +181,8 @@ def add_category():
     new_category = Category(name=name, image=image)
     db.session.add(new_category)
     db.session.commit()
+
+    session['active_tab'] = 'categories'
     
     flash('Категория успешно добавлена', 'success')
     return redirect(url_for('admin.admin_panel'))

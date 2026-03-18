@@ -48,16 +48,16 @@
 
             <!-- Навигация по вкладкам -->
             <nav class="nav_admin">
-                <button class="but_categ active" onclick="showTab('categories', this)">Категории</button>
-                <button class="but_tovar" onclick="showTab('products', this)">Товары</button>
-                <button class="but_charakter" onclick="showTab('attributes', this)">Характеристики</button>
-                <button class="but_zayavki" onclick="showTab('orders', this)">Заявки</button>
-            </nav>
+                <button class="but_categ {% if active_tab == 'categories' %}active{% endif %}" onclick="showTab('categories', this)">Категории</button>
+                <button class="but_tovar {% if active_tab == 'products' %}active{% endif %}" onclick="showTab('products', this)">Товары</button>
+                <button class="but_charakter {% if active_tab == 'attributes' %}active{% endif %}" onclick="showTab('attributes', this)">Характеристики</button>
+                <button class="but_zayavki {% if active_tab == 'orders' %}active{% endif %}" onclick="showTab('orders', this)">Заявки</button>
+            </nav> 
 
             <div class="line"></div>
 
             <!-- Вкладка КАТЕГОРИИ -->
-            <div id="categories" class="tab_content active">
+            <div id="categories" class="tab_content {% if active_tab == 'categories' %}active{% endif %}">
                 <div class="section_panel_data">
                     <h3>Управление категориями</h3>
                     <button class="but_add" onclick="openAddCategoryModal()">Добавить</button>
@@ -77,7 +77,7 @@
             </div>
 
             <!-- Вкладка ТОВАРЫ -->
-            <div id="products" class="tab_content">
+            <div id="products" class="tab_content {% if active_tab == 'products' %}active{% endif %}">
                 <div class="section_panel_data">
                     <h3>Управление товарами</h3>
                     <button class="but_add" onclick="openAddProductModal()">Добавить товар</button>
@@ -102,6 +102,9 @@
                             <h3 class="card_title">{{ product.name }}</h3>
                             <p class="card_specs">{{ product.short_specs }}</p>
                             <p class="card_price">{{ product.price }} ₽ / {{ product.unit or 'шт' }}</p>
+                            {% if product.old_price %}
+                            <p class="old_price">Старая цена: {{ product.old_price }} ₽</p>
+                            {% endif %}
                             <div class="card_inner_button">
                                 <button onclick="openEditProductModal('{{ product.id }}', '{{ product.name }}', '{{ product.image }}', '{{ product.short_specs }}', '{{ product.price }}', '{{ product.unit }}')">Редактировать</button>
                                 <button id="but_delete" onclick="deleteProduct('{{ product.id }}')">Удалить</button>
@@ -149,7 +152,7 @@
             <div class="form_group">
                 <label class="form_label">
                     Изображение:
-                    <input type="file" name="image" id="addCategoryImage" class="form_input" accept="image/*" onchange="previewAddImage(this)">
+                    <input type="file" name="image" id="addCategoryImage" class="form_input" accept="image/*" onchange="previewImage(this, 'addImagePreviewContainer', 'addImagePreview')">
                 </label>
             </div>
             <div id="addImagePreviewContainer" class="previiew">
@@ -221,7 +224,112 @@
         <span class="close" onclick="closeModal('addProductModal')">&times;</span>
         <form method="POST" action="/admin/add_product" enctype="multipart/form-data" class="form_cat">
             <h3 class="modal_title">Добавление товара</h3>
-            <!-- Добавь поля -->
+            <!-- 1. Название товара (обязательно) -->
+            <div class="form_group">
+                <div class="form_group_inner">
+                    <label class="form_label">
+                        Название товара:
+                        <input type="text" name="name" class="form_input" placeholder="Например: Подшипник SKF" required>
+                    </label>
+                    <label class="form_label">
+                        Категория:
+                        <select name="category_id" class="form_input" required>
+                            <option value="" id="vp_spisok">Выберите категорию</option>
+                            {% for category in categories %}
+                            <option value="{{ category.id }}">{{ category.name }}</option>
+                            {% endfor %}
+                        </select>
+                    </label>
+                </div>
+            </div>
+            
+            <!-- 2. Артикул (уникальный) -->
+            <div class="form_group">
+                <label class="form_label">
+                    Артикул:
+                    <input type="text" name="article" class="form_input" placeholder="Например: 11000" required>
+                </label>
+            </div>
+            
+            <!-- 3. Категория (выпадающий список) -->
+            <!-- <div class="form_group">
+                <label class="form_label">
+                    Категория:
+                    <select name="category_id" class="form_input" required>
+                        <option value="" id="vp_spisok">Выберите категорию</option>
+                        {% for category in categories %}
+                        <option value="{{ category.id }}">{{ category.name }}</option>
+                        {% endfor %}
+                    </select>
+                </label>
+            </div> -->
+            
+            <!-- 4. Цена -->
+            <div class="form_group">
+                <div class="form_group_inner">
+                    <label class="form_label">
+                        Цена (₽):
+                        <input type="number" name="price" class="form_input" step="0.01" placeholder="0.00" required>
+                    </label>
+                    <label class="form_label">
+                        Единица измерения:
+                        <select name="unit" class="form_input">
+                            <option value="шт">шт</option>
+                            <option value="м">м</option>
+                            <option value="10 шт">10 шт</option>
+                            <option value="50 м">50 м</option>
+                        </select>
+                    </label>
+                </div>
+            </div>
+            
+                                <!-- потом понадобится
+            {% if products.old_price %}
+                    <p style="color: #666; margin-top: 5px; font-size: 14px;">
+                        Предыдущая цена: {{ products.old_price }} ₽
+                    </p>
+                    {% endif %} -->
+
+
+            
+            <!-- 6. Краткое описание (спецификации) -->
+            <div class="form_group">
+                <div class="form_group_inner">
+                    <label class="form_label">
+                        Краткое описание (спецификации):
+                        <input type="text" name="short_specs" class="form_input" placeholder="Например: 7x19x6мм">
+                    </label>
+                    <label class="form_label">
+                        Полное описание:
+                        <textarea name="full_description" class="form_input" rows="4" placeholder="Подробное описание товара..."></textarea>
+                    </label>
+                </div>
+            </div>
+            
+            <!-- 7. Полное описание (необязательно) -->
+            <!-- <div class="form_group">
+                <label class="form_label">
+                    Полное описание:
+                    <textarea name="full_description" class="form_input" rows="4" placeholder="Подробное описание товара..."></textarea>
+                </label>
+            </div> -->
+            
+            <!-- 8. Изображение (с превью) -->
+            <div class="form_group">
+                <label class="form_label">
+                    Изображение:
+                    <input type="file" name="image" id="addProductImage" class="form_input" accept="image/*" onchange="previewImage(this, 'addProductImagePreviewContainer', 'addProductImagePreview')">
+            </div>
+            
+            <!-- Блок для превью -->
+            <div id="addProductImagePreviewContainer" class="previiew">
+                <img id="addProductImagePreview" src="#" alt="Превью">
+            </div>
+            
+            <div class="modal_actions">
+                <button type="submit" class="but_save">Сохранить товар</button>
+                <button type="button" class="but_cancel" onclick="closeModal('addProductModal')">Отмена</button>
+            </div>
         </form>
     </div>
 

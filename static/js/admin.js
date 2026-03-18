@@ -20,10 +20,10 @@ function openAddCategoryModal() {
     document.getElementById('addCategoryModal').style.display = 'flex';
 }
 
-// ===== ПРЕВЬЮ ДЛЯ ДОБАВЛЕНИЯ =====
-function previewAddImage(input) {
-    var previewContainer = document.getElementById('addImagePreviewContainer');
-    var preview = document.getElementById('addImagePreview');
+// ===== УНИВЕРСАЛЬНОЕ ПРЕВЬЮ ДЛЯ ЛЮБЫХ МОДАЛЬНЫХ ОКОН =====
+function previewImage(input, previewContainerId, previewImageId) {
+    var previewContainer = document.getElementById(previewContainerId);
+    var preview = document.getElementById(previewImageId);
     
     if (input.files && input.files[0]) {
         var reader = new FileReader();
