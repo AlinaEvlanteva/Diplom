@@ -76,27 +76,43 @@
                 </div>
             </div>
 
-            <!-- Вкладка ТОВАРЫ (пустая) -->
+            <!-- Вкладка ТОВАРЫ -->
             <div id="products" class="tab_content">
                 <div class="section_panel_data">
                     <h3>Управление товарами</h3>
-                    <button class="but_add"  onclick="openAddProductModal()">Добавить</button>
+                    <button class="but_add" onclick="openAddProductModal()">Добавить товар</button>
                 </div>
-                <div class="card_container">
-                    {% for product in products %}
-                    <div class="card_inner">
-                        <img src="{{ url_for('static', filename='img/small/' + (product.image or 'default.png')) }}" alt="{{ product.name }}" class="card_image"/>
-                        <h3 class="card_title">{{ product.name }}</h3>
-                        <p class="card_specs">{{ product.short_specs }}</p>
-                        <p class="card_price">{{ product.price }} ₽ / {{ product.unit or 'шт' }}</p>
-                        <div class="card_inner_button">
-                            <button onclick="openEditProductModal('{{ product.id }}', '{{ product.name }}', '{{ product.image }}', '{{ product.short_specs }}', '{{ product.price }}', '{{ product.unit }}')">Редактировать</button>
-                            <button id="but_delete" onclick="deleteProduct('{{ product.id }}')">Удалить</button>
+                
+                <!-- Группируем товары по категориям -->
+                {% set categories_dict = {} %}
+                {% for product in products %}
+                {% if product.category.name not in categories_dict %}
+                {% set _ = categories_dict.update({product.category.name: []}) %}
+                {% endif %}
+                {% set _ = categories_dict[product.category.name].append(product) %}
+                {% endfor %}
+                <!-- Перебираем категории по порядку -->
+                {% for category_name, category_products in categories_dict.items() %}
+                <section class="category_section">
+                    <h4 class="category_header">{{ category_name }}</h4>
+                    <div class="card_container">
+                        {% for product in category_products %}
+                        <div class="card_inner">
+                            <img src="{{ url_for('static', filename='img/small/' + (product.image)) }}" alt="{{ product.name }}" class="card_image"/>
+                            <h3 class="card_title">{{ product.name }}</h3>
+                            <p class="card_specs">{{ product.short_specs }}</p>
+                            <p class="card_price">{{ product.price }} ₽ / {{ product.unit or 'шт' }}</p>
+                            <div class="card_inner_button">
+                                <button onclick="openEditProductModal('{{ product.id }}', '{{ product.name }}', '{{ product.image }}', '{{ product.short_specs }}', '{{ product.price }}', '{{ product.unit }}')">Редактировать</button>
+                                <button id="but_delete" onclick="deleteProduct('{{ product.id }}')">Удалить</button>
+                            </div>
                         </div>
+                        {% endfor %}
                     </div>
-                    {% endfor %}
-                </div>
+                </section>
+                {% endfor %}
             </div>
+        </section>
 
             <!-- Вкладка ХАРАКТЕРИСТИКИ (пустая) -->
             <!-- <div id="attributes" class="tab_content">
@@ -118,7 +134,6 @@
                     <p style="text-align: center; width: 100%;">Раздел в разработке</p>
                 </div>
             </div> -->
-        </section>
     </main>
     
     <div id="addCategoryModal" class="modal">
