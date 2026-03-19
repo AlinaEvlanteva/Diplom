@@ -118,15 +118,52 @@
         </section>
 
             <!-- Вкладка ХАРАКТЕРИСТИКИ (пустая) -->
-            <!-- <div id="attributes" class="tab_content">
-                <div class="section_panel_data">
-                    <h3>Управление характеристиками</h3>
-                    <button class="but_add">Добавить</button>
-                </div>
-                <div class="card_container">
-                    <p style="text-align: center; width: 100%;">Раздел в разработке</p>
-                </div>
-            </div> -->
+
+        <div id="attributes" class="tab_content {% if active_tab == 'attributes' %}active{% endif %}" >
+            <div class="section_panel_data">
+                <h3>Управление характеристиками</h3>
+                <button class="but_add" onclick="openAddProductModal()">Добавить</button>
+            </div>
+
+
+            <div class="filter_section">
+                <!-- <label for="category_filter">Фильтр по категории: </label> -->
+                <select id="category_filter" onchange="filterAttributes()">
+                    <option value="all">Все категории</option>
+                    {% for category in categories %}
+                    <option value="{{ category.id }}">{{ category.name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            
+            <div class="table_container">
+                <table class="admin_table_charackter">
+                    <thead>
+                        <tr>
+                            <!-- <th>ID</th> -->
+                            <th>Название</th>
+                            <th>Категория</th>
+                            <th>Единица</th>
+                            <th>Действия</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for attr in attributes %}
+                        <tr data-category-id="{{ attr.category_id }}">
+                            <!-- <td>{{ attr.id }}</td> -->
+                            <td>{{ attr.name }}</td>
+                            <td>{{ attr.category.name if attr.category else '—' }}</td>
+                            <td>{{ attr.unit or '—' }}</td>
+                            <td class="actions">
+                                <button class="btn_edit" onclick="openEditAttributeModal('{{ attr.id }}', '{{ attr.name }}', '{{ attr.unit }}', '{{ attr.category_id }}')">✏️</button>
+                                <button class="btn_delete" onclick="deleteAttribute('{{ attr.id }}')">🗑️</button>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
 
             <!-- Вкладка ЗАЯВКИ (пустая) -->
             <!-- <div id="orders" class="tab_content">

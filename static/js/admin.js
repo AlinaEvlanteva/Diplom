@@ -249,3 +249,21 @@ function confirmDeleteProduct() {
         window.location.href = '/admin/delete_product/' + currentDeleteProductId;
     }
 }
+
+// ===== ФИЛЬТР ДЛЯ ХАРАКТЕРИСТИК =====
+function filterAttributes() {
+    var filter = document.getElementById('category_filter').value;
+    var rows = document.querySelectorAll('#attributes tbody tr');
+    
+    rows.forEach(row => {
+        var categoryId = row.getAttribute('data-category-id'); // берем из data-атрибута
+        
+        if (filter === 'all') {
+            row.style.display = '';
+        } else if (categoryId === filter) {
+            row.style.display = '';
+        } else {
+            row.style.display = 'none';
+        }
+    });
+}
