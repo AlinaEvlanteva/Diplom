@@ -50,7 +50,7 @@
             <nav class="nav_admin">
                 <button class="but_categ {% if active_tab == 'categories' %}active{% endif %}" onclick="showTab('categories', this)">Категории</button>
                 <button class="but_tovar {% if active_tab == 'products' %}active{% endif %}" onclick="showTab('products', this)">Товары</button>
-                <button class="but_charakter {% if active_tab == 'attributes' %}active{% endif %}" onclick="showTab('attributes', this)">Характеристики</button>
+                <button class="but_charakter {% if active_tab == 'attributes' %}active{% endif %}" onclick="showTab('attributes', this)">Типы характеристик</button>
                 <button class="but_zayavki {% if active_tab == 'orders' %}active{% endif %}" onclick="showTab('orders', this)">Заявки</button>
             </nav> 
 
@@ -107,6 +107,7 @@
                             {% endif %}
                             <div class="card_inner_button">
                                 <button onclick="openEditProductModal('{{ product.id }}', '{{ product.name }}', '{{ product.image }}', '{{ product.short_specs }}', '{{ product.price }}', '{{ product.unit }}','{{ product.article }}','{{ product.category_id }}','{{ product.full_description }}','{{ product.old_price }}')">Редактировать</button>
+                                <button class="but_attributes" onclick="openProductAttributesModal('{{ product.id }}')">Заполнить значения</button>
                                 <button id="but_delete" onclick="deleteProduct('{{ product.id }}')">Удалить</button>
                             </div>
                         </div>
@@ -122,7 +123,7 @@
         <div id="attributes" class="tab_content {% if active_tab == 'attributes' %}active{% endif %}" >
             <div class="section_panel_data">
                 <h3>Управление характеристиками</h3>
-                <button class="but_add" onclick="openAddProductModal()">Добавить</button>
+                <button class="but_add" onclick="openAddAttributeModal()">Добавить</button>
             </div>
 
 
@@ -155,8 +156,8 @@
                             <td>{{ attr.category.name if attr.category else '—' }}</td>
                             <td>{{ attr.unit or '—' }}</td>
                             <td class="actions">
-                                <button class="btn_edit" onclick="openEditAttributeModal('{{ attr.id }}', '{{ attr.name }}', '{{ attr.unit }}', '{{ attr.category_id }}')">✏️</button>
-                                <button class="btn_delete" onclick="deleteAttribute('{{ attr.id }}')">🗑️</button>
+                                <button class="btn_edit" onclick="openEditAttributeModal('{{ attr.id }}', '{{ attr.name }}', '{{ attr.unit }}', '{{ attr.category_id }}')">Редактировать</button>
+                                <button class="but_delete" onclick="deleteAttribute('{{ attr.id }}')">Удалить</button>
                             </td>
                         </tr>
                         {% endfor %}
@@ -252,6 +253,94 @@
             <div class="modal_actions">
                 <button class="but_del" onclick="confirmDelete()">Удалить</button>
                 <button class="but_cancel" onclick="closeModal('deleteCategoryModal')">Отмена</button>
+            </div>
+        </div>
+    </div>
+    
+    
+    <div id="addAttributeModal" class="modal">
+        <span class="close" onclick="closeModal('addAttributeModal')">&times;</span>
+        <form method="POST" action="/admin/add_attribute" class="form_cat">
+            <h3 class="modal_title">Добавление характеристики</h3>
+            
+            <div class="form_group">
+                <label class="form_label">
+                    Категория:
+                    <select name="category_id" class="form_input" required>
+                        <option value="">Выберите категорию</option>
+                        {% for category in categories %}
+                        <option value="{{ category.id }}">{{ category.name }}</option>
+                        {% endfor %}
+                    </select>
+                </label>
+            </div>
+
+            <div class="form_group">
+                <label class="form_label">
+                    Название характеристики:
+                    <input type="text" name="name" class="form_input" placeholder="Например: Внутренний диаметр" required>
+                </label>
+            </div>
+
+            <div class="form_group">
+                <label class="form_label">
+                    Единица измерения (необязательно):
+                    <input type="text" name="unit" class="form_input" placeholder="Например: мм, шт, кг">
+                </label>
+            </div>
+            
+            <div class="modal_actions">
+                <button type="submit" class="but_save">Сохранить</button>
+                <button type="button" class="but_cancel" onclick="closeModal('addAttributeModal')">Отмена</button>
+            </div>
+        </form>
+    </div>
+
+    <div id="editAttributeModal" class="modal">
+        <span class="close" onclick="closeModal('editAttributeModal')">&times;</span>
+        <form id="editAttributeForm" method="POST" class="form_cat">
+            <h3 class="modal_title">Редактирование характеристики</h3>
+            
+            <div class="form_group">
+                <label class="form_label">
+                    Категория:
+                    <select id="edit_attribute_category" name="category_id" class="form_input" required>
+                        {% for category in categories %}
+                        <option value="{{ category.id }}">{{ category.name }}</option>
+                        {% endfor %}
+                    </select>
+                </label>
+            </div>
+            
+            <div class="form_group">
+                <label class="form_label">
+                    Название характеристики:
+                    <input type="text" id="edit_attribute_name" name="name" class="form_input" required>
+                </label>
+            </div>
+            
+            <div class="form_group">
+                <label class="form_label">
+                    Единица измерения:
+                    <input type="text" id="edit_attribute_unit" name="unit" class="form_input" placeholder="Например: мм">
+                </label>
+            </div>
+            
+            <div class="modal_actions">
+                <button type="submit" class="but_save">Сохранить изменения</button>
+                <button type="button" class="but_cancel" onclick="closeModal('editAttributeModal')">Отмена</button>
+            </div>
+        </form>
+    </div>
+
+    <div id="deleteAttributeModal" class="modal">
+        <div class="modal_delete">
+            <span class="close" onclick="closeModal('deleteAttributeModal')">&times;</span>
+            <h3 class="modal_title">Подтверждение удаления</h3>
+            <p id="delete_attribute_message">Вы действительно хотите удалить эту характеристику?</p>
+            <div class="modal_actions">
+                <button class="but_del" onclick="confirmDeleteAttribute()">Удалить</button>
+                <button class="but_cancel" onclick="closeModal('deleteAttributeModal')">Отмена</button>
             </div>
         </div>
     </div>
@@ -438,12 +527,38 @@
 
     <div id="deleteProductModal" class="modal">
         <div class="modal_delete">
-            <span class="close" onclick="closeModal('deleteCategoryModal')">&times;</span>
+            <span class="close" onclick="closeModal('deleteProductModal')">&times;</span>
             <h3 class="modal_title">Подтверждение удаления</h3>
             <p id="delete_message">Вы действительно хотите удалить товар?</p>
             <div class="modal_actions">
                 <button class="but_del" onclick="confirmDeleteProduct()">Удалить</button>
                 <button class="but_cancel" onclick="closeModal('deleteProductModal')">Отмена</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Модальное окно для характеристик товара -->
+    <div id="productAttributesModal" class="modal">
+        <span class="close" onclick="closeModal('productAttributesModal')">&times;</span>
+        <form>
+            
+        </form>
+            <h3 class="modal_title" id="attributesModalTitle">Характеристики товара</h3>
+            <div id="attributesLoading" class="loading-spinner">
+                Загрузка характеристик...
+            </div>
+            
+            <div id="attributesContent" style="display: none;">
+                <form id="attributesForm" class="form_cat">
+                    <div id="attributesList" class="attributes-list">
+                        <!-- Сюда будут добавляться поля динамически -->
+                    </div>
+                    
+                    <div class="modal_actions">
+                        <button type="button" class="but_save" onclick="saveProductAttributes()">Сохранить</button>
+                        <button type="button" class="but_cancel" onclick="closeModal('productAttributesModal')">Отмена</button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>

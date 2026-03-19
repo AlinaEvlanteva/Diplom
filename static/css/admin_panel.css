@@ -557,16 +557,19 @@ input[type="file"].form_input {
 }
 
 .admin_table_charackter{
+    width: 80%;
     border-collapse: collapse;
     border-radius: 15px;
     overflow: hidden; 
-    border: 1px solid #42546E;
+
+
 }
 
 
 .admin_table_charackter td {
     padding: 10px;
     text-align: center;
+    font-size: 17px;
 }
 
 /* Стиль для заголовков (чуть жирнее) */
@@ -576,11 +579,28 @@ input[type="file"].form_input {
     font-weight: bold;
     text-align: center;
     padding: 15px;
+    font-size: 20px;
 }
 
 /* Hover-эффект для строк */
 .admin_table_charackter tbody tr:hover {
     background-color: #e9e9e9;
+}
+
+.actions{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+}
+
+.actions button{
+    width: 150px;
+    height: 30px;
+    border-radius: 5px;
+    color: white;
+    background-color: #42546E;
 }
 
 /* Flash сообщения */

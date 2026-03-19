@@ -1,7 +1,7 @@
 from flask import render_template, request, redirect, url_for, flash, session
 from werkzeug.security import check_password_hash
 from models import db
-from models.product import Product, Category, Attribute
+from models.product import Product, Category, Attribute, ProductAttribute  # ВАЖНО: все импорты вместе
 from models.user import User
 from . import admin_bp
 import os
@@ -313,11 +313,17 @@ def delete_attribute(attribute_id):
     if not session.get('admin_logged_in'):
         return redirect(url_for('admin.admin_login'))
     
+    # ИСПРАВЛЕНО: Сначала удаляем связанные значения, потом характеристику
     attribute = Attribute.query.get_or_404(attribute_id)
+    
+    # Удаляем все связанные значения из product_attributes
+    ProductAttribute.query.filter_by(attribute_id=attribute_id).delete()
+    
+    # Теперь удаляем саму характеристику
     db.session.delete(attribute)
     db.session.commit()
     
-    flash('Характеристика удалена', 'success')
+    flash('Характеристика и все её значения удалены', 'success')
     return redirect(url_for('admin.admin_panel'))
 
 @admin_bp.route('/edit_attribute/<int:attribute_id>', methods=['GET', 'POST'])
@@ -338,3 +344,115 @@ def edit_attribute(attribute_id):
     
     categories = Category.query.all()
     return render_template('edit_attribute.html', attribute=attribute, categories=categories)
+
+# ========== УПРАВЛЕНИЕ ЗНАЧЕНИЯМИ ХАРАКТЕРИСТИК ТОВАРОВ ==========
+@admin_bp.route('/get_product_attributes/<int:product_id>')
+def get_product_attributes(product_id):
+    """Получение характеристик товара для модального окна"""
+    if not session.get('admin_logged_in'):
+        return {'error': 'Не авторизован'}, 403
+    
+    product = Product.query.get_or_404(product_id)
+    
+    # Получаем все характеристики для категории товара
+    attributes = Attribute.query.filter_by(category_id=product.category_id).all()
+    
+    # Получаем текущие значения характеристик товара
+    product_attrs = {pa.attribute_id: pa.value for pa in product.attributes}
+    
+    # Формируем данные для отправки
+    attrs_data = []
+    for attr in attributes:
+        attrs_data.append({
+            'id': attr.id,
+            'name': attr.name,
+            'unit': attr.unit,
+            'value': product_attrs.get(attr.id, '')
+        })
+    
+    return {
+        'product_id': product.id,
+        'product_name': product.name,
+        'attributes': attrs_data
+    }
+
+@admin_bp.route('/product_attributes/<int:product_id>', methods=['GET', 'POST'])
+def manage_product_attributes(product_id):
+    """Управление значениями характеристик товара"""
+    if not session.get('admin_logged_in'):
+        return redirect(url_for('admin.admin_login'))
+    
+    product = Product.query.get_or_404(product_id)
+    
+    if request.method == 'POST':
+        # Получаем все характеристики из формы
+        for key, value in request.form.items():
+            if key.startswith('attr_'):
+                attr_id = int(key.replace('attr_', ''))
+                # Проверяем, существует ли уже такая характеристика для товара
+                existing = ProductAttribute.query.filter_by(
+                    product_id=product_id, 
+                    attribute_id=attr_id
+                ).first()
+                
+                if existing:
+                    # Обновляем существующее значение
+                    existing.value = value
+                else:
+                    # Создаем новую запись
+                    new_attr = ProductAttribute(
+                        product_id=product_id,
+                        attribute_id=attr_id,
+                        value=value
+                    )
+                    db.session.add(new_attr)
+        
+        db.session.commit()
+        flash('Характеристики товара обновлены', 'success')
+        return redirect(url_for('admin.admin_panel'))
+    
+    # Получаем все характеристики для категории товара
+    attributes = Attribute.query.filter_by(category_id=product.category_id).all()
+    
+    # Получаем текущие значения характеристик товара
+    product_attrs = {pa.attribute_id: pa.value for pa in product.attributes}
+    
+    return render_template('manage_product_attributes.html', 
+                         product=product, 
+                         attributes=attributes,
+                         product_attrs=product_attrs)
+
+@admin_bp.route('/save_product_attributes', methods=['POST'])
+def save_product_attributes():
+    """Сохранение значений характеристик товара"""
+    if not session.get('admin_logged_in'):
+        return {'error': 'Не авторизован'}, 403
+    
+    data = request.get_json()
+    product_id = data.get('product_id')
+    attributes = data.get('attributes', {})
+    
+    try:
+        for attr_id, value in attributes.items():
+            if value:  # сохраняем только непустые значения
+                # Проверяем, существует ли уже такая характеристика
+                existing = ProductAttribute.query.filter_by(
+                    product_id=product_id,
+                    attribute_id=attr_id
+                ).first()
+                
+                if existing:
+                    existing.value = value
+                else:
+                    new_attr = ProductAttribute(
+                        product_id=product_id,
+                        attribute_id=attr_id,
+                        value=value
+                    )
+                    db.session.add(new_attr)
+        
+        db.session.commit()
+        return {'success': True, 'message': 'Характеристики сохранены'}
+    except Exception as e:
+        db.session.rollback()
+        return {'error': str(e)}, 500
