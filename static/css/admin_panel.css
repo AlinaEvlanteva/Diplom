@@ -486,18 +486,19 @@ input[type="file"].form_input {
 }
 
 #edit_product_current_image{
-    max-width: 350px;
-    max-height: 350px;
+    max-width: 250px;
+    max-height: 200px;
+    object-fit: cover;
     border: 2px solid #42546E;
     border-radius: 10px;
 }
 
 .previiew img {
-    width: 200px;
-    height: 200px;
+    max-width: 250px;
+    max-height: 200px;
     border: 2px solid #42546E;
     border-radius: 10px;
-    object-fit: contain;
+    object-fit: cover;
 }
 
 .modal_actions {

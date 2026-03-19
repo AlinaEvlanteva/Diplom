@@ -399,6 +399,18 @@
         </form>
     </div>
 
+    <div id="deleteProductModal" class="modal">
+        <div class="modal_delete">
+            <span class="close" onclick="closeModal('deleteCategoryModal')">&times;</span>
+            <h3 class="modal_title">Подтверждение удаления</h3>
+            <p id="delete_message">Вы действительно хотите удалить товар?</p>
+            <div class="modal_actions">
+                <button class="but_del" onclick="confirmDeleteProduct()">Удалить</button>
+                <button class="but_cancel" onclick="closeModal('deleteProductModal')">Отмена</button>
+            </div>
+        </div>
+    </div>
+
     <script src="{{ url_for('static', filename='js/admin.js') }}"></script>
 </body>
 </html>

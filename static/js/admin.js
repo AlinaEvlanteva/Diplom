@@ -233,8 +233,19 @@ function openAddProductModal() {
     if (fileInput) fileInput.value = '';
 }
 
+
+// ===== ПЕРЕМЕННЫЕ ДЛЯ УДАЛЕНИЯ ТОВАРА =====
+var currentDeleteProductId = null;
+
+// ===== МОДАЛЬНОЕ ОКНО ДЛЯ УДАЛЕНИЯ ТОВАРА =====
 function deleteProduct(id) {
-    if (confirm('Вы действительно хотите удалить товар?')) {
-        window.location.href = '/admin/delete_product/' + id;
+    currentDeleteProductId = id;
+    document.getElementById('delete_message').innerText = 'Вы действительно хотите удалить этот товар?';
+    document.getElementById('deleteProductModal').style.display = 'flex';
+}
+
+function confirmDeleteProduct() {
+    if (currentDeleteProductId) {
+        window.location.href = '/admin/delete_product/' + currentDeleteProductId;
     }
 }
