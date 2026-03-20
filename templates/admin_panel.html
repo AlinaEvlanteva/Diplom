@@ -107,7 +107,7 @@
                             {% endif %}
                             <div class="card_inner_button">
                                 <button onclick="openEditProductModal('{{ product.id }}', '{{ product.name }}', '{{ product.image }}', '{{ product.short_specs }}', '{{ product.price }}', '{{ product.unit }}','{{ product.article }}','{{ product.category_id }}','{{ product.full_description }}','{{ product.old_price }}')">Редактировать</button>
-                                <button class="but_attributes" onclick="openProductAttributesModal('{{ product.id }}')">Заполнить значения</button>
+                                <button class="but_attributes"  id="but_attributes" onclick="openProductAttributesModal('{{ product.id }}')">Заполнить значения</button>
                                 <button id="but_delete" onclick="deleteProduct('{{ product.id }}')">Удалить</button>
                             </div>
                         </div>
@@ -540,6 +540,33 @@
     <!-- Модальное окно для характеристик товара -->
     <div id="productAttributesModal" class="modal">
         <span class="close" onclick="closeModal('productAttributesModal')">&times;</span>
+        
+        <!-- Убираем лишний div, сразу form как у вас -->
+        <form id="attributesForm" method="POST" class="form_cat">
+            <h3 class="modal_title" id="attributesModalTitle">Характеристики товара</h3>
+            
+            <!-- Индикатор загрузки (можно текстом) -->
+            <div id="attributesLoading" class="loading-spinner" style="text-align: center; padding: 20px;">
+                Загрузка характеристик...
+            </div>
+            
+            <!-- Контейнер для полей -->
+            <div id="attributesContent" style="display: none;">
+                <div id="attributesList">
+                    <!-- Сюда JS будет добавлять form_group -->
+                </div>
+                
+                <div class="modal_actions">
+                    <button type="button" class="but_save" onclick="saveProductAttributes()">Сохранить</button>
+                    <button type="button" class="but_cancel" onclick="closeModal('productAttributesModal')">Отмена</button>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <!-- Модальное окно для характеристик товара -->
+    <!-- <div id="productAttributesModal" class="modal">
+        <span class="close" onclick="closeModal('productAttributesModal')">&times;</span>
         <form>
             
         </form>
@@ -550,9 +577,9 @@
             
             <div id="attributesContent" style="display: none;">
                 <form id="attributesForm" class="form_cat">
-                    <div id="attributesList" class="attributes-list">
+                    <div id="attributesList" class="attributes-list"> -->
                         <!-- Сюда будут добавляться поля динамически -->
-                    </div>
+                    <!-- </div>
                     
                     <div class="modal_actions">
                         <button type="button" class="but_save" onclick="saveProductAttributes()">Сохранить</button>
@@ -560,8 +587,8 @@
                     </div>
                 </form>
             </div>
-        </div>
-    </div>
+        </form>
+    </div> -->
 
     <script src="{{ url_for('static', filename='js/admin.js') }}"></script>
 </body>

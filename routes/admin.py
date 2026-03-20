@@ -130,7 +130,10 @@ def delete_product(product_id):
     
     product = Product.query.get_or_404(product_id)
     
-    # Удаляем файлы изображений, если это не дефолтные
+    # ===== 1. СНАЧАЛА удаляем все значения характеристик товара =====
+    ProductAttribute.query.filter_by(product_id=product_id).delete()
+    
+    # ===== 2. Удаляем файлы изображений =====
     if product.image and product.image != 'default.png':
         try:
             small_path = os.path.join(UPLOAD_FOLDER_SMALL, product.image)
@@ -143,12 +146,13 @@ def delete_product(product_id):
         except Exception as e:
             print(f"Ошибка при удалении файлов: {e}")
     
+    # ===== 3. ПОТОМ удаляем сам товар =====
     db.session.delete(product)
     db.session.commit()
 
     session['active_tab'] = 'products'
     
-    flash('Товар удален', 'success')
+    flash('Товар и все его характеристики удалены', 'success')
     return redirect(url_for('admin.admin_panel'))
 
 @admin_bp.route('/edit_product/<int:product_id>', methods=['GET', 'POST'])
@@ -240,7 +244,21 @@ def delete_category(category_id):
     
     category = Category.query.get_or_404(category_id)
     
-    # Удаляем файл изображения категории
+    # ===== 1. Сначала удаляем значения характеристик товаров этой категории =====
+    # Находим все товары категории
+    products = Product.query.filter_by(category_id=category_id).all()
+    
+    for product in products:
+        # Удаляем все записи из product_attributes для этого товара
+        ProductAttribute.query.filter_by(product_id=product.id).delete()
+    
+    # ===== 2. Потом удаляем сами товары =====
+    Product.query.filter_by(category_id=category_id).delete()
+    
+    # ===== 3. Потом удаляем характеристики (типы) категории =====
+    Attribute.query.filter_by(category_id=category_id).delete()
+    
+    # ===== 4. Удаляем файл изображения категории =====
     if category.image and category.image != 'default_category.png':
         try:
             img_path = os.path.join(UPLOAD_FOLDER_SMALL, category.image)
@@ -249,12 +267,13 @@ def delete_category(category_id):
         except Exception as e:
             print(f"Ошибка при удалении файла: {e}")
     
+    # ===== 5. И только потом удаляем саму категорию =====
     db.session.delete(category)
     db.session.commit()
 
     session['active_tab'] = 'categories'
     
-    flash('Категория удалена', 'success')
+    flash('Категория и все связанные товары и характеристики удалены', 'success')
     return redirect(url_for('admin.admin_panel'))
 
 @admin_bp.route('/edit_category/<int:category_id>', methods=['GET', 'POST'])
@@ -421,6 +440,18 @@ def manage_product_attributes(product_id):
                          product=product, 
                          attributes=attributes,
                          product_attrs=product_attrs)
+
+@admin_bp.route('/check_category_attributes/<int:category_id>')
+def check_category_attributes(category_id):
+    """Проверяет, есть ли у категории характеристики"""
+    if not session.get('admin_logged_in'):
+        return {'error': 'Не авторизован'}, 403
+    
+    count = Attribute.query.filter_by(category_id=category_id).count()
+    return {
+        'has_attributes': count > 0,
+        'count': count
+    }
 
 @admin_bp.route('/save_product_attributes', methods=['POST'])
 def save_product_attributes():

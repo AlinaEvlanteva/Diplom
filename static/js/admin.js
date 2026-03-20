@@ -93,11 +93,32 @@ function previewEditImage(input, currentImgId, previewContainerId, previewImgId)
     }
 }
 
-// ===== МОДАЛЬНОЕ ОКНО ДЛЯ УДАЛЕНИЯ КАТЕГОРИИ =====
+// ===== МОДАЛЬНОЕ ОКНО ДЛЯ УДАЛЕНИЯ КАТЕГОРИИ (ОБНОВЛЕНО) =====
 function deleteCategory(id) {
-    currentDeleteId = id;
-    document.getElementById('delete_message').innerText = 'Вы действительно хотите удалить эту категорию?';
-    document.getElementById('deleteCategoryModal').style.display = 'flex';
+    // Сначала проверяем, есть ли у категории характеристики
+    fetch('/admin/check_category_attributes/' + id)
+        .then(response => response.json())
+        .then(data => {
+            if (data.has_attributes) {
+                // Если есть характеристики - показываем специальное предупреждение
+                currentDeleteId = id;
+                document.getElementById('delete_message').innerText = 
+                    `В этой категории есть ${data.count} характеристик(и). При удалении категории они тоже удалятся. Продолжить?`;
+                document.getElementById('deleteCategoryModal').style.display = 'flex';
+            } else {
+                // Если нет характеристик - обычное удаление
+                currentDeleteId = id;
+                document.getElementById('delete_message').innerText = 'Вы действительно хотите удалить эту категорию?';
+                document.getElementById('deleteCategoryModal').style.display = 'flex';
+            }
+        })
+        .catch(error => {
+            console.error('Ошибка:', error);
+            // Если ошибка - показываем обычное подтверждение
+            currentDeleteId = id;
+            document.getElementById('delete_message').innerText = 'Вы действительно хотите удалить эту категорию?';
+            document.getElementById('deleteCategoryModal').style.display = 'flex';
+        });
 }
 
 function confirmDelete() {
@@ -271,13 +292,14 @@ function openProductAttributesModal(productId) {
             attributesList.innerHTML = '';
             
             if (data.attributes.length === 0) {
-                attributesList.innerHTML = '<p class="no-attributes">Для этой категории пока нет характеристик. Сначала создайте характеристики в разделе "Характеристики".</p>';
+                attributesList.innerHTML = '<p style="text-align: center; padding: 20px; color: #42546E;">Для этой категории пока нет характеристик. Сначала создайте характеристики в разделе "Типы характеристик".</p>';
             } else {
                 data.attributes.forEach(attr => {
                     const fieldDiv = document.createElement('div');
-                    fieldDiv.className = 'attribute-field';
+                    fieldDiv.className = 'form_group';
                     
                     const label = document.createElement('label');
+                    label.className = 'form_label';
                     label.textContent = attr.name + (attr.unit ? ' (' + attr.unit + ')' : '');
                     
                     const input = document.createElement('input');
@@ -285,10 +307,10 @@ function openProductAttributesModal(productId) {
                     input.name = 'attr_' + attr.id;
                     input.value = attr.value || '';
                     input.placeholder = 'Введите значение';
-                    input.className = 'attribute-input';
+                    input.className = 'form_input';
                     
+                    label.appendChild(input);
                     fieldDiv.appendChild(label);
-                    fieldDiv.appendChild(input);
                     attributesList.appendChild(fieldDiv);
                 });
             }
@@ -313,7 +335,7 @@ function openProductAttributesModal(productId) {
 function saveProductAttributes() {
     const form = document.getElementById('attributesForm');
     const productId = form.dataset.productId;
-    const inputs = form.querySelectorAll('.attribute-input');
+    const inputs = form.querySelectorAll('.form_input');
     
     // Собираем данные
     const attributes = {};
@@ -417,13 +439,11 @@ function closeModal(modalId) {
         currentDeleteAttributeId = null;
     }
     
-    // НОВОЕ: Сброс для модального окна характеристик товара
+    // Сброс для модального окна характеристик товара
     if (modalId === 'productAttributesModal') {
-        // Очищаем список характеристик при закрытии
         const attributesList = document.getElementById('attributesList');
         if (attributesList) attributesList.innerHTML = '';
         
-        // Сбрасываем загрузку
         const loading = document.getElementById('attributesLoading');
         const content = document.getElementById('attributesContent');
         if (loading) loading.style.display = 'block';
