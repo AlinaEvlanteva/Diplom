@@ -400,7 +400,7 @@
             <div class="form_group">
                 <div class="form_group_inner">
                     <label class="form_label">
-                        Краткое описание (спецификации):
+                        Краткое описание:
                         <input type="text" name="short_specs" class="form_input" placeholder="Например: 7x19x6мм">
                     </label>
                     <label class="form_label">
@@ -493,7 +493,7 @@
             <div class="form_group">
                 <div class="form_group_inner">
                     <label class="form_label">
-                        Краткое описание (спецификации):
+                        Краткое описание:
                         <input type="text" id="edit_product_short_specs" name="short_specs" class="form_input" placeholder="Например: 7x19x6мм">
                     </label>
                     <label class="form_label">
@@ -540,20 +540,18 @@
     <!-- Модальное окно для характеристик товара -->
     <div id="productAttributesModal" class="modal">
         <span class="close" onclick="closeModal('productAttributesModal')">&times;</span>
-        
-        <!-- Убираем лишний div, сразу form как у вас -->
         <form id="attributesForm" method="POST" class="form_cat">
             <h3 class="modal_title" id="attributesModalTitle">Характеристики товара</h3>
             
-            <!-- Индикатор загрузки (можно текстом) -->
-            <div id="attributesLoading" class="loading-spinner" style="text-align: center; padding: 20px;">
+            <div id="attributesLoading" style="text-align: center; padding: 20px; color: #42546E;">
                 Загрузка характеристик...
             </div>
             
-            <!-- Контейнер для полей -->
-            <div id="attributesContent" style="display: none;">
+            <div id="attributesContent" class="form_group" style="display: none;">
                 <div id="attributesList">
-                    <!-- Сюда JS будет добавлять form_group -->
+                    
+                    <!-- Сюда JS будет добавлять поля -->
+                    
                 </div>
                 
                 <div class="modal_actions">

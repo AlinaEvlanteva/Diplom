@@ -266,28 +266,16 @@ function filterAttributes() {
  * Открывает модальное окно для редактирования характеристик конкретного товара
  */
 function openProductAttributesModal(productId) {
-    console.log('Открываем характеристики для товара:', productId);
-    
-    // Показываем модальное окно и загрузку
     document.getElementById('productAttributesModal').style.display = 'flex';
     document.getElementById('attributesLoading').style.display = 'block';
     document.getElementById('attributesContent').style.display = 'none';
     
-    // Загружаем данные с сервера
     fetch('/admin/get_product_attributes/' + productId)
         .then(response => response.json())
         .then(data => {
-            if (data.error) {
-                showFlashMessage('Ошибка: ' + data.error, 'error');
-                closeModal('productAttributesModal');
-                return;
-            }
-            
-            // Заполняем заголовок
             document.getElementById('attributesModalTitle').textContent = 
                 'Характеристики: ' + data.product_name;
             
-            // Создаем поля для характеристик
             const attributesList = document.getElementById('attributesList');
             attributesList.innerHTML = '';
             
@@ -295,9 +283,7 @@ function openProductAttributesModal(productId) {
                 attributesList.innerHTML = '<p style="text-align: center; padding: 20px; color: #42546E;">Для этой категории пока нет характеристик. Сначала создайте характеристики в разделе "Типы характеристик".</p>';
             } else {
                 data.attributes.forEach(attr => {
-                    const fieldDiv = document.createElement('div');
-                    fieldDiv.className = 'form_group';
-                    
+                    // Создаем поля - классы не нужны, стили от form_group и form_group_inner
                     const label = document.createElement('label');
                     label.className = 'form_label';
                     label.textContent = attr.name + (attr.unit ? ' (' + attr.unit + ')' : '');
@@ -310,25 +296,19 @@ function openProductAttributesModal(productId) {
                     input.className = 'form_input';
                     
                     label.appendChild(input);
-                    fieldDiv.appendChild(label);
-                    attributesList.appendChild(fieldDiv);
+                    attributesList.appendChild(label);
                 });
             }
             
-            // Сохраняем productId в data-атрибут формы
             document.getElementById('attributesForm').dataset.productId = productId;
-            
-            // Показываем контент, скрываем загрузку
             document.getElementById('attributesLoading').style.display = 'none';
             document.getElementById('attributesContent').style.display = 'block';
         })
         .catch(error => {
-            console.error('Ошибка:', error);
             showFlashMessage('Ошибка при загрузке характеристик', 'error');
             closeModal('productAttributesModal');
         });
 }
-
 /**
  * Сохраняет значения характеристик товара
  */
