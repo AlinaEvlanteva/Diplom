@@ -443,14 +443,20 @@ def manage_product_attributes(product_id):
 
 @admin_bp.route('/check_category_attributes/<int:category_id>')
 def check_category_attributes(category_id):
-    """Проверяет, есть ли у категории характеристики"""
+    """Проверяет, есть ли у категории товары и характеристики"""
     if not session.get('admin_logged_in'):
         return {'error': 'Не авторизован'}, 403
     
-    count = Attribute.query.filter_by(category_id=category_id).count()
+    # Считаем товары в категории
+    products_count = Product.query.filter_by(category_id=category_id).count()
+    # Считаем характеристики категории
+    attributes_count = Attribute.query.filter_by(category_id=category_id).count()
+    
     return {
-        'has_attributes': count > 0,
-        'count': count
+        'has_products': products_count > 0,
+        'products_count': products_count,
+        'has_attributes': attributes_count > 0,
+        'attributes_count': attributes_count
     }
 
 @admin_bp.route('/save_product_attributes', methods=['POST'])

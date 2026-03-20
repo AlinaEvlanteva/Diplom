@@ -97,28 +97,29 @@ function previewEditImage(input, currentImgId, previewContainerId, previewImgId)
 function deleteCategory(id) {
     // Сначала проверяем, есть ли у категории характеристики
     fetch('/admin/check_category_attributes/' + id)
-        .then(response => response.json())
-        .then(data => {
-            if (data.has_attributes) {
-                // Если есть характеристики - показываем специальное предупреждение
-                currentDeleteId = id;
-                document.getElementById('delete_message').innerText = 
-                    `В этой категории есть ${data.count} характеристик(и). При удалении категории они тоже удалятся. Продолжить?`;
-                document.getElementById('deleteCategoryModal').style.display = 'flex';
-            } else {
-                // Если нет характеристик - обычное удаление
-                currentDeleteId = id;
-                document.getElementById('delete_message').innerText = 'Вы действительно хотите удалить эту категорию?';
-                document.getElementById('deleteCategoryModal').style.display = 'flex';
+    .then(response => response.json())
+    .then(data => {
+        if (data.has_attributes || data.has_products) {
+            // Формируем сообщение
+            let message = '';
+            if (data.has_products && data.has_attributes) {
+                message = `В этой категории есть ${data.products_count} товар(ов) и ${data.attributes_count} характеристик(и).\n\nПри удалении категории они тоже удалятся.\n\nПродолжить?`;
+            } else if (data.has_products) {
+                message = `В этой категории есть ${data.products_count} товар(ов).\n\nПри удалении категории они тоже удалятся.\n\nПродолжить?`;
+            } else if (data.has_attributes) {
+                message = `В этой категории есть ${data.attributes_count} характеристик(и).\n\nПри удалении категории они тоже удалятся.\n\nПродолжить?`;
             }
-        })
-        .catch(error => {
-            console.error('Ошибка:', error);
-            // Если ошибка - показываем обычное подтверждение
+            
+            currentDeleteId = id;
+            document.getElementById('delete_message').innerText = message;
+            document.getElementById('deleteCategoryModal').style.display = 'flex';
+        } else {
+            // Если нет товаров и характеристик - обычное удаление
             currentDeleteId = id;
             document.getElementById('delete_message').innerText = 'Вы действительно хотите удалить эту категорию?';
             document.getElementById('deleteCategoryModal').style.display = 'flex';
-        });
+        }
+    })
 }
 
 function confirmDelete() {
@@ -280,10 +281,18 @@ function openProductAttributesModal(productId) {
             attributesList.innerHTML = '';
             
             if (data.attributes.length === 0) {
+                // Если нет характеристик - показываем сообщение и меняем кнопки
                 attributesList.innerHTML = '<p style="text-align: center; padding: 20px; color: #42546E;">Для этой категории пока нет характеристик. Сначала создайте характеристики в разделе "Типы характеристик".</p>';
+                
+                // Меняем кнопки: вместо "Сохранить" показываем "Перейти к типам характеристик"
+                const modalActions = document.querySelector('#productAttributesModal .modal_actions');
+                modalActions.innerHTML = `
+                    <button type="button" class="but_save" onclick="goToAttributesTab()">Перейти</button>
+                    <button type="button" class="but_cancel" onclick="closeModal('productAttributesModal')">Отмена</button>
+                `;
             } else {
+                // Если есть характеристики - создаем поля
                 data.attributes.forEach(attr => {
-                    // Создаем поля - классы не нужны, стили от form_group и form_group_inner
                     const label = document.createElement('label');
                     label.className = 'form_label';
                     label.textContent = attr.name + (attr.unit ? ' (' + attr.unit + ')' : '');
@@ -298,6 +307,13 @@ function openProductAttributesModal(productId) {
                     label.appendChild(input);
                     attributesList.appendChild(label);
                 });
+                
+                // Восстанавливаем стандартные кнопки
+                const modalActions = document.querySelector('#productAttributesModal .modal_actions');
+                modalActions.innerHTML = `
+                    <button type="button" class="but_save" onclick="saveProductAttributes()">Сохранить</button>
+                    <button type="button" class="but_cancel" onclick="closeModal('productAttributesModal')">Отмена</button>
+                `;
             }
             
             document.getElementById('attributesForm').dataset.productId = productId;
@@ -308,6 +324,23 @@ function openProductAttributesModal(productId) {
             showFlashMessage('Ошибка при загрузке характеристик', 'error');
             closeModal('productAttributesModal');
         });
+}
+
+/**
+ * Переход на вкладку "Типы характеристик"
+ */
+function goToAttributesTab() {
+    // Закрываем текущее модальное окно
+    closeModal('productAttributesModal');
+    
+    // Находим кнопку вкладки "Типы характеристик" и переключаемся на нее
+    const attributesTabButton = document.querySelector('.nav_admin button.but_charakter');
+    if (attributesTabButton) {
+        showTab('attributes', attributesTabButton);
+    }
+    
+    // Показываем flash-сообщение
+    showFlashMessage('Перейдите в раздел "Типы характеристик", чтобы создать характеристики для этой категории', 'info');
 }
 /**
  * Сохраняет значения характеристик товара
