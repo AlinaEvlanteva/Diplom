@@ -56,21 +56,21 @@
                             <div class="cart_item_img">
                                 <img src="{{ url_for('static', filename='img/small/' + item.image) }}" alt="{{ item.name }}">
                             </div>
-                            <div class="cart-item-info">
-                                <h3 class="item-name">{{ item.name }}</h3>
-                                <p class="item-article">Артикул: {{ item.article }}</p>
+                            <div class="cart_item_info">
+                                <h3 class="item_name">{{ item.name }}</h3>
+                                <p class="item_article">Артикул: {{ item.article }}</p>
                             </div>
-                            <div class="cart-item-price">
+                            <div class="cart_item_price">
                                 <div class="price">{{ item.price }} ₽</div>
                                 <div class="unit">/ {{ item.unit or 'шт' }}</div>
                             </div>
-                            <div class="cart-item-quantity">
-                                <button class="quantity-btn minus" onclick="updateQuantity('{{ item.id }}', '{{ item.quantity - 1 }}')">−</button>
-                                <input type="number" class="quantity-input" value="{{ item.quantity }}" min="1" id="qty-{{ item.id }}" onchange="updateQuantity('{{ item.id }}', this.value)">
-                                <button class="quantity-btn plus" onclick="updateQuantity('{{ item.id }}', '{{ item.quantity + 1 }}')">+</button>
+                            <div class="cart_item_quantity">
+                                <button class="quantity_but minus" onclick="updateQuantity('{{ item.id }}', '{{ item.quantity - 1 }}')">−</button>
+                                <input type="number" class="quantity_input" value="{{ item.quantity }}" min="1" id="qty-{{ item.id }}" onchange="updateQuantity('{{ item.id }}', this.value)">
+                                <button class="quantity_but plus" onclick="updateQuantity('{{ item.id }}', '{{ item.quantity + 1 }}')">+</button>
                             </div>
-                            <div class="cart-item-total">
-                                <span class="total-price">{{ "%.2f"|format(item.price * item.quantity) }} ₽</span>
+                            <div class="cart_item_total">
+                                <p class="total-price">{{ "%.2f"|format(item.price * item.quantity) }} ₽</p>
                             </div>
                             <div class="cart-item-remove">
                                 <button class="remove-btn" onclick="removeItem('{{ item.id }}')">✕</button>

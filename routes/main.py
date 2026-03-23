@@ -72,7 +72,8 @@ def add_to_cart(product_id):
             'article': product.article,
             'price': float(product.price),
             'quantity': 1,
-            'image': product.image
+            'image': product.image,
+            'unit': product.unit or 'шт'   # ← ДОБАВЬ ЭТУ СТРОКУ
         }
     
     save_cart(cart)
@@ -90,6 +91,13 @@ def cart_page():
     """Страница корзины"""
     cart = get_cart()
     cart_items = list(cart.values())
+    
+    # Для старых товаров, у которых нет unit
+    for item in cart_items:
+        if 'unit' not in item:
+            product = Product.query.get(item['id'])
+            item['unit'] = product.unit or 'шт' if product else 'шт'
+    
     total_sum = sum(item['price'] * item['quantity'] for item in cart_items)
     total_items = sum(item['quantity'] for item in cart_items)
     
