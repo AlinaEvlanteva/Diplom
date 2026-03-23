@@ -12,12 +12,10 @@ function closeModal() {
 }
 
 function switchTab(tab) {
-    // Переключаем активный класс у кнопок
     document.querySelectorAll('.nav_log').forEach(btn => {
         btn.classList.remove('active');
     });
     
-    // Переключаем содержимое
     document.querySelectorAll('.tab_content').forEach(content => {
         content.classList.remove('active');
     });
@@ -31,7 +29,6 @@ function switchTab(tab) {
     }
 }
 
-// Закрытие по клику вне окна
 window.onclick = function(event) {
     var modal = document.getElementById('authModal');
     if (event.target == modal) {
@@ -39,202 +36,160 @@ window.onclick = function(event) {
     }
 }
 
-// Закрытие по Escape
 document.addEventListener('keydown', function(e) {
     if (e.key === 'Escape') {
         closeModal();
     }
 });
 
-// Функции отправки форм
-// function submitLogin(event) {
-//     event.preventDefault();
-//     var formData = new FormData(event.target);
-    
-//     fetch('/auth/login', {
-//         method: 'POST',
-//         body: formData
-//     })
-//     .then(response => response.json())
-//     .then(data => {
-//         if (data.success) {
-//             alert(data.message);
-//             location.reload();
-//         } else {
-//             alert(data.message);
-//         }
-//     });
-// }
+// ========== КОРЗИНА ==========
 
-// function submitRegister(event) {
-//     event.preventDefault();
-//     var formData = new FormData(event.target);
-    
-//     fetch('/auth/register', {
-//         method: 'POST',
-//         body: formData
-//     })
-//     .then(response => response.json())
-//     .then(data => {
-//         if (data.success) {
-//             alert(data.message);
-//             location.reload();
-//         } else {
-//             alert(data.message);
-//         }
-//     });
-// }
-// function submitLogin(event) {
-//     event.preventDefault();
-//     var formData = new FormData(event.target);
-    
-//     fetch('/auth/login', {
-//         method: 'POST',
-//         body: formData
-//     })
-//     .then(response => response.json())
-//     .then(data => {
-//         if (data.success) {
-//             alert(data.message);
-//             closeModal();
-//             location.reload();  // перезагружаем страницу
-//         } else {
-//             alert('Ошибка: ' + data.message);
-//         }
-//     })
-//     .catch(error => {
-//         console.error('Error:', error);
-//         alert('Произошла ошибка при входе');
-//     });
-// }
+// Функция обновления счетчика
+function updateCartCounter(totalItems) {
+    const cartCount = document.getElementById('cart-count');
+    if (cartCount) {
+        cartCount.textContent = totalItems;
+        if (totalItems > 0) {
+            cartCount.classList.remove('hidden');
+        } else {
+            cartCount.classList.add('hidden');
+        }
+    }
+}
 
-// function submitRegister(event) {
-//     event.preventDefault();
-//     var formData = new FormData(event.target);
-    
-//     fetch('/auth/register', {
-//         method: 'POST',
-//         body: formData
-//     })
-//     .then(response => response.json())
-//     .then(data => {
-//         if (data.success) {
-//             alert(data.message);
-//             closeModal();
-//             location.reload();  // перезагружаем страницу
-//         } else {
-//             alert('Ошибка: ' + data.message);
-//         }
-//     })
-//     .catch(error => {
-//         console.error('Error:', error);
-//         alert('Произошла ошибка при регистрации');
-//     });
-// }
-// function submitLogin(event) {
-//     event.preventDefault();
-//     var formData = new FormData(event.target);
-    
-//     fetch('/auth/login', {
-//         method: 'POST',
-//         body: formData
-//     })
-//     .then(response => response.json())
-//     .then(data => {
-//         if (data.success) {
-//             closeModal();
-//             showSuccess('Вход выполнен', 'Состав корзины мог измениться. Проверьте свои товары');
-//             setTimeout(() => location.reload(), 1500);
-//         } else {
-//             showError('Ошибка входа', data.message);
-//         }
-//     });
-// }
+// При загрузке страницы проверяем начальное состояние
+document.addEventListener('DOMContentLoaded', function() {
+    const cartCount = document.getElementById('cart-count');
+    if (cartCount) {
+        const count = parseInt(cartCount.textContent) || 0;
+        if (count === 0) {
+            cartCount.classList.add('hidden');
+        } else {
+            cartCount.classList.remove('hidden');
+        }
+    }
+});
 
-// function submitRegister(event) {
-//     event.preventDefault();
-//     var formData = new FormData(event.target);
-    
-//     fetch('/auth/register', {
-//         method: 'POST',
-//         body: formData
-//     })
-//     .then(response => response.json())
-//     .then(data => {
-//         if (data.success) {
-//             closeModal();
-//             showSuccess('Регистрация выполнена', 'Пожалуйста, войдите в аккаунт');
-//             setTimeout(() => location.reload(), 1500);
-//         } else {
-//             showError('Ошибка регистрации', data.message);
-//         }
-//     });
-// }
+// Обработчик для кнопки "Заказать" на странице товара (класс .but_add_cart)
+document.querySelectorAll('.but_add_cart').forEach(btn => {
+    btn.addEventListener('click', function() {
+        const productId = this.dataset.productId;
+        
+        fetch(`/add_to_cart/${productId}`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            }
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                // Обновляем счетчик
+                updateCartCounter(data.total_items);
+            }
+        })
+        .catch(error => console.error('Ошибка:', error));
+    });
+});
 
-// Функция для выхода
-// function logoutUser() {
-//     fetch('/auth/logout')
-//     .then(response => response.json())
-//     .then(data => {
-//         if (data.success) {
-            // showInfo('Выход выполнен', 'Вы вышли из аккаунта');
-            // Перенаправляем на главную через секунду
-//             setTimeout(() => {
-//                 window.location.href = '/';
-//             }, 1500);
-//         }
-//     });
-// }
+// Обработчик для кнопок с классом .add-to-cart-btn
+document.querySelectorAll('.add-to-cart-btn').forEach(btn => {
+    btn.addEventListener('click', function() {
+        const productId = this.dataset.productId;
+        
+        fetch(`/add_to_cart/${productId}`, {
+            method: 'POST'
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                updateCartCounter(data.total_items);
+            }
+        })
+        .catch(error => console.error('Ошибка:', error));
+    });
+});
 
-// Функция для показа уведомления
-// function showNotification(title, message, type = 'info', buttonText = null, buttonAction = null) {
-//     const container = document.getElementById('notificationContainer');
+function showNotification(message, type) {
+    let container = document.querySelector('.flash-messages');
+    if (!container) {
+        container = document.createElement('div');
+        container.className = 'flash-messages';
+        document.body.appendChild(container);
+    }
     
-//     // Создаем уведомление
-//     const notification = document.createElement('div');
-//     notification.className = `notification ${type}`;
+    const flash = document.createElement('div');
+    flash.className = `flash flash-${type}`;
+    flash.textContent = message;
     
-//     // Содержимое уведомления
-//     let html = `
-//         <button class="notification-close" onclick="this.parentElement.remove()">&times;</button>
-//         <div class="notification-title">${title}</div>
-//         <div class="notification-message">${message}</div>
-//     `;
+    container.appendChild(flash);
     
-//     // Добавляем кнопку, если есть
-//     if (buttonText && buttonAction) {
-//         html += `<button class="notification-button" onclick="${buttonAction}">${buttonText}</button>`;
-//     }
-    
-//     notification.innerHTML = html;
-    
-//     // Добавляем в контейнер
-//     container.appendChild(notification);
-    
-//     // Автоматически скрываем через 5 секунд
-//     setTimeout(() => {
-//         notification.classList.add('fade-out');
-//         setTimeout(() => {
-//             if (notification.parentElement) {
-//                 notification.remove();
-//             }
-//         }, 300);
-//     }, 5000);
-// }
+    setTimeout(() => {
+        flash.style.transition = 'opacity 0.5s';
+        flash.style.opacity = '0';
+        setTimeout(() => flash.remove(), 500);
+    }, 3000);
+}
 
-// // Функция для разных типов уведомлений
-// function showSuccess(title, message, buttonText = null, buttonAction = null) {
-//     showNotification(title, message, 'success', buttonText, buttonAction);
-// }
+// Выбрать все товары
+function toggleSelectAll() {
+    const selectAllCheckbox = document.getElementById('selectAllCheckbox');
+    const checkboxes = document.querySelectorAll('.item-checkbox');
+    checkboxes.forEach(cb => {
+        cb.checked = selectAllCheckbox.checked;
+    });
+}
 
-// function showError(title, message) {
-//     showNotification(title, message, 'error');
-// }
+// Удалить выбранные
+function deleteSelected() {
+    const selected = [];
+    document.querySelectorAll('.item-checkbox:checked').forEach(cb => {
+        selected.push(cb.value);
+    });
+    
+    if (selected.length === 0) {
+        showNotification('Выберите товары для удаления', 'info');
+        return;
+    }
+    
+    fetch('/remove_selected', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ product_ids: selected })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            showNotification('Товары удалены', 'success');
+            window.location.href = '/cart';
+        } else {
+            showNotification('Ошибка при удалении', 'error');
+        }
+    })
+    .catch(error => {
+        console.error('Ошибка:', error);
+        showNotification('Ошибка при удалении', 'error');
+    });
+}
 
-// function showInfo(title, message) {
-//     showNotification(title, message, 'info');
-// }
+// Обновить количество
+function updateQuantity(productId, quantity) {
+    if (quantity < 1) quantity = 1;
+    
+    fetch(`/update_cart/${productId}`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: `quantity=${quantity}`
+    })
+    .then(() => location.reload());
+}
 
-// function showWarning(title, message) {
-//     showNotification(title, message, 'warning');
-// }
+// Удалить один товар
+function removeItem(productId) {
+    fetch(`/remove_from_cart/${productId}`, { method: 'POST' })
+        .then(() => location.reload());
+}
+
+console.log('main.js загружен');

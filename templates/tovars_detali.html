@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/tovars_detali.css') }}">
-    <title>ИнТехЛайт - Каталог - Подшипники - Товар</title>
+    <title>ИнТехЛайт - Каталог - {{ product.category.name }} - {{ product.name }}</title>
 </head>
 <body>
     <header>
@@ -22,10 +22,15 @@
             </nav>
             <div class="header_link_icons">
                 <a href="{{ url_for('main.catalog') }}" class="link_catalog"><img src="{{ url_for('static', filename='img/small/cat.svg') }}"/>Каталог</a>
-                <a href="#" class="link_cart"><img src="{{ url_for('static', filename='img/small/cart.svg') }}" alt="Корзина"/>Корзина</a>
+                <a href="{{ url_for('main.cart_page') }}" class="link_cart" id="cart-link">
+                    <img src="{{ url_for('static', filename='img/small/cart.svg') }}" alt="Корзина"/>
+                    <span id="cart-count" class="cart-badge cart-badge-animate">{{ total_cart_items }}</span>
+                    Корзина
+                </a>
             </div>
         </div>
     </header>
+    
     <main>
         <section class="section_detali_tovara">
             <div class="section_detali_tovara_info">
@@ -51,13 +56,13 @@
                             <span class="attr-value">{{ attr.value }} {{ attr.attribute.unit or '' }}</span>
                         </div>
                         {% endfor %}
-                        <button>Заказать</button>
+                        <button class="but_add_cart" data-product-id="{{ product.id }}">Заказать</button>
                     </div>
                 </div>
             </div>
-
-            
         </section>
     </main>
+
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
 </body>
 </html>
