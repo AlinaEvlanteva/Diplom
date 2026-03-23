@@ -247,8 +247,8 @@ main {
     border: 2px solid #42546E;
     display: flex;
     flex-direction: column;
+    justify-content: center;
     align-items: center;
-    position: relative;
 }
 
 /* .post_poshipniki_but{

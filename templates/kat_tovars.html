@@ -40,9 +40,9 @@
             <div class="section_products_podship">
                 {% for product in products %}
                 <div class="post_poshipniki">
-                    <div class="izb_wrapper">
+                    <!-- <div class="izb_wrapper">
                         <img src="{{ url_for('static', filename='img/small/izbrannoe.png') }}" id="but_izb" alt="В избранное"/>
-                    </div>
+                    </div> -->
                     <a href="{{ url_for('main.product_detail', product_id=product.id) }}" class="product_link">
                         <div class="product_image">
                             <img src="{{ url_for('static', filename='img/small/' + product.image) }}" alt="Картинка товара"/>
