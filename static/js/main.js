@@ -135,7 +135,7 @@ function showNotification(message, type) {
 // Выбрать все товары
 function toggleSelectAll() {
     const selectAllCheckbox = document.getElementById('selectAllCheckbox');
-    const checkboxes = document.querySelectorAll('.item-checkbox');
+    const checkboxes = document.querySelectorAll('.item_checkbox');
     checkboxes.forEach(cb => {
         cb.checked = selectAllCheckbox.checked;
     });
@@ -144,7 +144,7 @@ function toggleSelectAll() {
 // Удалить выбранные
 function deleteSelected() {
     const selected = [];
-    document.querySelectorAll('.item-checkbox:checked').forEach(cb => {
+    document.querySelectorAll('.item_checkbox:checked').forEach(cb => {
         selected.push(cb.value);
     });
     

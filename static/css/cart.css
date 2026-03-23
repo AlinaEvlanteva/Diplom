@@ -164,7 +164,7 @@ main {
 /* Корзина */
 .cart_container {
     width: 100%;
-    height: 800px;
+    height: auto;
     display: flex;
     flex-direction: column;
 }
@@ -176,6 +176,7 @@ main {
 }
 
 .cart_layout {
+    height: auto;
     display: flex;
     gap: 20px;
 }
@@ -183,6 +184,7 @@ main {
 /* Левая колонка - товары */
 .cart_products {
     width: 70%;
+    height: auto;
 }
 
 .cart_actions_bar {
@@ -195,6 +197,7 @@ main {
 }
 
 .select_all {
+    height: 25px;
     display: flex;
     align-items: center;
     gap: 10px;
@@ -207,6 +210,17 @@ main {
     width: 18px;
     height: 18px;
     cursor: pointer;
+}
+
+#selectAllCheckbox{
+    width: 18px;
+    height: 18px;
+}
+
+.item_checkbox{
+    width: 18px;
+    height: 18px;
+
 }
 
 .delete_selected {
@@ -222,11 +236,12 @@ main {
 /* Карточка товара */
 .products_list {
     display: flex;
+    height: auto;
     flex-direction: column;
     gap: 20px;
-    height: 121px;
-    padding-left: 20px;
+    margin-left: 80px;
 }
+
 
 .cart_item {
     display: flex;
@@ -328,45 +343,50 @@ main {
 }
 
 .cart_item_total {
+    display: flex;
+    justify-content: center;
     min-width: 90px;
     margin: 0;
 }
 
-.total-price {
+.total_price {
     font-size: 16px;
     font-weight: 600;
     color: #42546E;
 }
 
-.remove-btn {
+.but_del {
     background: none;
     border: none;
     font-size: 18px;
     cursor: pointer;
     color: #999;
     padding: 5px;
+    width: 40px;
+    height: 40px;
     border-radius: 50%;
     transition: all 0.3s;
 }
 
-.remove-btn:hover {
+.but_del:hover {
     color: #dc3545;
     background-color: #f8d7da;
 }
 
 /* Правая колонка - итоги */
-.cart-summary {
-    flex: 1;
+.cart_summa {
+    width: 20%;
     background: white;
-    border: 1px solid #E2E2E2;
+    border: 1px solid #42546E;
     border-radius: 16px;
     padding: 24px;
     position: sticky;
     top: 120px;
-    height: fit-content;
+    height: 195px;
+    margin-right: 80px;
 }
 
-.summary-title {
+.summa_title {
     font-size: 18px;
     font-weight: 600;
     color: #42546E;
@@ -375,34 +395,33 @@ main {
     border-bottom: 1px solid #E2E2E2;
 }
 
-.summary-row {
+.summa_info {
     display: flex;
     justify-content: space-between;
-    padding: 12px 0;
     font-size: 14px;
     color: #666;
 }
 
-.summary-row.total {
+.summa_info.total {
     font-size: 18px;
     font-weight: 600;
     color: #42546E;
     padding-top: 15px;
 }
 
-.summary-divider {
+.summa_line {
     height: 1px;
     background-color: #E2E2E2;
     margin: 10px 0;
 }
 
-.checkout-btn {
+.but_check {
     width: 100%;
+    height: 45px;
     background-color: #42546E;
     color: white;
     border: none;
     border-radius: 12px;
-    padding: 14px;
     font-size: 16px;
     font-weight: 600;
     cursor: pointer;
@@ -410,47 +429,53 @@ main {
     transition: background-color 0.3s;
 }
 
-.checkout-btn:hover {
+.but_check:hover {
     background-color: #2a3a4e;
 }
 
 /* Пустая корзина */
-.empty-cart {
+.empty_cart {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     text-align: center;
-    padding: 80px 20px;
     background: white;
     border-radius: 16px;
     border: 1px solid #E2E2E2;
+    padding: 80px 0;
 }
 
-.empty-cart-icon {
+.empty_cart_icon {
     font-size: 64px;
-    margin-bottom: 20px;
     opacity: 0.5;
 }
 
-.empty-cart p {
+.empty_cart p {
     font-size: 18px;
     color: #666;
-    margin-bottom: 30px;
 }
 
-.continue-btn {
-    display: inline-block;
+.but_continue {
+    width: 30%;
+    height: 50px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
     background-color: #42546E;
     color: white;
     text-decoration: none;
-    padding: 12px 30px;
     border-radius: 30px;
     transition: background-color 0.3s;
+    font-size: 20px;
 }
 
-.continue-btn:hover {
+.but_continue:hover {
     background-color: #2a3a4e;
 }
 
 /* Адаптивность */
-@media (max-width: 992px) {
+/* @media (max-width: 992px) {
     .cart-layout {
         flex-direction: column;
     }
@@ -509,11 +534,11 @@ main {
     .cart-summary {
         position: static;
     }
-}
+} */
 
 .footer{
     width: 100%;
-    height: 512px;
+    margin-top: 100px;
     background-color: #333333;
     display: flex;
     justify-content: space-around;

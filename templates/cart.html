@@ -51,7 +51,7 @@
                         {% for item in cart_items %}
                         <div class="cart_item" data-product-id="{{ item.id }}">
                             <div class="cart_item_checkbox">
-                                <input type="checkbox" class="item-checkbox" value="{{ item.id }}">
+                                <input type="checkbox" class="item_checkbox" value="{{ item.id }}">
                             </div>
                             <div class="cart_item_img">
                                 <img src="{{ url_for('static', filename='img/small/' + item.image) }}" alt="{{ item.name }}">
@@ -65,15 +65,15 @@
                                 <div class="unit">/ {{ item.unit or 'шт' }}</div>
                             </div>
                             <div class="cart_item_quantity">
-                                <button class="quantity_but minus" onclick="updateQuantity('{{ item.id }}', '{{ item.quantity - 1 }}')">−</button>
+                                <button class="quantity_but minus" onclick="updateQuantity('{{ item.id }}', '{{ item.quantity - 1 }}')">-</button>
                                 <input type="number" class="quantity_input" value="{{ item.quantity }}" min="1" id="qty-{{ item.id }}" onchange="updateQuantity('{{ item.id }}', this.value)">
                                 <button class="quantity_but plus" onclick="updateQuantity('{{ item.id }}', '{{ item.quantity + 1 }}')">+</button>
                             </div>
                             <div class="cart_item_total">
-                                <p class="total-price">{{ "%.2f"|format(item.price * item.quantity) }} ₽</p>
+                                <p class="total_price">{{ "%.2f"|format(item.price * item.quantity) }} ₽</p>
                             </div>
-                            <div class="cart-item-remove">
-                                <button class="remove-btn" onclick="removeItem('{{ item.id }}')">✕</button>
+                            <div class="cart_item_remove">
+                                <button class="but_del" onclick="removeItem('{{ item.id }}')">✕</button>
                             </div>
                         </div>
                         {% endfor %}
@@ -81,30 +81,26 @@
                 </section>
                 
                 <!-- Правая колонка - итоги заказа -->
-                <aside class="cart-summary">
-                    <h3 class="summary-title">Детали заказа</h3>
-                    <div class="summary-row">
-                        <span class="summary-label">Товары ({{ total_items }})</span>
-                        <span class="summary-value" id="total-sum">{{ "%.2f"|format(total_sum) }} ₽</span>
+                <aside class="cart_summa">
+                    <h3 class="summa_title">Детали заказа</h3>
+                    <div class="summa_info">
+                        <span class="summa_label">Товары ({{ total_items }})</span>
+                        <span class="summa_value" id="total-sum">{{ "%.2f"|format(total_sum) }} ₽</span>
                     </div>
-                    <div class="summary-row">
-                        <span class="summary-label">Доставка</span>
-                        <span class="summary-value">Рассчитывается</span>
+                    <div class="summa_line"></div>
+                    <div class="summa_info total">
+                        <span class="summa_label">Итого</span>
+                        <span class="summa_value" id="grand-total">{{ total_sum }} ₽</span>
                     </div>
-                    <div class="summary-divider"></div>
-                    <div class="summary-row total">
-                        <span class="summary-label">Итого</span>
-                        <span class="summary-value" id="grand-total">{{ total_sum }} ₽</span>
-                    </div>
-                    <button class="checkout-btn" onclick="openRequestModal()">Перейти к оформлению</button>
+                    <button class="but_check" onclick="openRequestModal()">Перейти к оформлению</button>
                 </aside>
             </div>
             
             {% else %}
-            <section class="empty-cart">
-                <div class="empty-cart-icon">🛒</div>
+            <section class="empty_cart">
+                <div class="empty_cart_icon">🛒</div>
                 <p>Ваша корзина пуста</p>
-                <a href="{{ url_for('main.catalog') }}" class="continue-btn">Перейти в каталог</a>
+                <a href="{{ url_for('main.catalog') }}" class="but_continue">Перейти в каталог</a>
             </section>
             {% endif %}
         </section>
@@ -151,7 +147,7 @@
         </div>
     </footer>
     
-    <div class="flash-messages"></div>
+    <!-- <div class="flash-messages"></div> -->
     
     <script src="{{ url_for('static', filename='js/main.js') }}"></script>
 </body>
