@@ -32,28 +32,28 @@
     </header>
     
     <main>
-        <div class="cart-container">
-            <h1 class="cart-title">Корзина</h1>
+        <section class="cart_container">
+            <h1 class="cart_title">Корзина</h1>
             
             {% if cart_items %}
-            <div class="cart-layout">
-                <!-- Левая колонка - товары -->
-                <div class="cart-products">
-                    <div class="cart-actions-bar">
-                        <label class="select-all">
+            <div class="cart_layout">
+                <!-- Левая колонка - список товаров -->
+                <section class="cart_products">
+                    <div class="cart_actions_bar">
+                        <div class="select_all">
                             <input type="checkbox" id="selectAllCheckbox" onchange="toggleSelectAll()">
-                            <span>Выбрать все</span>
-                        </label>
-                        <button class="delete-selected" onclick="deleteSelected()">Удалить выбранные</button>
+                            <label for="selectAllCheckbox">Выбрать все</label>
+                        </div>
+                        <button class="delete_selected" onclick="deleteSelected()">Удалить выбранные</button>
                     </div>
                     
-                    <div class="products-list">
+                    <div class="products_list">
                         {% for item in cart_items %}
-                        <div class="cart-item" data-product-id="{{ item.id }}">
-                            <div class="cart-item-checkbox">
+                        <div class="cart_item" data-product-id="{{ item.id }}">
+                            <div class="cart_item_checkbox">
                                 <input type="checkbox" class="item-checkbox" value="{{ item.id }}">
                             </div>
-                            <div class="cart-item-image">
+                            <div class="cart_item_img">
                                 <img src="{{ url_for('static', filename='img/small/' + item.image) }}" alt="{{ item.name }}">
                             </div>
                             <div class="cart-item-info">
@@ -78,10 +78,10 @@
                         </div>
                         {% endfor %}
                     </div>
-                </div>
+                </section>
                 
-                <!-- Правая колонка - итоги -->
-                <div class="cart-summary">
+                <!-- Правая колонка - итоги заказа -->
+                <aside class="cart-summary">
                     <h3 class="summary-title">Детали заказа</h3>
                     <div class="summary-row">
                         <span class="summary-label">Товары ({{ total_items }})</span>
@@ -94,20 +94,20 @@
                     <div class="summary-divider"></div>
                     <div class="summary-row total">
                         <span class="summary-label">Итого</span>
-                        <span class="summary-value" id="grand-total">{{ "%.2f"|format(total_sum) }} ₽</span>
+                        <span class="summary-value" id="grand-total">{{ total_sum }} ₽</span>
                     </div>
                     <button class="checkout-btn" onclick="openRequestModal()">Перейти к оформлению</button>
-                </div>
+                </aside>
             </div>
             
             {% else %}
-            <div class="empty-cart">
+            <section class="empty-cart">
                 <div class="empty-cart-icon">🛒</div>
                 <p>Ваша корзина пуста</p>
                 <a href="{{ url_for('main.catalog') }}" class="continue-btn">Перейти в каталог</a>
-            </div>
+            </section>
             {% endif %}
-        </div>
+        </section>
     </main>
     
     <footer class="footer">
@@ -115,7 +115,7 @@
             <h3 class="footer_title">Меню сайта</h3>
             <nav>
                 <ul class="footer_menu">
-                    <li><a href="#">Главная страница</a></li>
+                    <li><a href="{{ url_for('main.index') }}">Главная страница</a></li>
                     <li><a href="{{ url_for('main.catalog') }}">Каталог</a></li>
                     <li><a href="#">Доставка</a></li>
                     <li><a href="#">Реквизиты</a></li>
