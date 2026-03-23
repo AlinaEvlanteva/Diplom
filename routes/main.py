@@ -6,39 +6,6 @@ from . import main_bp
 import os
 from werkzeug.utils import secure_filename
 
-@main_bp.route('/')
-def index():
-    """Главная страница"""
-    categories = Category.query.all()
-    return render_template('main.html', categories=categories)
-
-@main_bp.route('/catalog')
-def catalog():
-    """Страница каталога"""
-    categories = Category.query.all()
-    return render_template('katalog.html', categories=categories)
-
-@main_bp.route('/category/<int:cat_id>')
-def category_products(cat_id):
-    """Страница категории с товарами"""
-    category = Category.query.get_or_404(cat_id)
-    products = Product.query.filter_by(category_id=cat_id).all()
-    return render_template('kat_tovars.html', category=category, products=products)
-
-@main_bp.route('/product/<int:product_id>')
-def product_detail(product_id):
-    product = Product.query.get_or_404(product_id)
-    attributes = ProductAttribute.query.filter_by(product_id=product_id).all()
-    
-    # Добавьте для счетчика корзины
-    cart = get_cart()
-    total_cart_items = sum(item['quantity'] for item in cart.values())
-    
-    return render_template('tovars_detali.html', 
-                         product=product, 
-                         attributes=attributes,
-                         total_cart_items=total_cart_items)
-
 # ========== КОРЗИНА ==========
 
 def get_cart():
@@ -48,6 +15,45 @@ def get_cart():
 def save_cart(cart):
     """Сохранить корзину в сессию"""
     session['cart'] = cart
+
+def get_cart_count():
+    """Получить количество товаров в корзине"""
+    cart = get_cart()
+    return sum(item['quantity'] for item in cart.values())
+
+@main_bp.route('/')
+def index():
+    """Главная страница"""
+    categories = Category.query.all()
+    total_cart_items = get_cart_count()
+    return render_template('main.html', categories=categories, total_cart_items=total_cart_items)
+
+@main_bp.route('/catalog')
+def catalog():
+    """Страница каталога"""
+    categories = Category.query.all()
+    total_cart_items = get_cart_count()
+    return render_template('katalog.html', categories=categories, total_cart_items=total_cart_items)
+
+@main_bp.route('/category/<int:cat_id>')
+def category_products(cat_id):
+    """Страница категории с товарами"""
+    category = Category.query.get_or_404(cat_id)
+    products = Product.query.filter_by(category_id=cat_id).all()
+    total_cart_items = get_cart_count()
+    return render_template('kat_tovars.html', category=category, products=products, total_cart_items=total_cart_items)
+
+@main_bp.route('/product/<int:product_id>')
+def product_detail(product_id):
+    """Страница отдельного товара"""
+    product = Product.query.get_or_404(product_id)
+    attributes = ProductAttribute.query.filter_by(product_id=product_id).all()
+    total_cart_items = get_cart_count()
+    
+    return render_template('tovars_detali.html', 
+                         product=product, 
+                         attributes=attributes,
+                         total_cart_items=total_cart_items)
 
 @main_bp.route('/add_to_cart/<int:product_id>', methods=['POST'])
 def add_to_cart(product_id):
@@ -90,7 +96,8 @@ def cart_page():
     return render_template('cart.html',
                          cart_items=cart_items,
                          total_sum=total_sum,
-                         total_items=total_items)
+                         total_items=total_items,
+                         total_cart_items=total_items)
 
 @main_bp.route('/update_cart/<int:product_id>', methods=['POST'])
 def update_cart(product_id):
@@ -119,11 +126,9 @@ def remove_from_cart(product_id):
     
     save_cart(cart)
     
-    # Если запрос через fetch, возвращаем JSON
     if request.method == 'POST':
         return jsonify({'success': True})
     
-    # Если GET (через ссылку), перенаправляем
     return redirect(url_for('main.cart_page'))
 
 @main_bp.route('/remove_selected', methods=['POST'])
@@ -142,4 +147,3 @@ def remove_selected():
     save_cart(cart)
     
     return jsonify({'success': True, 'count': len(product_ids)})
-

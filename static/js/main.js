@@ -1,3 +1,5 @@
+
+
 // Функции для модального окна авторизации
 function openModal() {
     console.log('openModal called');
@@ -44,28 +46,27 @@ document.addEventListener('keydown', function(e) {
 
 // ========== КОРЗИНА ==========
 
-// Функция обновления счетчика
 function updateCartCounter(totalItems) {
     const cartCount = document.getElementById('cart-count');
     if (cartCount) {
         cartCount.textContent = totalItems;
         if (totalItems > 0) {
+            cartCount.classList.add('visible');
             cartCount.classList.remove('hidden');
         } else {
+            cartCount.classList.remove('visible');
             cartCount.classList.add('hidden');
         }
     }
 }
 
-// При загрузке страницы проверяем начальное состояние
+// При загрузке страницы проверяем
 document.addEventListener('DOMContentLoaded', function() {
     const cartCount = document.getElementById('cart-count');
     if (cartCount) {
         const count = parseInt(cartCount.textContent) || 0;
-        if (count === 0) {
-            cartCount.classList.add('hidden');
-        } else {
-            cartCount.classList.remove('hidden');
+        if (count > 0) {
+            cartCount.classList.add('visible');
         }
     }
 });

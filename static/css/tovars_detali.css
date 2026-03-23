@@ -70,8 +70,7 @@ header {
     align-items: center;
 }
 
-.link_catalog,
-.link_cart {
+.link_catalog{
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -81,6 +80,9 @@ header {
     font-size: 16px;
     min-width: 60px;            /* минимальная ширина */
 }
+
+
+
 
 .link_catalog img,
 .link_cart img {
@@ -115,14 +117,16 @@ header {
     }
 }
 
-/* Корзина */
 .link_cart {
     position: relative;
     display: flex;
+    flex-direction: column;    /* ← ОТЛИЧИЕ! */
     align-items: center;
-    gap: 5px;
+    justify-content: center;
     text-decoration: none;
     color: black;
+    font-size: 16px;
+    min-width: 60px;
 }
 
 .cart-badge {
@@ -140,17 +144,15 @@ header {
     align-items: center;
     justify-content: center;
     padding: 0 4px;
-}
 
-/* Скрываем счетчик, если значение 0 или пустое */
-.cart-badge.hidden {
     display: none;
 }
 
-/* Анимация */
 
-
-
+/* Показываем только если есть класс .visible */
+.cart-badge.visible {
+    display: flex;
+}
 
 
 main {
