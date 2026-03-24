@@ -373,4 +373,5 @@ document.querySelectorAll('.product_actions').forEach(container => {
     }
 });
 
+
 console.log('main.js загружен');

@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/checkout.css') }}">
+    <title>Оформление заявки - ИнТехЛайт</title>
+</head>
+<body>
+    <header>
+        <div class="header_inner">
+            <div class="header_logo">
+                <a href="{{ url_for('main.index') }}"><img src="{{ url_for('static', filename='img/small/icons.png') }}" alt="Логотип ИнТехЛайт"/></a>
+            </div>
+            <nav class="header_nav">
+                <ul class="header_nav_menu">
+                    <li><a href="#">Доставка</a></li>
+                    <li><a href="#">Реквизиты</a></li>
+                    <li><a href="#">Контакты</a></li>
+                    <li><a href="#">Сертификаты</a></li>
+                </ul>
+            </nav>
+            <div class="header_link_icons">
+                <a href="{{ url_for('main.catalog') }}" class="link_catalog"><img src="{{ url_for('static', filename='img/small/cat.svg') }}"/>Каталог</a>
+                <a href="{{ url_for('main.cart_page') }}" class="link_cart cart_btn">
+                    <img src="{{ url_for('static', filename='img/small/cart.svg') }}" alt="Корзина"/>
+                    <span id="cart-count" class="cart_badge">{{ total_cart_items }}</span>
+                    Корзина
+                </a>
+            </div>
+        </div>
+    </header>
+    
+    <main>
+        <div class="checkout_container">
+            <h1 class="checkout_title">Оформление заявки</h1>
+            
+            <div class="checkout_layout">
+                <!-- Левая колонка - форма и товары -->
+                <section class="checkout_form">
+                    <!-- ФОРМА -->
+                    <form id="requestForm" method="POST" action="/submit_request" class="form_req">
+                        <div class="form_section">
+                            <h3 class="form_title">Контактные данные</h3>
+                            
+                            <div class="form_group">
+                                <label class="form_label">
+                                    Как к вам обращаться? *
+                                    <input type="text" name="name" class="form_input" placeholder="Иван Иванов" required>
+                                </label>
+                            </div>
+                            
+                            <div class="form_group">
+                                <label class="form_label">
+                                    Телефон для связи *
+                                    <input type="tel" name="phone" class="form_input" placeholder="+7 (XXX) XXX-XX-XX" required>
+                                </label>
+                            </div>
+                            
+                            <div class="form_group">
+                                <label class="form_label">
+                                    Комментарий к заказу
+                                    <textarea name="comment" class="form_input" rows="4" placeholder="Уточните детали, если нужно..."></textarea>
+                                </label>
+                            </div>
+                        </div>
+                        
+                        <div class="form_section">
+                            <h3 class="modal_title">Согласие на обработку данных</h3>
+                            <label class="checkbox_label">
+                                <input type="checkbox" name="consent" required>
+                                Я согласен на <a href="#" target="_blank">обработку персональных данных</a>
+                            </label>
+                        </div>
+                        
+                        <div class="modal_actions">
+                            <button type="submit" class="but_save">Отправить заявку</button>
+                            <a href="{{ url_for('main.cart_page') }}" class="but_cancel">Вернуться в корзину</a>
+                        </div>
+                    </form>
+                    
+                    <!-- ТОВАРЫ В ЗАКАЗЕ (ПОСЛЕ ФОРМЫ) -->
+                    <div class="order_items_section">
+                        <h3 class="section_title">Товары в заказе</h3>
+                        
+                        {% for item in cart_items %}
+                        <div class="order_item">
+                            <div class="order_item_image">
+                                <img src="{{ url_for('static', filename='img/small/' + item.image) }}" alt="{{ item.name }}">
+                            </div>
+                            <div class="order_item_info">
+                                <div class="order_item_name">{{ item.name }}</div>
+                                <div class="order_item_article">Артикул: {{ item.article }}</div>
+                                <div class="order_item_price">{{ item.price }} ₽ / {{ item.unit or 'шт' }}</div>
+                            </div>
+                            <div class="order_item_quantity">x {{ item.quantity }}</div>
+                            <div class="order_item_total">{{ "%.2f"|format(item.price * item.quantity) }} ₽</div>
+                        </div>
+                        {% endfor %}
+                        
+                    </div>
+                </section>
+                
+                <!-- Правая колонка - итоги заказа (как в корзине) -->
+                <aside class="cart_summa">
+                    <h3 class="summa_title">Детали заказа</h3>
+                    <div class="summa_info">
+                        <span class="summa_label">Товары ({{ total_items }})</span>
+                        <span class="summa_value">{{ "%.2f"|format(total_sum) }} ₽</span>
+                    </div>
+                    <div class="summa_line"></div>
+                    <div class="summa_info total">
+                        <span class="summa_label">Итого</span>
+                        <span class="summa_value">{{ "%.2f"|format(total_sum) }} ₽</span>
+                    </div>
+                    <div class="order_note_small">
+                        <p>После отправки заявки менеджер свяжется с вами.</p>
+                    </div>
+                </aside>
+            </div>
+        </div>
+    </main>
+    
+    <footer class="footer">
+        <div class="footer_column">
+            <h3 class="footer_title">Меню сайта</h3>
+            <nav>
+                <ul class="footer_menu">
+                    <li><a href="{{ url_for('main.index') }}">Главная страница</a></li>
+                    <li><a href="{{ url_for('main.catalog') }}">Каталог</a></li>
+                    <li><a href="#">Доставка</a></li>
+                    <li><a href="#">Реквизиты</a></li>
+                    <li><a href="#">Контакты</a></li>
+                    <li><a href="#">Сертификаты</a></li>
+                </ul>
+            </nav>
+        </div>
+        
+        <div class="footer_column">
+            <h3 class="footer_title">Контактная информация</h3>
+            <ul class="footer_menu">
+                <li><a>г. Ростов-на-Дону, ул. Буквенная д. 25</a></li>
+                <li><a href="tel:+79498256121">+7 ХХХ ХХХ-ХХ-ХХ</a></li>
+                <li><a href="mailto:info@intechlight.ru">info@intechlight.ru</a></li>
+            </ul>
+        </div>
+        
+        <div class="footer_column">
+            <h3 class="footer_title">Мессенджеры</h3>
+            <ul class="footer_menu">
+                <li><a href="#" class="messenger_link">WhatsApp</a></li>
+                <li><a href="#" class="messenger_link">Telegram</a></li>
+                <li><a href="#" class="messenger_link">ВКонтакте</a></li>
+            </ul>
+        </div>
+        
+        <div class="footer_bottom">
+            <div class="footer_bottom_content">
+                <a>© ООО «ИнТехЛайт»</a>
+                <a href="#">Политика конфиденциальности</a>
+            </div>
+        </div>
+    </footer>
+    
+    <div class="flash_messages"></div>
+    
+    <script src="{{ url_for('static', filename='js/checkout.js') }}"></script>
+</body>
+</html>

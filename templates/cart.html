@@ -92,7 +92,7 @@
                         <span class="summa_label">Итого</span>
                         <span class="summa_value" id="grand-total">{{ total_sum }} ₽</span>
                     </div>
-                    <button class="but_check" onclick="openRequestModal()">Перейти к оформлению</button>
+                    <a href="{{ url_for('main.checkout') }}" class="but_check">Перейти к оформлению</a>
                 </aside>
             </div>
             
@@ -148,7 +148,6 @@
     </footer>
     
     <!-- <div class="flash-messages"></div> -->
-    
     <script src="{{ url_for('static', filename='js/main.js') }}"></script>
 </body>
 </html>

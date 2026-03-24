@@ -1,0 +1,528 @@
+html,
+body{
+    width: 100%;
+    height: auto;
+    margin: 0;
+    padding: 0;
+    /* scrollbar-gutter: stable; */
+    /* overflow-y: scroll; */
+}
+
+
+header {
+    width: 100%;
+    height: 100px;
+    background-color: #FAFAFA;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+}
+
+.header_inner {
+    width: 90%;              /* вместо 100% + отступы */
+
+    height: 100px;
+    display: flex;
+    justify-content: space-between;  /* равномерное распределение */
+    align-items: center;
+   
+}
+
+.header_logo {
+
+    margin-right: 20px;
+}
+
+.header_logo img {
+    height: 60px;              /* фиксированная высота */
+    width: auto;
+    object-fit: contain;
+}
+
+.header_nav {
+    display: flex;
+    justify-content: center;
+}
+
+.header_nav_menu {
+    display: flex;
+    gap: 40px;                 /* уменьшил с 60px для компактности */
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.header_nav_menu a {
+    text-decoration: none;
+    color: black;
+    font-size: 22px;           /* уменьшил с 25px */
+    font-weight: 500;
+}
+
+.header_link_icons {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+}
+
+.link_catalog{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    color: black;
+    font-size: 16px;
+    min-width: 60px;            /* минимальная ширина */
+}
+
+
+
+
+.link_catalog img,
+.link_cart img {
+    width: 28px;                /* фиксированный размер иконок */
+    height: 28px;
+    margin-bottom: 4px;
+
+}
+
+/* Адаптивность */
+@media (max-width: 992px) {
+    .header_nav_menu {
+        gap: 20px;
+    }
+    
+    .header_nav_menu a {
+        font-size: 18px;
+    }
+}
+
+@media (max-width: 768px) {
+    .header_inner {
+        width: 95%;
+    }
+    
+    .header_nav_menu {
+        gap: 15px;
+    }
+    
+    .header_nav_menu a {
+        font-size: 16px;
+    }
+}
+
+.link_cart {
+    position: relative;
+    display: flex;
+    flex-direction: column;    /* ← ОТЛИЧИЕ! */
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    color: black;
+    font-size: 16px;
+    min-width: 60px;
+}
+
+.cart_badge {
+    position: absolute;
+    top: -8px;
+    right: -10px;
+    background-color: #dc3545;
+    color: white;
+    border-radius: 50%;
+    min-width: 15px;
+    height: 18px;
+    font-size: 11px;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 4px;
+
+    display: none;
+}
+
+
+/* Показываем только если есть класс .visible */
+.cart-badge.visible {
+    display: flex;
+}
+
+
+main {
+    margin-top: 100px;
+}
+
+
+/* ===== ОФОРМЛЕНИЕ ЗАЯВКИ ===== */
+.checkout_container {
+    width: 100%;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+}
+
+.checkout_title {
+    font-size: 32px;
+    color: #42546E;
+    margin-bottom: 30px;
+    margin-left: 80px;
+}
+
+.checkout_layout {
+    display: flex;
+    gap: 20px;
+}
+
+/* Левая колонка - форма */
+.checkout_form {
+    flex: 1.2;
+}
+
+.form_req {
+    background: white;
+    border: 2px solid #42546E;
+    border-radius: 25px;
+    padding: 30px;
+    margin-left: 80px;
+}
+
+
+.form_title {
+    font-size: 25px;
+    font-weight: bold;
+    color: #42546E;
+    margin: 0;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #E2E2E2;
+}
+
+.form_group {
+    margin-bottom: 20px;
+}
+
+.form_label {
+    font-size: 16px;
+    font-weight: bold;
+    color: #42546E;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.form_input {
+    width: 100%;
+    height: 40px;
+    padding: 0 12px;
+    font-size: 16px;
+    border: 1.5px solid #42546E;
+    border-radius: 15px;
+    box-sizing: border-box;
+}
+
+.form_input:focus {
+    outline: none;
+    border-color: #2a3a4e;
+}
+
+textarea.form_input {
+    height: auto;
+    padding: 12px;
+    resize: vertical;
+}
+
+.checkbox_label {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 14px;
+    color: #666;
+    cursor: pointer;
+}
+
+.checkbox_label a {
+    color: #42546E;
+    text-decoration: underline;
+}
+
+.modal_actions {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.but_save {
+    width: 200px;
+    height: 50px;
+    border-radius: 60px;
+    border: none;
+    background-color: #42546E;
+    color: white;
+    font-size: 18px;
+    cursor: pointer;
+}
+
+.but_cancel {
+    width: 200px;
+    height: 50px;
+    border-radius: 60px;
+    border: 2px solid #42546E;
+    background-color: white;
+    color: #42546E;
+    font-size: 18px;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+/* Правая колонка - заказ */
+/* Правая колонка - итоги (как в корзине) */
+.cart_summa {
+    width: 20%;
+    background: white;
+    border: 1px solid #42546E;
+    border-radius: 16px;
+    padding: 24px;
+    position: sticky;
+    top: 120px;
+    height: fit-content;
+    margin-right: 80px;
+}
+
+.summa_title {
+    font-size: 18px;
+    font-weight: 600;
+    color: #42546E;
+    margin: 0 0 20px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #E2E2E2;
+}
+
+.summa_info {
+    display: flex;
+    justify-content: space-between;
+    font-size: 14px;
+    color: #666;
+}
+
+.summa_info.total {
+    font-size: 18px;
+    font-weight: 600;
+    color: #42546E;
+    padding-top: 15px;
+}
+
+.summa_line {
+    height: 1px;
+    background-color: #E2E2E2;
+    margin: 10px 0;
+}
+
+.order_note_small {
+    margin-top: 20px;
+    padding: 10px;
+    background-color: #f8f9fa;
+    border-radius: 10px;
+    font-size: 12px;
+    color: #666;
+    text-align: center;
+}
+
+.order_items {
+    max-height: 400px;
+    overflow-y: auto;
+    margin-bottom: 20px;
+}
+
+.order_item {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 15px 0;
+    border-bottom: 1px solid #E2E2E2;
+}
+
+.order_item_image {
+    width: 60px;
+    height: 60px;
+    flex-shrink: 0;
+}
+
+.order_item_image img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.order_item_info {
+    flex: 1;
+}
+
+.order_item_name {
+    font-size: 14px;
+    font-weight: 600;
+    color: #42546E;
+    margin-bottom: 4px;
+}
+
+.order_item_article {
+    font-size: 12px;
+    color: #999;
+}
+
+.order_item_price {
+    font-size: 12px;
+    color: #666;
+}
+
+.order_item_quantity {
+    font-size: 14px;
+    font-weight: 500;
+    color: #42546E;
+}
+
+.order_item_total {
+    font-size: 14px;
+    font-weight: 600;
+    color: #42546E;
+    min-width: 80px;
+    text-align: right;
+}
+
+.order_total {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 0;
+    border-top: 2px solid #42546E;
+    font-size: 18px;
+    font-weight: 600;
+    color: #42546E;
+}
+
+.total_price {
+    font-size: 24px;
+    color: #dc3545;
+}
+
+.order_note {
+    margin-top: 20px;
+    padding: 15px;
+    background-color: #f8f9fa;
+    border-radius: 12px;
+    font-size: 13px;
+    color: #666;
+    text-align: center;
+}
+
+/* Flash сообщения */
+.flash_messages {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 9999;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    max-width: 350px;
+}
+
+.flash {
+    padding: 15px 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    animation: slideIn 0.3s ease-out;
+    font-size: 14px;
+}
+
+.flash_success {
+    background-color: #d4edda;
+    color: #155724;
+    border-left: 4px solid #28a745;
+}
+
+.flash_error {
+    background-color: #f8d7da;
+    color: #721c24;
+    border-left: 4px solid #dc3545;
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+
+.footer{
+    width: 100%;
+    margin-top: 100px;
+    background-color: #333333;
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+
+.footer_column{
+    width: 23%;
+    height: 298px;
+    margin-top: 50px;
+}
+.footer_column h3{
+    font-size: 20px;
+    font-weight: bold;
+    color: #ffffff;
+    text-align: center;
+}
+
+.footer_menu{
+    list-style: none; 
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    align-items: center;
+}
+
+.footer_menu a{
+    text-decoration: none;
+    color: #e2e2e2;
+    font-size: 20px;  
+}
+.footer-bottom {
+    width: 80%;
+    height: 97px;
+    border-top: 1px solid rgb(146, 146, 146);
+    margin-top: 66px;
+    display: flex;
+    align-items: center;
+}
+.footer-bottom-content{
+    width: 100%;
+    height: 54px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.footer-bottom-content a{
+    text-decoration: none;
+    color: #989898;
+    font-size: 18px;
+}
