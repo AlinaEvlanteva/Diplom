@@ -1,5 +1,3 @@
-
-
 // Функции для модального окна авторизации
 function openModal() {
     console.log('openModal called');
@@ -67,6 +65,72 @@ document.addEventListener('DOMContentLoaded', function() {
         const count = parseInt(cartCount.textContent) || 0;
         if (count > 0) {
             cartCount.classList.add('visible');
+        }
+    }
+    
+    // Проверяем состояние счетчика на странице товара
+    const productActions = document.querySelector('.product_actions');
+    if (productActions) {
+        const addBtn = productActions.querySelector('.but_add_cart');
+        const quantitySelector = productActions.querySelector('.quantity_selector');
+        
+        if (addBtn && quantitySelector) {
+            const productId = addBtn.dataset.productId;
+            
+            fetch(`/api/cart_item_quantity/${productId}`)
+                .then(r => r.json())
+                .then(data => {
+                    if (data.quantity > 0) {
+                        addBtn.style.display = 'none';
+                        quantitySelector.style.display = 'flex';
+                        const qtySpan = quantitySelector.querySelector('.value');
+                        if (qtySpan) qtySpan.textContent = data.quantity;
+                    } else {
+                        addBtn.style.display = 'block';
+                        quantitySelector.style.display = 'none';
+                    }
+                })
+                .catch(error => console.error('Ошибка проверки корзины:', error));
+        }
+    }
+});
+
+// ===== ОБРАБОТЧИК ВОЗВРАТА ЧЕРЕЗ СТРЕЛКУ "НАЗАД" =====
+window.addEventListener('pageshow', function(event) {
+    // Проверяем, загружена ли страница из кэша (при нажатии "назад")
+    if (event.persisted) {
+        console.log('Страница загружена из кэша (нажата стрелка назад)');
+        
+        // Обновляем общий счетчик корзины в хедере
+        fetch('/api/cart_count')
+            .then(r => r.json())
+            .then(data => updateCartCounter(data.total_items))
+            .catch(error => console.error('Ошибка обновления счетчика:', error));
+        
+        // Обновляем состояние счетчика на странице товара
+        const productActions = document.querySelector('.product_actions');
+        if (productActions) {
+            const addBtn = productActions.querySelector('.but_add_cart');
+            const quantitySelector = productActions.querySelector('.quantity_selector');
+            
+            if (addBtn && quantitySelector) {
+                const productId = addBtn.dataset.productId;
+                
+                fetch(`/api/cart_item_quantity/${productId}`)
+                    .then(r => r.json())
+                    .then(data => {
+                        if (data.quantity > 0) {
+                            addBtn.style.display = 'none';
+                            quantitySelector.style.display = 'flex';
+                            const qtySpan = quantitySelector.querySelector('.value');
+                            if (qtySpan) qtySpan.textContent = data.quantity;
+                        } else {
+                            addBtn.style.display = 'block';
+                            quantitySelector.style.display = 'none';
+                        }
+                    })
+                    .catch(error => console.error('Ошибка проверки корзины:', error));
+            }
         }
     }
 });
@@ -192,5 +256,121 @@ function removeItem(productId) {
     fetch(`/remove_from_cart/${productId}`, { method: 'POST' })
         .then(() => location.reload());
 }
+
+// ===== СЧЕТЧИК КОЛИЧЕСТВА НА СТРАНИЦЕ ТОВАРА =====
+
+// Функция для получения количества товара в корзине
+function getCartItemQuantity(productId) {
+    return fetch(`/api/cart_item_quantity/${productId}`)
+        .then(response => response.json())
+        .then(data => data.quantity || 0);
+}
+
+// Функция для обновления количества на сервере
+function updateCartItemQuantity(productId, quantity) {
+    return fetch(`/update_cart/${productId}`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: `quantity=${quantity}`
+    });
+}
+
+// Инициализация селектора количества для каждого товара
+document.querySelectorAll('.product_actions').forEach(container => {
+    const addBtn = container.querySelector('.but_add_cart');
+    const quantitySelector = container.querySelector('.quantity_selector');
+    const qtySpan = quantitySelector?.querySelector('.value');
+    const minusBtn = quantitySelector?.querySelector('.minus');
+    const plusBtn = quantitySelector?.querySelector('.plus');
+    
+    if (!addBtn || !quantitySelector) return;
+    
+    const productId = addBtn.dataset.productId;
+    
+    // Проверяем, сколько товара уже в корзине
+    getCartItemQuantity(productId).then(quantity => {
+        if (quantity > 0) {
+            // Если есть — показываем селектор, прячем кнопку
+            addBtn.style.display = 'none';
+            quantitySelector.style.display = 'flex';
+            qtySpan.textContent = quantity;
+        }
+    });
+    
+    // Обработчик кнопки "Заказать"
+    addBtn.addEventListener('click', () => {
+        fetch(`/add_to_cart/${productId}`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' }
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                updateCartCounter(data.total_items);
+                // Прячем кнопку, показываем селектор
+                addBtn.style.display = 'none';
+                quantitySelector.style.display = 'flex';
+                qtySpan.textContent = '1';
+            }
+        })
+        .catch(error => console.error('Ошибка:', error));
+    });
+    
+    // Обработчик кнопки "-"
+    if (minusBtn) {
+        minusBtn.addEventListener('click', () => {
+            let qty = parseInt(qtySpan.textContent);
+            if (qty > 1) {
+                qty--;
+                // Ждем ответа от сервера, чтобы обновить счетчик
+                fetch(`/update_cart/${productId}`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                    body: `quantity=${qty}`
+                })
+                .then(() => {
+                    qtySpan.textContent = qty;
+                    // После обновления корзины — запрашиваем новое общее количество
+                    return fetch('/api/cart_count');
+                })
+                .then(r => r.json())
+                .then(data => updateCartCounter(data.total_items))
+                .catch(error => console.error('Ошибка:', error));
+            } else if (qty === 1) {
+                // Удаляем товар
+                fetch(`/remove_from_cart/${productId}`, { method: 'POST' })
+                .then(() => {
+                    quantitySelector.style.display = 'none';
+                    addBtn.style.display = 'block';
+                    return fetch('/api/cart_count');
+                })
+                .then(r => r.json())
+                .then(data => updateCartCounter(data.total_items))
+                .catch(error => console.error('Ошибка:', error));
+            }
+        });
+    }
+    
+    // Обработчик кнопки "+"
+    if (plusBtn) {
+        plusBtn.addEventListener('click', () => {
+            let qty = parseInt(qtySpan.textContent);
+            qty++;
+            
+            fetch(`/update_cart/${productId}`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                body: `quantity=${qty}`
+            })
+            .then(() => {
+                qtySpan.textContent = qty;
+                return fetch('/api/cart_count');
+            })
+            .then(r => r.json())
+            .then(data => updateCartCounter(data.total_items))
+            .catch(error => console.error('Ошибка:', error));
+        });
+    }
+});
 
 console.log('main.js загружен');

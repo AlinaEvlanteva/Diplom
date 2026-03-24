@@ -62,7 +62,15 @@
                             <span class="attr-line"></span>
                             <span class="attr-value price_value">{{ product.price }} ₽ / {{ product.unit or 'шт' }}</span>
                         </div>
-                        <button class="but_add_cart" data-product-id="{{ product.id }}">Заказать</button>
+                        <!-- КОНТЕЙНЕР ДЛЯ КНОПКИ И СЧЕТЧИКА -->
+                        <div class="product_actions">
+                            <div class="quantity_selector" data-product-id="{{ product.id }}">
+                                <button class="minus">-</button>
+                                <span class="value">1</span>
+                                <button class="plus">+</button>
+                            </div>
+                            <button class="but_add_cart" data-product-id="{{ product.id }}">Заказать</button>
+                        </div>
                     </div>
                 </div>
             </div>
