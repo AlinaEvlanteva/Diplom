@@ -357,6 +357,8 @@ def add_attribute():
     )
     db.session.add(new_attribute)
     db.session.commit()
+
+    session['active_tab'] = 'attributes'
     
     flash('Характеристика успешно добавлена', 'success')
     return redirect(url_for('admin.admin_panel'))
@@ -371,6 +373,8 @@ def delete_attribute(attribute_id):
     ProductAttribute.query.filter_by(attribute_id=attribute_id).delete()
     db.session.delete(attribute)
     db.session.commit()
+
+    session['active_tab'] = 'attributes'
     
     flash('Характеристика и все её значения удалены', 'success')
     return redirect(url_for('admin.admin_panel'))
@@ -388,6 +392,9 @@ def edit_attribute(attribute_id):
         attribute.name = request.form.get('name')
         attribute.unit = request.form.get('unit')
         db.session.commit()
+
+        session['active_tab'] = 'attributes'
+
         flash('Характеристика обновлена', 'success')
         return redirect(url_for('admin.admin_panel'))
     
