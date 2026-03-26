@@ -615,8 +615,8 @@ input[type="file"].form_input {
 
 /* ===== ЗАЯВКИ (карточки) ===== */
 .request_card {
-    width: 25.5%;
-    min-height: 400px;
+    width: 21.5%;
+    height: auto;
     background: white;
     border: 2px solid #42546E;
     border-radius: 20px;
@@ -624,7 +624,7 @@ input[type="file"].form_input {
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 0 15px 15px 15px;
+    justify-content: space-between;
     box-sizing: border-box;
 }
 
@@ -633,17 +633,18 @@ input[type="file"].form_input {
 }
 
 .request_card_header {
+    margin-top: 15px;
     width: 100%;
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
     align-items: center;
-    margin: 15px 0;
+    margin-bottom: 15px;
     padding-bottom: 10px;
     border-bottom: 2px solid #E2E2E2;
 }
 
 .request_id {
-    font-size: 18px;
+    font-size: 20px;
     font-weight: bold;
     color: #42546E;
 }
@@ -656,26 +657,26 @@ input[type="file"].form_input {
 .request_card_info {
     width: 100%;
     margin-bottom: 15px;
-    flex: 1;
 }
 
 .request_info_row {
     display: flex;
+    gap: 15px;
+    margin-left: 15px;
+    margin-right: 15px;
     margin-bottom: 10px;
+    /* ПОТОМ ПОМЕНЯТЬ!!!!!!!!!!!!! */
 }
 
 .info_label {
     width: 70px;
     font-weight: bold;
     color: #42546E;
-    flex-shrink: 0;
+    font-size: 18px;
 }
 
 .info_value {
-    flex: 1;
     color: #666;
-    word-break: break-word;
-    overflow-wrap: break-word;
 }
 
 .info_value.price {
@@ -684,19 +685,16 @@ input[type="file"].form_input {
 }
 
 .info_value.comment_text {
+    white-space: nowrap;          /* текст в одну строку */
+    overflow: hidden;             /* скрываем лишнее */
+    text-overflow: ellipsis;      /* добавляем многоточие */
     word-break: break-word;
-    overflow-wrap: break-word;
-    display: -webkit-box;
-    -webkit-line-clamp: 3;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
 }
 
 .request_card_actions {
     width: 100%;
     display: flex;
     flex-direction: column;
-    gap: 10px;
     align-items: center;
     padding-top: 15px;
     border-top: 1px solid #E2E2E2;
@@ -704,11 +702,10 @@ input[type="file"].form_input {
 
 .btn_view_items {
     width: 100%;
-    background-color: #28a745;
+    height: 40px;
+    background-color: #42546E;
     color: white;
     border: none;
-    border-radius: 20px;
-    padding: 8px 20px;
     cursor: pointer;
     font-size: 14px;
     transition: background-color 0.3s;
@@ -718,28 +715,34 @@ input[type="file"].form_input {
 .btn_view_items:hover {
     background-color: #218838;
 }
+.request_status{
+    width: 100%;
+
+}
 
 .status_select {
     width: 100%;
-    padding: 8px 15px;
-    border-radius: 20px;
-    border: 1px solid #42546E;
+    height: 40px;
+    border: none;
     background-color: white;
     cursor: pointer;
     font-size: 14px;
+    text-align: center;
+
 }
 
 .btn_delete_request {
     width: 100%;
-    background-color: #dc3545;
+    height: 40px;
+    background-color: #42546E;
     color: white;
     border: none;
-    border-radius: 20px;
-    padding: 8px 20px;
     cursor: pointer;
     font-size: 14px;
     transition: background-color 0.3s;
     text-align: center;
+    border-bottom-left-radius: 17px;
+    border-bottom-right-radius: 17px;
 }
 
 .btn_delete_request:hover {
@@ -780,11 +783,6 @@ input[type="file"].form_input {
     width: 100%;
     height: 100%;
     object-fit: contain;
-}
-
-.request_item_info {
-    flex: 1;
-    min-width: 0;  /* ← важно для переноса текста */
 }
 
 .request_item_name {

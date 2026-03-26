@@ -194,12 +194,16 @@
                             <span class="info_value"><a href="tel:{{ req.phone }}" style="color: #42546E;">{{ req.phone }}</a></span>
                         </div>
                         
-                        {% if req.comment %}
                         <div class="request_info_row">
                             <span class="info_label">Коммент:</span>
-                            <span class="info_value comment_text">{{ req.comment|truncate(100) }}</span>
+                            <span class="info_value comment_text">
+                                {% if req.comment %}
+                                {{ req.comment|truncate(100) }}
+                                {% else %}
+                                -
+                                {% endif %}
+                            </span>
                         </div>
-                        {% endif %}
                         <div class="request_info_row">
                             <span class="info_label">Сумма:</span>
                             <span class="info_value price">{{ "%.2f"|format(req.total_sum) }} ₽</span>
@@ -216,7 +220,7 @@
                         </button>
                         
                         <div class="request_status">
-                            <select onchange="updateRequestStatus('{{ req.id }}', this.value)" class="status_select">
+                            <select onchange="updateRequestStatus('{{ req.id }}', this.value)" class="status_select" name="status">
                                 <option value="new" {% if req.status == 'new' %}selected{% endif %}>🟢 Новая</option>
                                 <option value="processed" {% if req.status == 'processed' %}selected{% endif %}>🟡 В обработке</option>
                                 <option value="completed" {% if req.status == 'completed' %}selected{% endif %}>✅ Выполнена</option>
@@ -225,7 +229,7 @@
                         </div>
                         
                         <button class="btn_delete_request" onclick="deleteRequest('{{ req.id }}')">
-                            🗑️ Удалить
+                            Удалить
                         </button>
                     </div>
                 </div>
