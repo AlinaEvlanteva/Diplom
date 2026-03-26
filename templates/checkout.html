@@ -53,7 +53,7 @@
                             <div class="form_group">
                                 <label class="form_label">
                                     Телефон для связи 
-                                    <input type="tel" name="phone" class="form_input" placeholder="+7 (XXX) XXX-XX-XX" required>
+                                    <input type="tel" name="phone" id="phoneInput" class="form_input" placeholder="+7 (XXX) XXX-XX-XX" required>
                                 </label>
                             </div>
                             
@@ -167,6 +167,21 @@
             </div>
         </div>
     </footer>
+    
+    <!-- Модальное окно успеха -->
+     
+    <div id="successModal" class="modal">
+        <div class="modal_success">
+            <span class="close" onclick="closeSuccessModal()">&times;</span>
+            <div class="success_icon_modal">✓</div>
+            <h3 class="modal_title">Заявка отправлена!</h3>
+            <p>Спасибо за ваш заказ. Наш менеджер свяжется с вами в ближайшее время для подтверждения деталей.</p>
+            <div class="modal_actions">
+                <button class="but_save" onclick="goToHome()">На главную</button>
+                <button class="but_cancel" onclick="closeSuccessModal()">Закрыть</button>
+            </div>
+        </div>
+    </div>
     
     <div class="flash_messages"></div>
     
