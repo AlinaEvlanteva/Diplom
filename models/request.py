@@ -1,5 +1,6 @@
 from models import db
 from datetime import datetime
+from datetime import datetime, timezone, timedelta
 
 class Request(db.Model):
     __tablename__ = 'requests'
@@ -15,7 +16,10 @@ class Request(db.Model):
     
     # Связь с товарами
     items = db.relationship('RequestItem', backref='request', cascade='all, delete-orphan')
-    
+
+    created_at = db.Column(db.DateTime, default=lambda: datetime.now())
+
+
     def get_status_display(self):
         statuses = {
             'new': 'Новая',

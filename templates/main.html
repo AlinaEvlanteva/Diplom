@@ -48,7 +48,7 @@
                     </h3>
                 </div>
                 <div class="main_intro_inner_rectangle_button">
-                    <button>Оставить заявку</button>
+                    <button onclick="openFeedbackModal()">Оставить заявку</button>
                 </div>
                 <div class="main_intro_inner_rectangle_info2">
                     <div class="circle"></div>
@@ -224,7 +224,7 @@
                         свяжется с вами в течение часа. <br/>
                         Получите консультацию и коммерческое <br/>
                         предложение в кратчайшие сроки.</p>
-                    <button>Оставить заявку</button>
+                    <button onclick="openFeedbackModal()">Оставить заявку</button>
                 </div>
                 <div id="sotrudnichestvo_container_post2">
                     <h3>Или свяжитесь с нами </h3>
@@ -243,7 +243,7 @@
                 <h3>ИнТехЛайт — Ваш надёжный партнёр</h3>
                 <p>Качественные комплектующие, быстрая доставка и профессиональный сервис. <br/>
                     Начните сотрудничество с нами сегодня и убедитесь в надёжности ИнТехЛайт.</p>
-                <button>Оставить заявку</button>
+                <button onclick="openFeedbackModal()">Оставить заявку</button>
             </div>
         </section>
     </main>
@@ -294,6 +294,36 @@
             </div>
         </div>
     </footer>
+    
+    
+    <!-- Модальное окно обратной связи -->
+    <div id="feedbackModal" class="modal">
+        <span class="close" onclick="closeFeedbackModal()">&times;</span>
+        <form id="feedbackForm" class="form_cat">
+            <h3 class="modal_title">Оставить заявку</h3>
+            
+            <div class="form_group">
+                <label class="form_label">
+                    Телефон для связи 
+                    <input type="tel" name="phone" id="feedbackPhone" class="form_input" placeholder="+7 (XXX) XXX-XX-XX" required>
+                </label>
+            </div>
+            
+            <div class="form_group">
+                <label class="form_label">
+                    Комментарий
+                    <textarea name="comment" class="form_input" rows="4" placeholder="Что вас интересует?"></textarea>
+                </label>
+            </div>
+            
+            <div class="modal_actions">
+                <button type="submit" class="but_save">Отправить</button>
+                <button type="button" class="but_cancel" onclick="closeFeedbackModal()">Отмена</button>
+            </div>
+        </form>
+    </div>
+
+    <div class="flash-messages"></div>
     <script src="{{ url_for('static', filename='js/main.js') }}"></script>
 </body>
 </html>

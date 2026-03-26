@@ -373,5 +373,91 @@ document.querySelectorAll('.product_actions').forEach(container => {
     }
 });
 
+// ===== ОБРАТНАЯ СВЯЗЬ (БЕЗ БД) =====
+
+function openFeedbackModal() {
+    document.getElementById('feedbackModal').style.display = 'flex';
+}
+
+function closeFeedbackModal() {
+    document.getElementById('feedbackModal').style.display = 'none';
+    document.getElementById('feedbackForm').reset();
+}
+
+// Валидация телефона
+function validatePhone(phone) {
+    const digits = phone.replace(/[^0-9]/g, '');
+    return digits.length === 10 || digits.length === 11;
+}
+
+// Отправка формы обратной связи
+// Отправка формы обратной связи
+document.getElementById('feedbackForm')?.addEventListener('submit', function(e) {
+    e.preventDefault();
+    
+    console.log('Форма отправлена');  // ← для отладки
+    
+    const phoneInput = document.getElementById('feedbackPhone');
+    const phone = phoneInput.value;
+    
+    console.log('Телефон:', phone);  // ← для отладки
+    
+    if (!validatePhone(phone)) {
+        showFlashMessage('Пожалуйста, введите корректный номер телефона (10 или 11 цифр)', 'error');
+        phoneInput.style.borderColor = '#dc3545';
+        return;
+    }
+    
+    phoneInput.style.borderColor = '#42546E';
+    
+    const formData = new FormData(this);
+    
+    console.log('Отправка запроса...');  // ← для отладки
+    
+    fetch('/send_feedback', {
+        method: 'POST',
+        body: formData
+    })
+    .then(response => {
+        console.log('Ответ получен, статус:', response.status);  // ← для отладки
+        return response.json();
+    })
+    .then(data => {
+        console.log('Данные ответа:', data);  // ← для отладки
+        if (data.success) {
+            showFlashMessage('✅ Сообщение отправлено! Менеджер свяжется с вами.', 'success');
+            closeFeedbackModal();
+        } else {
+            showFlashMessage('❌ Ошибка: ' + data.error, 'error');
+        }
+    })
+    .catch(error => {
+        console.error('Ошибка:', error);  // ← для отладки
+        showFlashMessage('❌ Ошибка при отправке', 'error');
+    });
+});
+
+
+// ===== FLASH СООБЩЕНИЯ =====
+function showFlashMessage(message, category) {
+    let container = document.querySelector('.flash-messages');
+    if (!container) {
+        container = document.createElement('div');
+        container.className = 'flash-messages';
+        document.body.appendChild(container);
+    }
+    
+    const flash = document.createElement('div');
+    flash.className = `flash flash-${category}`;
+    flash.textContent = message;
+    
+    container.appendChild(flash);
+    
+    setTimeout(() => {
+        flash.style.transition = 'opacity 0.5s';
+        flash.style.opacity = '0';
+        setTimeout(() => flash.remove(), 500);
+    }, 5000);
+}
 
 console.log('main.js загружен');

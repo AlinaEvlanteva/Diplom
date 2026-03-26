@@ -221,10 +221,10 @@
                         
                         <div class="request_status">
                             <select onchange="updateRequestStatus('{{ req.id }}', this.value)" class="status_select" name="status">
-                                <option value="new" {% if req.status == 'new' %}selected{% endif %}>🟢 Новая</option>
-                                <option value="processed" {% if req.status == 'processed' %}selected{% endif %}>🟡 В обработке</option>
-                                <option value="completed" {% if req.status == 'completed' %}selected{% endif %}>✅ Выполнена</option>
-                                <option value="cancelled" {% if req.status == 'cancelled' %}selected{% endif %}>❌ Отменена</option>
+                                <option value="new" {% if req.status == 'new' %}selected{% endif %}>Новая</option>
+                                <option value="processed" {% if req.status == 'processed' %}selected{% endif %}>В обработке</option>
+                                <option value="completed" {% if req.status == 'completed' %}selected{% endif %}>Выполнена</option>
+                                <option value="cancelled" {% if req.status == 'cancelled' %}selected{% endif %}>Отменена</option>
                             </select>
                         </div>
                         

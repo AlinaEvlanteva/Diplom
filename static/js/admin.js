@@ -518,9 +518,9 @@ function viewRequestItems(requestId) {
                 `;
             });
             
-            html += `<div class="request_total">💰 Итого: ${data.total_sum.toFixed(2)} ₽</div>`;
+            html += `<div class="request_total"> Итого: ${data.total_sum.toFixed(2)} ₽</div>`;
             if (data.comment) {
-                html += `<div class="request_comment">📝 Комментарий: ${data.comment}</div>`;
+                html += `<div class="request_comment"> Комментарий: ${data.comment}</div>`;
             }
             
             document.getElementById('requestItemsList').innerHTML = html;
