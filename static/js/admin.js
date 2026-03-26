@@ -492,4 +492,76 @@ setTimeout(function() {
     });
 }, 3000);
 
+// ===== ЗАЯВКИ =====
+
+// Просмотр товаров заявки
+function viewRequestItems(requestId) {
+    fetch('/admin/get_request_items/' + requestId)
+        .then(response => response.json())
+        .then(data => {
+            let html = '';
+            
+            data.items.forEach(item => {
+                html += `
+                    <div class="request_item">
+                        <div class="request_item_image">
+                            <img src="/static/img/small/${item.image}" alt="${item.name}">
+                        </div>
+                        <div class="request_item_info">
+                            <div class="request_item_name">${item.name}</div>
+                            <div class="request_item_article">Артикул: ${item.article}</div>
+                            <div class="request_item_price">${item.price} ₽ / ${item.unit || 'шт'}</div>
+                        </div>
+                        <div class="request_item_quantity">x ${item.quantity}</div>
+                        <div class="request_item_total">${(item.price * item.quantity).toFixed(2)} ₽</div>
+                    </div>
+                `;
+            });
+            
+            html += `<div class="request_total">💰 Итого: ${data.total_sum.toFixed(2)} ₽</div>`;
+            if (data.comment) {
+                html += `<div class="request_comment">📝 Комментарий: ${data.comment}</div>`;
+            }
+            
+            document.getElementById('requestItemsList').innerHTML = html;
+            document.getElementById('requestItemsModal').style.display = 'flex';
+        })
+        .catch(error => console.error('Ошибка:', error));
+}
+
+// Обновление статуса заявки
+function updateRequestStatus(requestId, status) {
+    fetch('/admin/update_request_status', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ request_id: requestId, status: status })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            showFlashMessage('Статус обновлен', 'success');
+        } else {
+            showFlashMessage('Ошибка: ' + data.error, 'error');
+        }
+    })
+    .catch(error => {
+        console.error('Ошибка:', error);
+        showFlashMessage('Ошибка при обновлении статуса', 'error');
+    });
+}
+
+// Удаление заявки
+function deleteRequest(requestId) {
+    if (confirm('Вы действительно хотите удалить эту заявку?')) {
+        window.location.href = '/admin/delete_request/' + requestId;
+    }
+}
+
+// Экспорт в Excel (заглушка)
+// function exportRequests() {
+//     showFlashMessage('Функция экспорта в разработке', 'info');
+// }
+
 console.log('admin.js загружен успешно');

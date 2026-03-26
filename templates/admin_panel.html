@@ -165,17 +165,88 @@
                 </table>
             </div>
         </div>
-
-            <!-- Вкладка ЗАЯВКИ (пустая) -->
-            <!-- <div id="orders" class="tab_content">
-                <div class="section_panel_data">
-                    <h3>Управление заявками</h3>
+        <!-- Вкладка ЗАЯВКИ -->
+        <div id="orders" class="tab_content {% if active_tab == 'orders' %}active{% endif %}">
+            <div class="section_panel_data">
+                <h3>Заявки клиентов</h3>
+                <div>
+                    <button class="but_add" onclick="exportRequests()">📊 Экспорт в Excel</button>
                 </div>
-                <div class="card_container">
-                    <p style="text-align: center; width: 100%;">Раздел в разработке</p>
+            </div>
+            
+            <div class="card_container">
+                {% for req in requests %}
+                <div class="request_card" data-request-id="{{ req.id }}">
+                    <div class="request_card_header">
+                        <span class="request_id">Заявка №{{ req.id }}</span>
+                        <span class="request_date">{{ req.created_at.strftime('%d.%m.%Y %H:%M') }}</span>
+                    </div>
+                    
+                    <div class="request_card_info">
+                        <div class="request_info_row">
+                            <span class="info_label">Клиент:</span>
+                            <span class="info_value">{{ req.name }}</span>
+                        </div>
+                        <div class="request_info_row">
+                            <span class="info_label">Телефон:</span>
+                            <span class="info_value"><a href="tel:{{ req.phone }}" style="color: #42546E;">{{ req.phone }}</a></span>
+                        </div>
+                        
+                        {% if req.comment %}
+                        <div class="request_info_row">
+                            <span class="info_label">Комментарий:</span>
+                            <span class="info_value comment_text">{{ req.comment|truncate(100) }}</span>
+                        </div>
+                        {% endif %}
+                        <div class="request_info_row">
+                            <span class="info_label">Сумма:</span>
+                            <span class="info_value price">{{ "%.2f"|format(req.total_sum) }} ₽</span>
+                        </div>
+                        <div class="request_info_row">
+                            <span class="info_label">Товаров:</span>
+                            <span class="info_value">{{ req.items|length }} шт</span>
+                        </div>
+                    </div>
+                    
+                    <div class="request_card_actions">
+                        <button class="btn_view_items" onclick="viewRequestItems('{{ req.id }}')">
+                            📦 Просмотр товаров ({{ req.items|length }})
+                        </button>
+                        
+                        <div class="request_status">
+                            <select onchange="updateRequestStatus('{{ req.id }}', this.value)" class="status_select">
+                                <option value="new" {% if req.status == 'new' %}selected{% endif %}>🟢 Новая</option>
+                                <option value="processed" {% if req.status == 'processed' %}selected{% endif %}>🟡 В обработке</option>
+                                <option value="completed" {% if req.status == 'completed' %}selected{% endif %}>✅ Выполнена</option>
+                                <option value="cancelled" {% if req.status == 'cancelled' %}selected{% endif %}>❌ Отменена</option>
+                            </select>
+                        </div>
+                        
+                        <button class="btn_delete_request" onclick="deleteRequest('{{ req.id }}')">
+                            🗑️ Удалить
+                        </button>
+                    </div>
                 </div>
-            </div> -->
+                {% else %}
+                <div class="empty_requests">
+                    <p>📭 Нет заявок</p>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
     </main>
+
+    <!-- Модальное окно для просмотра товаров заявки -->
+    <div id="requestItemsModal" class="modal">
+        <span class="close" onclick="closeModal('requestItemsModal')">&times;</span>
+        <div class="form_cat">
+            <h3 class="modal_title" id="requestModalTitle">Товары в заявке</h3>
+            <div id="requestItemsList" class="request_items_list"></div>
+            <div class="modal_actions">
+                <button type="button" class="but_cancel" onclick="closeModal('requestItemsModal')">Закрыть</button>
+            </div>
+        </div>
+    </div>
     
     <div id="addCategoryModal" class="modal">
         <span class="close" onclick="closeModal('addCategoryModal')">&times;</span>

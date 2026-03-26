@@ -1,11 +1,13 @@
-from flask import render_template, request, redirect, url_for, flash, session
+from flask import render_template, request, redirect, url_for, flash, session, jsonify
 from werkzeug.security import check_password_hash
 from models import db
-from models.product import Product, Category, Attribute, ProductAttribute  # ВАЖНО: все импорты вместе
+from models.product import Product, Category, Attribute, ProductAttribute
 from models.user import User
 from . import admin_bp
 import os
 from werkzeug.utils import secure_filename
+from models.request import Request
+from models.request_item import RequestItem
 
 # ========== НАСТРОЙКИ ЗАГРУЗКИ ФАЙЛОВ ==========
 UPLOAD_FOLDER_SMALL = os.path.join('static', 'img', 'small')
@@ -17,12 +19,9 @@ def allowed_file(filename):
 
 # ========== МАРШРУТЫ ДЛЯ ВХОДА ==========
 
-
-
 @admin_bp.route('/login', methods=['GET', 'POST'])
 def admin_login():
     """Страница входа в админку"""
-    # Не фильтруем flash-сообщения
     if request.method == 'POST':
         username = request.form.get('username')
         password = request.form.get('password')
@@ -43,17 +42,11 @@ def admin_login():
 @admin_bp.route('/logout')
 def admin_logout():
     """Выход из админки"""
-    # Сохраняем сообщение
-    message = 'Вы вышли из админки'
-    
-    # Удаляем только ключи админа (не всю сессию!)
     session.pop('admin_logged_in', None)
     session.pop('admin_id', None)
     session.pop('admin_username', None)
     
-    # Добавляем flash-сообщение после очистки админ-ключей
-    flash(message, 'info')
-    
+    flash('Вы вышли из админки', 'info')
     return redirect(url_for('admin.admin_login'))
 
 # ========== ГЛАВНАЯ АДМИНКИ ==========
@@ -66,15 +59,69 @@ def admin_panel():
     products = Product.query.all()
     categories = Category.query.all()
     attributes = Attribute.query.all()
+    requests = Request.query.order_by(Request.created_at.desc()).all()
     
-    # Получаем активную вкладку из сессии (по умолчанию 'categories')
     active_tab = session.get('active_tab', 'categories')
     
     return render_template('admin_panel.html', 
                          products=products, 
                          categories=categories, 
                          attributes=attributes,
+                         requests=requests,
                          active_tab=active_tab)
+
+# ========== УПРАВЛЕНИЕ ЗАЯВКАМИ ==========
+@admin_bp.route('/get_request_items/<int:request_id>')
+def get_request_items(request_id):
+    """Получить товары заявки"""
+    if not session.get('admin_logged_in'):
+        return jsonify({'error': 'Не авторизован'}), 403
+    
+    request_obj = Request.query.get_or_404(request_id)
+    items = []
+    
+    for item in request_obj.items:
+        items.append({
+            'id': item.product.id,
+            'name': item.product.name,
+            'article': item.product.article,
+            'price': float(item.product.price),
+            'quantity': item.quantity,
+            'image': item.product.image,
+            'unit': item.product.unit or 'шт'
+        })
+    
+    return jsonify({
+        'items': items,
+        'total_sum': float(request_obj.total_sum),
+        'comment': request_obj.comment
+    })
+
+@admin_bp.route('/update_request_status', methods=['POST'])
+def update_request_status():
+    """Обновить статус заявки"""
+    if not session.get('admin_logged_in'):
+        return jsonify({'error': 'Не авторизован'}), 403
+    
+    data = request.get_json()
+    request_obj = Request.query.get_or_404(data['request_id'])
+    request_obj.status = data['status']
+    db.session.commit()
+    
+    return jsonify({'success': True})
+
+@admin_bp.route('/delete_request/<int:request_id>')
+def delete_request(request_id):
+    """Удалить заявку"""
+    if not session.get('admin_logged_in'):
+        return redirect(url_for('admin.admin_login'))
+    
+    request_obj = Request.query.get_or_404(request_id)
+    db.session.delete(request_obj)
+    db.session.commit()
+    
+    flash('Заявка удалена', 'success')
+    return redirect(url_for('admin.admin_panel'))
 
 # ========== УПРАВЛЕНИЕ ТОВАРАМИ ==========
 @admin_bp.route('/add_product', methods=['POST'])
@@ -90,7 +137,6 @@ def add_product():
     unit = request.form.get('unit')
     short_specs = request.form.get('short_specs')
     
-    # Обработка изображения
     image = 'default.png'
     image_big = 'default.png'
     
@@ -99,11 +145,9 @@ def add_product():
         if file and file.filename and allowed_file(file.filename):
             filename = secure_filename(file.filename)
             
-            # Сохраняем в small
             small_path = os.path.join(UPLOAD_FOLDER_SMALL, filename)
             file.save(small_path)
             
-            # Сохраняем в big (копируем из small)
             big_path = os.path.join(UPLOAD_FOLDER_BIG, filename)
             with open(small_path, 'rb') as src:
                 with open(big_path, 'wb') as dst:
@@ -112,7 +156,6 @@ def add_product():
             image = filename
             image_big = filename
     
-    # При добавлении old_price = None
     new_product = Product(
         name=name,
         article=article,
@@ -141,10 +184,8 @@ def delete_product(product_id):
     
     product = Product.query.get_or_404(product_id)
     
-    # ===== 1. СНАЧАЛА удаляем все значения характеристик товара =====
     ProductAttribute.query.filter_by(product_id=product_id).delete()
     
-    # ===== 2. Удаляем файлы изображений =====
     if product.image and product.image != 'default.png':
         try:
             small_path = os.path.join(UPLOAD_FOLDER_SMALL, product.image)
@@ -157,7 +198,6 @@ def delete_product(product_id):
         except Exception as e:
             print(f"Ошибка при удалении файлов: {e}")
     
-    # ===== 3. ПОТОМ удаляем сам товар =====
     db.session.delete(product)
     db.session.commit()
 
@@ -175,14 +215,11 @@ def edit_product(product_id):
     product = Product.query.get_or_404(product_id)
     
     if request.method == 'POST':
-        # Получаем новую цену
         new_price = request.form.get('price')
         
-        # Если цена изменилась, сохраняем старую
         if float(new_price) != float(product.price):
             product.old_price = product.price
         
-        # Обновляем остальные поля
         product.name = request.form.get('name')
         product.article = request.form.get('article')
         product.category_id = request.form.get('category_id')
@@ -191,17 +228,14 @@ def edit_product(product_id):
         product.short_specs = request.form.get('short_specs')
         product.full_description = request.form.get('full_description')
         
-        # Обработка изображения
         if 'image' in request.files:
             file = request.files['image']
             if file and file.filename and allowed_file(file.filename):
                 filename = secure_filename(file.filename)
                 
-                # Сохраняем в small
                 small_path = os.path.join(UPLOAD_FOLDER_SMALL, filename)
                 file.save(small_path)
                 
-                # Сохраняем в big (копируем из small)
                 big_path = os.path.join(UPLOAD_FOLDER_BIG, filename)
                 with open(small_path, 'rb') as src:
                     with open(big_path, 'wb') as dst:
@@ -229,7 +263,6 @@ def add_category():
     
     name = request.form.get('name')
     
-    # Обработка изображения
     image = 'default_category.png'
     if 'image' in request.files:
         file = request.files['image']
@@ -255,21 +288,14 @@ def delete_category(category_id):
     
     category = Category.query.get_or_404(category_id)
     
-    # ===== 1. Сначала удаляем значения характеристик товаров этой категории =====
-    # Находим все товары категории
     products = Product.query.filter_by(category_id=category_id).all()
     
     for product in products:
-        # Удаляем все записи из product_attributes для этого товара
         ProductAttribute.query.filter_by(product_id=product.id).delete()
     
-    # ===== 2. Потом удаляем сами товары =====
     Product.query.filter_by(category_id=category_id).delete()
-    
-    # ===== 3. Потом удаляем характеристики (типы) категории =====
     Attribute.query.filter_by(category_id=category_id).delete()
     
-    # ===== 4. Удаляем файл изображения категории =====
     if category.image and category.image != 'default_category.png':
         try:
             img_path = os.path.join(UPLOAD_FOLDER_SMALL, category.image)
@@ -278,7 +304,6 @@ def delete_category(category_id):
         except Exception as e:
             print(f"Ошибка при удалении файла: {e}")
     
-    # ===== 5. И только потом удаляем саму категорию =====
     db.session.delete(category)
     db.session.commit()
 
@@ -298,7 +323,6 @@ def edit_category(category_id):
     if request.method == 'POST':
         category.name = request.form.get('name')
         
-        # Обработка изображения
         if 'image' in request.files:
             file = request.files['image']
             if file and file.filename and allowed_file(file.filename):
@@ -343,13 +367,8 @@ def delete_attribute(attribute_id):
     if not session.get('admin_logged_in'):
         return redirect(url_for('admin.admin_login'))
     
-    # ИСПРАВЛЕНО: Сначала удаляем связанные значения, потом характеристику
     attribute = Attribute.query.get_or_404(attribute_id)
-    
-    # Удаляем все связанные значения из product_attributes
     ProductAttribute.query.filter_by(attribute_id=attribute_id).delete()
-    
-    # Теперь удаляем саму характеристику
     db.session.delete(attribute)
     db.session.commit()
     
@@ -383,14 +402,9 @@ def get_product_attributes(product_id):
         return {'error': 'Не авторизован'}, 403
     
     product = Product.query.get_or_404(product_id)
-    
-    # Получаем все характеристики для категории товара
     attributes = Attribute.query.filter_by(category_id=product.category_id).all()
-    
-    # Получаем текущие значения характеристик товара
     product_attrs = {pa.attribute_id: pa.value for pa in product.attributes}
     
-    # Формируем данные для отправки
     attrs_data = []
     for attr in attributes:
         attrs_data.append({
@@ -415,21 +429,17 @@ def manage_product_attributes(product_id):
     product = Product.query.get_or_404(product_id)
     
     if request.method == 'POST':
-        # Получаем все характеристики из формы
         for key, value in request.form.items():
             if key.startswith('attr_'):
                 attr_id = int(key.replace('attr_', ''))
-                # Проверяем, существует ли уже такая характеристика для товара
                 existing = ProductAttribute.query.filter_by(
                     product_id=product_id, 
                     attribute_id=attr_id
                 ).first()
                 
                 if existing:
-                    # Обновляем существующее значение
                     existing.value = value
                 else:
-                    # Создаем новую запись
                     new_attr = ProductAttribute(
                         product_id=product_id,
                         attribute_id=attr_id,
@@ -441,10 +451,7 @@ def manage_product_attributes(product_id):
         flash('Характеристики товара обновлены', 'success')
         return redirect(url_for('admin.admin_panel'))
     
-    # Получаем все характеристики для категории товара
     attributes = Attribute.query.filter_by(category_id=product.category_id).all()
-    
-    # Получаем текущие значения характеристик товара
     product_attrs = {pa.attribute_id: pa.value for pa in product.attributes}
     
     return render_template('manage_product_attributes.html', 
@@ -458,9 +465,7 @@ def check_category_attributes(category_id):
     if not session.get('admin_logged_in'):
         return {'error': 'Не авторизован'}, 403
     
-    # Считаем товары в категории
     products_count = Product.query.filter_by(category_id=category_id).count()
-    # Считаем характеристики категории
     attributes_count = Attribute.query.filter_by(category_id=category_id).count()
     
     return {
@@ -482,8 +487,7 @@ def save_product_attributes():
     
     try:
         for attr_id, value in attributes.items():
-            if value:  # сохраняем только непустые значения
-                # Проверяем, существует ли уже такая характеристика
+            if value:
                 existing = ProductAttribute.query.filter_by(
                     product_id=product_id,
                     attribute_id=attr_id
