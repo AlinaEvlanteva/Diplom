@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/privacy_policy.css') }}">
+    <title>Политика конфиденциальности - ИнТехЛайт</title>
+</head>
+<body>
+    <header>
+        <div class="header_inner">
+            <div class="header_logo">
+                <a href="{{ url_for('main.index') }}"><img src="{{ url_for('static', filename='img/small/icons.png') }}" alt="Логотип ИнТехЛайт"/></a>
+            </div>
+            <nav class="header_nav">
+                <ul class="header_nav_menu">
+                    <li><a href="#">Доставка</a></li>
+                    <li><a href="#">Реквизиты</a></li>
+                    <li><a href="#">Контакты</a></li>
+                    <li><a href="#">Сертификаты</a></li>
+                </ul>
+            </nav>
+            <div class="header_link_icons">
+                <a href="{{ url_for('main.catalog') }}" class="link_catalog"><img src="{{ url_for('static', filename='img/small/cat.svg') }}"/>Каталог</a>
+                <a href="{{ url_for('main.cart_page') }}" class="link_cart cart_btn">
+                    <img src="{{ url_for('static', filename='img/small/cart.svg') }}" alt="Корзина"/>
+                    <span id="cart-count" class="cart_badge">{{ total_cart_items }}</span>
+                    Корзина
+                </a>
+            </div>
+        </div>
+    </header>
+    
+    <main>
+        <div class="privacy_container">
+            <h1 class="privacy_title">Политика конфиденциальности</h1>
+            
+            <div class="privacy_content">
+                <section class="privacy_section">
+                    <h2>1. Общие положения</h2>
+                    <p>Настоящая политика обработки персональных данных составлена в соответствии с требованиями Федерального закона от 27.07.2006. №152-ФЗ «О персональных данных» и определяет порядок обработки персональных данных и меры по обеспечению безопасности персональных данных.</p>
+                </section>
+                
+                <section class="privacy_section">
+                    <h2>2. Какие данные мы собираем</h2>
+                    <p>При оформлении заявки на нашем сайте мы собираем следующие данные:</p>
+                    <ul>
+                        <li>Имя (для обращения)</li>
+                        <li>Номер телефона (для связи)</li>
+                        <li>Комментарий к заказу (по желанию)</li>
+                        <li>Состав корзины (товары, которые вы хотите заказать)</li>
+                    </ul>
+                    <p>Мы не собираем и не храним данные банковских карт, адреса электронной почты (кроме случаев, когда вы указываете их в комментарии) и другую конфиденциальную информацию.</p>
+                </section>
+                
+                <section class="privacy_section">
+                    <h2>3. Как мы используем ваши данные</h2>
+                    <p>Ваши персональные данные используются исключительно для:</p>
+                    <ul>
+                        <li>Обработки и выполнения вашего заказа</li>
+                        <li>Связи с вами для уточнения деталей заказа</li>
+                        <li>Информирования о статусе выполнения заявки</li>
+                    </ul>
+                </section>
+                
+                <section class="privacy_section">
+                    <h2>4. Срок хранения данных</h2>
+                    <p>Ваши персональные данные хранятся в базе данных в течение 30 дней с момента оформления заявки. По истечении этого срока заявки автоматически удаляются.</p>
+                    <p>Вы можете запросить удаление ваших данных в любой момент, отправив письмо на адрес: <a href="mailto:info@intechlight.ru">info@intechlight.ru</a></p>
+                </section>
+                
+                <section class="privacy_section">
+                    <h2>5. Защита данных</h2>
+                    <p>Мы принимаем необходимые организационные и технические меры для защиты ваших персональных данных от неправомерного доступа, уничтожения, изменения, блокирования, копирования, распространения.</p>
+                    <ul>
+                        <li>Пароли администратора хранятся в зашифрованном виде</li>
+                        <li>Доступ к базе данных ограничен</li>
+                        <li>Регулярное обновление программного обеспечения</li>
+                    </ul>
+                </section>
+                
+                <section class="privacy_section">
+                    <h2>6. Ваши права</h2>
+                    <p>Вы имеете право:</p>
+                    <ul>
+                        <li>Получить информацию о том, какие ваши данные хранятся</li>
+                        <li>Потребовать уточнения, блокирования или уничтожения ваших данных</li>
+                        <li>Отозвать согласие на обработку персональных данных</li>
+                    </ul>
+                </section>
+                
+                <section class="privacy_section">
+                    <h2>7. Контактная информация</h2>
+                    <p>По всем вопросам, связанным с обработкой персональных данных, вы можете обратиться:</p>
+                    <ul>
+                        <li>Телефон: <a href="tel:+79498256121">+7 ХХХ ХХХ-ХХ-ХХ</a></li>
+                        <li>Email: <a href="mailto:info@intechlight.ru">info@intechlight.ru</a></li>
+                        <li>Адрес: г. Ростов-на-Дону, ул. Буквенная д. 25</li>
+                    </ul>
+                </section>
+            </div>
+            
+            <div class="privacy_back">
+                <a href="{{ url_for('main.index') }}" class="but_back">Вернуться на главную</a>
+            </div>
+        </div>
+    </main>
+    
+    <footer class="footer">
+        <div class="footer_column">
+            <h3 class="footer_title">Меню сайта</h3>
+            <nav>
+                <ul class="footer_menu">
+                    <li><a href="{{ url_for('main.index') }}">Главная страница</a></li>
+                    <li><a href="{{ url_for('main.catalog') }}">Каталог</a></li>
+                    <li><a href="#">Доставка</a></li>
+                    <li><a href="#">Реквизиты</a></li>
+                    <li><a href="#">Контакты</a></li>
+                    <li><a href="#">Сертификаты</a></li>
+                </ul>
+            </nav>
+        </div>
+        
+        <div class="footer_column">
+            <h3 class="footer_title">Контактная информация</h3>
+            <ul class="footer_menu">
+                <li><a>г. Ростов-на-Дону, ул. Буквенная д. 25</a></li>
+                <li><a href="tel:+79498256121">+7 ХХХ ХХХ-ХХ-ХХ</a></li>
+                <li><a href="mailto:info@intechlight.ru">info@intechlight.ru</a></li>
+            </ul>
+        </div>
+        
+        <div class="footer_column">
+            <h3 class="footer_title">Мессенджеры</h3>
+            <ul class="footer_menu">
+                <li><a href="#" class="messenger_link">WhatsApp</a></li>
+                <li><a href="#" class="messenger_link">Telegram</a></li>
+                <li><a href="#" class="messenger_link">ВКонтакте</a></li>
+            </ul>
+        </div>
+        
+        <div class="footer_bottom">
+            <div class="footer_bottom_content">
+                <a>© ООО «ИнТехЛайт»</a>
+                <a href="{{ url_for('main.privacy_policy') }}">Политика конфиденциальности</a>
+            </div>
+        </div>
+    </footer>
+    
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html>

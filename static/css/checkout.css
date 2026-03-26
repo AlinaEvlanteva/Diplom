@@ -182,14 +182,16 @@ main {
 
 /* Левая колонка - форма */
 .checkout_form {
-    flex: 1.2;
+    width: 70%;
 }
 
 .form_req {
+    width: auto;
+    height: auto;
     background: white;
     border: 2px solid #42546E;
     border-radius: 25px;
-    padding: 30px;
+    padding: 0 15px;
     margin-left: 80px;
 }
 
@@ -198,8 +200,7 @@ main {
     font-size: 25px;
     font-weight: bold;
     color: #42546E;
-    margin: 0;
-    margin-bottom: 20px;
+    margin: 15px 0;
     padding-bottom: 10px;
     border-bottom: 2px solid #E2E2E2;
 }
@@ -220,12 +221,17 @@ main {
 .form_input {
     width: 100%;
     height: 40px;
-    padding: 0 12px;
     font-size: 16px;
     border: 1.5px solid #42546E;
     border-radius: 15px;
-    box-sizing: border-box;
 }
+
+.form_input::placeholder {
+    color: #aaa;
+    font-size: 14px;
+    text-indent: 15px;  /* ← сдвиг текста внутри поля */
+}
+
 
 .form_input:focus {
     outline: none;
@@ -234,7 +240,6 @@ main {
 
 textarea.form_input {
     height: auto;
-    padding: 12px;
     resize: vertical;
 }
 
@@ -256,7 +261,7 @@ textarea.form_input {
     display: flex;
     gap: 20px;
     justify-content: center;
-    margin-top: 20px;
+    margin: 20px 0;
 }
 
 .but_save {
@@ -295,17 +300,19 @@ textarea.form_input {
     padding: 24px;
     position: sticky;
     top: 120px;
-    height: fit-content;
-    margin-right: 80px;
+    height: 195px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
 }
 
 .summa_title {
     font-size: 18px;
-    font-weight: 600;
+    font-weight: bold;
     color: #42546E;
     margin: 0 0 20px;
-    padding-bottom: 15px;
-    border-bottom: 1px solid #E2E2E2;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #E2E2E2;
 }
 
 .summa_info {
@@ -330,18 +337,16 @@ textarea.form_input {
 
 .order_note_small {
     margin-top: 20px;
-    padding: 10px;
     background-color: #f8f9fa;
     border-radius: 10px;
-    font-size: 12px;
-    color: #666;
+    font-size: 14px;
+    color: #42546E;
     text-align: center;
 }
 
 /* Блок товаров в заказе (под формой) */
 .order_items_section {
     margin-top: 30px;
-    padding-top: 20px;
     border-top: 2px solid #E2E2E2;
     margin-left: 80px;
 }
@@ -350,28 +355,22 @@ textarea.form_input {
     font-size: 18px;
     font-weight: bold;
     color: #42546E;
-    margin: 0 0 15px 0;
+    margin-bottom: 15px;
 }
 
-
-.order_items {
-    max-height: 400px;
-    overflow-y: auto;
-    margin-bottom: 20px;
-}
 
 .order_item {
     display: flex;
+    height: 100px;
     align-items: center;
+    justify-content: space-between;
     gap: 15px;
-    padding: 15px 0;
     border-bottom: 1px solid #E2E2E2;
 }
 
 .order_item_image {
-    width: 60px;
-    height: 60px;
-    flex-shrink: 0;
+    width: 110px;
+    height: 110px;
 }
 
 .order_item_image img {
@@ -381,37 +380,37 @@ textarea.form_input {
 }
 
 .order_item_info {
-    flex: 1;
+    width: 73%;
 }
 
 .order_item_name {
-    font-size: 14px;
+    font-size: 17px;
     font-weight: 600;
     color: #42546E;
     margin-bottom: 4px;
 }
 
 .order_item_article {
-    font-size: 12px;
+    font-size: 15px;
     color: #999;
 }
 
 .order_item_price {
-    font-size: 12px;
+    font-size: 15px;
     color: #666;
 }
 
 .order_item_quantity {
-    font-size: 14px;
+    font-size: 15px;
     font-weight: 500;
     color: #42546E;
 }
 
 .order_item_total {
-    font-size: 14px;
-    font-weight: 600;
+    font-size: 16px;
+    font-weight: bold;
     color: #42546E;
-    min-width: 80px;
+    width: 80px;
     text-align: right;
 }
 
@@ -426,10 +425,6 @@ textarea.form_input {
     color: #42546E;
 }
 
-.total_price {
-    font-size: 24px;
-    color: #dc3545;
-}
 
 .order_note {
     margin-top: 20px;
@@ -486,8 +481,9 @@ textarea.form_input {
 
 
 .footer{
+    margin-top: 200px;
     width: 100%;
-    margin-top: 100px;
+    height: 512px;
     background-color: #333333;
     display: flex;
     justify-content: space-around;

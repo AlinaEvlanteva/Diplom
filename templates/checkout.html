@@ -45,14 +45,14 @@
                             
                             <div class="form_group">
                                 <label class="form_label">
-                                    Как к вам обращаться? *
+                                    Как к вам обращаться? 
                                     <input type="text" name="name" class="form_input" placeholder="Иван Иванов" required>
                                 </label>
                             </div>
                             
                             <div class="form_group">
                                 <label class="form_label">
-                                    Телефон для связи *
+                                    Телефон для связи 
                                     <input type="tel" name="phone" class="form_input" placeholder="+7 (XXX) XXX-XX-XX" required>
                                 </label>
                             </div>
@@ -69,7 +69,7 @@
                             <h3 class="modal_title">Согласие на обработку данных</h3>
                             <label class="checkbox_label">
                                 <input type="checkbox" name="consent" required>
-                                Я согласен на <a href="#" target="_blank">обработку персональных данных</a>
+                                Я согласен на <a href="{{ url_for('main.privacy_policy') }}" target="_blank">обработку персональных данных</a>
                             </label>
                         </div>
                         
@@ -114,7 +114,7 @@
                         <span class="summa_value">{{ "%.2f"|format(total_sum) }} ₽</span>
                     </div>
                     <div class="order_note_small">
-                        <p>После отправки заявки менеджер свяжется с вами.</p>
+                        <p>После отправки заявки с вами свяжется менеджер.</p>
                     </div>
                 </aside>
             </div>
@@ -126,36 +126,42 @@
             <h3 class="footer_title">Меню сайта</h3>
             <nav>
                 <ul class="footer_menu">
-                    <li><a href="{{ url_for('main.index') }}">Главная страница</a></li>
+                    <li><a href="#">Главная страница</a></li>
                     <li><a href="{{ url_for('main.catalog') }}">Каталог</a></li>
                     <li><a href="#">Доставка</a></li>
                     <li><a href="#">Реквизиты</a></li>
                     <li><a href="#">Контакты</a></li>
                     <li><a href="#">Сертификаты</a></li>
-                </ul>
+            </ul>
             </nav>
         </div>
         
         <div class="footer_column">
             <h3 class="footer_title">Контактная информация</h3>
             <ul class="footer_menu">
-                <li><a>г. Ростов-на-Дону, ул. Буквенная д. 25</a></li>
+                <li><a>г. Ростов-на-Дону, ул. Буквенная д. 25, / <br/>
+                    ДНР, г. Донецк, ул. Баумана, д. 11</a></li>
                 <li><a href="tel:+79498256121">+7 ХХХ ХХХ-ХХ-ХХ</a></li>
-                <li><a href="mailto:info@intechlight.ru">info@intechlight.ru</a></li>
+                <li><a href="tel:+79281242620">+7 ХХХ ХХХ-ХХ-ХХ</a></li>
+                <li><a href="mailto:sgpz-bearings@mail.ru">Эл. почта: eeeeeee@mail.ru</a></li>
             </ul>
         </div>
-        
+
         <div class="footer_column">
             <h3 class="footer_title">Мессенджеры</h3>
             <ul class="footer_menu">
-                <li><a href="#" class="messenger_link">WhatsApp</a></li>
-                <li><a href="#" class="messenger_link">Telegram</a></li>
-                <li><a href="#" class="messenger_link">ВКонтакте</a></li>
+                <li><a href="#" class="messenger-link">Написать в WhatsApp</a></li>
+                <li><a href="#" class="messenger-link">Написать в Telegram</a></li>
+                <li><a href="#" class="messenger-link">Сообщество ВКонтакте</a></li>
+                <!-- ВРЕМЕННАЯ ССЫЛКА ДЛЯ АДМИНА (удалить потом) -->
+                 <div style="position: fixed; bottom: 10px; right: 10px; opacity: 0.3; font-size: 12px; background: #333; padding: 5px 10px; border-radius: 5px; z-index: 9999;">
+                    <a href="{{ url_for('admin.admin_login') }}" style="color: white; text-decoration: none;">🔐 Админка</a>
+                </div>
             </ul>
         </div>
-        
-        <div class="footer_bottom">
-            <div class="footer_bottom_content">
+
+        <div class="footer-bottom">
+            <div class="footer-bottom-content">
                 <a>© ООО «ИнТехЛайт»</a>
                 <a href="#">Политика конфиденциальности</a>
             </div>

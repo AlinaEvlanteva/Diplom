@@ -351,7 +351,7 @@ main {
 
 .total_price {
     font-size: 16px;
-    font-weight: 600;
+    font-weight: bold;
     color: #42546E;
 }
 
@@ -383,7 +383,6 @@ main {
     position: sticky;
     top: 120px;
     height: 195px;
-    margin-right: 80px;
 }
 
 .summa_title {

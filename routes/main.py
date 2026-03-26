@@ -8,6 +8,13 @@ from werkzeug.utils import secure_filename
 from models.request import Request
 from models.request_item import RequestItem
 
+
+@main_bp.route('/privacy_policy')
+def privacy_policy():
+    """Страница политики конфиденциальности"""
+    return render_template('privacy_policy.html')
+
+
 @main_bp.route('/submit_request', methods=['POST'])
 def submit_request():
     """Оформление заявки с корзиной"""
