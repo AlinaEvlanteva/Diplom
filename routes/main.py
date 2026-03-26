@@ -75,7 +75,7 @@ def checkout():
     cart_items = list(cart.values())
     
     if not cart_items:
-        flash('Корзина пуста', 'error')
+        # flash('Корзина пуста', 'error')
         return redirect(url_for('main.cart_page'))
     
     total_sum = sum(item['price'] * item['quantity'] for item in cart_items)

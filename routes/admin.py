@@ -16,17 +16,19 @@ def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
 # ========== МАРШРУТЫ ДЛЯ ВХОДА ==========
+
+
+
 @admin_bp.route('/login', methods=['GET', 'POST'])
 def admin_login():
     """Страница входа в админку"""
+    # Не фильтруем flash-сообщения
     if request.method == 'POST':
         username = request.form.get('username')
         password = request.form.get('password')
         
-        # Ищем пользователя с ролью admin
         admin = User.query.filter_by(username=username, role='admin').first()
         
-        # Проверяем пароль
         if admin and check_password_hash(admin.password_hash, password):
             session['admin_logged_in'] = True
             session['admin_id'] = admin.id
@@ -41,8 +43,17 @@ def admin_login():
 @admin_bp.route('/logout')
 def admin_logout():
     """Выход из админки"""
-    session.clear()
-    flash('Вы вышли из админки', 'info')
+    # Сохраняем сообщение
+    message = 'Вы вышли из админки'
+    
+    # Удаляем только ключи админа (не всю сессию!)
+    session.pop('admin_logged_in', None)
+    session.pop('admin_id', None)
+    session.pop('admin_username', None)
+    
+    # Добавляем flash-сообщение после очистки админ-ключей
+    flash(message, 'info')
+    
     return redirect(url_for('admin.admin_login'))
 
 # ========== ГЛАВНАЯ АДМИНКИ ==========
