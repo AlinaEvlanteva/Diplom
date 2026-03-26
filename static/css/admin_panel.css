@@ -615,13 +615,17 @@ input[type="file"].form_input {
 
 /* ===== ЗАЯВКИ (карточки) ===== */
 .request_card {
-    width: 100%;
+    width: 25.5%;
+    min-height: 400px;
     background: white;
     border: 2px solid #42546E;
     border-radius: 20px;
-    padding: 20px;
-    margin-bottom: 20px;
     transition: box-shadow 0.3s;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0 15px 15px 15px;
+    box-sizing: border-box;
 }
 
 .request_card:hover {
@@ -629,12 +633,13 @@ input[type="file"].form_input {
 }
 
 .request_card_header {
+    width: 100%;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding-bottom: 15px;
+    margin: 15px 0;
+    padding-bottom: 10px;
     border-bottom: 2px solid #E2E2E2;
-    margin-bottom: 15px;
 }
 
 .request_id {
@@ -649,23 +654,28 @@ input[type="file"].form_input {
 }
 
 .request_card_info {
+    width: 100%;
     margin-bottom: 15px;
+    flex: 1;
 }
 
 .request_info_row {
     display: flex;
-    margin-bottom: 8px;
+    margin-bottom: 10px;
 }
 
 .info_label {
-    width: 100px;
+    width: 70px;
     font-weight: bold;
     color: #42546E;
+    flex-shrink: 0;
 }
 
 .info_value {
     flex: 1;
     color: #666;
+    word-break: break-word;
+    overflow-wrap: break-word;
 }
 
 .info_value.price {
@@ -675,17 +685,25 @@ input[type="file"].form_input {
 
 .info_value.comment_text {
     word-break: break-word;
+    overflow-wrap: break-word;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
 }
 
 .request_card_actions {
+    width: 100%;
     display: flex;
-    gap: 15px;
+    flex-direction: column;
+    gap: 10px;
     align-items: center;
     padding-top: 15px;
     border-top: 1px solid #E2E2E2;
 }
 
 .btn_view_items {
+    width: 100%;
     background-color: #28a745;
     color: white;
     border: none;
@@ -694,6 +712,7 @@ input[type="file"].form_input {
     cursor: pointer;
     font-size: 14px;
     transition: background-color 0.3s;
+    text-align: center;
 }
 
 .btn_view_items:hover {
@@ -701,6 +720,7 @@ input[type="file"].form_input {
 }
 
 .status_select {
+    width: 100%;
     padding: 8px 15px;
     border-radius: 20px;
     border: 1px solid #42546E;
@@ -710,6 +730,7 @@ input[type="file"].form_input {
 }
 
 .btn_delete_request {
+    width: 100%;
     background-color: #dc3545;
     color: white;
     border: none;
@@ -718,6 +739,7 @@ input[type="file"].form_input {
     cursor: pointer;
     font-size: 14px;
     transition: background-color 0.3s;
+    text-align: center;
 }
 
 .btn_delete_request:hover {
@@ -732,8 +754,10 @@ input[type="file"].form_input {
 }
 
 /* Модальное окно товаров */
+/* Модальное окно товаров */
 .request_items_list {
-    max-height: 400px;
+    width: 500px;
+    height: auto;
     overflow-y: auto;
     padding: 10px;
 }
@@ -760,6 +784,7 @@ input[type="file"].form_input {
 
 .request_item_info {
     flex: 1;
+    min-width: 0;  /* ← важно для переноса текста */
 }
 
 .request_item_name {
@@ -767,16 +792,20 @@ input[type="file"].form_input {
     font-weight: 600;
     color: #42546E;
     margin-bottom: 4px;
+    word-break: break-word;      /* ← перенос длинных слов */
+    overflow-wrap: break-word;
 }
 
 .request_item_article {
     font-size: 12px;
     color: #999;
+    word-break: break-word;
 }
 
 .request_item_price {
     font-size: 12px;
     color: #666;
+    word-break: break-word;
 }
 
 .request_item_quantity {
@@ -785,6 +814,7 @@ input[type="file"].form_input {
     color: #42546E;
     min-width: 50px;
     text-align: center;
+    flex-shrink: 0;
 }
 
 .request_item_total {
@@ -793,6 +823,7 @@ input[type="file"].form_input {
     color: #42546E;
     min-width: 80px;
     text-align: right;
+    flex-shrink: 0;
 }
 
 .request_total {
@@ -803,6 +834,7 @@ input[type="file"].form_input {
     padding: 15px;
     border-top: 2px solid #42546E;
     margin-top: 10px;
+    word-break: break-word;
 }
 
 .request_comment {
@@ -812,6 +844,9 @@ input[type="file"].form_input {
     border-radius: 10px;
     font-size: 14px;
     color: #666;
+    word-break: break-word;      /* ← перенос длинных слов */
+    overflow-wrap: break-word;
+    white-space: normal;
 }
 
 

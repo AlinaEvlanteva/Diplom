@@ -165,13 +165,15 @@
                 </table>
             </div>
         </div>
+
+        
         <!-- Вкладка ЗАЯВКИ -->
         <div id="orders" class="tab_content {% if active_tab == 'orders' %}active{% endif %}">
             <div class="section_panel_data">
                 <h3>Заявки клиентов</h3>
-                <div>
+                <!-- <div>
                     <button class="but_add" onclick="exportRequests()">📊 Экспорт в Excel</button>
-                </div>
+                </div> -->
             </div>
             
             <div class="card_container">
@@ -194,7 +196,7 @@
                         
                         {% if req.comment %}
                         <div class="request_info_row">
-                            <span class="info_label">Комментарий:</span>
+                            <span class="info_label">Коммент:</span>
                             <span class="info_value comment_text">{{ req.comment|truncate(100) }}</span>
                         </div>
                         {% endif %}
@@ -210,7 +212,7 @@
                     
                     <div class="request_card_actions">
                         <button class="btn_view_items" onclick="viewRequestItems('{{ req.id }}')">
-                            📦 Просмотр товаров ({{ req.items|length }})
+                            Просмотр товаров ({{ req.items|length }})
                         </button>
                         
                         <div class="request_status">
@@ -633,31 +635,6 @@
         </form>
     </div>
 
-    <!-- Модальное окно для характеристик товара -->
-    <!-- <div id="productAttributesModal" class="modal">
-        <span class="close" onclick="closeModal('productAttributesModal')">&times;</span>
-        <form>
-            
-        </form>
-            <h3 class="modal_title" id="attributesModalTitle">Характеристики товара</h3>
-            <div id="attributesLoading" class="loading-spinner">
-                Загрузка характеристик...
-            </div>
-            
-            <div id="attributesContent" style="display: none;">
-                <form id="attributesForm" class="form_cat">
-                    <div id="attributesList" class="attributes-list"> -->
-                        <!-- Сюда будут добавляться поля динамически -->
-                    <!-- </div>
-                    
-                    <div class="modal_actions">
-                        <button type="button" class="but_save" onclick="saveProductAttributes()">Сохранить</button>
-                        <button type="button" class="but_cancel" onclick="closeModal('productAttributesModal')">Отмена</button>
-                    </div>
-                </form>
-            </div>
-        </form>
-    </div> -->
 
     <script src="{{ url_for('static', filename='js/admin.js') }}"></script>
 </body>
