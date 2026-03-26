@@ -8,39 +8,40 @@ from werkzeug.utils import secure_filename
 from models.request import Request
 from models.request_item import RequestItem
 from datetime import datetime
+from utils.email import send_email
 
 
 
 @main_bp.route('/send_feedback', methods=['POST'])
 def send_feedback():
-    """Отправка обратной связи на почту (без сохранения в БД)"""
     try:
         phone = request.form.get('phone')
         comment = request.form.get('comment', '')
         
-        # Формируем письмо
         subject = 'Новая заявка с сайта'
         body = f"""
-        Поступила новая заявка с главной страницы:
-        
+        Поступила новая заявка!
         📞 Телефон: {phone}
         📝 Комментарий: {comment if comment else 'Не указан'}
+        📅 Дата: {datetime.now().strftime('%d.%m.%Y %H:%M')}
+"""
         
-        Дата: {datetime.now().strftime('%d.%m.%Y %H:%M')}
-        """
+        success, message = send_email(
+            subject=subject,
+            body=body,
+            # МОЯ ПОЧТА ТУТ
+            to_email=''
+        )
         
-        # Здесь нужно отправить email
-        # send_email(subject, body)
+        print(f"Отправка: success={success}, message={message}")  # ← для отладки
         
-        # Пока просто выводим в консоль для теста
-        print("=" * 50)
-        print("НОВАЯ ЗАЯВКА (без БД)")
-        print(body)
-        print("=" * 50)
-        
-        return jsonify({'success': True})
-        
+        if success:
+            return jsonify({'success': True})
+        else:
+            return jsonify({'success': False, 'error': message})
+            
     except Exception as e:
+        print(f"Ошибка: {e}")
         return jsonify({'success': False, 'error': str(e)})
 
 
