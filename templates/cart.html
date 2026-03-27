@@ -24,7 +24,7 @@
                 <a href="{{ url_for('main.catalog') }}" class="link_catalog"><img src="{{ url_for('static', filename='img/small/cat.svg') }}"/>Каталог</a>
                 <a href="{{ url_for('cart.cart_page') }}" class="link_cart cart-btn">
                     <img src="{{ url_for('static', filename='img/small/cart.svg') }}" alt="Корзина"/>
-                    <span id="cart_count" class="cart_badge">{{ total_cart_items }}</span>
+                    <span id="cart_count" class="cart_badge {% if total_cart_items > 0 %}visible{% endif %}">{{ total_cart_items }}</span>
                     Корзина
                 </a>
             </div>
@@ -90,7 +90,7 @@
                     <div class="summa_line"></div>
                     <div class="summa_info total">
                         <span class="summa_label">Итого</span>
-                        <span class="summa_value" id="grand-total">{{ total_sum }} ₽</span>
+                        <span class="summa_value" id="grand-total">{{ "%.2f"|format(total_sum) }} ₽</span>
                     </div>
                     <a href="{{ url_for('requests.checkout') }}" class="but_check">Перейти к оформлению</a>
                 </aside>

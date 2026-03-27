@@ -70,8 +70,7 @@ header {
     align-items: center;
 }
 
-.link_catalog,
-.link_cart {
+.link_catalog{
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -90,6 +89,41 @@ header {
 
 }
 
+.link_cart {
+    position: relative;
+    display: flex;
+    flex-direction: column;    /* ← ОТЛИЧИЕ! */
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    color: black;
+    font-size: 16px;
+    min-width: 60px;
+}
+
+.cart_badge {
+    position: absolute;
+    top: -8px;
+    right: -10px;
+    background-color: #dc3545;
+    color: white;
+    border-radius: 50%;
+    min-width: 15px;
+    height: 18px;
+    font-size: 11px;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 4px;
+    display: none;
+}
+
+
+/* Показываем только если есть класс .visible */
+.cart_badge.visible {
+    display: flex;
+}
 /* Адаптивность */
 @media (max-width: 992px) {
     .header_nav_menu {

@@ -2,6 +2,7 @@ from flask import render_template, request, jsonify
 from datetime import datetime
 from . import feedback_bp
 from utils.email import send_email
+from .cart import get_cart_count
 
 @feedback_bp.route('/send_feedback', methods=['POST'])
 def send_feedback():
@@ -37,4 +38,5 @@ def send_feedback():
 @feedback_bp.route('/privacy_policy')
 def privacy_policy():
     """Страница политики конфиденциальности"""
-    return render_template('privacy_policy.html')
+    total_cart_items = get_cart_count()
+    return render_template('privacy_policy.html', total_cart_items=total_cart_items)

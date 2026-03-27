@@ -70,7 +70,7 @@ header {
     align-items: center;
 }
 
-.link_catalog {
+.link_catalog{
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -116,40 +116,13 @@ header {
     align-items: center;
     justify-content: center;
     padding: 0 4px;
-}
-
-/* Счетчик скрыт по умолчанию */
-.cart_badge {
     display: none;
 }
+
 
 /* Показываем только если есть класс .visible */
 .cart_badge.visible {
     display: flex;
-}
-/* Адаптивность */
-@media (max-width: 992px) {
-    .header_nav_menu {
-        gap: 20px;
-    }
-    
-    .header_nav_menu a {
-        font-size: 18px;
-    }
-}
-
-@media (max-width: 768px) {
-    .header_inner {
-        width: 95%;
-    }
-    
-    .header_nav_menu {
-        gap: 15px;
-    }
-    
-    .header_nav_menu a {
-        font-size: 16px;
-    }
 }
 
 main {

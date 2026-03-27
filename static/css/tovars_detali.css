@@ -120,7 +120,7 @@ header {
 .link_cart {
     position: relative;
     display: flex;
-    flex-direction: column;    /* ← ОТЛИЧИЕ! */
+    flex-direction: column;    
     align-items: center;
     justify-content: center;
     text-decoration: none;
