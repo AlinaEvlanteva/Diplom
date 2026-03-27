@@ -22,7 +22,7 @@
             </nav>
             <div class="header_link_icons">
                 <a href="{{ url_for('main.catalog') }}" class="link_catalog"><img src="{{ url_for('static', filename='img/small/cat.svg') }}"/>Каталог</a>
-                <a href="{{ url_for('main.cart_page') }}" class="link_cart cart-btn">
+                <a href="{{ url_for('cart.cart_page') }}" class="link_cart cart-btn">
                     <img src="{{ url_for('static', filename='img/small/cart.svg') }}" alt="Корзина"/>
                     <span id="cart-count" class="cart-badge">{{ total_cart_items }}</span>
                     Корзина
@@ -92,7 +92,7 @@
                         <span class="summa_label">Итого</span>
                         <span class="summa_value" id="grand-total">{{ total_sum }} ₽</span>
                     </div>
-                    <a href="{{ url_for('main.checkout') }}" class="but_check">Перейти к оформлению</a>
+                    <a href="{{ url_for('requests.checkout') }}" class="but_check">Перейти к оформлению</a>
                 </aside>
             </div>
             

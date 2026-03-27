@@ -4,5 +4,11 @@ main_bp = Blueprint('main', __name__)
 # auth_bp = Blueprint('auth', __name__)
 admin_bp = Blueprint('admin', __name__)
 
-# from . import main, auth, admin
-from . import main, admin
+# Новые блюпринты
+cart_bp = Blueprint('cart', __name__)
+api_bp = Blueprint('api', __name__)
+requests_bp = Blueprint('requests', __name__)
+feedback_bp = Blueprint('feedback', __name__)
+
+# Импортируем все маршруты
+from . import main, admin, cart, api, requests, feedback

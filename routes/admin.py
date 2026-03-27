@@ -8,6 +8,7 @@ import os
 from werkzeug.utils import secure_filename
 from models.request import Request
 from models.request_item import RequestItem
+from .cart import get_cart_count
 
 # ========== НАСТРОЙКИ ЗАГРУЗКИ ФАЙЛОВ ==========
 UPLOAD_FOLDER_SMALL = os.path.join('static', 'img', 'small')
@@ -288,22 +289,46 @@ def delete_category(category_id):
     
     category = Category.query.get_or_404(category_id)
     
+    # ===== 1. Сначала получаем все товары категории =====
     products = Product.query.filter_by(category_id=category_id).all()
     
+    # ===== 2. Удаляем файлы изображений КАЖДОГО товара =====
+    for product in products:
+        if product.image and product.image != 'default.png':
+            try:
+                small_path = os.path.join(UPLOAD_FOLDER_SMALL, product.image)
+                big_path = os.path.join(UPLOAD_FOLDER_BIG, product.image)
+                
+                if os.path.exists(small_path):
+                    os.remove(small_path)
+                    print(f"Удален файл: {small_path}")
+                if os.path.exists(big_path):
+                    os.remove(big_path)
+                    print(f"Удален файл: {big_path}")
+            except Exception as e:
+                print(f"Ошибка при удалении файлов товара {product.id}: {e}")
+    
+    # ===== 3. Удаляем значения характеристик товаров =====
     for product in products:
         ProductAttribute.query.filter_by(product_id=product.id).delete()
     
+    # ===== 4. Удаляем сами товары из БД =====
     Product.query.filter_by(category_id=category_id).delete()
+    
+    # ===== 5. Удаляем характеристики (типы) категории =====
     Attribute.query.filter_by(category_id=category_id).delete()
     
+    # ===== 6. Удаляем файл изображения категории =====
     if category.image and category.image != 'default_category.png':
         try:
             img_path = os.path.join(UPLOAD_FOLDER_SMALL, category.image)
             if os.path.exists(img_path):
                 os.remove(img_path)
+                print(f"Удален файл категории: {img_path}")
         except Exception as e:
-            print(f"Ошибка при удалении файла: {e}")
+            print(f"Ошибка при удалении файла категории: {e}")
     
+    # ===== 7. Удаляем саму категорию =====
     db.session.delete(category)
     db.session.commit()
 
