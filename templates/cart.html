@@ -49,7 +49,7 @@
                     
                     <div class="products_list">
                         {% for item in cart_items %}
-                        <div class="cart_item" data-product-id="{{ item.id }}">
+                        <article class="cart_item" data-product-id="{{ item.id }}">
                             <div class="cart_item_checkbox">
                                 <input type="checkbox" class="item_checkbox" value="{{ item.id }}">
                             </div>
@@ -70,12 +70,12 @@
                                 <button class="quantity_but plus" onclick="updateQuantity('{{ item.id }}', '{{ item.quantity + 1 }}')">+</button>
                             </div>
                             <div class="cart_item_total">
-                                <p class="total_price">{{ "%.2f"|format(item.price * item.quantity) }} ₽</p>
+                                <div class="total_price">{{ "%.2f"|format(item.price * item.quantity) }} ₽</div>
                             </div>
                             <div class="cart_item_remove">
                                 <button class="but_del" onclick="removeItem('{{ item.id }}')">✕</button>
                             </div>
-                        </div>
+                        </article>
                         {% endfor %}
                     </div>
                 </section>
@@ -84,15 +84,15 @@
                 <aside class="cart_summa">
                     <h3 class="summa_title">Детали заказа</h3>
                     <div class="summa_info">
-                        <span class="summa_label">Товары ({{ total_items }})</span>
-                        <span class="summa_value" id="total-sum">{{ "%.2f"|format(total_sum) }} ₽</span>
+                        <div class="summa_label">Товары ({{ total_items }})</div>
+                        <div class="summa_value" id="total-sum">{{ "%.2f"|format(total_sum) }} ₽</div>
                     </div>
                     <div class="summa_line"></div>
                     <div class="summa_info total">
-                        <span class="summa_label">Итого</span>
-                        <span class="summa_value" id="grand-total">{{ "%.2f"|format(total_sum) }} ₽</span>
+                        <div class="summa_label">Итого</div>
+                        <div class="summa_value" id="grand-total">{{ "%.2f"|format(total_sum) }} ₽</div>
                     </div>
-                    <a href="{{ url_for('requests.checkout') }}" class="but_check">Перейти к оформлению</a>
+                    <button data-href="{{ url_for('requests.checkout') }}" class="but_check" onclick="window.location.href=this.dataset.href">Перейти к оформлению</button>
                 </aside>
             </div>
             
@@ -100,7 +100,7 @@
             <section class="empty_cart">
                 <div class="empty_cart_icon">🛒</div>
                 <p>Ваша корзина пуста</p>
-                <a href="{{ url_for('main.catalog') }}" class="but_continue">Перейти в каталог</a>
+                <button data-href="{{ url_for('main.catalog') }}" class="but_continue" onclick="window.location.href=this.dataset.href">Перейти в каталог</button>
             </section>
             {% endif %}
         </section>

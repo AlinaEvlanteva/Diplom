@@ -173,7 +173,7 @@ main {
     margin-top: 10px;
 }
 
-.admin_panel_acc h3{
+.admin_panel_acc h1{
     font-size: 25px;
     color: #42546E;
     font-weight: bold;
@@ -211,12 +211,21 @@ main {
     align-items: center;
 }
 
-.nav_admin button{
+.nav_admin_list{
+    display: flex;
+    gap: 50px;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.nav_admin_list button{
     color: #42546E;
     font-size: 20px;
     border: none;
     background-color: white;
     cursor: pointer;
+    padding: 0;
 }
 .line{
     width: 80%;
@@ -255,7 +264,7 @@ main {
     color: #42546E;
     font-size: 20px;
 }
-.section_panel_data h3{
+.section_panel_data h2{
     color: #42546E;
     font-size: 23px;
     margin: 0;

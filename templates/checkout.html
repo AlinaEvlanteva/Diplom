@@ -66,7 +66,7 @@
                         </div>
                         
                         <div class="form_section">
-                            <h3 class="modal_title">Согласие на обработку данных</h3>
+                            <h3 class="title">Согласие на обработку данных</h3>
                             <label class="checkbox_label">
                                 <input type="checkbox" name="consent" required>
                                 Я согласен на <a href="{{ url_for('feedback.privacy_policy') }}" target="_blank">обработку персональных данных</a>
@@ -172,7 +172,6 @@
      
     <div id="successModal" class="modal">
         <div class="modal_success">
-            <span class="close" onclick="closeSuccessModal()">&times;</span>
             <div class="success_icon_modal">✓</div>
             <h3 class="modal_title">Заявка отправлена!</h3>
             <p>Спасибо за ваш заказ. Наш менеджер свяжется с вами в ближайшее время для подтверждения деталей.</p>
@@ -182,9 +181,7 @@
             </div>
         </div>
     </div>
-    
-    <div class="flash_messages"></div>
-    
+     
     <script src="{{ url_for('static', filename='js/checkout.js') }}"></script>
 </body>
 </html>
