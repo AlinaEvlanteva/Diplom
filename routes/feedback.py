@@ -20,7 +20,7 @@ def send_feedback():
         success, message = send_email(
             subject=subject,
             body=body,
-            to_email='evlantevaalina17@gmail.com'
+            to_email=''
         )
         
         print(f"Отправка: success={success}, message={message}")
