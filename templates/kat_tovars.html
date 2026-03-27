@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/kat_tovars.css') }}">
-    <title>ИнТехЛайт - Каталог - Подшипники</title>
+    <title>ИнТехЛайт - Каталог</title>
 </head>
 <body>
     <header>
@@ -24,7 +24,7 @@
                 <a href="{{ url_for('main.catalog') }}" class="link_catalog"><img src="{{ url_for('static', filename='img/small/cat.svg') }}"/>Каталог</a>
                 <a href="{{ url_for('cart.cart_page') }}" class="link_cart" id="cart-link">
                     <img src="{{ url_for('static', filename='img/small/cart.svg') }}" alt="Корзина"/>
-                    <span id="cart-count" class="cart-badge cart-badge-animate">{{ total_cart_items }}</span>
+                    <span id="cart-count" class="cart-badge">{{ total_cart_items }}</span>
                     Корзина
                 </a>
             </div>
@@ -33,22 +33,28 @@
 
     <main>
         <section class="section_kategory">
-            <div class="section_catalog_info">
-                <h3 id="cat_info_nav">Главная / Каталог / {{ category.name }}</h3>
-                <h3>{{ category.name }}</h3>
-            </div>
+            <nav aria-label="Breadcrumb" class="section_products_info">
+                <ul class="info_list">
+                    <li><a href="{{ url_for('main.index') }}">Главная</a></li>
+                    <li>/</li>
+                    <li><a href="{{ url_for('main.catalog') }}">Каталог</a></li>
+                    <li>/</li>
+                    <li>{{ category.name }}</li>
+                </ul>
+                <h1>{{ category.name }}</h1>
+            </nav>
             <div class="section_products_podship">
                 {% for product in products %}
-                <div class="post_poshipniki">
+                <article class="post_poshipniki">
                     <a href="{{ url_for('main.product_detail', product_id=product.id) }}" class="product_link">
                         <div class="product_image">
                             <img src="{{ url_for('static', filename='img/small/' + product.image) }}" alt="Картинка товара"/>
                         </div>
-                        <h3 class="post_name">{{ product.name }}</h3>
+                        <h2 class="post_name">{{ product.name }}</h2>
                         <p>{{ product.short_specs }}</p>
-                        <h3>{{ product.price }} ₽ / {{ product.unit or 'шт' }}</h3>
+                        <p id="cena">{{ product.price }} ₽ / {{ product.unit or 'шт' }}</p>
                     </a>
-                </div>
+                </article>
                 {% endfor %}
             </div>
 

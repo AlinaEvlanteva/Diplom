@@ -70,7 +70,7 @@ header {
     align-items: center;
 }
 
-.link_catalog{
+.link_catalog {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -89,23 +89,16 @@ header {
 
 }
 
-/* ===== КОРЗИНА (единые стили для всех страниц) ===== */
 .link_cart {
     position: relative;
     display: flex;
-    flex-direction: column;
+    flex-direction: column;    /* ← ОТЛИЧИЕ! */
     align-items: center;
     justify-content: center;
     text-decoration: none;
     color: black;
     font-size: 16px;
     min-width: 60px;
-}
-
-.link_cart img {
-    width: 28px;
-    height: 28px;
-    margin-bottom: 4px;
 }
 
 .cart-badge {
@@ -134,8 +127,6 @@ header {
 .cart-badge.visible {
     display: flex;
 }
-
-
 /* Адаптивность */
 @media (max-width: 992px) {
     .header_nav_menu {
@@ -165,58 +156,47 @@ main {
     margin-top: 100px;
 }
 
-.section_katalog{
-    width: 100%;
-    height: 963px;
-    display: flex;
-    flex-direction: column;
-}
-
-
-.section_catalog_info{
-    width: 100%;
-    height: 230px;
-    margin: 0;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    gap: 50px;
-}
-
-.section_catalog_info h3{
-    color: #42546E;
-    font-size: 30px;
-    font-weight: bold;
-    margin: 0;
-    margin-left: 150px;
-}
-
-#cat_info_nav{
-    font-size: 20px;
-    margin: 0;
-    margin-left: 150px;
-}
-
 /* main{
 
 } */
 .section_kategory{
     width: 100%;
     height: auto;
-    /* background-color: brown; */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
-.section_catalog_info{
+.section_products_info{
     width: 100%;
-    height: 230px;
-    /* background-color: chocolate; */
+    height: auto;
+    margin: 30px 0;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    gap: 50px;
+    gap: 30px;
 }
 
-.section_catalog_info h3{
+.info_list{
+    display: flex;
+    list-style: none;
+    gap: 5px;
+    font-size: 20px;
+    color: #42546E;
+    font-weight: bold;
+    margin: 0;
+    padding: 0;
+    margin-left: 150px;
+}
+
+.info_list a{
+    margin: 0;
+    text-decoration: none;
+    color: #42546E;
+
+}
+
+.section_products_info h1{
     color: #42546E;
     font-size: 30px;
     font-weight: bold;
@@ -224,16 +204,11 @@ main {
     margin-left: 150px;
 }
 
-#cat_info_nav{
-    font-size: 20px;
-    margin: 0;
-    margin-left: 150px;
-}
+
 
 .section_products_podship{
     width: 100%;
     height: auto;
-    /* background-color: rgb(59, 115, 115); */
     display: flex;
     justify-content: center;
     gap: 55px;
@@ -241,8 +216,8 @@ main {
 }
 .post_poshipniki{
     width: 20%;
-    height: 350px;
-    /* background-color: cornflowerblue; */
+    height: auto;
+    padding: 25px 0;
     border-radius: 20px;
     border: 2px solid #42546E;
     display: flex;
@@ -283,15 +258,22 @@ main {
 
 Если текста много (две строки) → блок растянется до нужной высоты (больше 44px) НО у тебя текст помещается в две строки, значит высота стала примерно 44px у всех! */
 }
-.post_poshipniki h3{
+.post_poshipniki h2{
     font-size: 20px;
     color: #42546E;
     margin: 0;
     margin-top: 15px;
 }
+
+
 .post_poshipniki p{
     font-size: 15px;
     color: #42546E;
     margin: 0;
     margin-top: 12px;
+}
+
+#cena{
+    font-weight: bold;
+    font-size: 17px;
 }

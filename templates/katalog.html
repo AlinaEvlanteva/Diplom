@@ -33,18 +33,22 @@
 
     <main>
         <section class="section_katalog">
-            <div class="section_catalog_info">
-                <h3 id="cat_info_nav">Главная / Каталог</h3>
-                <h3>Каталог</h3>
-            </div>
+            <nav aria-label="Breadcrumb" class="section_catalog_info">
+                <ul class="info_list">
+                    <li><a href="{{ url_for('main.index') }}">Главная</a></li>
+                    <li>/</li>
+                    <li>Каталог</li>
+                </ul>
+                <h1>Каталог</h1>
+            </nav>
             <div class="section_products_post">
                 {% for category in categories %}
-                <div class="post">
+                <article class="post">
                     <a href="{{ url_for('main.category_products', cat_id=category.id) }}">
                         <img src="{{ url_for('static', filename='img/small/' + (category.image if category.image else 'default.png')) }}"/>
                         <h3>{{ category.name }}</h3>
                     </a>
-                </div>
+                </article>
                 {% endfor %}
             </div>
         </section>

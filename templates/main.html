@@ -37,15 +37,15 @@
         <div class="main_intro_inner">
             <div class="main_intro_inner_rectangle">
                 <div class="main_intro_inner_rectangle_info">
-                    <h1>
+                    <h1 id="title_intro_big">
                         ИнТехЛайт
                     </h1>
-                    <h3>
+                    <h1 class="title_intro_small">
                         Надежный
-                    </h3>
-                    <h3>
+                    </h1>
+                    <h1 class="title_intro_small">
                         Поставщик
-                    </h3>
+                    </h1>
                 </div>
                 <div class="main_intro_inner_rectangle_button">
                     <button onclick="openFeedbackModal()">Оставить заявку</button>
@@ -65,7 +65,7 @@
         <section class="products_section">
             <div class="products_section_info">
                 <div class="section_info_line"></div>
-                <h3>Наша продукция</h3>
+                <h2>Наша продукция</h2>
             </div>
             <div class="products_section_post">
                 {% for category in categories %}
@@ -84,7 +84,7 @@
         <section class="section_advantages">
             <div class="section_advantages_info">
                 <div class="section_info_line"></div>
-                <h3>Наши преимущества</h3>
+                <h2>Наши преимущества</h2>
             </div>
             
             <div class="section_advantages_post">
@@ -126,7 +126,7 @@
         <section class="section_instructions">
             <div class="section_instructions_header">
                 <div class="section_info_line"></div>
-                <h3>Как сделать заказ</h3>
+                <h2>Как сделать заказ</h2>
             </div>
             <div class="section_instructions_info">
                 <div class="section_instructions_info_post">
@@ -183,9 +183,9 @@
 
         <section class="section_sotrudnichestvo">
             <div class="section_sotrudnichestvo_header">
-                <h4>
+                <h2>
                     Готовы начать сотрудничество?
-                </h4>
+                </h2>
             </div>
             <div class="section_sotrudnichestvo_info">
                 <div class="sotrudnichestvo_container_post">
@@ -210,7 +210,7 @@
 
         <section class="section_end_intro">
             <div class="section_end_intro_info">
-                <h3>ИнТехЛайт — Ваш надёжный партнёр</h3>
+                <h2>ИнТехЛайт — Ваш надёжный партнёр</h2>
                 <p>Качественные комплектующие, быстрая доставка и профессиональный сервис. <br/>
                     Начните сотрудничество с нами сегодня и убедитесь в надёжности ИнТехЛайт.</p>
                 <button onclick="openFeedbackModal()">Оставить заявку</button>
@@ -268,9 +268,9 @@
     
     <!-- Модальное окно обратной связи -->
     <div id="feedbackModal" class="modal">
-        <span class="close" onclick="closeFeedbackModal()">&times;</span>
-        <form id="feedbackForm" class="form_cat">
-            <h3 class="modal_title">Оставить заявку</h3>
+        <!-- <span class="close" onclick="closeFeedbackModal()">&times;</span> -->
+        <form id="feedbackForm" class="form_req">
+            <h3 class="form_title">Оставить заявку</h3>
             
             <div class="form_group">
                 <label class="form_label">
@@ -286,7 +286,7 @@
                 </label>
             </div>
             
-            <div class="modal_actions">
+            <div class="form_actions">
                 <button type="submit" class="but_save">Отправить</button>
                 <button type="button" class="but_cancel" onclick="closeFeedbackModal()">Отмена</button>
             </div>
