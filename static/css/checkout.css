@@ -150,7 +150,7 @@ header {
 
 
 /* Показываем только если есть класс .visible */
-.cart-badge.visible {
+.cart_badge.visible {
     display: flex;
 }
 

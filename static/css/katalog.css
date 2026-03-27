@@ -101,7 +101,7 @@ header {
     min-width: 60px;
 }
 
-.cart-badge {
+.cart_badge {
     position: absolute;
     top: -8px;
     right: -10px;
@@ -119,12 +119,12 @@ header {
 }
 
 /* Счетчик скрыт по умолчанию */
-.cart-badge {
+.cart_badge {
     display: none;
 }
 
 /* Показываем только если есть класс .visible */
-.cart-badge.visible {
+.cart_badge.visible {
     display: flex;
 }
 /* Адаптивность */

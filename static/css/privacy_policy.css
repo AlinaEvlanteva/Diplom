@@ -110,7 +110,7 @@ header {
     display: none;
 }
 
-.cart-badge.visible {
+.cart_badge.visible {
     display: flex;
 }
 

@@ -45,7 +45,7 @@ document.addEventListener('keydown', function(e) {
 // ========== КОРЗИНА ==========
 
 function updateCartCounter(totalItems) {
-    const cartCount = document.getElementById('cart-count');
+    const cartCount = document.getElementById('cart_count');
     if (cartCount) {
         cartCount.textContent = totalItems;
         if (totalItems > 0) {
@@ -60,7 +60,7 @@ function updateCartCounter(totalItems) {
 
 // При загрузке страницы проверяем
 document.addEventListener('DOMContentLoaded', function() {
-    const cartCount = document.getElementById('cart-count');
+    const cartCount = document.getElementById('cart_count');
     if (cartCount) {
         const count = parseInt(cartCount.textContent) || 0;
         if (count > 0) {

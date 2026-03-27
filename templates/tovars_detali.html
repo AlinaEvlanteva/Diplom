@@ -24,7 +24,7 @@
                 <a href="{{ url_for('main.catalog') }}" class="link_catalog"><img src="{{ url_for('static', filename='img/small/cat.svg') }}"/>Каталог</a>
                 <a href="{{ url_for('cart.cart_page') }}" class="link_cart" id="cart-link">
                     <img src="{{ url_for('static', filename='img/small/cart.svg') }}" alt="Корзина"/>
-                    <span id="cart-count" class="cart-badge cart-badge-animate">{{ total_cart_items }}</span>
+                    <span id="cart_count" class="cart_badge cart_badge-animate">{{ total_cart_items }}</span>
                     Корзина
                 </a>
             </div>
@@ -52,23 +52,23 @@
                 <div class="section_detali_tovara_post_attributes">
                     <div class="attributes_items">
                         <div class="attributes_row">
-                            <span class="attr_name">Артикул</span>
-                            <span class="attr-line"></span>
-                            <span class="attr-value">{{ product.article }}</span>
+                            <div class="attr_name">Артикул</div>
+                            <div class="attr_line"></div>
+                            <div class="attr_value">{{ product.article }}</div>
                         </div>
 
                         {% for attr in attributes %}
                         <div class="attributes_row">
-                            <span class="attr_name">{{ attr.attribute.name }}</span>
-                            <span class="attr-line"></span>
-                            <span class="attr-value">{{ attr.value }} {{ attr.attribute.unit or '' }}</span>
+                            <div class="attr_name">{{ attr.attribute.name }}</div>
+                            <div class="attr_line"></div>
+                            <div class="attr_value">{{ attr.value }} {{ attr.attribute.unit or '' }}</div>
                         </div>
                         {% endfor %}
 
                         <div class="attributes_row price_row">
-                            <span class="attr_name">Цена</span>
-                            <span class="attr-line"></span>
-                            <span class="attr-value price_value">{{ product.price }} ₽ / {{ product.unit or 'шт' }}</span>
+                            <div class="attr_name">Цена</div>
+                            <div class="attr_line"></div>
+                            <div class="attr_value price_value">{{ product.price }} ₽ / {{ product.unit or 'шт' }}</div>
                         </div>
                         <!-- КОНТЕЙНЕР ДЛЯ КНОПКИ И СЧЕТЧИКА -->
                         <div class="product_actions">
