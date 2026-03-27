@@ -477,67 +477,6 @@ main {
     background-color: #2a3a4e;
 }
 
-/* Адаптивность */
-/* @media (max-width: 992px) {
-    .cart-layout {
-        flex-direction: column;
-    }
-    
-    .cart-item {
-        flex-wrap: wrap;
-    }
-    
-    .cart-item-checkbox {
-        order: 1;
-    }
-    
-    .cart-item-image {
-        order: 2;
-    }
-    
-    .cart-item-info {
-        order: 3;
-        flex-basis: calc(100% - 200px);
-    }
-    
-    .cart-item-price {
-        order: 4;
-    }
-    
-    .cart-item-quantity {
-        order: 5;
-    }
-    
-    .cart-item-total {
-        order: 6;
-        flex: 1;
-        text-align: right;
-    }
-    
-    .cart-item-remove {
-        order: 7;
-    }
-}
-
-@media (max-width: 768px) {
-    .cart-item {
-        flex-direction: column;
-        text-align: center;
-    }
-    
-    .cart-item-info {
-        flex-basis: auto;
-    }
-    
-    .cart-item-price, .cart-item-quantity, .cart-item-total {
-        width: 100%;
-        text-align: center;
-    }
-    
-    .cart-summary {
-        position: static;
-    }
-} */
 
 .footer{
     width: 100%;

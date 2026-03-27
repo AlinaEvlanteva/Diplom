@@ -662,10 +662,7 @@ input[type="file"].form_input {
 .request_info_row {
     display: flex;
     gap: 15px;
-    margin-left: 15px;
-    margin-right: 15px;
-    margin-bottom: 10px;
-    /* ПОТОМ ПОМЕНЯТЬ!!!!!!!!!!!!! */
+    margin: 0 15px 10px 15px;
 }
 
 .info_label {
@@ -758,7 +755,6 @@ input[type="file"].form_input {
     font-size: 18px;
 }
 
-/* Модальное окно товаров */
 /* Модальное окно товаров */
 .request_items_list {
     width: 500px;
