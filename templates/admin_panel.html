@@ -255,7 +255,8 @@
             </div>
         </section>
     </main>
-  
+
+    <!-- Модальное окно для добавления категории -->
     <div id="addCategoryModal" class="modal">
         <span class="close" onclick="closeModal('addCategoryModal')">&times;</span>
         <form method="POST" action="/admin/add_category" enctype="multipart/form-data" class="form_cat">
@@ -421,6 +422,7 @@
         </form>
     </div>
     
+    <!-- Модальное окно для редактирования товара -->
     <div id="editProductModal" class="modal">
         <span class="close" onclick="closeModal('editProductModal')">&times;</span>
         <form id="editProductForm" method="POST" enctype="multipart/form-data" class="form_cat">
@@ -517,6 +519,7 @@
         </form>
     </div>
 
+    <!-- Модальное окно для удаления товара -->
     <div id="deleteProductModal" class="modal">
         <div class="modal_delete">
             <span class="close" onclick="closeModal('deleteProductModal')">&times;</span>
@@ -529,7 +532,7 @@
         </div>
     </div>
 
-        <!-- Модальное окно для характеристик товара -->
+    <!-- Модальное окно для заполнения характеристик товара -->
     <div id="productAttributesModal" class="modal">
         <span class="close" onclick="closeModal('productAttributesModal')">&times;</span>
         <form id="attributesForm" method="POST" class="form_cat">
@@ -553,7 +556,8 @@
             </div>
         </form>
     </div>
-    
+
+    <!-- Модальное окно для добавления характеристики -->
     <div id="addAttributeModal" class="modal">
         <span class="close" onclick="closeModal('addAttributeModal')">&times;</span>
         <form method="POST" action="/admin/add_attribute" class="form_cat">
@@ -591,7 +595,7 @@
         </form>
     </div>
 
-    <!-- Модальное окно для редактирования атрибутов -->
+    <!-- Модальное окно для редактирования характеристики -->
     <div id="editAttributeModal" class="modal">
         <span class="close" onclick="closeModal('editAttributeModal')">&times;</span>
         <form id="editAttributeForm" method="POST" class="form_cat">
