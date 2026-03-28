@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -32,7 +32,7 @@
             <div class="admin_panel_acc">
                 <h1>Админ-панель</h1>
                 <div class="admin_logout">
-                    <h1>{{ session.get('admin_username', 'админ') }}</h1>
+                    <p>{{ session.get('admin_username', 'админ') }}</p>
                     <button type="button" onclick="window.location.href='/admin/logout'">Выйти</button>
                 </div>
             </div>
@@ -109,10 +109,11 @@
                 {% endif %}
                 {% set _ = categories_dict[product.category.name].append(product) %}
                 {% endfor %}
+
                 <!-- Перебираем категории по порядку -->
                 {% for category_name, category_products in categories_dict.items() %}
                 <section class="category_section">
-                    <h4 class="category_header">{{ category_name }}</h4>
+                    <h3 class="category_header">{{ category_name }}</h3>
                     <div class="card_container">
                         {% for product in category_products %}
                         <div class="card_inner">
@@ -534,7 +535,7 @@
         <form id="attributesForm" method="POST" class="form_cat">
             <h3 class="modal_title" id="attributesModalTitle">Характеристики товара</h3>
             
-            <div id="attributesLoading" style="text-align: center; padding: 20px; color: #42546E;">
+            <div id="attributesLoading">
                 Загрузка характеристик...
             </div>
             

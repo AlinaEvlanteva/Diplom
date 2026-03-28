@@ -245,11 +245,21 @@ main {
     align-items: center;
 }
 
+.footer_menu p{
+    text-decoration: none;
+    color: #e2e2e2;
+    font-size: 20px; 
+    margin: 0; 
+}
+
+
 .footer_menu a{
     text-decoration: none;
     color: #e2e2e2;
     font-size: 20px;  
 }
+
+
 .footer-bottom {
     width: 80%;
     height: 97px;
@@ -264,6 +274,13 @@ main {
     display: flex;
     flex-direction: column;
     align-items: center;
+}
+
+.footer-bottom-content p{
+    text-decoration: none;
+    color: #989898;
+    font-size: 18px;
+    margin: 0;
 }
 
 .footer-bottom-content a{

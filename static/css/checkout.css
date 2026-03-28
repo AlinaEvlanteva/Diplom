@@ -471,29 +471,30 @@ textarea.form_input {
 }
 
 /* Футер */
-.footer {
+.footer{
     margin-top: 200px;
     width: 100%;
+    height: 512px;
     background-color: #333333;
     display: flex;
     justify-content: space-around;
     flex-wrap: wrap;
 }
 
-.footer_column {
+.footer_column{
     width: 23%;
+    height: 298px;
     margin-top: 50px;
 }
-
-.footer_column h3 {
+.footer_column h3{
     font-size: 20px;
     font-weight: bold;
     color: #ffffff;
     text-align: center;
 }
 
-.footer_menu {
-    list-style: none;
+.footer_menu{
+    list-style: none; 
     margin: 0;
     padding: 0;
     display: flex;
@@ -502,11 +503,20 @@ textarea.form_input {
     align-items: center;
 }
 
-.footer_menu a {
+.footer_menu p{
     text-decoration: none;
     color: #e2e2e2;
-    font-size: 20px;
+    font-size: 20px; 
+    margin: 0; 
 }
+
+
+.footer_menu a{
+    text-decoration: none;
+    color: #e2e2e2;
+    font-size: 20px;  
+}
+
 
 .footer-bottom {
     width: 80%;
@@ -516,8 +526,7 @@ textarea.form_input {
     display: flex;
     align-items: center;
 }
-
-.footer-bottom-content {
+.footer-bottom-content{
     width: 100%;
     height: 54px;
     display: flex;
@@ -525,7 +534,14 @@ textarea.form_input {
     align-items: center;
 }
 
-.footer-bottom-content a {
+.footer-bottom-content p{
+    text-decoration: none;
+    color: #989898;
+    font-size: 18px;
+    margin: 0;
+}
+
+.footer-bottom-content a{
     text-decoration: none;
     color: #989898;
     font-size: 18px;

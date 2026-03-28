@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -34,18 +34,18 @@
 <!-- Интро -->
  
     <main>
-        <div class="main_intro_inner">
+        <section class="main_intro_inner">
             <div class="main_intro_inner_rectangle">
                 <div class="main_intro_inner_rectangle_info">
                     <h1 id="title_intro_big">
                         ИнТехЛайт
                     </h1>
-                    <h1 class="title_intro_small">
+                    <p class="title_intro_small">
                         Надежный
-                    </h1>
-                    <h1 class="title_intro_small">
+                    </p>
+                    <p class="title_intro_small">
                         Поставщик
-                    </h1>
+                    </p>
                 </div>
                 <div class="main_intro_inner_rectangle_button">
                     <button onclick="openFeedbackModal()">Оставить заявку</button>
@@ -58,7 +58,7 @@
                 </div>
             </div>
             <div class="main_intro_inner_photo"></div>
-        </div>
+        </section>
 
         <!-- Секция наши продукты -->
 
@@ -69,12 +69,12 @@
             </div>
             <div class="products_section_post">
                 {% for category in categories %}
-                <div class="post">
+                <article class="post">
                     <a href="{{ url_for('main.category_products', cat_id=category.id) }}">
                         <img src="{{ url_for('static', filename='img/small/' + category.image) }}" alt="{{ category.name }}"/>
                         <h3>{{ category.name }}</h3>
                     </a>
-                </div>
+                </article>
                 {% endfor %}
             </div>
         </section>
@@ -88,7 +88,7 @@
             </div>
             
             <div class="section_advantages_post">
-                <div class="advantages_post">
+                <article class="advantages_post">
                     <div class="advantages_post_header">
                         <h3>Ассортимент</h3>
                         <img src="{{ url_for('static', filename='img/small/assortiment.png') }}" alt="Ассортимент"/>
@@ -97,9 +97,9 @@
                         подшипников, цепей, РТИ и <br/>
                         промышленных товаров
                     </p>
-                </div>
+                </article>
                 
-                <div class="advantages_post">
+                <article class="advantages_post">
                     <div class="advantages_post_header">
                         <h3>Доставка</h3>
                         <img src="{{ url_for('static', filename='img/small/delivery.png') }}" id="img_delivery" alt="Доставка"/>
@@ -107,18 +107,18 @@
                     <p>Отправка в день заказа. <br/>
                         Работаем по всей России и ДНР
                     </p>
-                </div>
+                </article>
                 
-                <div class="advantages_post">
+                <article class="advantages_post">
                     <div class="advantages_post_header">
                         <h3>Качество</h3>
-                        <img src="{{ url_for('static', filename='img/small/kachestvo.png') }}" alt=""/>
+                        <img src="{{ url_for('static', filename='img/small/kachestvo.png') }}" alt="Качество"/>
                     </div>
                     <p>Вся продукция <br/>
                         сертифицирована, только <br/>
                         от проверенных производителей
                     </p>
-                </div>
+                </article>
             </div> 
         </section> 
 
@@ -188,15 +188,17 @@
                 </h2>
             </div>
             <div class="section_sotrudnichestvo_info">
-                <div class="sotrudnichestvo_container_post">
+
+                <article class="sotrudnichestvo_container_post">
                     <h3>Оставьте заявку прямо сейчас</h3>
                     <p>Заполните форму, и наш менеджер <br/>
                         свяжется с вами в течение часа. <br/>
                         Получите консультацию и коммерческое <br/>
                         предложение в кратчайшие сроки.</p>
                     <button onclick="openFeedbackModal()">Оставить заявку</button>
-                </div>
-                <div id="sotrudnichestvo_container_post2">
+                </article>
+
+                <article id="sotrudnichestvo_container_post2">
                     <h3>Или свяжитесь с нами </h3>
                     <p>Телефон: +7 ХХХ ХХХ-ХХ-ХХ</p>
                     <p>Email: еееееееееее17@gmail.com</p>
@@ -204,7 +206,7 @@
                     <p>Адрес: Буквенная улица д. 25</p>
                     <p>Мы всегда на связи. <br/>
                         Доверьте поставку ИнТехЛайт.</p>
-                </div>
+                </article>
             </div>
         </section>
 
@@ -236,8 +238,8 @@
         <div class="footer_column">
             <h3 class="footer_title">Контактная информация</h3>
             <ul class="footer_menu">
-                <li><a>г. Ростов-на-Дону, ул. Буквенная д. 25, / <br/>
-                    ДНР, г. Донецк, ул. Баумана, д. 11</a></li>
+                <li><p>г. Ростов-на-Дону, ул. Буквенная д. 25, / <br/>
+                    ДНР, г. Донецк, ул. Баумана, д. 11</p></li>
                 <li><a href="tel:+79498256121">+7 ХХХ ХХХ-ХХ-ХХ</a></li>
                 <li><a href="tel:+79281242620">+7 ХХХ ХХХ-ХХ-ХХ</a></li>
                 <li><a href="mailto:sgpz-bearings@mail.ru">Эл. почта: eeeeeee@mail.ru</a></li>
@@ -259,8 +261,8 @@
 
         <div class="footer-bottom">
             <div class="footer-bottom-content">
-                <a>© ООО «ИнТехЛайт»</a>
-                <a href="#">Политика конфиденциальности</a>
+                <p>© ООО «ИнТехЛайт»</p>
+                <a href="{{ url_for('feedback.privacy_policy') }}">Политика конфиденциальности</a>
             </div>
         </div>
     </footer>

@@ -179,6 +179,14 @@ main {
     font-weight: bold;
     margin: 0;
 }
+
+.admin_panel_acc p{
+    font-size: 25px;
+    color: #42546E;
+    font-weight: bold;
+    margin: 0;
+}
+
 .admin_logout{
     width: 23%;
     display: flex;
@@ -951,4 +959,10 @@ input[type="file"].form_input {
     background-color: #d1ecf1;
     color: #0c5460;
     border-left: 4px solid #17a2b8;
+}
+
+#attributesLoading {
+    text-align: center;
+    padding: 20px;
+    color: #42546E;
 }
