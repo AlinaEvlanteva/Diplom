@@ -118,7 +118,7 @@
                         {% for product in category_products %}
                         <div class="card_inner">
                             <img src="{{ url_for('static', filename='img/small/' + (product.image)) }}" alt="{{ product.name }}" class="card_image"/>
-                            <h3 class="card_title">{{ product.name }}</h3>
+                            <h4 class="card_title">{{ product.name }}</h4>
                             <p class="card_specs">{{ product.short_specs }}</p>
                             <p class="card_price">{{ product.price }} ₽ / {{ product.unit or 'шт' }}</p>
                             {% if product.old_price %}

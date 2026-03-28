@@ -295,6 +295,7 @@ main {
     font-size: 30px;
     color: #42546E;
     margin: 20px 0;
+    font-weight: bold;
 }
 
 .card_container{
