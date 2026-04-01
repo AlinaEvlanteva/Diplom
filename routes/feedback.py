@@ -9,6 +9,11 @@ def send_feedback():
     try:
         phone = request.form.get('phone')
         comment = request.form.get('comment', '')
+        consent = request.form.get('consent')  # ДОБАВИТЬ ЭТУ СТРОКУ
+        
+        # ПРОВЕРКА СОГЛАСИЯ
+        if not consent:
+            return jsonify({'success': False, 'error': 'Необходимо согласие на обработку персональных данных'})
         
         subject = 'Новая заявка с сайта'
         body = f"""
@@ -16,12 +21,13 @@ def send_feedback():
         📞 Телефон: {phone}
         📝 Комментарий: {comment if comment else 'Не указан'}
         📅 Дата: {datetime.now().strftime('%d.%m.%Y %H:%M')}
+        ✅ Согласие на обработку: Да
         """
         
         success, message = send_email(
             subject=subject,
             body=body,
-            to_email=''
+            to_email='alinavestovskaya@yandex.ru'  # сюда email менеджера
         )
         
         print(f"Отправка: success={success}, message={message}")

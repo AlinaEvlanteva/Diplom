@@ -449,6 +449,8 @@ def get_product_attributes(product_id):
     return {
         'product_id': product.id,
         'product_name': product.name,
+        'category_id': product.category_id,  # ← добавить
+        'category_name': product.category.name,  # ← добавить
         'attributes': attrs_data
     }
 

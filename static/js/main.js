@@ -384,27 +384,78 @@ function closeFeedbackModal() {
     document.getElementById('feedbackForm').reset();
 }
 
-// Валидация телефона
+// Добавьте базовую проверку на корректность кода оператора
+// ===== ВАЛИДАЦИЯ ТЕЛЕФОНА =====
 function validatePhone(phone) {
+    // 1. Убираем все нецифровые символы (пробелы, скобки, дефисы, плюсы)
     const digits = phone.replace(/[^0-9]/g, '');
-    return digits.length === 10 || digits.length === 11;
+    
+    // 2. Проверяем длину: должно быть 11 цифр
+    if (digits.length !== 11) {
+        return false;
+    }
+    
+    // 3. Проверяем, что первая цифра 7 или 8
+    const firstDigit = digits[0];
+    if (firstDigit !== '7' && firstDigit !== '8') {
+        return false;
+    }
+    
+    // 4. Проверяем, что код оператора (2-4 цифры) не начинается с 0 или 1
+    const operatorCode = digits.substring(1, 4);
+    if (operatorCode[0] === '0' || operatorCode[0] === '1') {
+        return false;
+    }
+    
+    // 5. Все проверки пройдены
+    return true;
 }
+
+// ===== ФОРМАТИРОВАНИЕ ТЕЛЕФОНА ПРИ ВВОДЕ (опционально) =====
+function formatPhone(input) {
+    // Убираем все нецифровые символы
+    let digits = input.value.replace(/[^0-9]/g, '');
+    
+    // Ограничиваем длину 11 цифрами
+    if (digits.length > 11) {
+        digits = digits.slice(0, 11);
+    }
+
+    // Если первая цифра 8 - заменяем на 7
+    if (digits.length > 0 && digits[0] === '8') {
+        digits = '7' + digits.slice(1);
+    }
+    
+    // Форматируем
+    if (digits.length === 0) {
+        input.value = '';
+    } else if (digits.length <= 1) {
+        input.value = '+' + digits;
+    } else if (digits.length <= 4) {
+        input.value = '+' + digits.slice(0, 1) + ' (' + digits.slice(1);
+    } else if (digits.length <= 7) {
+        input.value = '+' + digits.slice(0, 1) + ' (' + digits.slice(1, 4) + ') ' + digits.slice(4);
+    } else if (digits.length <= 9) {
+        input.value = '+' + digits.slice(0, 1) + ' (' + digits.slice(1, 4) + ') ' + digits.slice(4, 7) + '-' + digits.slice(7);
+    } else {
+        input.value = '+' + digits.slice(0, 1) + ' (' + digits.slice(1, 4) + ') ' + digits.slice(4, 7) + '-' + digits.slice(7, 9) + '-' + digits.slice(9, 11);
+    }
+}
+
 
 // Отправка формы обратной связи
 // Отправка формы обратной связи
 document.getElementById('feedbackForm')?.addEventListener('submit', function(e) {
     e.preventDefault();
     
-    console.log('Форма отправлена');  // ← для отладки
-    
     const phoneInput = document.getElementById('feedbackPhone');
     const phone = phoneInput.value;
     
-    console.log('Телефон:', phone);  // ← для отладки
-    
+    // Валидация телефона
     if (!validatePhone(phone)) {
-        showFlashMessage('Пожалуйста, введите корректный номер телефона (10 или 11 цифр)', 'error');
+        showFlashMessage('❌ Введите корректный номер телефона в формате +7 (XXX) XXX-XX-XX', 'error');
         phoneInput.style.borderColor = '#dc3545';
+        phoneInput.focus();
         return;
     }
     
@@ -412,30 +463,47 @@ document.getElementById('feedbackForm')?.addEventListener('submit', function(e) 
     
     const formData = new FormData(this);
     
-    console.log('Отправка запроса...');  // ← для отладки
+    // Закрываем окно
+    closeFeedbackModal();
+    
+    // Блокируем кнопку отправки
+    const submitBtn = this.querySelector('button[type="submit"]');
+    const originalText = submitBtn.textContent;
+    submitBtn.textContent = 'Отправка...';
+    submitBtn.disabled = true;
+    
+    showFlashMessage('📩 Отправляем заявку...', 'info');
     
     fetch('/send_feedback', {
         method: 'POST',
         body: formData
     })
-    .then(response => {
-        console.log('Ответ получен, статус:', response.status);  // ← для отладки
-        return response.json();
-    })
+    .then(response => response.json())
     .then(data => {
-        console.log('Данные ответа:', data);  // ← для отладки
         if (data.success) {
-            showFlashMessage('✅ Сообщение отправлено! Менеджер свяжется с вами.', 'success');
-            closeFeedbackModal();
+            showFlashMessage('✅ Заявка отправлена! Менеджер свяжется с вами.', 'success');
         } else {
             showFlashMessage('❌ Ошибка: ' + data.error, 'error');
         }
     })
     .catch(error => {
-        console.error('Ошибка:', error);  // ← для отладки
-        showFlashMessage('❌ Ошибка при отправке', 'error');
+        console.error('Ошибка:', error);
+        showFlashMessage('❌ Ошибка при отправке. Попробуйте позже.', 'error');
+    })
+    .finally(() => {
+        submitBtn.textContent = originalText;
+        submitBtn.disabled = false;
     });
 });
+
+// Добавляем форматирование при вводе
+const phoneInput = document.getElementById('feedbackPhone');
+if (phoneInput) {
+    phoneInput.addEventListener('input', function() {
+        formatPhone(this);
+        this.style.borderColor = '#42546E';
+    });
+}
 
 
 // ===== FLASH СООБЩЕНИЯ =====

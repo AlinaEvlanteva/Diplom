@@ -91,7 +91,7 @@
                             <div class="order_item_info">
                                 <div class="order_item_name">{{ item.name }}</div>
                                 <div class="order_item_article">Артикул: {{ item.article }}</div>
-                                <div class="order_item_price">{{ item.price }} ₽ / {{ item.unit or 'шт' }}</div>
+                                <div class="order_item_price">{{ "%.2f"|format(item.price) }} ₽ / {{ item.unit or 'шт' }}</div>
                             </div>
                             <div class="order_item_quantity">x {{ item.quantity }}</div>
                             <div class="order_item_total">{{ "%.2f"|format(item.price * item.quantity) }} ₽</div>
@@ -177,11 +177,10 @@
             <p>Спасибо за ваш заказ. Наш менеджер свяжется с вами в ближайшее время для подтверждения деталей.</p>
             <div class="modal_actions">
                 <button class="but_save" onclick="goToHome()">На главную</button>
-                <button class="but_cancel" onclick="closeSuccessModal()">Закрыть</button>
             </div>
         </div>
     </div>
-     
+    <div class="flash-messages"></div>
     <script src="{{ url_for('static', filename='js/checkout.js') }}"></script>
 </body>
 </html>

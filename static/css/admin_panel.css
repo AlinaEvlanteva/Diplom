@@ -611,59 +611,10 @@ input[type="file"].form_input {
     text-align: center;
 }
 
-.table_container{
-    width: 80%;
-    display: flex;
-    justify-content:  center;
+
+#title_charackter{
+    margin-top: 5px;
 }
-
-.admin_table_charackter{
-    width: 80%;
-    border-collapse: collapse;
-    border-radius: 15px;
-    overflow: hidden; 
-
-
-}
-
-
-.admin_table_charackter td {
-    padding: 10px;
-    text-align: center;
-    font-size: 17px;
-}
-
-/* Стиль для заголовков (чуть жирнее) */
-.admin_table_charackter th {
-    background-color: #42546E;
-    color: white;
-    font-weight: bold;
-    text-align: center;
-    padding: 15px;
-    font-size: 20px;
-}
-
-/* Hover-эффект для строк */
-.admin_table_charackter tbody tr:hover {
-    background-color: #e9e9e9;
-}
-
-.actions{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    gap: 5px;
-}
-
-.actions button{
-    width: 150px;
-    height: 30px;
-    border-radius: 5px;
-    color: white;
-    background-color: #42546E;
-}
-
 
 /* ===== ЗАЯВКИ (карточки) ===== */
 .request_card {
@@ -966,4 +917,68 @@ input[type="file"].form_input {
     text-align: center;
     padding: 20px;
     color: #42546E;
+}
+
+/* Стили только для шкивов и втулок */
+.pulley_bushing_modal .form_cat {
+    width: 52%;
+    max-width: 90vw;
+}
+
+.pulley_bushing_modal #attributesList {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    width: 100%;
+}
+
+.pulley_bushing_modal .form_label {
+    display: flex;
+    flex-direction: column;
+    width: 48%;
+    margin-bottom: 0;
+    text-align: left;
+    align-items: flex-start;
+    box-sizing: border-box;
+}
+
+.pulley_bushing_modal .form_input {
+    width: 100%;
+    padding: 10px;
+    font-size: 14px;
+    border: 1.5px solid #42546E;
+    border-radius: 15px;
+    box-sizing: border-box;
+}
+
+/* Стили для колец, манжет и сальников */
+.seals_modal .form_cat {
+    width: 45%;
+    max-width: 90vw;
+}
+
+.seals_modal #attributesList {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    width: 100%;
+}
+
+.seals_modal .form_label {
+    display: flex;
+    flex-direction: column;
+    width: 48%;
+    margin-bottom: 0;
+    text-align: left;
+    align-items: flex-start;
+    box-sizing: border-box;
+}
+
+.seals_modal .form_input {
+    width: 100%;
+    padding: 10px;
+    font-size: 14px;
+    border: 1.5px solid #42546E;
+    border-radius: 15px;
+    box-sizing: border-box;
 }

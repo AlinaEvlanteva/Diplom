@@ -6,10 +6,10 @@ class Config:
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     
     # Настройки для Gmail
-    MAIL_SERVER = 'smtp.gmail.com'
-    MAIL_PORT = 587
-    MAIL_USE_SSL = False
-    MAIL_USE_TLS = True
-    MAIL_USERNAME = ''  # твоя почта
-    MAIL_PASSWORD = ''       # пароль приложения
-    ADMIN_EMAIL = ''     # куда приходят заявки
+    MAIL_SERVER = 'smtp.yandex.ru'
+    MAIL_PORT = 465
+    MAIL_USE_SSL = True
+    MAIL_USE_TLS = False
+    MAIL_USERNAME = 'alinavestovskaya@yandex.ru'  # твоя почта
+    MAIL_PASSWORD = 'pkvoisojdjxdodki'       # пароль приложения
+    ADMIN_EMAIL = 'alinavestovskaya@yandex.ru'     # куда приходят заявки

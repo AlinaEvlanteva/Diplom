@@ -246,17 +246,17 @@ function confirmDeleteAttribute() {
 // ===== ФИЛЬТР ДЛЯ ХАРАКТЕРИСТИК =====
 function filterAttributes() {
     var filter = document.getElementById('category_filter').value;
-    var rows = document.querySelectorAll('#attributes tbody tr');
+    var cards = document.querySelectorAll('#attributes_card_container .attribute_card');
     
-    rows.forEach(row => {
-        var categoryId = row.getAttribute('data-category-id');
+    cards.forEach(card => {
+        var categoryId = card.getAttribute('data-category-id');
         
         if (filter === 'all') {
-            row.style.display = '';
+            card.style.display = 'flex';  // или 'block', смотря какой display у карточки
         } else if (categoryId == filter) {
-            row.style.display = '';
+            card.style.display = 'flex';
         } else {
-            row.style.display = 'none';
+            card.style.display = 'none';
         }
     });
 }
@@ -276,26 +276,43 @@ function openProductAttributesModal(productId) {
         .then(data => {
             document.getElementById('attributesModalTitle').textContent = 
                 'Характеристики: ' + data.product_name;
+
+            document.getElementById('attributesForm').dataset.categoryId = data.category_id;
+            document.getElementById('attributesForm').dataset.productId = productId;
+            
+            // ===== ПРОВЕРКА ДЛЯ КАТЕГОРИЙ =====
+            const modal = document.getElementById('productAttributesModal');
+            
+            // Удаляем все старые классы
+            modal.classList.remove('pulley_bushing_modal', 'seals_modal');
+            
+            // Добавляем класс в зависимости от категории
+            if (data.category_id === 4) {  // Шкивы, втулки
+                modal.classList.add('pulley_bushing_modal');
+            } else if (data.category_id === 5) {  // Кольца, манжеты, сальники
+                modal.classList.add('seals_modal');
+            }
+            // ===== КОНЕЦ ПРОВЕРКИ =====
             
             const attributesList = document.getElementById('attributesList');
             attributesList.innerHTML = '';
             
             if (data.attributes.length === 0) {
-                // Если нет характеристик - показываем сообщение и меняем кнопки
                 attributesList.innerHTML = '<p style="text-align: center; padding: 20px; color: #42546E;">Для этой категории пока нет характеристик. Сначала создайте характеристики в разделе "Типы характеристик".</p>';
                 
-                // Меняем кнопки: вместо "Сохранить" показываем "Перейти к типам характеристик"
                 const modalActions = document.querySelector('#productAttributesModal .modal_actions');
                 modalActions.innerHTML = `
                     <button type="button" class="but_save" onclick="goToAttributesTab()">Перейти</button>
                     <button type="button" class="but_cancel" onclick="closeModal('productAttributesModal')">Отмена</button>
                 `;
             } else {
-                // Если есть характеристики - создаем поля
+                // Создаем поля
                 data.attributes.forEach(attr => {
                     const label = document.createElement('label');
                     label.className = 'form_label';
-                    label.textContent = attr.name + (attr.unit ? ' (' + attr.unit + ')' : '');
+                    
+                    const nameSpan = document.createElement('span');
+                    nameSpan.textContent = attr.name + (attr.unit ? ' (' + attr.unit + ')' : '');
                     
                     const input = document.createElement('input');
                     input.type = 'text';
@@ -304,11 +321,11 @@ function openProductAttributesModal(productId) {
                     input.placeholder = 'Введите значение';
                     input.className = 'form_input';
                     
+                    label.appendChild(nameSpan);
                     label.appendChild(input);
                     attributesList.appendChild(label);
                 });
                 
-                // Восстанавливаем стандартные кнопки
                 const modalActions = document.querySelector('#productAttributesModal .modal_actions');
                 modalActions.innerHTML = `
                     <button type="button" class="but_save" onclick="saveProductAttributes()">Сохранить</button>

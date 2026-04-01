@@ -61,7 +61,7 @@
                                 <p class="item_article">Артикул: {{ item.article }}</p>
                             </div>
                             <div class="cart_item_price">
-                                <div class="price">{{ item.price }} ₽</div>
+                                <div class="price">{{ "%.2f"|format(item.price) }} ₽</div>
                                 <div class="unit">/ {{ item.unit or 'шт' }}</div>
                             </div>
                             <div class="cart_item_quantity">
