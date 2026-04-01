@@ -82,6 +82,17 @@
                     </div>
                 </div>
             </article>
+
+            <article class="section_description_tovara">
+                <div class="description">
+                    <div class="description_title">
+                        <h3>Описание</h3>
+                    </div>
+                    <div class="description_content">
+                        {{ product.full_description|safe or 'Подробное описание отсутствует.' }}
+                    </div>
+                </div>
+            </article>
         </section>
     </main>
 

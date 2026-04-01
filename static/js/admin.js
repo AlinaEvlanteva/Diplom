@@ -581,4 +581,19 @@ function deleteRequest(requestId) {
 //     showFlashMessage('Функция экспорта в разработке', 'info');
 // }
 
+function openEditProductModalFromData(btn) {
+    const id = btn.dataset.id;
+    const name = btn.dataset.name;
+    const image = btn.dataset.image;
+    const specs = btn.dataset.specs;
+    const price = btn.dataset.price;
+    const unit = btn.dataset.unit;
+    const article = btn.dataset.article;
+    const categoryId = btn.dataset.category;
+    const fullDesc = btn.dataset.desc;
+    const oldPrice = btn.dataset.oldprice;
+    
+    openEditProductModal(id, name, image, specs, price, unit, article, categoryId, fullDesc, oldPrice);
+}
+
 console.log('admin.js загружен успешно');

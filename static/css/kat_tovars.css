@@ -251,6 +251,18 @@ main {
     font-size: 17px;
 }
 
+/* Карточка товара на странице категории */
+.post_poshipniki {
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.post_poshipniki:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+    border-color: #5275A7;
+}
+
 .footer{
     margin-top: 200px;
     width: 100%;

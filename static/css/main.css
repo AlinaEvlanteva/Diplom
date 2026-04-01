@@ -799,4 +799,104 @@ textarea.form_input {
     }
 }
 
+/* ===== АНИМАЦИИ ДЛЯ КНОПОК ===== */
+.main_intro_inner_rectangle_button button,
+.sotrudnichestvo_container_post button,
+.section_end_intro_info button,
+.but_save,
+.but_cancel {
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.main_intro_inner_rectangle_button button:hover,
+.sotrudnichestvo_container_post button:hover,
+.section_end_intro_info button:hover,
+.but_save:hover {
+    transform: scale(1.05);
+    background-color: #2a3a4e;
+    box-shadow: 0 4px 12px rgba(66, 84, 110, 0.3);
+}
+
+.but_cancel:hover {
+    transform: scale(1.05);
+    background-color: #f5f5f5;
+    border-color: #2a3a4e;
+}
+
+/* ===== АНИМАЦИИ ДЛЯ КАРТОЧЕК ===== */
+.post,
+.advantages_post {
+    transition: all 0.3s ease;
+}
+
+.post:hover,
+.advantages_post:hover {
+    transform: translateY(-5px);
+}
+
+.post:hover img,
+.advantages_post:hover img {
+    transform: scale(1.05);
+}
+
+.post img,
+.advantages_post img {
+    transition: all 0.3s ease;
+}
+
+.post h3,
+.advantages_post_header h3 {
+    transition: color 0.3s ease;
+}
+
+.post:hover h3 {
+    color: #5275A7;
+}
+
+.advantages_post:hover {
+    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.15);
+    border-color: #5275A7;
+}
+
+.advantages_post:hover .advantages_post_header h3 {
+    color: #5275A7;
+}
+
+.advantages_post p {
+    transition: color 0.3s ease;
+}
+
+.advantages_post:hover p {
+    color: #42546E;
+}
+
+/* ===== АНИМАЦИЯ ПРИ СКРОЛЛЕ ===== */
+@keyframes slideInFromBottom {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.section_instructions_info_post,
+.advantages_post,
+.post {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.5s ease;
+}
+
+.section_instructions_info_post.visible,
+.advantages_post.visible,
+.post.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+
 

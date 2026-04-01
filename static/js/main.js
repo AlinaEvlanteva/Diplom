@@ -528,4 +528,22 @@ function showFlashMessage(message, category) {
     }, 5000);
 }
 
+// ===== АНИМАЦИЯ ПРИ СКРОЛЛЕ =====
+function checkVisibility() {
+    const elements = document.querySelectorAll('.section_instructions_info_post, .advantages_post, .post');
+    
+    elements.forEach(element => {
+        const rect = element.getBoundingClientRect();
+        const windowHeight = window.innerHeight || document.documentElement.clientHeight;
+        
+        if (rect.top <= windowHeight - 100) {
+            element.classList.add('visible');
+        }
+    });
+}
+
+// Запускаем при загрузке и при скролле
+window.addEventListener('scroll', checkVisibility);
+window.addEventListener('load', checkVisibility);
+
 console.log('main.js загружен');

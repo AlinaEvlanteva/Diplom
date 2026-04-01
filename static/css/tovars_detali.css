@@ -372,6 +372,134 @@ main {
     text-align: center;
 }
 
+.section_description_tovara{
+    margin-top: 100px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.description{
+    width: 85%;
+    height: auto;
+    border-radius: 45px;
+    border: 2px solid #42546E;
+    padding: 25px 40px 25px 40px;
+}
+
+.description_title h3{
+    margin: 0;
+    font-size: 25px;
+    color: #42546E;
+}
+
+.description_content{
+    width: 100%;
+    height: auto;
+    margin: 0;
+    white-space: pre-line;
+    color: #6C6767;
+    font-size: 18px;
+    word-break: break-word;
+}
+
+/* Анимация появления страницы */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.section_detali_tovara_info,
+.section_detali_tovara_post,
+.section_description_tovara {
+    animation: fadeInUp 0.6s ease-out forwards;
+}
+
+.section_description_tovara {
+    animation-delay: 0.2s;
+}
+
+/* Анимация для фото товара */
+.section_detali_tovara_post_photo img {
+    transition: all 0.4s ease;
+}
+
+.section_detali_tovara_post_photo:hover img {
+    transform: scale(1.05);
+}
+
+
+/* Анимация для кнопки "Заказать" */
+.but_add_cart {
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.but_add_cart:hover {
+    background-color: #2a3a4e;
+    transform: scale(1.05);
+    box-shadow: 0 4px 12px rgba(66, 84, 110, 0.3);
+}
+
+.but_add_cart:active {
+    transform: scale(0.98);
+}
+
+/* Анимация для кнопок + и - */
+.minus, .plus {
+    transition: all 0.2s ease;
+}
+
+.minus:hover, .plus:hover {
+    background-color: #2a3a4e;
+    transform: scale(1.1);
+}
+
+.minus:active, .plus:active {
+    transform: scale(0.95);
+}
+
+/* Анимация для блока описания */
+.description {
+    transition: all 0.3s ease;
+}
+
+.description:hover {
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+    border-color: #5275A7;
+}
+
+/* Анимация для заголовка описания */
+.description_title h3 {
+    position: relative;
+    display: inline-block;
+}
+
+.description_title h3::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background-color: #5275A7;
+    transition: width 0.3s ease;
+}
+
+.description:hover .description_title h3::after {
+    width: 100%;
+}
+
+
+
+
+
 .footer{
     margin-top: 200px;
     width: 100%;

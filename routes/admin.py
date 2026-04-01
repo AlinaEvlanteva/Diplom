@@ -124,7 +124,6 @@ def delete_request(request_id):
     flash('Заявка удалена', 'success')
     return redirect(url_for('admin.admin_panel'))
 
-# ========== УПРАВЛЕНИЕ ТОВАРАМИ ==========
 @admin_bp.route('/add_product', methods=['POST'])
 def add_product():
     """Добавление нового товара"""
@@ -137,6 +136,7 @@ def add_product():
     price = request.form.get('price')
     unit = request.form.get('unit')
     short_specs = request.form.get('short_specs')
+    full_description = request.form.get('full_description')  # ← ДОБАВИТЬ
     
     image = 'default.png'
     image_big = 'default.png'
@@ -164,6 +164,7 @@ def add_product():
         price=price,
         unit=unit,
         short_specs=short_specs,
+        full_description=full_description,  # ← ДОБАВИТЬ
         image=image,
         image_big=image_big,
         old_price=None

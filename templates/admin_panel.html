@@ -125,7 +125,7 @@
                             <p class="old_price">Старая цена: {{ product.old_price }} ₽</p>
                             {% endif %}
                             <div class="card_inner_button">
-                                <button onclick="openEditProductModal('{{ product.id }}', '{{ product.name }}', '{{ product.image }}', '{{ product.short_specs }}', '{{ product.price }}', '{{ product.unit }}','{{ product.article }}','{{ product.category_id }}','{{ product.full_description }}','{{ product.old_price }}')">Редактировать</button>
+                                <button data-id="{{ product.id }}" data-name="{{ product.name }}" data-image="{{ product.image|default('') }}" data-specs="{{ product.short_specs|default('') }}" data-price="{{ product.price }}" data-unit="{{ product.unit|default('шт') }}" data-article="{{ product.article }}" data-category="{{ product.category_id }}" data-desc="{{ product.full_description|default('') }}" data-oldprice="{{ product.old_price|default('') }}" onclick="openEditProductModalFromData(this)">Редактировать</button>
                                 <button class="but_attributes"  id="but_attributes" onclick="openProductAttributesModal('{{ product.id }}')">Заполнить значения</button>
                                 <button id="but_delete" onclick="deleteProduct('{{ product.id }}')">Удалить</button>
                             </div>
@@ -476,8 +476,7 @@
                     </label>
                     <label class="form_label">
                         Полное описание:
-                        <textarea id="edit_product_full_description" name="full_description" class="form_input" rows="4" placeholder="Подробное описание товара..."></textarea>
-                    </label>
+                        <textarea id="edit_product_full_description" name="full_description" class="form_input" rows="8" placeholder="Подробное описание товара..."></textarea>
                 </div>
             </div>
 
