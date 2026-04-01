@@ -10,6 +10,6 @@ class Config:
     MAIL_PORT = 465
     MAIL_USE_SSL = True
     MAIL_USE_TLS = False
-    MAIL_USERNAME = 'alinavestovskaya@yandex.ru'  # твоя почта
-    MAIL_PASSWORD = 'pkvoisojdjxdodki'       # пароль приложения
-    ADMIN_EMAIL = 'alinavestovskaya@yandex.ru'     # куда приходят заявки
+    MAIL_USERNAME = ''  # твоя почта
+    MAIL_PASSWORD = ''       # пароль приложения
+    ADMIN_EMAIL = ''     # куда приходят заявки
