@@ -576,10 +576,7 @@ function deleteRequest(requestId) {
     }
 }
 
-// Экспорт в Excel (заглушка)
-// function exportRequests() {
-//     showFlashMessage('Функция экспорта в разработке', 'info');
-// }
+
 
 function openEditProductModalFromData(btn) {
     const id = btn.dataset.id;

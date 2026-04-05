@@ -214,7 +214,10 @@ main {
     margin-top: 30px;
 }
 
-.main_intro_inner_rectangle_button button{
+.main_intro_inner_rectangle_button a{
+    display: flex;
+    justify-content: center;
+    align-items: center;
     width: 360px;
     height: 60px;
     background-color: #42546E;
@@ -222,7 +225,13 @@ main {
     color: white;
     font-size: 25px;
     border: none;
+    text-decoration: none;
 }
+
+
+
+
+
 .main_intro_inner_rectangle_info2{
     width: 45%;
     height: 22px;
@@ -379,77 +388,7 @@ main {
     margin-top: 35px;
 }
 
-.section_instructions{
-    width: 100%;
-    height: auto;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-.section_instructions_header{
-    width: 100%;
-    height: 220px;
-    background-color: #ffffff;
-    display: flex;
-    align-items: center;
-    gap: 45px;
-} 
 
-.section_instructions_header h2{
-    margin: 0;
-    font-size: 30px;
-    font-weight: bold;
-    color: #42546E;
-}
-.section_instructions_info{
-    width: 25%;
-    height: auto;
-    display: flex;
-    flex-direction: column;
-    flex-wrap: wrap;
-    align-items: center;
-    gap: 30px;
-}
-.section_instructions_info_post{
-    width: 100%;
-    height: 246px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-.section_instructions_info_line{
-    width: 2px;
-    height: 120px;
-    background-color: #42546E;
-}
-
-.instructions_info_post{
-    width: 90px;
-    height: 90px;
-    background-color: #42546E;
-    font-size: 40px;
-    font-weight: bold;
-    color: white;
-    border-radius: 16px;
-    display: flex;
-    align-items: center;   
-    justify-content: center; 
-}
-.section_instructions_info_post h3{
-    color: #42546E;
-    font-size: 25px;
-    font-weight: bold;
-    margin: 0;
-    margin-top: 30px;
-}
-
-.section_instructions_info_post p{
-    color: #6C6767;
-    font-size: 22px;
-    margin: 0px;
-    margin-top: 15px;
-    text-align: center;
-}
 
 .section_sotrudnichestvo{
     width: 100%;
@@ -461,7 +400,7 @@ main {
 
 .section_sotrudnichestvo_header{
     width: 100%;
-    height: 154px;
+    height: 250px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -472,8 +411,8 @@ main {
 .section_sotrudnichestvo_info{
     background-color: #EAEAEA;
     border-radius: 48px;
-    width: 85%;
-    height: 550px;
+    width: 84%;
+    height: 500px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -487,6 +426,7 @@ main {
     display: flex;              
     flex-direction: column;     
     align-items: center;
+    justify-content: space-around;
 }
 
 #sotrudnichestvo_container_post2{
@@ -502,14 +442,14 @@ main {
     color: #42546E;
     text-align: center;
     margin: 0;
-    margin-top: 45px;
+    margin-top: 25px;
 }
 .sotrudnichestvo_container_post p{
     color: #6C6767;
     font-size: 23px;
     margin: 0;
     text-align: center;
-    margin-top: 40px;
+    /* margin-top: 40px; */
 }
 .sotrudnichestvo_container_post button{
     width: 400px;
@@ -519,7 +459,7 @@ main {
     border: none;
     color: white;
     font-size: 30px;
-    margin-top: 40px;
+    margin-bottom: 25px;
 }
 #sotrudnichestvo_container_post2 h3{
     height: 65px;
@@ -527,7 +467,7 @@ main {
     color: #42546E;
     text-align: center;
     margin: 0;
-    margin-top: 45px;
+    margin-top: 55px;
 }
 
 #sotrudnichestvo_container_post2 p{
@@ -543,6 +483,7 @@ main {
     height: auto;
     display: flex;
     justify-content: center;
+    align-items: center;
     margin-top: 200px;
 }
 
@@ -553,7 +494,8 @@ main {
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: space-between;
+    justify-content: space-around;
+    text-align: center;
 }
 .section_end_intro_info h2{
     font-size: 45px;
@@ -583,7 +525,7 @@ main {
 .footer{
     margin-top: 200px;
     width: 100%;
-    height: 512px;
+    height: auto;
     background-color: #333333;
     display: flex;
     justify-content: space-around;
@@ -592,14 +534,16 @@ main {
 
 .footer_column{
     width: 23%;
-    height: 298px;
-    margin-top: 50px;
+    height: auto;
+    padding: 50px 0;
 }
 .footer_column h3{
     font-size: 20px;
     font-weight: bold;
     color: #ffffff;
     text-align: center;
+    margin: 0;
+    margin-bottom: 20px;
 }
 
 .footer_menu{
@@ -626,31 +570,28 @@ main {
     font-size: 20px;  
 }
 
-
-.footer-bottom {
-    width: 80%;
-    height: 97px;
-    border-top: 1px solid rgb(146, 146, 146);
-    margin-top: 66px;
+#politika{
     display: flex;
     align-items: center;
 }
-.footer-bottom-content{
+
+.footer_bottom_content{
     width: 100%;
     height: 54px;
     display: flex;
     flex-direction: column;
     align-items: center;
+    gap: 10px;
 }
 
-.footer-bottom-content p{
+.footer_bottom_content p{
     text-decoration: none;
     color: #989898;
     font-size: 18px;
     margin: 0;
 }
 
-.footer-bottom-content a{
+.footer_bottom_content a{
     text-decoration: none;
     color: #989898;
     font-size: 18px;
@@ -825,34 +766,32 @@ textarea.form_input {
 }
 
 /* ===== АНИМАЦИИ ДЛЯ КАРТОЧЕК ===== */
-.post,
+
 .advantages_post {
     transition: all 0.3s ease;
 }
 
-.post:hover,
+
 .advantages_post:hover {
     transform: translateY(-5px);
 }
 
-.post:hover img,
+
 .advantages_post:hover img {
     transform: scale(1.05);
 }
 
-.post img,
+
 .advantages_post img {
     transition: all 0.3s ease;
 }
 
-.post h3,
+
 .advantages_post_header h3 {
     transition: color 0.3s ease;
 }
 
-.post:hover h3 {
-    color: #5275A7;
-}
+
 
 .advantages_post:hover {
     box-shadow: 0 12px 28px rgba(0, 0, 0, 0.15);
@@ -871,19 +810,9 @@ textarea.form_input {
     color: #42546E;
 }
 
-/* ===== АНИМАЦИЯ ПРИ СКРОЛЛЕ ===== */
-@keyframes slideInFromBottom {
-    from {
-        opacity: 0;
-        transform: translateY(30px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
 
-.section_instructions_info_post,
+
+
 .advantages_post,
 .post {
     opacity: 0;
@@ -891,7 +820,7 @@ textarea.form_input {
     transition: all 0.5s ease;
 }
 
-.section_instructions_info_post.visible,
+
 .advantages_post.visible,
 .post.visible {
     opacity: 1;

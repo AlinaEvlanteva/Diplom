@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/admin_completed_report.css') }}">
+    <title>Отчет по выполненным заявкам - ИнТехЛайт</title>
+</head>
+<body>
+    <header>
+        <div class="header_inner">
+            <div class="header_logo">
+                <a href="{{ url_for('main.index') }}"><img src="{{ url_for('static', filename='img/small/icons.png') }}" alt="Логотип ИнТехЛайт"/></a>
+            </div>
+            <nav class="header_nav">
+                <ul class="header_nav_menu">
+                    <li><a href="#">Доставка</a></li>
+                    <li><a href="#">Реквизиты</a></li>
+                    <li><a href="#">Контакты</a></li>
+                    <li><a href="#">Сертификаты</a></li>
+                </ul>
+            </nav>
+            <div class="header_link_icons">
+                <a href="{{ url_for('main.catalog') }}" class="link_catalog"><img src="{{ url_for('static', filename='img/small/cat.svg') }}"/>Каталог</a>
+                <a href="#" class="link_cart"><img src="{{ url_for('static', filename='img/small/cart.svg') }}" alt="Корзина"/>Корзина</a>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section class="admin_section">
+            <div class="admin_panel_acc">
+                <h1>📊 Отчет по выполненным заявкам</h1>
+                <div class="admin_logout">
+                    <p>{{ session.get('admin_username', 'админ') }}</p>
+                    <button type="button" onclick="window.location.href='/admin/logout'">Выйти</button>
+                </div>
+            </div>
+
+            <a href="{{ url_for('admin.admin_panel') }}" class="back-link">← Назад в админ-панель</a>
+
+            <div class="tab_content active" style="display: flex; flex-direction: column; align-items: center;">
+                
+                <!-- Форма фильтрации по датам -->
+                <form method="POST" class="filter-form">
+                    <div class="filter-group">
+                        <label for="start_date">📅 Дата начала</label>
+                        <input type="date" id="start_date" name="start_date" value="{{ start_date or '' }}" required>
+                    </div>
+                    <div class="filter-group">
+                        <label for="end_date">📅 Дата окончания</label>
+                        <input type="date" id="end_date" name="end_date" value="{{ end_date or '' }}" required>
+                    </div>
+                    <button type="submit" class="btn-filter">🔍 Сформировать отчет</button>
+                </form>
+
+                <!-- Сообщение об ошибке -->
+                {% if error %}
+                    <div class="flash-error" style="margin: 20px;">{{ error }}</div>
+                {% endif %}
+
+                <!-- Отчет -->
+                {% if completed_requests %}
+                    <div class="report-total">
+                        📈 За период с {{ start_date }} по {{ end_date }}<br>
+                        Выполнено заявок: {{ completed_requests|length }}<br>
+                        Общая выручка: {{ "%.2f"|format(total_sum) }} ₽
+                    </div>
+
+                    {% for request in completed_requests %}
+                    <div class="request-card-report">
+                        <div class="request-header-report">
+                            <span class="request-id">Заявка №{{ request.id }}</span>
+                            <span class="request-date">{{ request.created_at.strftime('%d.%m.%Y %H:%M') }}</span>
+                        </div>
+                        
+                        <div class="request-info-report">
+                            <div class="info-item">
+                                <span class="info-label">Клиент:</span>
+                                <span class="info-value">{{ request.name }}</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="info-label">Телефон:</span>
+                                <span class="info-value">{{ request.phone }}</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="info-label">Статус:</span>
+                                <span class="info-value" style="color: #28a745;">✓ Выполнена</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="info-label">Дата выполнения:</span>
+                                <span class="info-value">{{ request.updated_at.strftime('%d.%m.%Y') if request.updated_at else request.created_at.strftime('%d.%m.%Y') }}</span>
+                            </div>
+                            {% if request.comment %}
+                            <div class="info-item" style="grid-column: span 2;">
+                                <span class="info-label">Комментарий:</span>
+                                <span class="info-value">{{ request.comment }}</span>
+                            </div>
+                            {% endif %}
+                        </div>
+
+                        <h3>🛒 Товары в заявке:</h3>
+                        <table class="items-table">
+                            <thead>
+                                <tr>
+                                    <th>Артикул</th>
+                                    <th>Наименование</th>
+                                    <th>Кол-во</th>
+                                    <th>Цена</th>
+                                    <th>Сумма</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for item in request.items %}
+                                <tr>
+                                    <td>{{ item.product.article }}</td>
+                                    <td>{{ item.product.name }}</td>
+                                    <td>{{ item.quantity }} {{ item.product.unit or 'шт' }}</td>
+                                    <td>{{ "%.2f"|format(item.product.price) }} ₽</td>
+                                    <td>{{ "%.2f"|format(item.product.price * item.quantity) }} ₽</td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                        
+                        <div class="total-sum">
+                            Итого по заявке: {{ "%.2f"|format(request.total_sum) }} ₽
+                        </div>
+                    </div>
+                    {% endfor %}
+                {% endif %}
+            </div>
+        </section>
+    </main>
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html>

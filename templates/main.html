@@ -12,14 +12,6 @@
             <div class="header_logo">
                 <a href="{{ url_for('main.index') }}"><img src="{{ url_for('static', filename='img/small/icons.png') }}" alt="Логотип ИнТехЛайт"/></a>
             </div>
-            <nav class="header_nav">
-                <ul class="header_nav_menu">
-                    <li><a href="#">Доставка</a></li>
-                    <li><a href="#">Реквизиты</a></li>
-                    <li><a href="#">Контакты</a></li>
-                    <li><a href="#">Сертификаты</a></li>
-                </ul>
-            </nav>
             <div class="header_link_icons">
                 <a href="{{ url_for('main.catalog') }}" class="link_catalog"><img src="{{ url_for('static', filename='img/small/cat.svg') }}"/>Каталог</a>
                 <a href="{{ url_for('cart.cart_page') }}" class="link_cart" id="cart-link">
@@ -48,21 +40,21 @@
                     </p>
                 </div>
                 <div class="main_intro_inner_rectangle_button">
-                    <button onclick="openFeedbackModal()">Оставить заявку</button>
+                    <a href="{{ url_for('main.catalog') }}" class="catalog-link">В каталог</a>
                 </div>
-                <div class="main_intro_inner_rectangle_info2">
+                <!-- <div class="main_intro_inner_rectangle_info2">
                     <div class="circle"></div>
                     <p>
                         Огромный ассортимент товара в наличие
                     </p>
-                </div>
+                </div> -->
             </div>
             <div class="main_intro_inner_photo"></div>
         </section>
 
         <!-- Секция наши продукты -->
 
-        <section class="products_section">
+        <!-- <section class="products_section">
             <div class="products_section_info">
                 <div class="section_info_line"></div>
                 <h2>Наша продукция</h2>
@@ -77,7 +69,7 @@
                 </article>
                 {% endfor %}
             </div>
-        </section>
+        </section> -->
 
 <!-- Секция преимущества -->
 
@@ -93,9 +85,8 @@
                         <h3>Ассортимент</h3>
                         <img src="{{ url_for('static', filename='img/small/assortiment.png') }}" alt="Ассортимент"/>
                     </div>
-                    <p>Более 10 000 позиций <br/>
-                        подшипников, цепей, РТИ и <br/>
-                        промышленных товаров
+                    <p>Огромный ассортимент промышленных комплектующих<br/>
+
                     </p>
                 </article>
                 
@@ -123,7 +114,7 @@
         </section> 
 
 <!-- Секция как сделать заказ -->
-        <section class="section_instructions">
+        <!-- <section class="section_instructions">
             <div class="section_instructions_header">
                 <div class="section_info_line"></div>
                 <h2>Как сделать заказ</h2>
@@ -179,27 +170,26 @@
                 </div>
                 <div class="section_instructions_info_line"></div>
             </div>
-        </section> 
+        </section>  -->
 
         <section class="section_sotrudnichestvo">
-            <div class="section_sotrudnichestvo_header">
+            <div class="section_sotrudnichestvo_header" id="order_problems">
                 <h2>
-                    Готовы начать сотрудничество?
+                    Возникли проблемы с заказом?
                 </h2>
             </div>
             <div class="section_sotrudnichestvo_info">
 
                 <article class="sotrudnichestvo_container_post">
-                    <h3>Оставьте заявку прямо сейчас</h3>
+                    <h3>Тогда свяжитесь с нами</h3>
                     <p>Заполните форму, и наш менеджер <br/>
                         свяжется с вами в течение часа. <br/>
-                        Получите консультацию и коммерческое <br/>
-                        предложение в кратчайшие сроки.</p>
-                    <button onclick="openFeedbackModal()">Оставить заявку</button>
+                    </p>
+                    <button onclick="openFeedbackModal()">Связаться</button>
                 </article>
 
                 <article id="sotrudnichestvo_container_post2">
-                    <h3>Или свяжитесь с нами </h3>
+                    <h3>Наши контакты</h3>
                     <p>Телефон: +7 ХХХ ХХХ-ХХ-ХХ</p>
                     <p>Email: еееееееееее17@gmail.com</p>
                     <p>Режим работы: Пн-Пт 9:00-18:00</p>
@@ -213,12 +203,16 @@
         <section class="section_end_intro">
             <div class="section_end_intro_info">
                 <h2>ИнТехЛайт — Ваш надёжный партнёр</h2>
-                <p>Качественные комплектующие, быстрая доставка и профессиональный сервис. <br/>
+                <p>Качественные комплектующие, и профессиональный сервис. <br/>
                     Начните сотрудничество с нами сегодня и убедитесь в надёжности ИнТехЛайт.</p>
-                <button onclick="openFeedbackModal()">Оставить заявку</button>
+                
             </div>
         </section>
     </main>
+    <!-- ВРЕМЕННАЯ ССЫЛКА ДЛЯ АДМИНА (удалить потом) -->
+    <div style="position: fixed; bottom: 10px; right: 10px; opacity: 0.3; font-size: 12px; background: #333; padding: 5px 10px; border-radius: 5px; z-index: 9999;">
+        <a href="{{ url_for('admin.admin_login') }}" style="color: white; text-decoration: none;">🔐 Админка</a>
+    </div>
 
     <footer class="footer">
         <div class="footer_column">
@@ -227,10 +221,10 @@
                 <ul class="footer_menu">
                     <li><a href="#">Главная страница</a></li>
                     <li><a href="{{ url_for('main.catalog') }}">Каталог</a></li>
-                    <li><a href="#">Доставка</a></li>
-                    <li><a href="#">Реквизиты</a></li>
+                    <li><a href="{{ url_for('main.index') }}#order_problems">Проблемы с заказом</a></li>
+                    <!-- <li><a href="#">Реквизиты</a></li>
                     <li><a href="#">Контакты</a></li>
-                    <li><a href="#">Сертификаты</a></li>
+                    <li><a href="#">Сертификаты</a></li> -->
             </ul>
             </nav>
         </div>
@@ -245,22 +239,8 @@
                 <li><a href="mailto:sgpz-bearings@mail.ru">Эл. почта: eeeeeee@mail.ru</a></li>
             </ul>
         </div>
-
-        <div class="footer_column">
-            <h3 class="footer_title">Мессенджеры</h3>
-            <ul class="footer_menu">
-                <li><a href="#" class="messenger-link">Написать в WhatsApp</a></li>
-                <li><a href="#" class="messenger-link">Написать в Telegram</a></li>
-                <li><a href="#" class="messenger-link">Сообщество ВКонтакте</a></li>
-                <!-- ВРЕМЕННАЯ ССЫЛКА ДЛЯ АДМИНА (удалить потом) -->
-                 <div style="position: fixed; bottom: 10px; right: 10px; opacity: 0.3; font-size: 12px; background: #333; padding: 5px 10px; border-radius: 5px; z-index: 9999;">
-                    <a href="{{ url_for('admin.admin_login') }}" style="color: white; text-decoration: none;">🔐 Админка</a>
-                </div>
-            </ul>
-        </div>
-
-        <div class="footer-bottom">
-            <div class="footer-bottom-content">
+        <div class="footer_column" id="politika">
+            <div class="footer_bottom_content">
                 <p>© ООО «ИнТехЛайт»</p>
                 <a href="{{ url_for('feedback.privacy_policy') }}">Политика конфиденциальности</a>
             </div>

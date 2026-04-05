@@ -530,7 +530,7 @@ function showFlashMessage(message, category) {
 
 // ===== АНИМАЦИЯ ПРИ СКРОЛЛЕ =====
 function checkVisibility() {
-    const elements = document.querySelectorAll('.section_instructions_info_post, .advantages_post, .post');
+    const elements = document.querySelectorAll('.advantages_post');
     
     elements.forEach(element => {
         const rect = element.getBoundingClientRect();
