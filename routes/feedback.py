@@ -18,10 +18,10 @@ def send_feedback():
         subject = 'Новая заявка с сайта'
         body = f"""
         Поступила новая заявка!
-        📞 Телефон: {phone}
-        📝 Комментарий: {comment if comment else 'Не указан'}
-        📅 Дата: {datetime.now().strftime('%d.%m.%Y %H:%M')}
-        ✅ Согласие на обработку: Да
+        Телефон: {phone}
+        Комментарий: {comment if comment else 'Не указан'}
+        Дата: {datetime.now().strftime('%d.%m.%Y %H:%M')}
+        Согласие на обработку: Да
         """
         
         success, message = send_email(
