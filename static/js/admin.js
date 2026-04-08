@@ -13,9 +13,9 @@ function showTab(tabId, element) {
 }
 
 // ===== ПЕРЕМЕННЫЕ ДЛЯ УДАЛЕНИЯ =====
-var currentDeleteId = null;
-var currentDeleteProductId = null;
-var currentDeleteAttributeId = null;
+let currentDeleteId = null;
+let currentDeleteProductId = null;
+let currentDeleteAttributeId = null;
 
 // ===== МОДАЛЬНОЕ ОКНО ДЛЯ ДОБАВЛЕНИЯ КАТЕГОРИИ =====
 function openAddCategoryModal() {
@@ -24,11 +24,11 @@ function openAddCategoryModal() {
 
 // ===== УНИВЕРСАЛЬНОЕ ПРЕВЬЮ ДЛЯ ЛЮБЫХ МОДАЛЬНЫХ ОКОН =====
 function previewImage(input, previewContainerId, previewImageId) {
-    var previewContainer = document.getElementById(previewContainerId);
-    var preview = document.getElementById(previewImageId);
+    const previewContainer = document.getElementById(previewContainerId);
+    const preview = document.getElementById(previewImageId);
     
     if (input.files && input.files[0]) {
-        var reader = new FileReader();
+        const reader = new FileReader();
         
         reader.onload = function(e) {
             preview.src = e.target.result;
@@ -50,9 +50,9 @@ function openEditCategoryModal(id, name, image) {
     document.getElementById('editCategoryForm').action = '/admin/edit_category/' + id;
     
     // Показываем текущее изображение
-    let currentImg = document.getElementById('current_category_image');
-    let previewContainer = document.getElementById('editImagePreviewContainer');
-    let preview = document.getElementById('editImagePreview');
+    const currentImg = document.getElementById('current_category_image');
+    const previewContainer = document.getElementById('editImagePreviewContainer');
+    const preview = document.getElementById('editImagePreview');
     
     if (image && image != 'default_category.png') {
         currentImg.src = '/static/img/small/' + image;
@@ -66,18 +66,18 @@ function openEditCategoryModal(id, name, image) {
     preview.src = '#';
     
     // Очищаем поле file
-    let fileInput = document.getElementById('editCategoryImage');
+    const fileInput = document.getElementById('editCategoryImage');
     if (fileInput) fileInput.value = '';
 }
 
 // ===== ПРЕВЬЮ ДЛЯ РЕДАКТИРОВАНИЯ (универсальная) =====
 function previewEditImage(input, currentImgId, previewContainerId, previewImgId) {
-    var currentImg = document.getElementById(currentImgId);
-    var previewContainer = document.getElementById(previewContainerId);
-    var preview = document.getElementById(previewImgId);
+    const currentImg = document.getElementById(currentImgId);
+    const previewContainer = document.getElementById(previewContainerId);
+    const preview = document.getElementById(previewImgId);
     
     if (input.files && input.files[0]) {
-        var reader = new FileReader();
+        const reader = new FileReader();
         
         reader.onload = function(e) {
             preview.src = e.target.result;
@@ -131,25 +131,13 @@ function confirmDelete() {
 // ===== МОДАЛЬНОЕ ОКНО ДЛЯ ДОБАВЛЕНИЯ ТОВАРА =====
 function openAddProductModal() {
     document.getElementById('addProductModal').style.display = 'flex';
-    
-    // Сбрасываем превью при открытии
-    let previewContainer = document.getElementById('addProductImagePreviewContainer');
-    let preview = document.getElementById('addProductImagePreview');
-    let fileInput = document.getElementById('addProductImage');
-    
-    if (previewContainer) previewContainer.style.display = 'none';
-    if (preview) preview.src = '#';
-    if (fileInput) fileInput.value = '';
+    // Сброс перенесен в closeModal
 }
 
-// ===== МОДАЛЬНОЕ ОКНО ДЛЯ РЕДАКТИРОВАНИЯ ТОВАРА =====
-function openEditProductModal(id, name, image, specs, price, unit, article, categoryId, fullDesc, oldPrice) {
-    document.getElementById('editProductModal').style.display = 'flex';
-    
-    // Устанавливаем action для формы
-    document.getElementById('editProductForm').action = '/admin/edit_product/' + id;
-    
-    // Заполняем поля
+// ===== МОДАЛЬНОЕ ОКНО ДЛЯ РЕДАКТИРОВАНИЯ ТОВАРА (РАЗБИТО НА ЧАСТИ) =====
+
+// Заполнение основных полей
+function fillProductFormFields(id, name, article, price, unit, specs, fullDesc, oldPrice, categoryId) {
     document.getElementById('edit_product_id').value = id;
     document.getElementById('edit_product_name').value = name || '';
     document.getElementById('edit_product_article').value = article || '';
@@ -159,7 +147,7 @@ function openEditProductModal(id, name, image, specs, price, unit, article, cate
     document.getElementById('edit_product_full_description').value = fullDesc || '';
     
     // Отображение старой цены
-    let oldPriceDisplay = document.getElementById('edit_product_old_price_display');
+    const oldPriceDisplay = document.getElementById('edit_product_old_price_display');
     if (oldPriceDisplay) {
         if (oldPrice && oldPrice != 'None' && oldPrice != '') {
             oldPriceDisplay.textContent = oldPrice + ' ₽';
@@ -177,9 +165,11 @@ function openEditProductModal(id, name, image, specs, price, unit, article, cate
     if (categoryId) {
         document.getElementById('edit_product_category').value = categoryId;
     }
-    
-    // Показываем текущее изображение
-    let currentImg = document.getElementById('edit_product_current_image');
+}
+
+// Показ текущего изображения
+function displayCurrentProductImage(image) {
+    const currentImg = document.getElementById('edit_product_current_image');
     if (image && image != 'default.png' && image != 'default_category.png') {
         currentImg.src = '/static/img/small/' + image;
         currentImg.style.display = 'block';
@@ -187,15 +177,27 @@ function openEditProductModal(id, name, image, specs, price, unit, article, cate
         currentImg.src = '';
         currentImg.style.display = 'none';
     }
-    
-    // Сбрасываем превью
-    let previewContainer = document.getElementById('editProductImagePreviewContainer');
-    let preview = document.getElementById('editProductImagePreview');
-    let fileInput = document.getElementById('editProductImage');
+}
+
+// Сброс превью и файла
+function resetProductImagePreview() {
+    const previewContainer = document.getElementById('editProductImagePreviewContainer');
+    const preview = document.getElementById('editProductImagePreview');
+    const fileInput = document.getElementById('editProductImage');
     
     if (previewContainer) previewContainer.style.display = 'none';
     if (preview) preview.src = '#';
     if (fileInput) fileInput.value = '';
+}
+
+// Основная функция редактирования товара (теперь короткая)
+function openEditProductModal(id, name, image, specs, price, unit, article, categoryId, fullDesc, oldPrice) {
+    document.getElementById('editProductModal').style.display = 'flex';
+    document.getElementById('editProductForm').action = '/admin/edit_product/' + id;
+    
+    fillProductFormFields(id, name, article, price, unit, specs, fullDesc, oldPrice, categoryId);
+    displayCurrentProductImage(image);
+    resetProductImagePreview();
 }
 
 // ===== МОДАЛЬНОЕ ОКНО ДЛЯ УДАЛЕНИЯ ТОВАРА =====
@@ -245,14 +247,14 @@ function confirmDeleteAttribute() {
 
 // ===== ФИЛЬТР ДЛЯ ХАРАКТЕРИСТИК =====
 function filterAttributes() {
-    var filter = document.getElementById('category_filter').value;
-    var cards = document.querySelectorAll('#attributes_card_container .attribute_card');
+    const filter = document.getElementById('category_filter').value;
+    const cards = document.querySelectorAll('#attributes_card_container .attribute_card');
     
     cards.forEach(card => {
-        var categoryId = card.getAttribute('data-category-id');
+        const categoryId = card.getAttribute('data-category-id');
         
         if (filter === 'all') {
-            card.style.display = 'flex';  // или 'block', смотря какой display у карточки
+            card.style.display = 'flex';
         } else if (categoryId == filter) {
             card.style.display = 'flex';
         } else {
@@ -428,48 +430,59 @@ function closeModal(modalId) {
         modal.style.display = 'none';
     }
     
-    // Сброс для модального окна категорий
-    if (modalId === 'editCategoryModal') {
-        let currentImg = document.getElementById('current_category_image');
-        let previewContainer = document.getElementById('editImagePreviewContainer');
-        let preview = document.getElementById('editImagePreview');
-        let fileInput = document.getElementById('editCategoryImage');
-        
-        if (previewContainer) previewContainer.style.display = 'none';
-        if (preview) preview.src = '#';
-        if (currentImg) currentImg.style.display = 'block';
-        if (fileInput) fileInput.value = '';
-    }
+    // ===== ДЛЯ ДОБАВЛЕНИЯ (сбрасываем ВСЁ) =====
     
-    // Сброс для модального окна добавления категории
+    // Добавление категории
     if (modalId === 'addCategoryModal') {
-        let previewContainer = document.getElementById('addImagePreviewContainer');
-        let preview = document.getElementById('addImagePreview');
-        let fileInput = document.getElementById('addCategoryImage');
+        const form = document.querySelector('#addCategoryModal form');
+        const previewContainer = document.getElementById('addImagePreviewContainer');
+        const preview = document.getElementById('addImagePreview');
+        const fileInput = document.getElementById('addCategoryImage');
         
+        if (form) form.reset();
         if (previewContainer) previewContainer.style.display = 'none';
         if (preview) preview.src = '#';
         if (fileInput) fileInput.value = '';
     }
     
-    // Сброс для модального окна добавления характеристики (типа)
+    // Добавление товара
+    if (modalId === 'addProductModal') {
+        const form = document.querySelector('#addProductModal form');
+        const previewContainer = document.getElementById('addProductImagePreviewContainer');
+        const preview = document.getElementById('addProductImagePreview');
+        const fileInput = document.getElementById('addProductImage');
+        
+        if (form) form.reset();
+        if (previewContainer) previewContainer.style.display = 'none';
+        if (preview) preview.src = '#';
+        if (fileInput) fileInput.value = '';
+    }
+    
+    // Добавление характеристики
     if (modalId === 'addAttributeModal') {
-        let form = document.querySelector('#addAttributeModal form');
+        const form = document.querySelector('#addAttributeModal form');
         if (form) form.reset();
     }
+       
+    // ===== ДЛЯ УДАЛЕНИЯ (очищаем переменные) =====
     
-    // Сброс для модального окна редактирования характеристики (типа)
-    if (modalId === 'editAttributeModal') {
-        let form = document.getElementById('editAttributeForm');
-        if (form) form.reset();
+    // Удаление категории
+    if (modalId === 'deleteCategoryModal') {
+        currentDeleteId = null;
     }
     
-    // Сброс для модального окна удаления характеристики (типа)
+    // Удаление товара
+    if (modalId === 'deleteProductModal') {
+        currentDeleteProductId = null;
+    }
+    
+    // Удаление характеристики
     if (modalId === 'deleteAttributeModal') {
         currentDeleteAttributeId = null;
     }
     
-    // Сброс для модального окна характеристик товара
+    // ===== ХАРАКТЕРИСТИКИ ТОВАРА (очищаем список и сбрасываем состояние) =====
+    
     if (modalId === 'productAttributesModal') {
         const attributesList = document.getElementById('attributesList');
         if (attributesList) attributesList.innerHTML = '';
@@ -482,12 +495,12 @@ function closeModal(modalId) {
 }
 
 // ===== ЗАКРЫТИЕ ПО КЛИКУ ВНЕ МОДАЛЬНОГО ОКНА =====
-window.onclick = function(event) {
-    if (event.target.classList.contains('modal')) {
-        var modalId = event.target.id;
-        closeModal(modalId);
-    }
-}
+// window.onclick = function(event) {
+//     if (event.target.classList.contains('modal')) {
+//         const modalId = event.target.id;
+//         closeModal(modalId);
+//     }
+// }
 
 // ===== ЗАКРЫТИЕ ПО ESC =====
 document.addEventListener('keydown', function(e) {
@@ -575,8 +588,6 @@ function deleteRequest(requestId) {
         window.location.href = '/admin/delete_request/' + requestId;
     }
 }
-
-
 
 function openEditProductModalFromData(btn) {
     const id = btn.dataset.id;

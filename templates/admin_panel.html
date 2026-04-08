@@ -247,7 +247,7 @@
 
     <!-- Модальное окно для добавления категории -->
     <div id="addCategoryModal" class="modal">
-        <span class="close" onclick="closeModal('addCategoryModal')">&times;</span>
+        <!-- <span class="close" onclick="closeModal('addCategoryModal')">&times;</span> -->
         <form method="POST" action="/admin/add_category" enctype="multipart/form-data" class="form_cat">
             <h3 class="modal_title">Добавление категории</h3>
             <div class="form_group">
@@ -276,7 +276,7 @@
 
     <!-- Модальное окно для редактирования категории -->
     <div id="editCategoryModal" class="modal">
-        <span class="close" onclick="closeModal('editCategoryModal')">&times;</span>
+        <!-- <span class="close" onclick="closeModal('editCategoryModal')">&times;</span> -->
         <form id="editCategoryForm" method="POST" enctype="multipart/form-data" class="form_cat">
             <h3 class="modal_title">Редактирование категории</h3>
             <input type="hidden" id="edit_category_id" name="id">
@@ -316,7 +316,7 @@
     <!-- Модальное окно для подтверждения удаления -->
     <div id="deleteCategoryModal" class="modal">
         <div class="modal_delete">
-            <span class="close" onclick="closeModal('deleteCategoryModal')">&times;</span>
+            <!-- <span class="close" onclick="closeModal('deleteCategoryModal')">&times;</span> -->
             <h3 class="modal_title">Подтверждение удаления</h3>
             <p id="delete_message">Вы действительно хотите удалить категорию?</p>
             <div class="modal_actions">
@@ -328,7 +328,7 @@
 
         <!-- Модальное окно для добавления товара -->
     <div id="addProductModal" class="modal">
-        <span class="close" onclick="closeModal('addProductModal')">&times;</span>
+        <!-- <span class="close" onclick="closeModal('addProductModal')">&times;</span> -->
         <form method="POST" action="/admin/add_product" enctype="multipart/form-data" class="form_cat">
             <h3 class="modal_title">Добавление товара</h3>
             <!-- 1. Название товара (обязательно) -->
@@ -413,7 +413,7 @@
     
     <!-- Модальное окно для редактирования товара -->
     <div id="editProductModal" class="modal">
-        <span class="close" onclick="closeModal('editProductModal')">&times;</span>
+        <!-- <span class="close" onclick="closeModal('editProductModal')">&times;</span> -->
         <form id="editProductForm" method="POST" enctype="multipart/form-data" class="form_cat">
             <h3 class="modal_title">Редактирование товара</h3>
             <input type="hidden" id="edit_product_id" name="id">
@@ -510,7 +510,7 @@
     <!-- Модальное окно для удаления товара -->
     <div id="deleteProductModal" class="modal">
         <div class="modal_delete">
-            <span class="close" onclick="closeModal('deleteProductModal')">&times;</span>
+            <!-- <span class="close" onclick="closeModal('deleteProductModal')">&times;</span> -->
             <h3 class="modal_title">Подтверждение удаления</h3>
             <p id="delete_message">Вы действительно хотите удалить товар?</p>
             <div class="modal_actions">
@@ -522,7 +522,7 @@
 
     <!-- Модальное окно для заполнения характеристик товара -->
     <div id="productAttributesModal" class="modal">
-        <span class="close" onclick="closeModal('productAttributesModal')">&times;</span>
+        <!-- <span class="close" onclick="closeModal('productAttributesModal')">&times;</span> -->
         <form id="attributesForm" method="POST" class="form_cat">
             <h3 class="modal_title" id="attributesModalTitle">Характеристики товара</h3>
             
@@ -548,7 +548,7 @@
 
     <!-- Модальное окно для добавления характеристики -->
     <div id="addAttributeModal" class="modal">
-        <span class="close" onclick="closeModal('addAttributeModal')">&times;</span>
+        <!-- <span class="close" onclick="closeModal('addAttributeModal')">&times;</span> -->
         <form method="POST" action="/admin/add_attribute" class="form_cat">
             <h3 class="modal_title">Добавление характеристики</h3>
             
@@ -586,7 +586,7 @@
 
     <!-- Модальное окно для редактирования характеристики -->
     <div id="editAttributeModal" class="modal">
-        <span class="close" onclick="closeModal('editAttributeModal')">&times;</span>
+        <!-- <span class="close" onclick="closeModal('editAttributeModal')">&times;</span> -->
         <form id="editAttributeForm" method="POST" class="form_cat">
             <h3 class="modal_title">Редактирование характеристики</h3>
             
@@ -625,7 +625,7 @@
     <!-- Модальное окно для удаления атрибутов -->
     <div id="deleteAttributeModal" class="modal">
         <div class="modal_delete">
-            <span class="close" onclick="closeModal('deleteAttributeModal')">&times;</span>
+            <!-- <span class="close" onclick="closeModal('deleteAttributeModal')">&times;</span> -->
             <h3 class="modal_title">Подтверждение удаления</h3>
             <p id="delete_attribute_message">Вы действительно хотите удалить эту характеристику?</p>
             <div class="modal_actions">
@@ -637,7 +637,7 @@
     
     <!-- Модальное окно для просмотра товаров заявки -->
     <div id="requestItemsModal" class="modal">
-        <span class="close" onclick="closeModal('requestItemsModal')">&times;</span>
+        <!-- <span class="close" onclick="closeModal('requestItemsModal')">&times;</span> -->
         <div class="form_cat">
             <h3 class="modal_title" id="requestModalTitle">Товары в заявке</h3>
             <div id="requestItemsList" class="request_items_list"></div>

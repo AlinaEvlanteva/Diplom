@@ -256,6 +256,13 @@ main {
     align-items: center;
 }
 
+.nav_admin button.active {
+    background-color: #e0ecff;  /* активная кнопка подсвечивается */
+    border-radius: 5px;
+    color: #42546E;
+}
+
+
 .section_panel_data{
     width: 80%;
     height: auto;

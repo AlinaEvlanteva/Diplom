@@ -651,9 +651,14 @@ main {
     height: 40px;
     font-size: 16px;
     text-indent: 12px;
-    border: 1.5px solid #42546E;
+    border: 2px solid #42546E;
     border-radius: 15px;
 }
+
+.form_input:focus {
+    outline: none;
+}
+
 
 textarea.form_input {
     height: 80px;

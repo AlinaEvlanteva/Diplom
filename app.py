@@ -1,10 +1,7 @@
 from flask import Flask
 from config import Config
-from models import db  # импортируем db из models
+from models import db  
 from routes import main_bp, admin_bp, cart_bp, api_bp, requests_bp, feedback_bp
-
-# Модели НЕ импортируем здесь, они уже импортированы в models/__init__.py
-# SQLAlchemy их увидит через db
 
 app = Flask(__name__)
 app.config.from_object(Config)

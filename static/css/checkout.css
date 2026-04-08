@@ -208,6 +208,11 @@ main {
     box-sizing: border-box;
 }
 
+
+.form_input:focus {
+    outline: none;
+}
+
 .form_input::placeholder {
     color: #aaa;
     font-size: 14px;

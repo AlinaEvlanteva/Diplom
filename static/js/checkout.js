@@ -29,20 +29,19 @@ function formatPhoneCheckout(input) {
     }
 }
 
-// ===== ВАЛИДАЦИЯ ТЕЛЕФОНА (УЛУЧШЕННАЯ) =====
+// ===== ВАЛИДАЦИЯ ТЕЛЕФОНА (СТРОГАЯ, КАК В ОБРАТНОЙ СВЯЗИ) =====
 function validatePhoneSimple(phone) {
-    // Убираем все нецифровые символы
     const digits = phone.replace(/[^0-9]/g, '');
     
-    // Должно быть 11 цифр
-    if (digits.length !== 11) {
-        return false;
-    }
+    if (digits.length !== 11) return false;
     
-    // Должно начинаться с 7 или 8
-    if (!digits.startsWith('7') && !digits.startsWith('8')) {
-        return false;
-    }
+    // Первая цифра должна быть 7 или 8
+    const firstDigit = digits[0];
+    if (firstDigit !== '7' && firstDigit !== '8') return false;
+    
+    // Код оператора (2-4 цифры) не может начинаться с 0 или 1
+    const operatorCode = digits.substring(1, 4);
+    if (operatorCode[0] === '0' || operatorCode[0] === '1') return false;
     
     return true;
 }
@@ -50,11 +49,11 @@ function validatePhoneSimple(phone) {
 // Показ уведомлений
 function showFlashMessage(message, category) {
     let container = document.querySelector('.flash-messages');
-    if (!container) {
-        container = document.createElement('div');
-        container.className = 'flash-messages';
-        document.body.appendChild(container);
-    }
+    // if (!container) {
+    //     container = document.createElement('div');
+    //     container.className = 'flash-messages';
+    //     document.body.appendChild(container);
+    // }
     
     const flash = document.createElement('div');
     // Исправлено: flash-${category} вместо flash_${category}
@@ -95,7 +94,7 @@ document.getElementById('requestForm')?.addEventListener('submit', function(e) {
     // Валидация телефона
     if (!validatePhoneSimple(phone)) {
         showFlashMessage('❌ Введите корректный номер телефона в формате +7 (XXX) XXX-XX-XX', 'error');
-        phoneInput.style.borderColor = '#dc3545';
+        phoneInput.style.border = '2px solid #dc3545'; 
         phoneInput.focus();
         return;
     }
@@ -104,12 +103,12 @@ document.getElementById('requestForm')?.addEventListener('submit', function(e) {
     phoneInput.style.borderColor = '#42546E';
     
     const formData = new FormData(this);
-    const submitBtn = this.querySelector('button[type="submit"]');
-    const originalText = submitBtn.textContent;
+    // const submitBtn = this.querySelector('button[type="submit"]');
+    // const originalText = submitBtn.textContent;
     
     // Блокируем кнопку
-    submitBtn.textContent = 'Отправка...';
-    submitBtn.disabled = true;
+    // submitBtn.textContent = 'Отправка...';
+    // submitBtn.disabled = true;
     
     fetch('/submit_request', {
         method: 'POST',
@@ -127,11 +126,11 @@ document.getElementById('requestForm')?.addEventListener('submit', function(e) {
         console.error('Ошибка:', error);
         showFlashMessage('❌ Ошибка при отправке заявки', 'error');
     })
-    .finally(() => {
+    // .finally(() => {
         // Разблокируем кнопку
-        submitBtn.textContent = originalText;
-        submitBtn.disabled = false;
-    });
+    //     submitBtn.textContent = originalText;
+    //     submitBtn.disabled = false;
+    // });
 });
 
 // Проверка при вводе телефона (сбрасываем красную рамку)
