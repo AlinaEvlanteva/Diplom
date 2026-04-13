@@ -10,19 +10,11 @@
     <header>
         <div class="header_inner">
             <div class="header_logo">
-                <a href="{{ url_for('main.index') }}"><img src="{{ url_for('static', filename='img/small/icons.png') }}" alt="Логотип ИнТехЛайт"/></a>
+                <a href="{{ url_for('main.index') }}"><img src="{{ url_for('static', filename='img/small/icons.svg') }}" alt="Логотип ИнТехЛайт"/></a>
             </div>
-            <nav class="header_nav">
-                <ul class="header_nav_menu">
-                    <li><a href="#">Доставка</a></li>
-                    <li><a href="#">Реквизиты</a></li>
-                    <li><a href="#">Контакты</a></li>
-                    <li><a href="#">Сертификаты</a></li>
-                </ul>
-            </nav>
             <div class="header_link_icons">
                 <a href="{{ url_for('main.catalog') }}" class="link_catalog"><img src="{{ url_for('static', filename='img/small/cat.svg') }}"/>Каталог</a>
-                <a href="#" class="link_cart"><img src="{{ url_for('static', filename='img/small/cart.svg') }}" alt="Корзина"/>Корзина</a>
+                <a href="{{ url_for('cart.cart_page') }}" class="link_cart"><img src="{{ url_for('static', filename='img/small/cart.svg') }}" alt="Корзина"/>Корзина</a>
             </div>
         </div>
     </header>
@@ -30,7 +22,7 @@
     <main>
         <section class="admin_section">
             <div class="admin_panel_acc">
-                <h1>📊 Отчет по выполненным заявкам</h1>
+                <h1>Отчет по выполненным заявкам</h1>
                 <div class="admin_logout">
                     <p>{{ session.get('admin_username', 'админ') }}</p>
                     <button type="button" onclick="window.location.href='/admin/logout'">Выйти</button>
@@ -44,14 +36,14 @@
                 <!-- Форма фильтрации по датам -->
                 <form method="POST" class="filter-form">
                     <div class="filter-group">
-                        <label for="start_date">📅 Дата начала</label>
+                        <label for="start_date">Дата начала</label>
                         <input type="date" id="start_date" name="start_date" value="{{ start_date or '' }}" required>
                     </div>
                     <div class="filter-group">
-                        <label for="end_date">📅 Дата окончания</label>
+                        <label for="end_date">Дата окончания</label>
                         <input type="date" id="end_date" name="end_date" value="{{ end_date or '' }}" required>
                     </div>
-                    <button type="submit" class="btn-filter">🔍 Сформировать отчет</button>
+                    <button type="submit" class="btn-filter">Сформировать отчет</button>
                 </form>
 
                 <!-- Сообщение об ошибке -->
@@ -62,7 +54,7 @@
                 <!-- Отчет -->
                 {% if completed_requests %}
                     <div class="report-total">
-                        📈 За период с {{ start_date }} по {{ end_date }}<br>
+                        За период с {{ start_date }} по {{ end_date }}<br>
                         Выполнено заявок: {{ completed_requests|length }}<br>
                         Общая выручка: {{ "%.2f"|format(total_sum) }} ₽
                     </div>
@@ -99,7 +91,7 @@
                             {% endif %}
                         </div>
 
-                        <h3>🛒 Товары в заявке:</h3>
+                        <h3>Товары в заявке:</h3>
                         <table class="items-table">
                             <thead>
                                 <tr>

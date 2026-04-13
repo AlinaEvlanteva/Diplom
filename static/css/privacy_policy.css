@@ -6,13 +6,15 @@ body{
     padding: 0;
     /* scrollbar-gutter: stable; */
     /* overflow-y: scroll; */
+    overflow-x: hidden;
+    max-width: 100%;
 }
 
 
 header {
     width: 100%;
     height: 100px;
-    background-color: #FAFAFA;
+    background-color: #ffffff;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -21,11 +23,11 @@ header {
     left: 0;
     right: 0;
     z-index: 1000;
+    box-shadow: 6px 6px 4px rgba(0, 0, 0, 0.1);
 }
 
 .header_inner {
     width: 90%;              /* вместо 100% + отступы */
-
     height: 100px;
     display: flex;
     justify-content: space-between;  /* равномерное распределение */
@@ -38,30 +40,8 @@ header {
     margin-right: 20px;
 }
 
-.header_logo img {
-    height: 60px;              /* фиксированная высота */
-    width: auto;
+.header_logo img {              
     object-fit: contain;
-}
-
-.header_nav {
-    display: flex;
-    justify-content: center;
-}
-
-.header_nav_menu {
-    display: flex;
-    gap: 40px;                 /* уменьшил с 60px для компактности */
-    list-style: none;
-    padding: 0;
-    margin: 0;
-}
-
-.header_nav_menu a {
-    text-decoration: none;
-    color: black;
-    font-size: 22px;           /* уменьшил с 25px */
-    font-weight: 500;
 }
 
 .header_link_icons {
@@ -76,7 +56,7 @@ header {
     align-items: center;
     justify-content: center;
     text-decoration: none;
-    color: black;
+    color: #151d29;
     font-size: 16px;
     min-width: 60px;            /* минимальная ширина */
 }
@@ -96,7 +76,7 @@ header {
     align-items: center;
     justify-content: center;
     text-decoration: none;
-    color: black;
+    color: #151d29;
     font-size: 16px;
     min-width: 60px;
 }
@@ -124,6 +104,7 @@ header {
 .cart_badge.visible {
     display: flex;
 }
+
 main {
     margin-top: 100px;
 }
@@ -214,11 +195,10 @@ main {
     background-color: #2a3a4e;
 }
 
-/* Футер */
 .footer{
     margin-top: 200px;
     width: 100%;
-    height: 512px;
+    height: auto;
     background-color: #333333;
     display: flex;
     justify-content: space-around;
@@ -227,14 +207,16 @@ main {
 
 .footer_column{
     width: 23%;
-    height: 298px;
-    margin-top: 50px;
+    height: auto;
+    padding: 50px 0;
 }
 .footer_column h3{
     font-size: 20px;
     font-weight: bold;
     color: #ffffff;
     text-align: center;
+    margin: 0;
+    margin-bottom: 20px;
 }
 
 .footer_menu{
@@ -261,32 +243,208 @@ main {
     font-size: 20px;  
 }
 
-
-.footer-bottom {
-    width: 80%;
-    height: 97px;
-    border-top: 1px solid rgb(146, 146, 146);
-    margin-top: 66px;
+#politika{
     display: flex;
     align-items: center;
 }
-.footer-bottom-content{
+
+.footer_bottom_content{
     width: 100%;
     height: 54px;
     display: flex;
     flex-direction: column;
     align-items: center;
+    gap: 10px;
 }
 
-.footer-bottom-content p{
+.footer_bottom_content p{
     text-decoration: none;
     color: #989898;
     font-size: 18px;
     margin: 0;
 }
 
-.footer-bottom-content a{
+.footer_bottom_content a{
     text-decoration: none;
     color: #989898;
     font-size: 18px;
+}
+
+
+/* ===================== АДАПТИВНОСТЬ ДЛЯ СТРАНИЦЫ ПОЛИТИКИ КОНФИДЕНЦИАЛЬНОСТИ ===================== */
+
+/* Планшеты (до 992px) */
+@media (max-width: 992px) {
+    /* Шапка */
+    .header_inner {
+        width: 95%;
+    }
+
+    /* Заголовок */
+    .privacy_title {
+        font-size: 28px;
+        margin: 20px 0;
+    }
+
+    /* Контент */
+    .privacy_content {
+        width: 85%;
+        padding: 25px;
+    }
+
+    .privacy_section h2 {
+        font-size: 22px;
+    }
+
+    /* Футер */
+    .footer {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 30px;
+    }
+
+    .footer_column {
+        width: 40%;
+        text-align: center;
+        padding: 30px 0;
+    }
+}
+
+/* Телефоны (до 768px) */
+@media (max-width: 768px) {
+    /* Шапка — только ширина, как в main.css */
+    .header_inner {
+        width: 95%;
+    }
+
+    /* Заголовок */
+    .privacy_title {
+        font-size: 24px;
+        margin: 15px 0;
+        padding: 0 15px;
+        text-align: center;
+    }
+
+    /* Контент */
+    .privacy_content {
+        width: 90%;
+        padding: 20px;
+    }
+
+    .privacy_section {
+        margin-bottom: 20px;
+    }
+
+    .privacy_section h2 {
+        font-size: 20px;
+        margin-bottom: 10px;
+    }
+
+    .privacy_section p {
+        font-size: 15px;
+    }
+
+    .privacy_section ul {
+        margin-left: 20px;
+    }
+
+    .privacy_section li {
+        font-size: 15px;
+    }
+
+    /* Кнопка назад */
+    .but_back {
+        width: 220px;
+        height: 45px;
+        font-size: 16px;
+    }
+
+    /* Футер */
+    .footer {
+        margin-top: 100px;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .footer_column {
+        width: 100%;
+        padding: 20px 0;
+        text-align: center;
+    }
+
+    .footer_menu p,
+    .footer_menu a {
+        font-size: 14px;
+    }
+
+    .footer_bottom_content p,
+    .footer_bottom_content a {
+        font-size: 12px;
+    }
+
+    .footer_column h3 {
+        font-size: 16px;
+    }
+}
+
+/* Маленькие телефоны (до 480px) */
+@media (max-width: 480px) {
+    /* Интро как в main.css — только шрифты */
+    #title_intro_big {
+        font-size: 28px;
+    }
+
+    .title_intro_small {
+        font-size: 18px;
+    }
+
+    .catalog_link {
+        font-size: 16px;
+        height: 45px;
+    }
+
+    /* Заголовок */
+    .privacy_title {
+        font-size: 20px;
+        margin: 10px 0;
+    }
+
+    /* Контент */
+    .privacy_content {
+        width: 85%;
+        padding: 15px;
+    }
+
+    .privacy_section {
+        margin-bottom: 15px;
+    }
+
+    .privacy_section h2 {
+        font-size: 18px;
+    }
+
+    .privacy_section p {
+        font-size: 14px;
+        line-height: 1.4;
+    }
+
+    .privacy_section ul {
+        margin-left: 15px;
+    }
+
+    .privacy_section li {
+        font-size: 14px;
+        margin-bottom: 5px;
+    }
+
+    /* Кнопка назад */
+    .but_back {
+        width: 200px;
+        height: 42px;
+        font-size: 15px;
+    }
+
+    .privacy_back {
+        margin: 20px 0;
+    }
 }

@@ -6,13 +6,15 @@ body{
     padding: 0;
     /* scrollbar-gutter: stable; */
     /* overflow-y: scroll; */
+    overflow-x: hidden;
+    max-width: 100%;
 }
 
 
 header {
     width: 100%;
     height: 100px;
-    background-color: #FAFAFA;
+    background-color: #ffffff;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -21,11 +23,11 @@ header {
     left: 0;
     right: 0;
     z-index: 1000;
+    box-shadow: 6px 6px 4px rgba(0, 0, 0, 0.1);
 }
 
 .header_inner {
     width: 90%;              /* вместо 100% + отступы */
-
     height: 100px;
     display: flex;
     justify-content: space-between;  /* равномерное распределение */
@@ -38,30 +40,8 @@ header {
     margin-right: 20px;
 }
 
-.header_logo img {
-    height: 60px;              /* фиксированная высота */
-    width: auto;
+.header_logo img {              
     object-fit: contain;
-}
-
-.header_nav {
-    display: flex;
-    justify-content: center;
-}
-
-.header_nav_menu {
-    display: flex;
-    gap: 40px;                 /* уменьшил с 60px для компактности */
-    list-style: none;
-    padding: 0;
-    margin: 0;
-}
-
-.header_nav_menu a {
-    text-decoration: none;
-    color: black;
-    font-size: 22px;           /* уменьшил с 25px */
-    font-weight: 500;
 }
 
 .header_link_icons {
@@ -76,7 +56,7 @@ header {
     align-items: center;
     justify-content: center;
     text-decoration: none;
-    color: black;
+    color: #151d29;
     font-size: 16px;
     min-width: 60px;            /* минимальная ширина */
 }
@@ -96,58 +76,12 @@ header {
     align-items: center;
     justify-content: center;
     text-decoration: none;
-    color: black;
+    color: #151d29;
     font-size: 16px;
     min-width: 60px;
 }
 
-.cart_badge {
-    position: absolute;
-    top: -8px;
-    right: -10px;
-    background-color: #dc3545;
-    color: white;
-    border-radius: 50%;
-    min-width: 15px;
-    height: 18px;
-    font-size: 11px;
-    font-weight: bold;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 0 4px;
-    display: none;
-}
 
-
-/* Показываем только если есть класс .visible */
-.cart_badge.visible {
-    display: flex;
-}
-/* Адаптивность */
-@media (max-width: 992px) {
-    .header_nav_menu {
-        gap: 20px;
-    }
-    
-    .header_nav_menu a {
-        font-size: 18px;
-    }
-}
-
-@media (max-width: 768px) {
-    .header_inner {
-        width: 95%;
-    }
-    
-    .header_nav_menu {
-        gap: 15px;
-    }
-    
-    .header_nav_menu a {
-        font-size: 16px;
-    }
-}
 main {
     margin-top: 100px;
 

@@ -6,6 +6,8 @@ body{
     padding: 0;
     /* scrollbar-gutter: stable; */
     /* overflow-y: scroll; */
+    overflow-x: hidden;
+    max-width: 100%;
 }
 
 
@@ -40,26 +42,6 @@ header {
 
 .header_logo img {              
     object-fit: contain;
-}
-
-.header_nav {
-    display: flex;
-    justify-content: center;
-}
-
-.header_nav_menu {
-    display: flex;
-    gap: 40px;                 /* уменьшил с 60px для компактности */
-    list-style: none;
-    padding: 0;
-    margin: 0;
-}
-
-.header_nav_menu a {
-    text-decoration: none;
-    color: black;
-    font-size: 22px;           /* уменьшил с 25px */
-    font-weight: 500;
 }
 
 .header_link_icons {
@@ -122,30 +104,7 @@ header {
 .cart_badge.visible {
     display: flex;
 }
-/* Адаптивность */
-@media (max-width: 992px) {
-    .header_nav_menu {
-        gap: 20px;
-    }
-    
-    .header_nav_menu a {
-        font-size: 18px;
-    }
-}
 
-@media (max-width: 768px) {
-    .header_inner {
-        width: 95%;
-    }
-    
-    .header_nav_menu {
-        gap: 15px;
-    }
-    
-    .header_nav_menu a {
-        font-size: 16px;
-    }
-}
 /* Интро */
 
 main {
@@ -176,6 +135,7 @@ main {
     justify-content: center;
     text-align: center;
     border-radius: 30px;
+    gap: 10px; 
 }
 
 .main_intro_inner_photo {
@@ -190,21 +150,6 @@ main {
 }
 
 
-/* .main_intro_inner_rectangle,
-.main_intro_inner_photo {
-
-} */
-
-.main_intro_inner_rectangle_info{
-    width: 80%;
-    height: auto;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 15px; 
-    /* margin-top: 170px; */
-
-}
 #title_intro_big{
     color: #42546E;
     font-size: 60px;
@@ -233,218 +178,6 @@ main {
     text-decoration: none;
 }
 
-/* .main_intro_inner_rectangle_button{
-    width: 360px;
-    height: 60px;
-    margin-top: 30px;
-}
-
-.main_intro_inner_rectangle_button a{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 360px;
-    height: 60px;
-    background-color: #42546E;
-    border-radius: 33px;
-    color: white;
-    font-size: 25px;
-    border: none;
-    text-decoration: none;
-} */
-
-
-
-
-
-.main_intro_inner_rectangle_info2{
-    width: 45%;
-    height: 22px;
-    display: flex;
-    gap: 24px;
-    margin-top: 120px;
-
-}
-.main_intro_inner_rectangle_info2 div{
-    width: 20px;
-    height: 20px;
-    border-radius: 100%;
-    background-color: #42546E;
-
-}
-.main_intro_inner_rectangle_info2 p{
-    margin: 0;
-    color: #6C6767;
-
-}
-
-
-/* .section_about {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-}
-
-.section_about_header {
-    height: 220px;   */
-    /* display: flex;
-    align-items: center;
-    gap: 45px;
-}
-
-.section_about_header h2 {
-    color: #42546E;
-    font-size: 30px;
-    font-weight: bold;
-}
-
-.about_two_columns {
-    height: auto;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    
-}
-
-.about_text {
-    width: auto;
-    text-align: center;
-}
-
-.about_lead {
-    font-size: 22px;
-    font-weight: 500;
-    color: #2C3E50;
-    margin-bottom: 20px;
-}
-
-.about_text p {
-    font-size: 17px;
-    line-height: 1.6;
-    color: #3D4F5F;
-    margin-bottom: 20px;
-}
-
-.about_tags {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 12px;
-    margin: 25px 0;
-}
-
-.about_tags span {
-    background: #F0F2F5;
-    padding: 6px 18px;
-    border-radius: 30px;
-    font-size: 14px;
-    font-weight: 500;
-    color: #2C3E50;
-    border: 1px solid #DCE1E8;
-    transition: all 0.2s ease;
-}
-
-.about_tags span:hover {
-    background: #42546E;
-    color: white;
-    border-color: #42546E;
-}
-
-.about_image {
-    border-radius: 30px;
-    overflow: hidden;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
-}
-
-.about_image img {
-    display: block;
-    object-fit: contain;
-    transition: transform 0.3s ease;
-}
-
-.about_image:hover img {
-    transform: scale(1.02);
-} */
-
-/* Адаптивность */
-/* @media (max-width: 800px) {
-    .about_two_columns {
-        flex-direction: column;
-    }
-    .about_lead {
-        font-size: 20px;
-    }
-} */
-
-/* Секция наша продукция */
-
-
- 
-/* .products_section{
-    width: 100%;
-    height: auto;
-    display: flex;
-    flex-direction: column;
-}
-
-
-.products_section_info{
-    width: 100%;
-    height: 220px;
-    margin: 0;
-    display: flex;
-    align-items: center;
-    gap: 45px;
-
-}
-
-.section_info_line{
-    width: 4px;
-    height: 80px;
-    background-color: #5275A7;
-    margin-left: 115px;
-}
-.products_section_info h2{
-    color: #42546E;
-    font-size: 30px;
-    font-weight: bold;
-}
-
-.products_section_post{
-    width: 1010px;
-    height: auto;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 55px;
-    margin: 0 auto;
-}
-
-.post{
-    width: 300px;
-    height: 239px;
-}
-.post a{
-    text-decoration: none;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-.post img{
-    width: 300px;
-    height: 200px;
-    object-fit: contain;
-    border: 3px solid #DCDCDC;
-    border-radius: 24px;
-    border: 2px solid #DCDCDC;
-    border: 24px;
-}
-.post h3{
-    color: #42546E;
-    margin: 0;
-    margin-top: 10px;
-    font-size: 22px;
-    font-weight: bold;
-}  */
-
 .section_about{
     width: 100%;
     height: auto;
@@ -469,6 +202,12 @@ main {
     margin: 0;
 }
 
+.line{
+    width: 100%;
+    height: 1px;
+    background-color: #9098a3;
+}
+
 .about_products{
     width: 73%;
     display: flex;
@@ -487,10 +226,10 @@ main {
     padding: 5px 10px;
     background: #F0F2F5;
     border-radius: 30px;
-    font-size: 16.5px;
+    font-size: 17px;
     text-decoration: none;
     color: #2C3E50;
-    border: 1px solid #DCE1E8;
+    border: 1px solid #9eabbd;
     transition: all 0.2s ease;
 }
 
@@ -519,7 +258,7 @@ main {
 .section_info_line{
     width: 4px;
     height: 80px;
-    background-color: #5275A7;
+    background-color: #5e6e83;
     margin-left: 115px;
 }
 
@@ -596,9 +335,8 @@ main {
     font-weight: bold;
 }
 .section_sotrudnichestvo_info{
-    background-color: #EAEAEA;
-    border-radius: 48px;
-    width: 84%;
+    background-color: #F4F4F4;
+    width: 100%;
     height: 500px;
     display: flex;
     justify-content: center;
@@ -614,6 +352,7 @@ main {
     flex-direction: column;     
     align-items: center;
     justify-content: space-around;
+    box-shadow: inset 0 8px 10px -5px rgba(0, 0, 0, 0.15);
 }
 
 #sotrudnichestvo_container_post2{
@@ -933,7 +672,7 @@ textarea.form_input {
 }
 
 /* ===== АНИМАЦИИ ДЛЯ КНОПОК ===== */
-.main_intro_inner_rectangle_button button,
+.main_intro_inner_rectangle a,
 .sotrudnichestvo_container_post button,
 .section_end_intro_info button,
 .but_save,
@@ -942,7 +681,7 @@ textarea.form_input {
     cursor: pointer;
 }
 
-.main_intro_inner_rectangle_button button:hover,
+.main_intro_inner_rectangle a:hover,
 .sotrudnichestvo_container_post button:hover,
 .section_end_intro_info button:hover,
 .but_save:hover {
@@ -1005,19 +744,415 @@ textarea.form_input {
 
 
 
-.advantages_post,
-.post {
+.advantages_post{
     opacity: 0;
     transform: translateY(30px);
     transition: all 0.5s ease;
 }
 
 
-.advantages_post.visible,
-.post.visible {
+.advantages_post.visible{
     opacity: 1;
     transform: translateY(0);
 }
 
+/* ===================== АДАПТИВНОСТЬ ===================== */
 
+/* Планшеты (от 768px до 992px) */
+@media (max-width: 992px) {
+    /* Шапка */
+    .header_inner {
+        width: 95%;
+    }
 
+    /* Интро */
+    .main_intro_inner {
+        flex-direction: column;
+        width: 90%;
+    }
+
+    .main_intro_inner_rectangle {
+        width: 100%;
+        padding: 40px 20px;
+    }
+
+    .main_intro_inner_photo {
+        width: 100%;
+        height: 300px;
+        background-size: cover;
+    }
+
+    /* Преимущества */
+    .section_advantages_post {
+        flex-wrap: wrap;
+        justify-content: center;
+        height: auto;
+        gap: 30px;
+    }
+
+    .advantages_post {
+        width: 45%;
+        height: auto;
+        min-height: 250px;
+    }
+
+    /* Блок с контактами */
+    .section_sotrudnichestvo_info {
+        flex-direction: column;
+        height: auto;
+        padding: 40px 20px;
+        gap: 30px;
+    }
+
+    .sotrudnichestvo_container_post,
+    #sotrudnichestvo_container_post2 {
+        width: 90%;
+        height: auto;
+        min-height: 350px;
+    }
+
+    #sotrudnichestvo_container_post2 {
+        border-radius: 42px;
+    }
+
+    /* Футер */
+    .footer {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 30px;
+    }
+
+    .footer_column {
+        width: 40%;
+        text-align: center;
+        padding: 30px 0;
+    }
+
+    /* Последняя секция */
+    .section_end_intro_info h2 {
+        font-size: 32px;
+    }
+
+    .section_end_intro_info p {
+        font-size: 20px;
+    }
+
+    .section_end_intro_info button {
+        width: 80%;
+        font-size: 24px;
+        height: 60px;
+    }
+
+    /* О компании */
+    .about_products {
+        width: 90%;
+    }
+
+    .about_product_link {
+        width: 160px;
+        font-size: 15px;
+    }
+
+    .about_text {
+        font-size: 18px;
+        width: 90%;
+    }
+}
+
+/* Телефоны (до 768px) */
+@media (max-width: 768px) {
+    body {
+        overflow-x: hidden;
+    }
+
+    .footer,
+    .section_sotrudnichestvo_info,
+    .about_products {
+        flex-wrap: wrap;
+    }
+
+    .footer_column {
+        width: 100%;
+    }
+
+    .sotrudnichestvo_container_post,
+    #sotrudnichestvo_container_post2 {
+        width: 95%;
+    }
+    /* Шапка */
+    .header_inner {
+        width: 95%;
+    }
+
+    /* Интро */
+    .main_intro_inner {
+        width: 95%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .main_intro_inner_rectangle {
+        padding: 30px 15px;
+    }
+
+    #title_intro_big {
+        font-size: 36px;
+    }
+
+    .title_intro_small {
+        font-size: 24px;
+    }
+
+    .catalog_link {
+        width: 80%;
+        font-size: 18px;
+        height: 50px;
+    }
+
+    .main_intro_inner_photo {
+        height: 200px;
+    }
+
+    /* Заголовки секций */
+    .section_info {
+        gap: 20px;
+        height: 150px;
+    }
+
+    .section_info_line {
+        margin-left: 20px;
+        height: 60px;
+    }
+
+    .section_info h2 {
+        font-size: 24px;
+    }
+
+    /* Преимущества */
+    .advantages_post {
+        width: 90%;
+        min-height: 220px;
+    }
+
+    .advantages_post_header h3 {
+        font-size: 22px;
+        margin-top: 25px;
+    }
+
+    .advantages_post p {
+        font-size: 18px;
+        margin-top: 20px;
+    }
+
+    /* Блок с контактами */
+    .section_sotrudnichestvo_header {
+        height: 150px;
+        font-size: 24px;
+        text-align: center;
+        padding: 0 20px;
+    }
+
+    .sotrudnichestvo_container_post button {
+        width: 80%;
+        font-size: 22px;
+        height: 55px;
+    }
+
+    .sotrudnichestvo_container_post h3 {
+        font-size: 26px;
+    }
+
+    .sotrudnichestvo_container_post p,
+    #sotrudnichestvo_container_post2 p {
+        font-size: 18px;
+    }
+
+    /* Последняя секция */
+    .section_end_intro {
+        margin-top: 100px;
+    }
+
+    .section_end_intro_info {
+        width: 95%;
+        height: auto;
+        padding: 20px 0;
+    }
+
+    .section_end_intro_info h2 {
+        font-size: 28px;
+    }
+
+    .section_end_intro_info p {
+        font-size: 18px;
+    }
+
+    .section_end_intro_info button {
+        width: 90%;
+        font-size: 20px;
+        height: 55px;
+    }
+
+    /* Футер */
+    .footer {
+        margin-top: 100px;
+    }
+
+    .footer_column {
+        width: 100%;
+        padding: 20px 0;
+    }
+
+    .footer_menu p,
+    .footer_menu a {
+        font-size: 16px;
+    }
+
+    .footer_bottom_content p,
+    .footer_bottom_content a {
+        font-size: 14px;
+    }
+
+    /* О компании */
+    .about_text {
+        font-size: 16px;
+        width: 95%;
+        gap: 8px;
+    }
+
+    .about_products {
+        width: 95%;
+        gap: 12px;
+    }
+
+    .about_product_link {
+        width: 140px;
+        font-size: 14px;
+        padding: 4px 8px;
+    }
+
+    .line {
+        width: 80%;
+    }
+
+    .form_req {
+        width: 100%;
+        max-width: 100%;
+        padding: 20px 15px;
+        box-sizing: border-box;  /* ← ДОБАВИТЬ ЭТУ СТРОКУ */
+    }
+
+    .form_title {
+        font-size: 20px;
+        margin-bottom: 15px;
+    }
+
+    .form_group {
+        width: 100%;
+        margin-bottom: 12px;
+    }
+
+    .form_label {
+        font-size: 14px;
+        gap: 4px;
+        width: 100%;
+    }
+
+    .form_input {
+        width: 100%;
+        max-width: 100%;
+        height: 38px;
+        font-size: 14px;
+        text-indent: 10px;
+        box-sizing: border-box;
+    }
+
+    textarea.form_input {
+        height: 70px;
+    }
+
+    .checkbox_label {
+        font-size: 13px;
+        display: flex;
+        align-items: flex-start;
+        gap: 8px;
+        text-align: left;
+    }
+
+    .form_actions {
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-top: 15px;
+    }
+
+    .but_save,
+    .but_cancel {
+        width: 150px;
+        height: 38px;
+        font-size: 14px;
+    }
+}
+
+/* Маленькие телефоны (до 480px) — минимальный размер 320px */
+@media (max-width: 480px) {
+    
+    /* Интро */
+    #title_intro_big {
+        font-size: 28px;
+    }
+
+    .title_intro_small {
+        font-size: 18px;
+    }
+
+    .catalog_link {
+        font-size: 16px;
+        height: 45px;
+    }
+
+    /* Преимущества */
+    .section_info h2 {
+        font-size: 20px;
+    }
+
+    .advantages_post_header h3 {
+        font-size: 18px;
+        margin-left: 15px;
+    }
+
+    .advantages_post p {
+        font-size: 16px;
+        margin-left: 15px;
+    }
+
+    .advantages_post_header img {
+        width: 35px;
+        height: 35px;
+        margin-top: 25px;
+    }
+
+    /* Блок с контактами */
+    .sotrudnichestvo_container_post h3 {
+        font-size: 22px;
+    }
+
+    .sotrudnichestvo_container_post button {
+        font-size: 18px;
+        height: 48px;
+    }
+
+    /* Последняя секция */
+    .section_end_intro_info h2 {
+        font-size: 24px;
+    }
+
+    .section_end_intro_info p {
+        font-size: 16px;
+    }
+
+    /* О компании */
+    .about_product_link {
+        width: 120px;
+        font-size: 12px;
+    }
+}

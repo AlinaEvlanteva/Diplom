@@ -22,36 +22,35 @@
             </div>
         </div>
     </header>
-
-<!-- Интро -->
- 
     <main>
+        <!-- Интро -->
         <section class="main_intro_inner">
             <div class="main_intro_inner_rectangle">
-                <div class="main_intro_inner_rectangle_info">
-                    <h1 id="title_intro_big">
-                        ИнТехЛайт
-                    </h1>
-                    <p class="title_intro_small">
-                        Надежный
-                    </p>
-                    <p class="title_intro_small">
-                        Поставщик
-                    </p>
-                    <a href="{{ url_for('main.catalog') }}" class="catalog_link">В каталог</a>
-                </div>
+                <h1 id="title_intro_big">
+                    ИнТехЛайт
+                </h1>
+                <p class="title_intro_small">
+                    Надежный
+                </p>
+                <p class="title_intro_small">
+                    Поставщик
+                </p>
+                <a href="{{ url_for('main.catalog') }}" class="catalog_link">В каталог</a>
             </div>
             <div class="main_intro_inner_photo"></div>
         </section>
 
+        <!-- О компании -->
         <section class="section_about">
             <div class="section_info" id="about_company">
                 <div class="section_info_line"></div>
                 <h2>О компании</h2>
             </div>
             <div class="about_text">
-                <p>ИнТехЛайт — надёжный поставщик промышленных комплектующих для бизнеса.</p>
-                <p>Наша специализация — обеспечение предприятий качественными деталями и материалами.</p>
+                <p>ИнТехЛайт — поставщик промышленных комплектующих для бизнеса.</p>
+                <p>Мы помогаем быстро подобрать качественные детали и материалы для любого дела <br/>
+                    от крупного производства, до частного ремонта.</p>
+                <div class="line"></div>
                 <p>В нашем ассортименте вы найдете:</p>
             </div>
             <div class="about_products">
@@ -62,48 +61,8 @@
                 {% endfor %}
             </div>
         </section>
-        
-        <!-- <section class="section_about">
-            <div class="section_about_header" id="about_company">
-                <div class="section_info_line"></div>
-                <h2>О компании</h2>
-            </div>
-            <div class="about_two_columns">
-                <div class="about_text">
-                    <p class="about_lead">ИнТехЛайт — надёжный поставщик промышленных комплектующих для бизнеса.</p>
-                    <p>Наша специализация — обеспечение предприятий качественными деталями и материалами. <br/>В нашем ассортименте вы найдете:</p>
-                    <div class="about_tags">
-                        <span>Подшипники</span>
-                        <span>Шкивы и втулки</span>
-                        <span>Ремни и цепи</span>
-                        <span>Уплотнения (РТИ)</span>
-                        <span>Смазочные материалы</span>
-                    </div>
-                </div>
-            </div>
-        </section> -->
 
-        <!-- Секция наши продукты -->
-
-        <!-- <section class="products_section">
-            <div class="products_section_info">
-                <div class="section_info_line"></div>
-                <h2>Наша продукция</h2>
-            </div>
-            <div class="products_section_post">
-                {% for category in categories %}
-                <article class="post">
-                    <a href="{{ url_for('main.category_products', cat_id=category.id) }}">
-                        <img src="{{ url_for('static', filename='img/small/' + category.image) }}" alt="{{ category.name }}"/>
-                        <h3>{{ category.name }}</h3>
-                    </a>
-                </article>
-                {% endfor %}
-            </div>
-        </section> -->
-
-<!-- Секция преимущества -->
-
+        <!-- Наши преимущества -->
         <section class="section_advantages">
             <div class="section_info" id="advantages">
                 <div class="section_info_line"></div>
@@ -144,65 +103,7 @@
             </div> 
         </section> 
 
-<!-- Секция как сделать заказ -->
-        <!-- <section class="section_instructions">
-            <div class="section_instructions_header">
-                <div class="section_info_line"></div>
-                <h2>Как сделать заказ</h2>
-            </div>
-            <div class="section_instructions_info">
-                <div class="section_instructions_info_post">
-                    <div class="instructions_info_post">1</div>
-                    <h3>
-                        Выберите способ связи
-                    </h3>
-                    <p>Позвоните нам, <br/>
-                        напишите на почту или <br/>
-                        заполните форму на сайте.
-                    </p>
-                </div>
-                <div class="section_instructions_info_line"></div>
-
-                <div class="section_instructions_info_post">
-                    <div class="instructions_info_post">2</div>
-                    <h3>
-                        Получите расчёт
-                    </h3>
-                    <p>Позвоните нам, <br/>
-                        напишите на почту или <br/>
-                        заполните форму на сайте.
-                    </p>
-                </div>
-                <div class="section_instructions_info_line"></div>
-
-                <div class="section_instructions_info_post">
-                    <div class="instructions_info_post">3</div>
-                    <h3>
-                        Расскажите, что нужно
-                    </h3>
-                    <p>
-                        Назовите артикул <br/>
-                        или продукцию <br/>
-                        ИнТехЛайт
-                    </p>
-                </div>
-                <div class="section_instructions_info_line"></div>
-
-                <div class="section_instructions_info_post">
-                    <div class="instructions_info_post">4</div>
-                    <h3>
-                        Подтвердите заказ
-                    </h3>
-                    <p>
-                        После согласования <br/>
-                        отправим счёт и <br/>
-                        запустим отгрузку.
-                    </p>
-                </div>
-                <div class="section_instructions_info_line"></div>
-            </div>
-        </section>  -->
-
+        <!-- Проблемы с заказаом -->
         <section class="section_sotrudnichestvo">
             <div class="section_sotrudnichestvo_header" id="order_problems">
                 <h2>
@@ -231,6 +132,7 @@
             </div>
         </section>
 
+        <!-- Интро -->
         <section class="section_end_intro">
             <div class="section_end_intro_info">
                 <h2>ИнТехЛайт — Ваш надёжный партнёр</h2>
@@ -240,6 +142,7 @@
             </div>
         </section>
     </main>
+
     <!-- ВРЕМЕННАЯ ССЫЛКА ДЛЯ АДМИНА (удалить потом) -->
     <div style="position: fixed; bottom: 10px; right: 10px; opacity: 0.3; font-size: 12px; background: #333; padding: 5px 10px; border-radius: 5px; z-index: 9999;">
         <a href="{{ url_for('admin.admin_login') }}" style="color: white; text-decoration: none;">🔐 Админка</a>

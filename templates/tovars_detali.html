@@ -10,16 +10,8 @@
     <header>
         <div class="header_inner">
             <div class="header_logo">
-                <a href="{{ url_for('main.index') }}"><img src="{{ url_for('static', filename='img/small/icons.png') }}" alt="Логотип ИнТехЛайт"/></a>
+                <a href="{{ url_for('main.index') }}"><img src="{{ url_for('static', filename='img/small/icons.svg') }}" alt="Логотип ИнТехЛайт"/></a>
             </div>
-            <!-- <nav class="header_nav">
-                <ul class="header_nav_menu">
-                    <li><a href="#">Доставка</a></li>
-                    <li><a href="#">Реквизиты</a></li>
-                    <li><a href="#">Контакты</a></li>
-                    <li><a href="#">Сертификаты</a></li>
-                </ul>
-            </nav> -->
             <div class="header_link_icons">
                 <a href="{{ url_for('main.catalog') }}" class="link_catalog"><img src="{{ url_for('static', filename='img/small/cat.svg') }}"/>Каталог</a>
                 <a href="{{ url_for('cart.cart_page') }}" class="link_cart" id="cart-link">
@@ -33,7 +25,8 @@
     
     <main>
         <section class="section_detali_tovara">
-            <nav aria-label="Breadcrumb" class="section_detali_tovara_info">
+            
+            <nav class="section_detali_tovara_info">
                 <ul class="info_list">
                     <li><a href="{{ url_for('main.index') }}">Главная</a></li>
                     <li>/</li>
@@ -45,6 +38,7 @@
                 </ul>
                 <h1>{{ product.name }}</h1>
             </nav>
+
             <article class="section_detali_tovara_post">
                 <div class="section_detali_tovara_post_photo">
                     <img src="{{ url_for('static', filename='img/big/' + (product.image_big if product.image_big else product.image if product.image else 'default.png')) }}" alt="{{ product.name }}">
@@ -53,21 +47,21 @@
                     <div class="attributes_items">
                         <div class="attributes_row">
                             <div class="attr_name">Артикул</div>
-                            <div class="attr_line"></div>
+                            <!-- <div class="attr_line"></div> -->
                             <div class="attr_value">{{ product.article }}</div>
                         </div>
 
                         {% for attr in attributes %}
                         <div class="attributes_row">
                             <div class="attr_name">{{ attr.attribute.name }}</div>
-                            <div class="attr_line"></div>
+                            <!-- <div class="attr_line"></div> -->
                             <div class="attr_value">{{ attr.value }} {{ attr.attribute.unit or '' }}</div>
                         </div>
                         {% endfor %}
 
                         <div class="attributes_row price_row">
                             <div class="attr_name">Цена</div>
-                            <div class="attr_line"></div>
+                            <!-- <div class="attr_line"></div> -->
                             <div class="attr_value price_value">{{ product.price }} ₽ / {{ product.unit or 'шт' }}</div>
                         </div>
                         <!-- КОНТЕЙНЕР ДЛЯ КНОПКИ И СЧЕТЧИКА -->
@@ -96,17 +90,16 @@
         </section>
     </main>
 
-        <footer class="footer">
+    <footer class="footer">
         <div class="footer_column">
             <h3 class="footer_title">Меню сайта</h3>
             <nav>
                 <ul class="footer_menu">
-                    <li><a href="#">Главная страница</a></li>
+                    <li><a href="{{ url_for('main.index') }}">Главная страница</a></li>
+                    <li><a href="{{ url_for('main.index') }}#about_company">О компании</a></li>
+                    <li><a href="{{ url_for('main.index') }}#advantages">Наши преимущества</a></li>
+                    <li><a href="{{ url_for('main.index') }}#order_problems">Проблемы с заказом</a></li>
                     <li><a href="{{ url_for('main.catalog') }}">Каталог</a></li>
-                    <li><a href="#">Доставка</a></li>
-                    <li><a href="#">Реквизиты</a></li>
-                    <li><a href="#">Контакты</a></li>
-                    <li><a href="#">Сертификаты</a></li>
                 </ul>
             </nav>
         </div>
@@ -121,22 +114,8 @@
                 <li><a href="mailto:sgpz-bearings@mail.ru">Эл. почта: eeeeeee@mail.ru</a></li>
             </ul>
         </div>
-
-        <div class="footer_column">
-            <h3 class="footer_title">Мессенджеры</h3>
-            <ul class="footer_menu">
-                <li><a href="#" class="messenger-link">Написать в WhatsApp</a></li>
-                <li><a href="#" class="messenger-link">Написать в Telegram</a></li>
-                <li><a href="#" class="messenger-link">Сообщество ВКонтакте</a></li>
-                <!-- ВРЕМЕННАЯ ССЫЛКА ДЛЯ АДМИНА (удалить потом) -->
-                 <div style="position: fixed; bottom: 10px; right: 10px; opacity: 0.3; font-size: 12px; background: #333; padding: 5px 10px; border-radius: 5px; z-index: 9999;">
-                    <a href="{{ url_for('admin.admin_login') }}" style="color: white; text-decoration: none;">🔐 Админка</a>
-                </div>
-            </ul>
-        </div>
-
-        <div class="footer-bottom">
-            <div class="footer-bottom-content">
+        <div class="footer_column" id="politika">
+            <div class="footer_bottom_content">
                 <p>© ООО «ИнТехЛайт»</p>
                 <a href="{{ url_for('feedback.privacy_policy') }}">Политика конфиденциальности</a>
             </div>

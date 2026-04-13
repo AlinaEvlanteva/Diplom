@@ -6,13 +6,15 @@ body{
     padding: 0;
     /* scrollbar-gutter: stable; */
     /* overflow-y: scroll; */
+    overflow-x: hidden;
+    max-width: 100%;
 }
 
 
 header {
     width: 100%;
     height: 100px;
-    background-color: #FAFAFA;
+    background-color: #ffffff;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -21,11 +23,11 @@ header {
     left: 0;
     right: 0;
     z-index: 1000;
+    box-shadow: 6px 6px 4px rgba(0, 0, 0, 0.1);
 }
 
 .header_inner {
     width: 90%;              /* вместо 100% + отступы */
-
     height: 100px;
     display: flex;
     justify-content: space-between;  /* равномерное распределение */
@@ -38,30 +40,8 @@ header {
     margin-right: 20px;
 }
 
-.header_logo img {
-    height: 60px;              /* фиксированная высота */
-    width: auto;
+.header_logo img {              
     object-fit: contain;
-}
-
-.header_nav {
-    display: flex;
-    justify-content: center;
-}
-
-.header_nav_menu {
-    display: flex;
-    gap: 40px;                 /* уменьшил с 60px для компактности */
-    list-style: none;
-    padding: 0;
-    margin: 0;
-}
-
-.header_nav_menu a {
-    text-decoration: none;
-    color: black;
-    font-size: 22px;           /* уменьшил с 25px */
-    font-weight: 500;
 }
 
 .header_link_icons {
@@ -76,13 +56,10 @@ header {
     align-items: center;
     justify-content: center;
     text-decoration: none;
-    color: black;
+    color: #151d29;
     font-size: 16px;
     min-width: 60px;            /* минимальная ширина */
 }
-
-
-
 
 .link_catalog img,
 .link_cart img {
@@ -92,39 +69,14 @@ header {
 
 }
 
-/* Адаптивность */
-@media (max-width: 992px) {
-    .header_nav_menu {
-        gap: 20px;
-    }
-    
-    .header_nav_menu a {
-        font-size: 18px;
-    }
-}
-
-@media (max-width: 768px) {
-    .header_inner {
-        width: 95%;
-    }
-    
-    .header_nav_menu {
-        gap: 15px;
-    }
-    
-    .header_nav_menu a {
-        font-size: 16px;
-    }
-}
-
 .link_cart {
     position: relative;
     display: flex;
-    flex-direction: column;    
+    flex-direction: column;    /* ← ОТЛИЧИЕ! */
     align-items: center;
     justify-content: center;
     text-decoration: none;
-    color: black;
+    color: #151d29;
     font-size: 16px;
     min-width: 60px;
 }
@@ -144,7 +96,6 @@ header {
     align-items: center;
     justify-content: center;
     padding: 0 4px;
-
     display: none;
 }
 
@@ -153,6 +104,7 @@ header {
 .cart_badge.visible {
     display: flex;
 }
+
 
 
 main {
@@ -242,19 +194,15 @@ main {
     align-items: end;
     width: 80%;
     margin-bottom: 15px;
+    justify-content: space-between;
+    border-bottom: 2px solid #42546E;
+    padding-bottom: 5px;
 }
 
 .attr_name{
     font-size: 20px;
     color: #42546E;
     font-weight: bold;
-}
-
-.attr_line {
-    flex: 1;              
-    height: 1px;
-    border-bottom: 2px solid #42546E;
-    margin: 0 10px;
 }
 
 .attr_value{
@@ -496,14 +444,10 @@ main {
     width: 100%;
 }
 
-
-
-
-
 .footer{
     margin-top: 200px;
     width: 100%;
-    height: 512px;
+    height: auto;
     background-color: #333333;
     display: flex;
     justify-content: space-around;
@@ -512,14 +456,16 @@ main {
 
 .footer_column{
     width: 23%;
-    height: 298px;
-    margin-top: 50px;
+    height: auto;
+    padding: 50px 0;
 }
 .footer_column h3{
     font-size: 20px;
     font-weight: bold;
     color: #ffffff;
     text-align: center;
+    margin: 0;
+    margin-bottom: 20px;
 }
 
 .footer_menu{
@@ -546,32 +492,264 @@ main {
     font-size: 20px;  
 }
 
-
-.footer-bottom {
-    width: 80%;
-    height: 97px;
-    border-top: 1px solid rgb(146, 146, 146);
-    margin-top: 66px;
+#politika{
     display: flex;
     align-items: center;
 }
-.footer-bottom-content{
+
+.footer_bottom_content{
     width: 100%;
     height: 54px;
     display: flex;
     flex-direction: column;
     align-items: center;
+    gap: 10px;
 }
 
-.footer-bottom-content p{
+.footer_bottom_content p{
     text-decoration: none;
     color: #989898;
     font-size: 18px;
     margin: 0;
 }
 
-.footer-bottom-content a{
+.footer_bottom_content a{
     text-decoration: none;
     color: #989898;
     font-size: 18px;
+}
+
+/* ===================== АДАПТИВНОСТЬ ДЛЯ tovars_detali ===================== */
+
+/* Планшеты (до 992px) */
+@media (max-width: 992px) {
+    /* Шапка */
+    .header_inner {
+        width: 95%;
+    }
+
+    /* Хлебные крошки и заголовок */
+    .info_list {
+        margin-left: 50px;
+    }
+
+    .section_detali_tovara_info h1 {
+        margin-left: 50px;
+    }
+
+    /* Карточка товара — фото + характеристики */
+    .section_detali_tovara_post {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .section_detali_tovara_post_photo {
+        width: 250px;
+        height: 200px;
+        margin-bottom: 30px;
+    }
+
+    .section_detali_tovara_post_photo img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+    }
+
+    .section_detali_tovara_post_attributes {
+        width: 80%;
+        margin-left: 0;
+    }
+
+    .attributes_row {
+        width: 100%;
+    }
+
+    /* Футер */
+    .footer {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 30px;
+    }
+
+    .footer_column {
+        width: 40%;
+        text-align: center;
+        padding: 30px 0;
+    }
+}
+
+/* Телефоны (до 768px) */
+@media (max-width: 768px) {
+    /* Шапка */
+    .header_inner {
+        width: 95%;
+    }
+
+    /* Хлебные крошки */
+    .info_list {
+        margin-left: 20px;
+        font-size: 14px;
+    }
+
+    .section_detali_tovara_info h1 {
+        margin-left: 20px;
+        font-size: 24px;
+    }
+
+    /* Карточка товара */
+    .section_detali_tovara_post_photo {
+        width: 200px;
+        height: 160px;
+    }
+
+    .section_detali_tovara_post_attributes {
+        width: 90%;
+    }
+
+    .attr_name,
+    .attr_value {
+        font-size: 16px;
+    }
+
+    .attr_line {
+        margin: 0 5px;
+    }
+
+    /* Кнопки + и - */
+    .minus, .plus {
+        width: 36px;
+        height: 36px;
+        font-size: 16px;
+    }
+
+    .value {
+        font-size: 16px;
+        min-width: 30px;
+    }
+
+    .but_add_cart {
+        width: 120px;
+        height: 40px;
+        font-size: 15px;
+    }
+
+    /* Описание товара */
+    .description {
+        width: 95%;
+        padding: 20px 20px;
+    }
+
+    .description_title h3 {
+        font-size: 22px;
+    }
+
+    .description_content {
+        font-size: 16px;
+    }
+
+    /* Футер */
+    .footer {
+        margin-top: 100px;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .footer_column {
+        width: 100%;
+        padding: 20px 0;
+        text-align: center;
+    }
+
+    .footer_menu p,
+    .footer_menu a {
+        font-size: 14px;
+    }
+
+    .footer_bottom_content p,
+    .footer_bottom_content a {
+        font-size: 12px;
+    }
+
+    .footer_column h3 {
+        font-size: 16px;
+    }
+}
+
+/* Маленькие телефоны (до 480px) */
+@media (max-width: 480px) {
+    /* Хлебные крошки */
+    .info_list {
+        margin-left: 15px;
+        font-size: 20px;
+        display: flex;
+        flex-wrap: wrap;
+    }
+
+    .section_detali_tovara_info h1 {
+        margin-left: 15px;
+        font-size: 20px;
+    }
+
+    /* Карточка товара */
+    .section_detali_tovara_post_photo {
+        width: auto;
+
+        object-fit: contain;
+    }
+
+    .attributes_row {
+        flex-wrap: wrap;
+        justify-content: space-between;
+    }
+
+    .attr_line {
+        display: none;
+    }
+
+    .attr_name,
+    .attr_value {
+        font-size: 14px;
+        width: 50%;
+    }
+
+    .attr_value {
+        text-align: right;
+    }
+
+    /* Кнопки */
+    .product_actions {
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .quantity_selector {
+        margin-bottom: 5px;
+    }
+
+    .minus, .plus {
+        width: 32px;
+        height: 32px;
+        font-size: 14px;
+    }
+
+    .but_add_cart {
+        width: 110px;
+        height: 38px;
+        font-size: 14px;
+    }
+
+    /* Описание */
+    .description {
+        width: 90%;
+        padding: 15px 15px;
+    }
+
+    .description_title h3 {
+        font-size: 18px;
+    }
+
+    .description_content {
+        font-size: 14px;
+    }
 }
