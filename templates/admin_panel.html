@@ -61,11 +61,6 @@
                             Заявки
                         </button>  
                     </li>
-                    <li>
-                        <a href="{{ url_for('admin.completed_requests_report') }}" class="but_reports" style="text-decoration: none; color: #42546E; font-size: 20px; padding: 0; background: none; border: none; cursor: pointer;">
-                            📊 Отчёты
-                        </a>
-                    </li>
                 </ul>
             </nav> 
 
@@ -173,9 +168,21 @@
                     </div> -->
                 </div>
                 
+                
+                <div class="filter_select">
+                    <label for="statusFilter">Статус заявок:</label>
+                    <select id="statusFilter" class="status_filter_select">
+                        <option value="all">Все заявки</option>
+                        <option value="new">Новые</option>
+                        <option value="processed">В обработке</option>
+                        <option value="completed">Выполненные</option>
+                        <option value="cancelled">Отменённые</option>
+                    </select>
+                </div>
+                
                 <div class="card_container">
                     {% for req in requests %}
-                    <div class="request_card" data-request-id="{{ req.id }}">
+                    <div class="request_card" data-request-id="{{ req.id }}" data-status="{{ req.status }}">
                         <div class="request_card_header">
                             <div class="request_id">Заявка №{{ req.id }}</div>
                             <div class="request_date">{{ req.created_at.strftime('%d.%m.%Y %H:%M') }}</div>

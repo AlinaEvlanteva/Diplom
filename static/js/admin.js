@@ -571,6 +571,28 @@ function updateRequestStatus(requestId, status) {
     .then(response => response.json())
     .then(data => {
         if (data.success) {
+            // Находим карточку заявки
+            const requestCard = document.querySelector(`.request_card[data-request-id="${requestId}"]`);
+            if (requestCard) {
+                // Обновляем атрибут data-status
+                requestCard.setAttribute('data-status', status);
+                
+                // Обновляем выбранное значение в выпадающем списке статуса внутри карточки
+                const statusSelect = requestCard.querySelector('.status_select');
+                if (statusSelect) {
+                    statusSelect.value = status;
+                }
+                
+                // Проверяем, соответствует ли заявка текущему фильтру
+                const currentFilter = document.getElementById('statusFilter');
+                if (currentFilter) {
+                    const filterValue = currentFilter.value;
+                    if (filterValue !== 'all' && filterValue !== status) {
+                        // Если заявка не соответствует фильтру — скрываем её
+                        requestCard.style.display = 'none';
+                    }
+                }
+            }
             showFlashMessage('Статус обновлен', 'success');
         } else {
             showFlashMessage('Ошибка: ' + data.error, 'error');
@@ -602,6 +624,27 @@ function openEditProductModalFromData(btn) {
     const oldPrice = btn.dataset.oldprice;
     
     openEditProductModal(id, name, image, specs, price, unit, article, categoryId, fullDesc, oldPrice);
+}
+
+// Фильтрация заявок по статусу (выпадающий список)
+const statusFilter = document.getElementById('statusFilter');
+if (statusFilter) {
+    statusFilter.addEventListener('change', function() {
+        const status = this.value;
+        const requests = document.querySelectorAll('.request_card');
+        
+        requests.forEach(request => {
+            if (status === 'all') {
+                request.style.display = 'block';
+            } else {
+                if (request.dataset.status === status) {
+                    request.style.display = 'block';
+                } else {
+                    request.style.display = 'none';
+                }
+            }
+        });
+    });
 }
 
 console.log('admin.js загружен успешно');

@@ -8,7 +8,6 @@ import os
 from werkzeug.utils import secure_filename
 from models.request import Request
 from models.request_item import RequestItem
-from datetime import datetime
 # from sqlalchemy import func 
 
 # Настройка загрузки файлов
@@ -496,47 +495,3 @@ def delete_request(request_id):
     return redirect(url_for('admin.admin_panel'))
 
 
-
-
-@admin_bp.route('/completed_requests_report', methods=['GET', 'POST'])
-def completed_requests_report():
-    #Отчет по выполненным заявкам за период
-    if not session.get('admin_logged_in'):
-        return redirect(url_for('admin.admin_login'))
-    
-    start_date = request.form.get('start_date')
-    end_date = request.form.get('end_date')
-    completed_requests = []
-    total_sum = 0
-    error = None
-    
-    if request.method == 'POST' and start_date and end_date:
-        try:
-            # Преобразуем строки в даты
-            start = datetime.strptime(start_date, '%Y-%m-%d')
-            end = datetime.strptime(end_date, '%Y-%m-%d')
-            # Добавляем время до конца дня
-            end = end.replace(hour=23, minute=59, second=59)
-            
-            # Ищем выполненные заявки за период
-            completed_requests = Request.query.filter(
-                Request.status == 'completed',
-                Request.created_at >= start,
-                Request.created_at <= end
-            ).order_by(Request.created_at.desc()).all()
-            
-            # Считаем общую сумму
-            total_sum = sum(req.total_sum for req in completed_requests)
-            
-            if not completed_requests:
-                error = f"За период {start_date} - {end_date} нет выполненных заявок"
-                
-        except Exception as e:
-            error = f"Ошибка: {e}"
-    
-    return render_template('admin_completed_report.html',
-                         completed_requests=completed_requests,
-                         total_sum=total_sum,
-                         start_date=start_date,
-                         end_date=end_date,
-                         error=error)
