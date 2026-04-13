@@ -10,7 +10,7 @@
     <header>
         <div class="header_inner">
             <div class="header_logo">
-                <a href="{{ url_for('main.index') }}"><img src="{{ url_for('static', filename='img/small/icons.png') }}" alt="Логотип ИнТехЛайт"/></a>
+                <a href="{{ url_for('main.index') }}"><img src="{{ url_for('static', filename='img/small/icons.svg') }}" alt="Логотип ИнТехЛайт"/></a>
             </div>
             <div class="header_link_icons">
                 <a href="{{ url_for('main.catalog') }}" class="link_catalog"><img src="{{ url_for('static', filename='img/small/cat.svg') }}"/>Каталог</a>
@@ -38,19 +38,50 @@
                     <p class="title_intro_small">
                         Поставщик
                     </p>
+                    <a href="{{ url_for('main.catalog') }}" class="catalog_link">В каталог</a>
                 </div>
-                <div class="main_intro_inner_rectangle_button">
-                    <a href="{{ url_for('main.catalog') }}" class="catalog-link">В каталог</a>
-                </div>
-                <!-- <div class="main_intro_inner_rectangle_info2">
-                    <div class="circle"></div>
-                    <p>
-                        Огромный ассортимент товара в наличие
-                    </p>
-                </div> -->
             </div>
             <div class="main_intro_inner_photo"></div>
         </section>
+
+        <section class="section_about">
+            <div class="section_info" id="about_company">
+                <div class="section_info_line"></div>
+                <h2>О компании</h2>
+            </div>
+            <div class="about_text">
+                <p>ИнТехЛайт — надёжный поставщик промышленных комплектующих для бизнеса.</p>
+                <p>Наша специализация — обеспечение предприятий качественными деталями и материалами.</p>
+                <p>В нашем ассортименте вы найдете:</p>
+            </div>
+            <div class="about_products">
+                {% for category in categories %}
+                 <a href="{{ url_for('main.category_products', cat_id=category.id) }}" class="about_product_link">
+                    {{ category.name }}
+                 </a>
+                {% endfor %}
+            </div>
+        </section>
+        
+        <!-- <section class="section_about">
+            <div class="section_about_header" id="about_company">
+                <div class="section_info_line"></div>
+                <h2>О компании</h2>
+            </div>
+            <div class="about_two_columns">
+                <div class="about_text">
+                    <p class="about_lead">ИнТехЛайт — надёжный поставщик промышленных комплектующих для бизнеса.</p>
+                    <p>Наша специализация — обеспечение предприятий качественными деталями и материалами. <br/>В нашем ассортименте вы найдете:</p>
+                    <div class="about_tags">
+                        <span>Подшипники</span>
+                        <span>Шкивы и втулки</span>
+                        <span>Ремни и цепи</span>
+                        <span>Уплотнения (РТИ)</span>
+                        <span>Смазочные материалы</span>
+                    </div>
+                </div>
+            </div>
+        </section> -->
 
         <!-- Секция наши продукты -->
 
@@ -74,7 +105,7 @@
 <!-- Секция преимущества -->
 
         <section class="section_advantages">
-            <div class="section_advantages_info">
+            <div class="section_info" id="advantages">
                 <div class="section_info_line"></div>
                 <h2>Наши преимущества</h2>
             </div>
@@ -220,11 +251,10 @@
             <nav>
                 <ul class="footer_menu">
                     <li><a href="#">Главная страница</a></li>
-                    <li><a href="{{ url_for('main.catalog') }}">Каталог</a></li>
+                    <li><a href="{{ url_for('main.index') }}#about_company">О компании</a></li>
+                    <li><a href="{{ url_for('main.index') }}#advantages">Наши преимущества</a></li>
                     <li><a href="{{ url_for('main.index') }}#order_problems">Проблемы с заказом</a></li>
-                    <!-- <li><a href="#">Реквизиты</a></li>
-                    <li><a href="#">Контакты</a></li>
-                    <li><a href="#">Сертификаты</a></li> -->
+                    <li><a href="{{ url_for('main.catalog') }}">Каталог</a></li>
             </ul>
             </nav>
         </div>
