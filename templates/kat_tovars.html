@@ -5,6 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/kat_tovars.css') }}">
     <title>ИнТехЛайт - Каталог</title>
+
+    <meta name="description" content="{{ category.name }} в каталоге ИнТехЛайт. Большой выбор, низкие цены, доставка по России.">
+    <meta property="og:title" content="{{ category.name }} - ИнТехЛайт">
+    <meta property="og:description" content="Купить {{ category.name|lower }} от надежного поставщика. В наличии и под заказ.">
 </head>
 <body>
     <header>

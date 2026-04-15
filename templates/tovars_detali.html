@@ -5,6 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/tovars_detali.css') }}">
     <title>ИнТехЛайт - Каталог - {{ product.category.name }} - {{ product.name }}</title>
+
+    <meta name="description" content="{{ product.name }}. Артикул: {{ product.article }}. Цена: {{ product.price }} ₽. Характеристики и описание.">
+    <meta property="og:title" content="{{ product.name }} - ИнТехЛайт">
+    <meta property="og:description" content="Купить {{ product.name }}. Артикул: {{ product.article }}. Цена: {{ product.price }} ₽.">
+    <meta property="og:image" content="{{ url_for('static', filename='img/big/' + (product.image_big or product.image or 'default.png'), _external=True) }}">
 </head>
 <body>
     <header>
