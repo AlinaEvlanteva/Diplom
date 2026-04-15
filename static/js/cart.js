@@ -23,13 +23,13 @@ function deleteSelected() {
     .then(r => r.json())
     .then(data => {
         if (data.success) {
-            showFlashMessage('Товары удалены', 'success');
+            // showFlashMessage('Товары удалены', 'success');
             window.location.href = '/cart';
         }
     })
     .catch(error => {
         console.error('Ошибка:', error);
-        showFlashMessage('Ошибка при удалении', 'error');
+        // showFlashMessage('Ошибка при удалении', 'error');
     });
 }
 

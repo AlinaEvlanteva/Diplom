@@ -35,12 +35,7 @@ window.addEventListener('pageshow', function(event) {
 // сообщения 
 function showFlashMessage(message, category) {
     let container = document.querySelector('.flash-messages');
-    // if (!container) {
-    //     container = document.createElement('div');
-    //     container.className = 'flash-messages';
-    //     document.body.appendChild(container);
-    // }
-    
+   
     const flash = document.createElement('div');
     flash.className = `flash flash-${category}`;
     flash.textContent = message;

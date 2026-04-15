@@ -49,12 +49,7 @@ function validatePhoneSimple(phone) {
 // Показ уведомлений
 function showFlashMessage(message, category) {
     let container = document.querySelector('.flash-messages');
-    // if (!container) {
-    //     container = document.createElement('div');
-    //     container.className = 'flash-messages';
-    //     document.body.appendChild(container);
-    // }
-    
+  
     const flash = document.createElement('div');
     // Исправлено: flash-${category} вместо flash_${category}
     flash.className = `flash flash-${category}`;

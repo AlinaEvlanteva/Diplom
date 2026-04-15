@@ -1,4 +1,4 @@
-from flask import render_template, request, jsonify
+from flask import render_template, request, jsonify, current_app
 from datetime import datetime
 from . import feedback_bp
 from utils.email import send_email
@@ -23,11 +23,14 @@ def send_feedback():
         Дата: {datetime.now().strftime('%d.%m.%Y %H:%M')}
         Согласие на обработку: Да
         """
+
+        # Берем email из конфига
+        admin_email = current_app.config.get('ADMIN_EMAIL', '')
         
         success, message = send_email(
             subject=subject,
             body=body,
-            to_email=''  # сюда email менеджера
+            to_email=admin_email  
         )
         
         print(f"Отправка: success={success}, message={message}")

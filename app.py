@@ -5,7 +5,6 @@ from routes import main_bp, admin_bp, cart_bp, api_bp, requests_bp, feedback_bp
 
 app = Flask(__name__)
 app.config.from_object(Config)
-app.secret_key = 'your-secret-key'
 
 db.init_app(app)
 
