@@ -92,6 +92,17 @@
                     <h2>Управление товарами</h2>
                     <button class="but_add" onclick="openAddProductModal()">Добавить</button>
                 </div>
+
+                <!-- ===== ДОБАВИТЬ ФИЛЬТР ПО КАТЕГОРИЯМ ===== -->
+                <div class="filter_section">
+                    <label for="product_category_filter">Фильтр по категории:</label>
+                    <select id="product_category_filter" onchange="filterProductsByCategory()">
+                        <option value="all">Все категории</option>
+                        {% for category in categories %}
+                        <option value="{{ category.id }}">{{ category.name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
                 
                 <!-- Группируем товары по категориям -->
                 {% set categories_dict = {} %}
@@ -104,7 +115,7 @@
 
                 <!-- Перебираем категории по порядку -->
                 {% for category_name, category_products in categories_dict.items() %}
-                <section class="category_section">
+                <section class="category_section" data-category-id="{{ category_products[0].category_id }}">
                     <h3 class="category_header">{{ category_name }}</h3>
                     <div class="card_container">
                         {% for product in category_products %}
@@ -370,7 +381,10 @@
                             <option value="шт">шт</option>
                             <option value="м">м</option>
                             <option value="10 шт">10 шт</option>
+                            <option value="10 шт">10 м</option>
+                            <option value="10 шт">20 м</option>
                             <option value="50 м">50 м</option>
+                            <option value="50 м">1 рул</option>
                         </select>
                     </label>
                 </div>

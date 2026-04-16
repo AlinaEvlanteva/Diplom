@@ -160,7 +160,7 @@ main {
     height: auto;
     display: flex;
     justify-content: center;
-    align-items: start;
+    align-items: center;
 }
 
 .section_detali_tovara_post_photo{

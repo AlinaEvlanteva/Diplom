@@ -646,5 +646,28 @@ if (statusFilter) {
         });
     });
 }
+function filterProductsByCategory() {
+    const filter = document.getElementById('product_category_filter').value;
+    const sections = document.querySelectorAll('#products .category_section');
+    
+    console.log('Выбран фильтр:', filter);
+    console.log('Найдено секций:', sections.length);
+    
+    sections.forEach(section => {
+        const categoryId = section.getAttribute('data-category-id');
+        console.log('Секция с categoryId:', categoryId);
+        
+        if (filter === 'all') {
+            section.style.display = 'flex';
+            console.log('Показываем секцию');
+        } else if (categoryId == filter) {
+            section.style.display = 'flex';
+            console.log('Показываем секцию (совпадает)');
+        } else {
+            section.style.display = 'none';
+            console.log('Скрываем секцию');
+        }
+    });
+}
 
 console.log('admin.js загружен успешно');

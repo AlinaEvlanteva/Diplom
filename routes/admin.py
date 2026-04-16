@@ -403,21 +403,28 @@ def save_product_attributes():
     
     try:
         for attr_id, value in attributes.items():
-            if value:
-                existing = ProductAttribute.query.filter_by(
-                    product_id=product_id,
-                    attribute_id=attr_id
-                ).first()
-                
+            # Проверяем, есть ли уже такая запись
+            existing = ProductAttribute.query.filter_by(
+                product_id=product_id,
+                attribute_id=attr_id
+            ).first()
+            
+            # Если значение не пустое (не None, не пустая строка, не пробелы)
+            if value and value.strip():
                 if existing:
-                    existing.value = value
+                    existing.value = value  # обновляем
                 else:
+                    # создаём новую
                     new_attr = ProductAttribute(
                         product_id=product_id,
                         attribute_id=attr_id,
                         value=value
                     )
                     db.session.add(new_attr)
+            else:
+                # Если значение пустое — удаляем запись
+                if existing:
+                    db.session.delete(existing)
         
         db.session.commit()
         return {'success': True, 'message': 'Характеристики сохранены'}
