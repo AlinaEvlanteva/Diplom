@@ -85,7 +85,6 @@
 
                 <!-- ===== ДОБАВИТЬ ФИЛЬТР ПО КАТЕГОРИЯМ ===== -->
                 <div class="filter_section">
-                    <label for="product_category_filter">Фильтр по категории:</label>
                     <select id="product_category_filter" onchange="filterProductsByCategory()">
                         <option value="all">Все категории</option>
                         {% for category in categories %}
@@ -106,7 +105,6 @@
                 <!-- Перебираем категории по порядку -->
                 {% for category_name, category_products in categories_dict.items() %}
                 <section class="category_section" data-category-id="{{ category_products[0].category_id }}">
-                    <h3 class="category_header">{{ category_name }}</h3>
                     <div class="card_container">
                         {% for product in category_products %}
                         <div class="card_inner">
@@ -170,8 +168,7 @@
                 </div>
                 
                 
-                <div class="filter_select">
-                    <label for="statusFilter">Статус заявок:</label>
+                <div class="filter_section">
                     <select id="statusFilter" class="status_filter_select">
                         <option value="all">Все заявки</option>
                         <option value="new">Новые</option>
