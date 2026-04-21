@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/tovars_detali.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/header_footer_modal.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/flash.css') }}">
     <title>ИнТехЛайт - Каталог - {{ product.category.name }} - {{ product.name }}</title>
 
     <meta name="description" content="{{ product.name }}. Артикул: {{ product.article }}. Цена: {{ product.price }} ₽. Характеристики и описание.">
@@ -158,6 +159,8 @@
             </div>
         </form>
     </div>
+
+    <div class="flash-messages"></div>
 
     <script src="{{ url_for('static', filename='js/main.js') }}"></script>
     <script src="{{ url_for('static', filename='js/tovars_detali.js') }}"></script>
