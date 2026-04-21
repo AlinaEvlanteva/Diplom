@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/admin_login.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/header_footer.css') }}">
     <title>Вход в админку - ИнТехЛайт</title>
 </head>
 <body>
@@ -15,6 +16,7 @@
             <div class="header_link_icons">
                 <a href="{{ url_for('main.catalog') }}" class="link_catalog"><img src="{{ url_for('static', filename='img/small/cat.svg') }}"/>Каталог</a>
                 <a href="{{ url_for('cart.cart_page') }}" class="link_cart"><img src="{{ url_for('static', filename='img/small/cart.svg') }}" alt="Корзина"/>Корзина</a>
+                <button onclick="openFeedbackModal()" class="but_request"><img src="{{ url_for('static', filename='img/small/quest.svg') }}"/>Помощь</button>
             </div>
         </div>
     </header>

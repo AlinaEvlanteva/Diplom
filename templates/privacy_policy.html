@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/privacy_policy.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/header_footer.css') }}">
     <title>Политика конфиденциальности - ИнТехЛайт</title>
 
     <meta name="description" content="Политика обработки персональных данных интернет-магазина ИнТехЛайт.">
@@ -22,6 +23,7 @@
                     <span id="cart_count" class="cart_badge {% if total_cart_items > 0 %}visible{% endif %}">{{ total_cart_items }}</span>
                     Корзина
                 </a>
+                <button onclick="openFeedbackModal()" class="but_request"><img src="{{ url_for('static', filename='img/small/quest.svg') }}"/>Помощь</button>
             </div>
         </div>
     </header>

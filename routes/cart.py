@@ -102,20 +102,3 @@ def remove_from_cart(product_id):
         return jsonify({'success': True})
     
     return redirect(url_for('cart.cart_page'))
-
-@cart_bp.route('/remove_selected', methods=['POST'])
-def remove_selected():
-    """Удалить выбранные товары из корзины"""
-    data = request.get_json()
-    product_ids = data.get('product_ids', [])
-    
-    cart = get_cart()
-    
-    for product_id in product_ids:
-        product_key = str(product_id)
-        if product_key in cart:
-            del cart[product_key]
-    
-    save_cart(cart)
-    
-    return jsonify({'success': True, 'count': len(product_ids)})

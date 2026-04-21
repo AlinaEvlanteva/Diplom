@@ -35,59 +35,6 @@ header {
    
 }
 
-.header_logo {
-
-    margin-right: 20px;
-}
-
-.header_logo img {              
-    object-fit: contain;
-}
-
-.header_link_icons {
-    display: flex;
-    gap: 20px;
-    align-items: center;
-}
-
-.link_catalog{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    text-decoration: none;
-    color: #151d29;
-    font-size: 16px;
-    min-width: 60px;            /* минимальная ширина */
-}
-
-.link_catalog img,
-.link_cart img {
-    width: 28px;                /* фиксированный размер иконок */
-    height: 28px;
-    margin-bottom: 4px;
-
-}
-
-.link_cart {
-    position: relative;
-    display: flex;
-    flex-direction: column;    /* ← ОТЛИЧИЕ! */
-    align-items: center;
-    justify-content: center;
-    text-decoration: none;
-    color: #151d29;
-    font-size: 16px;
-    min-width: 60px;
-}
-
-/* Интро */
-
-main {
-    margin-top: 100px;
-
-}
-
 .admin_section{
     width: 100%;
     height: auto;
@@ -141,13 +88,20 @@ main {
     color: #42546E;
 }
 
+/* Интро */
+
+main {
+    margin-top: 100px;
+
+}
+
 .nav_admin{
     width: 80%;
     display: flex;
     gap: 60px;
     justify-content: flex-start;
     /* background-color: aqua; */
-    margin-top: 10px;
+    margin-top: 30px;
     align-items: center;
 }
 

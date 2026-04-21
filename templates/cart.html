@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/cart.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/header_footer.css') }}">
     <title>Корзина - ИнТехЛайт</title>
 
     <meta name="description" content="Ваша корзина в магазине ИнТехЛайт. Промышленные комплектующие.">
@@ -23,6 +24,7 @@
                     <span id="cart_count" class="cart_badge {% if total_cart_items > 0 %}visible{% endif %}">{{ total_cart_items }}</span>
                     Корзина
                 </a>
+                <button onclick="openFeedbackModal()" class="but_request"><img src="{{ url_for('static', filename='img/small/quest.svg') }}"/>Помощь</button>
             </div>
         </div>
     </header>
@@ -34,21 +36,10 @@
             {% if cart_items %}
             <div class="cart_layout">
                 <!-- Левая колонка - список товаров -->
-                <section class="cart_products">
-                    <div class="cart_actions_bar">
-                        <div class="select_all">
-                            <input type="checkbox" id="selectAllCheckbox" onchange="toggleSelectAll()">
-                            <label for="selectAllCheckbox">Выбрать все</label>
-                        </div>
-                        <button class="delete_selected" onclick="deleteSelected()">Удалить выбранные</button>
-                    </div>
-                    
+                <section class="cart_products">     
                     <div class="products_list" id="products_list1">
                         {% for item in cart_items %}
                         <article class="cart_item" data-product-id="{{ item.id }}">
-                            <div class="cart_item_checkbox">
-                                <input type="checkbox" class="item_checkbox" value="{{ item.id }}">
-                            </div>
                             <div class="cart_item_img">
                                 <img src="{{ url_for('static', filename='img/small/' + item.image) }}" alt="{{ item.name }}">
                             </div>
@@ -81,7 +72,7 @@
                     <h3 class="summa_title">Детали заказа</h3>
                     <div class="summa_info">
                         <div class="summa_label">Товары ({{ total_items }})</div>
-                        <div class="summa_value" id="total-sum">{{ "%.2f"|format(total_sum) }} ₽</div>
+                        <!-- <div class="summa_value" id="total-sum">{{ "%.2f"|format(total_sum) }} ₽</div> -->
                     </div>
                     <div class="summa_line"></div>
                     <div class="summa_info total">
