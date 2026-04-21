@@ -343,104 +343,7 @@ main {
 }
 
 
-/* Модальное окно */
-.modal {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.4);
-    backdrop-filter: blur(8px);
-    z-index: 1000;
-    justify-content: center;
-    align-items: center;
-}
-
-.form_req {
-    background: white;
-    border-radius: 25px;
-    width: 450px;
-    max-width: 90vw;
-    border: 2px solid #42546E;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 20px;
-}
-
-.form_title {
-    color: #42546E;
-    font-size: 24px;
-    font-weight: bold;
-    text-align: center;
-    margin: 0 0 20px;
-}
-
-.form_group {
-    width: 100%;
-    margin-bottom: 15px;
-}
-
-.form_label {
-    font-size: 16px;
-    font-weight: bold;
-    color: #42546E;
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
-}
-
-.form_input {
-    width: 100%;
-    height: 40px;
-    font-size: 16px;
-    text-indent: 12px;
-    border: 2px solid #42546E;
-    border-radius: 15px;
-}
-
-.form_input:focus {
-    outline: none;
-}
-
-
-textarea.form_input {
-    height: 80px;
-    resize: vertical;
-}
-
-.form_actions {
-    display: flex;
-    gap: 15px;
-    justify-content: center;
-    margin-top: 10px;
-}
-
-.but_save {
-    width: 120px;
-    height: 40px;
-    border-radius: 60px;
-    border: none;
-    background-color: #42546E;
-    color: white;
-    font-size: 16px;
-    cursor: pointer;
-}
-
-.but_cancel {
-    width: 120px;
-    height: 40px;
-    border-radius: 60px;
-    border: 2px solid #42546E;
-    background-color: white;
-    color: #42546E;
-    font-size: 16px;
-    cursor: pointer;
-}
-
-/* ===== АНИМАЦИИ ДЛЯ КНОПОК ===== */
+/*АНИМАЦИИ ДЛЯ КНОПОК*/
 .main_intro_inner_rectangle a,
 .sotrudnichestvo_container_post button,
 .section_end_intro_info button,
@@ -465,8 +368,7 @@ textarea.form_input {
     border-color: #2a3a4e;
 }
 
-/* ===== АНИМАЦИИ ДЛЯ КАРТОЧЕК ===== */
-
+/*АНИМАЦИИ ДЛЯ КАРТОЧЕК*/
 .advantages_post {
     transition: all 0.3s ease;
 }
@@ -510,9 +412,6 @@ textarea.form_input {
     color: #42546E;
 }
 
-
-
-
 .advantages_post{
     opacity: 0;
     transform: translateY(30px);
@@ -525,15 +424,8 @@ textarea.form_input {
     transform: translateY(0);
 }
 
-/* ===================== АДАПТИВНОСТЬ ===================== */
-
-/* Планшеты (от 768px до 992px) */
+/*АДАПТИВНОСТЬ*/
 @media (max-width: 992px) {
-    /* Шапка */
-    .header_inner {
-        width: 95%;
-    }
-
     /* Интро */
     .main_intro_inner {
         flex-direction: column;
@@ -584,19 +476,6 @@ textarea.form_input {
         border-radius: 42px;
     }
 
-    /* Футер */
-    .footer {
-        flex-wrap: wrap;
-        justify-content: center;
-        gap: 30px;
-    }
-
-    .footer_column {
-        width: 40%;
-        text-align: center;
-        padding: 30px 0;
-    }
-
     /* Последняя секция */
     .section_end_intro_info h2 {
         font-size: 32px;
@@ -628,30 +507,23 @@ textarea.form_input {
     }
 }
 
-/* Телефоны (до 768px) */
+
 @media (max-width: 768px) {
     body {
         overflow-x: hidden;
     }
 
-    .footer,
     .section_sotrudnichestvo_info,
     .about_products {
         flex-wrap: wrap;
     }
 
-    .footer_column {
-        width: 100%;
-    }
 
     .sotrudnichestvo_container_post,
     #sotrudnichestvo_container_post2 {
         width: 95%;
     }
-    /* Шапка */
-    .header_inner {
-        width: 95%;
-    }
+
 
     /* Интро */
     .main_intro_inner {
@@ -762,26 +634,6 @@ textarea.form_input {
         height: 55px;
     }
 
-    /* Футер */
-    .footer {
-        margin-top: 100px;
-    }
-
-    .footer_column {
-        width: 100%;
-        padding: 20px 0;
-    }
-
-    .footer_menu p,
-    .footer_menu a {
-        font-size: 16px;
-    }
-
-    .footer_bottom_content p,
-    .footer_bottom_content a {
-        font-size: 14px;
-    }
-
     /* О компании */
     .about_text {
         font-size: 16px;
@@ -803,66 +655,8 @@ textarea.form_input {
     .line {
         width: 80%;
     }
-
-    .form_req {
-        width: 100%;
-        max-width: 100%;
-        padding: 20px 15px;
-        box-sizing: border-box;  /* ← ДОБАВИТЬ ЭТУ СТРОКУ */
-    }
-
-    .form_title {
-        font-size: 20px;
-        margin-bottom: 15px;
-    }
-
-    .form_group {
-        width: 100%;
-        margin-bottom: 12px;
-    }
-
-    .form_label {
-        font-size: 14px;
-        gap: 4px;
-        width: 100%;
-    }
-
-    .form_input {
-        width: 100%;
-        max-width: 100%;
-        height: 38px;
-        font-size: 14px;
-        text-indent: 10px;
-        box-sizing: border-box;
-    }
-
-    textarea.form_input {
-        height: 70px;
-    }
-
-    .checkbox_label {
-        font-size: 13px;
-        display: flex;
-        align-items: flex-start;
-        gap: 8px;
-        text-align: left;
-    }
-
-    .form_actions {
-        flex-wrap: wrap;
-        gap: 10px;
-        margin-top: 15px;
-    }
-
-    .but_save,
-    .but_cancel {
-        width: 150px;
-        height: 38px;
-        font-size: 14px;
-    }
 }
 
-/* Маленькие телефоны (до 480px) — минимальный размер 320px */
 @media (max-width: 480px) {
     
     /* Интро */

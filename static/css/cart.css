@@ -5,9 +5,7 @@ main {
 
 }
 
-/* Корзина */
 .cart_container {
-    width: 100%;
     height: auto;
     display: flex;
     flex-direction: column;
@@ -22,7 +20,8 @@ main {
 .cart_layout {
     height: auto;
     display: flex;
-    gap: 20px;
+    justify-content: center;
+    gap: 10px;
 }
 
 /* Левая колонка - товары */
@@ -38,20 +37,19 @@ main {
     height: auto;
     flex-direction: column;
     gap: 20px;
-    margin-left: 80px;
 }
 
 
 .cart_item {
     display: flex;
     align-items: center;
-    gap: 20px;
+    justify-content: space-around;
+    gap: 10px;
     background-color: white;
     border: 1px solid #42546E;
     border-radius: 16px;
     transition: box-shadow 0.3s;
-    height: 121px;
-    padding: 0 20px;
+    height: auto;
 }
 
 .cart_item:hover {
@@ -69,14 +67,16 @@ main {
     width: 140px;
     height: 120px;
     object-fit: contain;
+    border-radius: 16px;
 }
 
 .cart_item_info {
-    width: 60%;
+    width: 40%;
+    min-width: 0;
 }
 
 .item_name {
-    font-size: 20px;
+    font-size: 17px;
     font-weight: bold;
     color: #42546E;
     margin: 0;
@@ -128,8 +128,8 @@ main {
 }
 
 .quantity_input {
-    width: 50px;
-    height: 30px;
+    width: 40px;
+    height: 28px;
     text-align: center;
     border: 1px solid #E2E2E2;
     border-radius: 8px;
@@ -210,13 +210,11 @@ main {
 
 .but_check {
     width: 100%;
-    height: 45px;
     background-color: #42546E;
     color: white;
     border: none;
     border-radius: 12px;
     font-size: 16px;
-    font-weight: 600;
     cursor: pointer;
     margin-top: 20px;
     text-align: center;
@@ -266,21 +264,14 @@ main {
     background-color: #2a3a4e;
 }
 
-/* ===================== АДАПТИВНОСТЬ ДЛЯ КОРЗИНЫ ===================== */
+/*АДАПТИВ*/
 
-/* Планшеты (до 992px) */
 @media (max-width: 992px) {
-    /* Шапка */
-    .header_inner {
-        width: 95%;
-    }
-
     /* Заголовок корзины */
     .cart_title {
         padding-left: 40px;
         font-size: 28px;
     }
-
     /* Двухколоночная раскладка */
     .cart_layout {
         flex-direction: column;
@@ -290,11 +281,11 @@ main {
 
     /* Левая колонка */
     .cart_products {
-        width: 100%;
+        width: 90%;
     }
 
-    .products_list {
-        margin-left: 40px;
+    .products_list{
+        margin: 0;
     }
 
     /* Правая колонка */
@@ -303,32 +294,14 @@ main {
         margin: 0 auto;
         position: static;
     }
-
-    /* Футер */
-    .footer {
-        flex-wrap: wrap;
-        justify-content: center;
-        gap: 30px;
-    }
-
-    .footer_column {
-        width: 40%;
-        text-align: center;
-        padding: 30px 0;
-    }
 }
 
-/* Телефоны (до 768px) */
-@media (max-width: 768px) {
-    /* Шапка */
-    .header_inner {
-        width: 95%;
-    }
 
+@media (max-width: 768px) {
     /* Заголовок корзины */
     .cart_title {
-        padding-left: 20px;
-        font-size: 24px;
+        padding-left: 40px;
+        font-size: 28px;
     }
 
 
@@ -473,37 +446,8 @@ main {
         font-size: 14px;
         line-height: 40px;
     }
-
-    /* Футер */
-    .footer {
-        margin-top: 100px;
-        flex-direction: column;
-        align-items: center;
-    }
-
-    .footer_column {
-        width: 100%;
-        padding: 20px 0;
-        text-align: center;
-    }
-
-    .footer_menu p,
-    .footer_menu a {
-        font-size: 14px;
-    }
-
-    .footer_bottom_content p,
-    .footer_bottom_content a {
-        font-size: 12px;
-    }
-
-    .footer_column h3 {
-        font-size: 16px;
-    }
 }
 
-
-/* Маленькие телефоны (до 480px) */
 @media (max-width: 480px) {
     .cart_layout{
         width: 100%;
@@ -511,8 +455,6 @@ main {
         flex-direction: column;
         align-items: center;
     }
-
-
     /* Заголовок корзины */
     .cart_title {
         padding-left: 15px;

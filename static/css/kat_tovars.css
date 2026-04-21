@@ -3,9 +3,6 @@ main {
     margin-top: 100px;
 }
 
-/* main{
-
-} */
 .section_kategory{
     width: 100%;
     height: auto;
@@ -94,16 +91,12 @@ main {
     display: flex;
     flex-direction: column;
     word-break: break-word;
-    /* overflow-wrap: break-word */
 }
 
 .post_name{
     margin-top: 30px;
     text-align: center;
-    min-height: 44px;
-    /* Минимальная высота блока с названием = 44px Если текста мало (одна строка) → блок всё равно будет высотой 44px (пустое место)
-
-Если текста много (две строки) → блок растянется до нужной высоты (больше 44px) НО у тебя текст помещается в две строки, значит высота стала примерно 44px у всех! */
+    min-height: 70px;
 }
 .post_poshipniki h2{
     font-size: 20px;
@@ -125,7 +118,6 @@ main {
     font-size: 17px;
 }
 
-/* Карточка товара на странице категории */
 .post_poshipniki {
     transition: all 0.3s ease;
     cursor: pointer;
@@ -138,16 +130,9 @@ main {
 }
 
 
-/* ===================== АДАПТИВНОСТЬ ДЛЯ kat_tovars ===================== */
+/*АДАПТИВНОСТЬ*/
 
-/* Планшеты (до 992px) */
 @media (max-width: 992px) {
-    /* Шапка */
-    .header_inner {
-        width: 95%;
-    }
-
-    /* Хлебные крошки и заголовок */
     .info_list {
         margin-left: 50px;
     }
@@ -156,7 +141,6 @@ main {
         margin-left: 50px;
     }
 
-    /* Сетка товаров */
     .section_products_podship {
         width: 95%;
         gap: 30px;
@@ -172,29 +156,10 @@ main {
         height: auto;
         object-fit: contain;
     }
-
-    /* Футер */
-    .footer {
-        flex-wrap: wrap;
-        justify-content: center;
-        gap: 30px;
-    }
-
-    .footer_column {
-        width: 40%;
-        text-align: center;
-        padding: 30px 0;
-    }
 }
 
-/* Телефоны (до 768px) */
-@media (max-width: 768px) {
-    /* Шапка */
-    .header_inner {
-        width: 95%;
-    }
 
-    /* Хлебные крошки */
+@media (max-width: 768px) {
     .info_list {
         margin-left: 20px;
         font-size: 20px;
@@ -233,38 +198,10 @@ main {
     #cena {
         font-size: 14px;
     }
-
-    /* Футер */
-    .footer {
-        margin-top: 100px;
-        flex-direction: column;
-        align-items: center;
-    }
-
-    .footer_column {
-        width: 100%;
-        padding: 20px 0;
-        text-align: center;
-    }
-
-    .footer_menu p,
-    .footer_menu a {
-        font-size: 14px;
-    }
-
-    .footer_bottom_content p,
-    .footer_bottom_content a {
-        font-size: 12px;
-    }
-
-    .footer_column h3 {
-        font-size: 16px;
-    }
 }
 
-/* Маленькие телефоны (до 480px) */
+
 @media (max-width: 480px) {
-    /* Хлебные крошки */
     .info_list {
         margin-left: 15px;
         font-size: 20px;
@@ -288,7 +225,7 @@ main {
     }
 
     .post_poshipniki img {
-        width: auto;
+        width: 100%;
         height: auto;
         object-fit: contain;
     }

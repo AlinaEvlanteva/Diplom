@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/tovars_detali.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/header_footer.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/header_footer_modal.css') }}">
     <title>ИнТехЛайт - Каталог - {{ product.category.name }} - {{ product.name }}</title>
 
     <meta name="description" content="{{ product.name }}. Артикул: {{ product.article }}. Цена: {{ product.price }} ₽. Характеристики и описание.">
@@ -54,21 +54,18 @@
                     <div class="attributes_items">
                         <div class="attributes_row">
                             <div class="attr_name">Артикул</div>
-                            <!-- <div class="attr_line"></div> -->
                             <div class="attr_value">{{ product.article }}</div>
                         </div>
 
                         {% for attr in attributes %}
                         <div class="attributes_row">
                             <div class="attr_name">{{ attr.attribute.name }}</div>
-                            <!-- <div class="attr_line"></div> -->
                             <div class="attr_value">{{ attr.value }} {{ attr.attribute.unit or '' }}</div>
                         </div>
                         {% endfor %}
 
                         <div class="attributes_row price_row">
                             <div class="attr_name">Цена</div>
-                            <!-- <div class="attr_line"></div> -->
                             <div class="attr_value price_value">{{ product.price }} ₽ / {{ product.unit or 'шт' }}</div>
                         </div>
                         <!-- КОНТЕЙНЕР ДЛЯ КНОПКИ И СЧЕТЧИКА -->
@@ -129,7 +126,41 @@
         </div>
     </footer>
 
+    <!-- Модальное окно обратной связи -->
+    <div id="feedbackModal" class="modal">
+        <form id="feedbackForm" class="form_req">
+            <h3 class="form_title">Оставить заявку</h3>
+            
+            <div class="form_group">
+                <label class="form_label">
+                    Телефон для связи 
+                    <input type="tel" name="phone" id="feedbackPhone" class="form_input" placeholder="+7 (XXX) XXX-XX-XX" required>
+                </label>
+            </div>
+            
+            <div class="form_group">
+                <label class="form_label">
+                    Комментарий
+                    <textarea name="comment" class="form_input" rows="4" placeholder="Что вас интересует?"></textarea>
+                </label>
+            </div>
+
+            <div class="form_group">
+                <label class="checkbox_label">
+                    <input type="checkbox" name="consent" required>
+                    Я согласен на <a href="{{ url_for('feedback.privacy_policy') }}" target="_blank">обработку персональных данных</a>
+                </label>
+            </div>
+            
+            <div class="form_actions">
+                <button type="submit" class="but_save">Отправить</button>
+                <button type="button" class="but_cancel" onclick="closeFeedbackModal()">Отмена</button>
+            </div>
+        </form>
+    </div>
+
     <script src="{{ url_for('static', filename='js/main.js') }}"></script>
     <script src="{{ url_for('static', filename='js/tovars_detali.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/feedback.js') }}"></script>
 </body>
 </html>

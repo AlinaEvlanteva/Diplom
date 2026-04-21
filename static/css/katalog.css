@@ -53,7 +53,7 @@ main {
 
 
 .section_products_post{
-    width: 70%;
+    width: 80%;
     height: auto;
     display: flex;
     justify-content: center;
@@ -62,8 +62,8 @@ main {
 }
 
 .post{
-    width: 300px;
-    height: 239px;
+    width: 25%;
+    height: auto;
 }
 .post a{
     text-decoration: none;
@@ -72,7 +72,7 @@ main {
     align-items: center;
 }
 .post img{
-    width: 300px;
+    width: 100%;
     height: 200px;
     object-fit: contain;
     border: 3px solid #DCDCDC;
@@ -185,16 +185,8 @@ textarea.form_input {
     cursor: pointer;
 }
 
-/* ===================== АДАПТИВНОСТЬ ДЛЯ КАТАЛОГА ===================== */
-
-/* Планшеты (до 992px) */
+/*АДАПТИВНОСТЬ*/
 @media (max-width: 992px) {
-    /* Шапка */
-    .header_inner {
-        width: 95%;
-    }
-
-    /* Хлебные крошки и заголовок */
     .info_list {
         margin-left: 50px;
     }
@@ -210,38 +202,18 @@ textarea.form_input {
     }
 
     .post {
-        width: auto;
+        width: 45%;
         height: auto;
     }
 
     .post img {
         width: 100%;
-        height: auto;
+        height: 239px;
         object-fit: contain;
-    }
-
-    /* Футер */
-    .footer {
-        flex-wrap: wrap;
-        justify-content: center;
-        gap: 30px;
-    }
-
-    .footer_column {
-        width: 40%;
-        text-align: center;
-        padding: 30px 0;
     }
 }
 
-/* Телефоны (до 768px) */
 @media (max-width: 768px) {
-    /* Шапка */
-    .header_inner {
-        width: 95%;
-    }
-
-    /* Хлебные крошки */
     .info_list {
         margin-left: 20px;
         font-size: 14px;
@@ -259,13 +231,13 @@ textarea.form_input {
     }
 
     .post {
-        width: auto;
+        width: 45%;
         height: auto;
     }
 
     .post img {
         width: 100%;
-        height: auto;
+        height: 239px;
         object-fit: contain;
     }
 
@@ -273,38 +245,9 @@ textarea.form_input {
         font-size: 16px;
         margin-top: 8px;
     }
-
-    /* Футер */
-    .footer {
-        margin-top: 100px;
-        flex-direction: column;
-        align-items: center;
-    }
-
-    .footer_column {
-        width: 100%;
-        padding: 20px 0;
-        text-align: center;
-    }
-
-    .footer_menu p,
-    .footer_menu a {
-        font-size: 14px;
-    }
-
-    .footer_bottom_content p,
-    .footer_bottom_content a {
-        font-size: 12px;
-    }
-
-    .footer_column h3 {
-        font-size: 16px;
-    }
 }
 
-/* Маленькие телефоны (до 480px) */
 @media (max-width: 480px) {
-    /* Хлебные крошки */
     .info_list {
         margin-left: 15px;
         font-size: 20px;
@@ -322,13 +265,13 @@ textarea.form_input {
     }
 
     .post {
-        width: auto;
+        width: 80%;
         height: auto;
     }
 
     .post img {
         width: 100%;
-        height: auto;
+        height: 239px;
         object-fit: contain;
     }
 

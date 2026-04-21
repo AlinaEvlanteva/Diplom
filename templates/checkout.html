@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/checkout.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/header_footer.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/header_footer_modal.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/flash.css') }}">
     <title>Оформление заявки - ИнТехЛайт</title>
 
@@ -37,7 +37,7 @@
                 <!-- Левая колонка - форма и товары -->
                 <section class="checkout_form">
                     <!-- ФОРМА -->
-                    <form id="requestForm" method="POST" action="/submit_request" class="form_req">
+                    <form id="requestForm" method="POST" action="/submit_request" class="form_req_prod">
                         <div class="form_section">
                             <h3 class="form_title">Контактные данные</h3>
                             
@@ -63,15 +63,14 @@
                             </div>
                         </div>
                         
-                        <div class="form_section">
-                            <h3 class="title">Согласие на обработку данных</h3>
+                        <div class="form_group">
                             <label class="checkbox_label">
                                 <input type="checkbox" name="consent" required>
                                 Я согласен на <a href="{{ url_for('feedback.privacy_policy') }}" target="_blank">обработку персональных данных</a>
                             </label>
                         </div>
                         
-                        <div class="modal_actions">
+                        <div class="form_actions">
                             <button type="submit" class="but_save">Отправить заявку</button>
                             <a href="{{ url_for('cart.cart_page') }}" class="but_cancel">Вернуться в корзину</a>
                         </div>
@@ -103,13 +102,12 @@
                 <aside class="cart_summa">
                     <h3 class="summa_title">Детали заказа</h3>
                     <div class="summa_info">
-                        <span class="summa_label">Товары ({{ total_items }})</span>
-                        <span class="summa_value">{{ "%.2f"|format(total_sum) }} ₽</span>
+                        <div class="summa_label">Товары ({{ total_items }})</div>
                     </div>
                     <div class="summa_line"></div>
                     <div class="summa_info total">
-                        <span class="summa_label">Итого</span>
-                        <span class="summa_value">{{ "%.2f"|format(total_sum) }} ₽</span>
+                        <div class="summa_label">Итого</div>
+                        <div class="summa_value" id="grand-total">{{ "%.2f"|format(total_sum) }} ₽</div>
                     </div>
                     <div class="order_note_small">
                         <p>После отправки заявки с вами свяжется менеджер.</p>
@@ -163,7 +161,41 @@
             </div>
         </div>
     </div>
+
+        <!-- Модальное окно обратной связи -->
+    <div id="feedbackModal" class="modal">
+        <form id="feedbackForm" class="form_req">
+            <h3 class="form_title">Оставить заявку</h3>
+            
+            <div class="form_group">
+                <label class="form_label">
+                    Телефон для связи 
+                    <input type="tel" name="phone" id="feedbackPhone" class="form_input" placeholder="+7 (XXX) XXX-XX-XX" required>
+                </label>
+            </div>
+            
+            <div class="form_group">
+                <label class="form_label">
+                    Комментарий
+                    <textarea name="comment" class="form_input" rows="4" placeholder="Что вас интересует?"></textarea>
+                </label>
+            </div>
+
+            <div class="form_group">
+                <label class="checkbox_label">
+                    <input type="checkbox" name="consent" required>
+                    Я согласен на <a href="{{ url_for('feedback.privacy_policy') }}" target="_blank">обработку персональных данных</a>
+                </label>
+            </div>
+            
+            <div class="form_actions">
+                <button type="submit" class="but_save">Отправить</button>
+                <button type="button" class="but_cancel" onclick="closeFeedbackModal()">Отмена</button>
+            </div>
+        </form>
+    </div>
     <div class="flash-messages"></div>
     <script src="{{ url_for('static', filename='js/checkout.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/feedback.js') }}"></script>
 </body>
 </html>
