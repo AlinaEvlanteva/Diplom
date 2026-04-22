@@ -125,11 +125,16 @@
         </div>
     </footer>
 
-        <!-- Модальное окно обратной связи -->
+    <!-- Модальное окно обратной связи -->
     <div id="feedbackModal" class="modal">
         <form id="feedbackForm" class="form_req">
             <h3 class="form_title">Оставить заявку</h3>
-            
+            <div class="form_group">
+                <label class="form_label">
+                    Как к вам обращаться? 
+                    <input type="text" name="name" id="feedbackName" class="form_input" placeholder="Иван Иванов" required>
+                </label>
+            </div>
             <div class="form_group">
                 <label class="form_label">
                     Телефон для связи 
@@ -143,11 +148,11 @@
                     <textarea name="comment" class="form_input" rows="4" placeholder="Что вас интересует?"></textarea>
                 </label>
             </div>
-
+            
             <div class="form_group">
                 <label class="checkbox_label">
                     <input type="checkbox" name="consent" required>
-                    Я согласен на <a href="{{ url_for('feedback.privacy_policy') }}" target="_blank">обработку персональных данных</a>
+                    <div>Я принимаю условия <a href="{{ url_for('feedback.privacy_policy') }}" target="_blank">Политики конфиденциальности</a> и даю <a href="{{ url_for('feedback.privacy_policy') }}" target="_blank">согласие на обработку персональных данных</a>.</div>
                 </label>
             </div>
             
@@ -161,7 +166,7 @@
     <div class="flash-messages"></div>
 
     <script src="{{ url_for('static', filename='js/cart.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/feedback.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/application.js') }}"></script>
     <script src="{{ url_for('static', filename='js/main.js') }}"></script>
     
 </body>

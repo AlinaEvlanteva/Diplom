@@ -1,5 +1,6 @@
-// обратная связь главная страница
+// ========== application.js - ОБЪЕДИНЁННЫЙ ФАЙЛ ==========
 
+// ========== 1. МОДАЛЬНЫЕ ОКНА ==========
 function openFeedbackModal() {
     document.getElementById('feedbackModal').style.display = 'flex';
 }
@@ -9,6 +10,19 @@ function closeFeedbackModal() {
     document.getElementById('feedbackForm').reset();
 }
 
+function openSuccessModal() {
+    document.getElementById('successModal').style.display = 'flex';
+}
+
+function closeSuccessModal() {
+    document.getElementById('successModal').style.display = 'none';
+}
+
+function goToHome() {
+    window.location.href = '/';
+}
+
+// ========== 2. ВАЛИДАЦИЯ ТЕЛЕФОНА (ЕДИНАЯ) ==========
 function validatePhone(phone) {
     const digits = phone.replace(/[^0-9]/g, '');
     if (digits.length !== 11) return false;
@@ -19,7 +33,7 @@ function validatePhone(phone) {
     return true;
 }
 
-// Форматирование тел при вводе
+// ========== 3. ФОРМАТИРОВАНИЕ ТЕЛЕФОНА (ЕДИНАЯ) ==========
 function formatPhone(input) {
     let digits = input.value.replace(/[^0-9]/g, '');
     if (digits.length > 11) digits = digits.slice(0, 11);
@@ -40,9 +54,18 @@ function formatPhone(input) {
     }
 }
 
+// ========== 4. ЗАПРЕТ ВВОДА ЦИФР В ПОЛЕ ИМЕНИ ==========
+const nameInputBlock = document.getElementById('feedbackName');
+if (nameInputBlock) {
+    nameInputBlock.addEventListener('input', function(e) {
+        this.value = this.value.replace(/[^A-Za-zА-Яа-яёЁ\s-]/g, '');
+        this.style.borderColor = '#42546E';
+    });
+}
+
+// ========== 5. ФОРМА ОБРАТНОЙ СВЯЗИ ==========
 document.getElementById('feedbackForm')?.addEventListener('submit', function(e) {
-    e.preventDefault();
-    
+    e.preventDefault();  
     const phoneInput = document.getElementById('feedbackPhone');
     const phone = phoneInput.value;
     
@@ -56,11 +79,6 @@ document.getElementById('feedbackForm')?.addEventListener('submit', function(e) 
     phoneInput.style.borderColor = '#42546E';
     const formData = new FormData(this);
     closeFeedbackModal();
-    
-    // const submitBtn = this.querySelector('button[type="submit"]');
-    // const originalText = submitBtn.textContent;
-    // submitBtn.textContent = 'Отправка...';
-    // submitBtn.disabled = true;
     
     showFlashMessage('📩 Отправляем заявку...', 'info');
     
@@ -80,12 +98,9 @@ document.getElementById('feedbackForm')?.addEventListener('submit', function(e) 
         console.error('Ошибка:', error);
         showFlashMessage('❌ Ошибка при отправке. Попробуйте позже.', 'error');
     })
-    // .finally(() => {
-    //     submitBtn.textContent = originalText;
-    //     submitBtn.disabled = false;
-    // });
 });
 
+// ========== 6. ФОРМАТИРОВАНИЕ ТЕЛЕФОНА ДЛЯ FEEDBACK ==========
 const phoneInput = document.getElementById('feedbackPhone');
 if (phoneInput) {
     phoneInput.addEventListener('input', function() {
@@ -94,4 +109,50 @@ if (phoneInput) {
     });
 }
 
-console.log('feedback.js загружен');
+// ========== 7. ФОРМА ОФОРМЛЕНИЯ ЗАЯВКИ ==========
+document.getElementById('requestForm')?.addEventListener('submit', function(e) {
+    e.preventDefault();
+    
+    const phoneInput = document.getElementById('phoneInput');
+    const phone = phoneInput.value;
+    
+    if (!validatePhone(phone)) {
+        showFlashMessage('❌ Введите корректный номер телефона в формате +7 (XXX) XXX-XX-XX', 'error');
+        phoneInput.style.border = '2px solid #dc3545'; 
+        phoneInput.focus();
+        return;
+    }
+    
+    phoneInput.style.borderColor = '#42546E';
+    const formData = new FormData(this);
+      
+    fetch('/submit_request', {
+        method: 'POST',
+        body: formData
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            openSuccessModal();
+        } else {
+            showFlashMessage('❌ Ошибка: ' + data.error, 'error');
+        }
+    })
+    .catch(error => {
+        console.error('Ошибка:', error);
+        showFlashMessage('❌ Ошибка при отправке заявки', 'error');
+    })
+});
+
+// ========== 8. ИНИЦИАЛИЗАЦИЯ ДЛЯ СТРАНИЦЫ CHECKOUT ==========
+document.addEventListener('DOMContentLoaded', function() {
+    const phoneInput = document.getElementById('phoneInput');
+    if (phoneInput) {
+        phoneInput.addEventListener('input', function() {
+            formatPhone(this);
+            this.style.borderColor = '#42546E';
+        });
+    }
+});
+
+console.log('application.js загружен');

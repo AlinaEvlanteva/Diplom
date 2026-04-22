@@ -277,6 +277,14 @@ textarea.form_input {
     resize: vertical;
 }
 
+.checkbox_label {
+    font-size: 13px;
+    display: flex;
+    align-items: flex-start;
+    text-align: left;
+    line-height: 1.2;
+}
+
 .form_actions {
     display: flex;
     gap: 15px;

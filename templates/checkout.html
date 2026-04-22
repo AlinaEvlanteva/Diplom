@@ -44,7 +44,7 @@
                             <div class="form_group">
                                 <label class="form_label">
                                     Как к вам обращаться? 
-                                    <input type="text" name="name" class="form_input" placeholder="Иван Иванов" required>
+                                    <input type="text" name="name" id="feedbackName" class="form_input" placeholder="Иван Иванов" required>
                                 </label>
                             </div>
                             
@@ -195,8 +195,8 @@
         </form>
     </div>
     <div class="flash-messages"></div>
-    <script src="{{ url_for('static', filename='js/checkout.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/feedback.js') }}"></script>
+    
+    <script src="{{ url_for('static', filename='js/application.js') }}"></script>
     <script src="{{ url_for('static', filename='js/main.js') }}"></script>
 </body>
 </html>
