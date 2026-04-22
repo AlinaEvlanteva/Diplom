@@ -8,7 +8,7 @@ import os
 from werkzeug.utils import secure_filename
 from models.request import Request
 from models.request_item import RequestItem
-# from sqlalchemy import func 
+from sqlalchemy import func 
 
 # Настройка загрузки файлов
 UPLOAD_FOLDER_SMALL = os.path.join('static', 'img', 'small')
@@ -126,6 +126,20 @@ def delete_category(category_id):
         return redirect(url_for('admin.admin_login'))
     
     category = Category.query.get_or_404(category_id)
+
+    # ===== ПРОВЕРКА: есть ли товары этой категории в заказах? =====
+    # Находим все товары категории
+    products_in_category = Product.query.filter_by(category_id=category_id).all()
+    product_ids = [p.id for p in products_in_category]
+    
+    if product_ids:
+        # Проверяем, есть ли эти товары в заказах
+        items_in_orders = RequestItem.query.filter(RequestItem.product_id.in_(product_ids)).first()
+        if items_in_orders:
+            flash('Нельзя удалить категорию: товары из этой категории уже есть в заказах клиентов.', 'error')
+            flash('Если нужно удалить категорию, сначала удалите заявку с этими товарами.', 'info')
+            session['active_tab'] = 'categories'
+            return redirect(url_for('admin.admin_panel'))
     
     # ===== 1. Сначала получаем все товары категории =====
     products = Product.query.filter_by(category_id=category_id).all()
@@ -282,6 +296,17 @@ def delete_product(product_id):
         return redirect(url_for('admin.admin_login'))
     
     product = Product.query.get_or_404(product_id)
+
+        # ===== ПРОВЕРКА: есть ли товар в заказах? =====
+    from models.request_item import RequestItem
+    
+    item_in_orders = RequestItem.query.filter_by(product_id=product_id).first()
+    
+    if item_in_orders:
+        flash('Нельзя удалить товар: он уже есть в заказах клиентов.', 'error')
+        flash('Если нужно удалить товар, сначала удалите заявки с этим товаром.', 'info')
+        session['active_tab'] = 'products'
+        return redirect(url_for('admin.admin_panel'))
     
     ProductAttribute.query.filter_by(product_id=product_id).delete()
     

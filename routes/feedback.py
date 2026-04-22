@@ -49,3 +49,8 @@ def privacy_policy():
     """Страница политики конфиденциальности"""
     total_cart_items = get_cart_count()
     return render_template('privacy_policy.html', total_cart_items=total_cart_items)
+
+@feedback_bp.route('/consent')
+def consent():
+    """Страница с согласием на обработку персональных данных"""
+    return render_template('consent.html')

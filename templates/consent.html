@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/privacy_policy.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/header_footer_modal.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/flash.css') }}">
+    <title>Согласие на обработку персональных данных - ИнТехЛайт</title>
+    <meta name="description" content="Согласие на обработку персональных данных на сайте ИнТехЛайт. Ваши права и условия обработки персональных данных.">
+    <meta property="og:title" content="Согласие на обработку персональных данных - ИнТехЛайт">
+    <meta property="og:description" content="Ознакомьтесь с условиями обработки ваших персональных данных на сайте ИнТехЛайт.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="">
+</head>
+<body>
+    <header>
+        <div class="header_inner">
+            <div class="header_logo">
+                <a href="{{ url_for('main.index') }}"><img src="{{ url_for('static', filename='img/small/icons.svg') }}" alt="Логотип"/></a>
+            </div>
+            <div class="header_link_icons">
+                <a href="{{ url_for('main.catalog') }}" class="link_catalog"><img src="{{ url_for('static', filename='img/small/cat.svg') }}"/>Каталог</a>
+                <a href="{{ url_for('cart.cart_page') }}" class="link_cart">
+                    <img src="{{ url_for('static', filename='img/small/cart.svg') }}" alt="Корзина"/>
+                    <span id="cart_count" class="cart_badge">{{ total_cart_items }}</span>
+                    Корзина
+                </a>
+                <button onclick="openFeedbackModal()" class="but_request"><img src="{{ url_for('static', filename='img/small/quest.svg') }}"/>Помощь</button>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <div class="privacy_container"> 
+            <h1 class="privacy_title">Согласие на обработку персональных данных</h1> 
+            
+            <div class="privacy_content"> 
+                
+                <div class="privacy_section"> 
+                    <p>Направляя форму обратной связи на сайте <strong>https://intehlite.ru</strong>, я, субъект персональных данных, свободно, своей волей и в своем интересе даю согласие ООО «ИнТехЛайт» (далее — Оператор) на обработку моих персональных данных на следующих условиях:</p>
+                </div>
+
+                <div class="privacy_section">
+                    <h2>1. Перечень персональных данных</h2>
+                    <p>Я даю согласие на обработку следующих персональных данных:</p>
+                    <ul>
+                        <li>Фамилия, имя, отчество (или имя для обращения)</li>
+                        <li>Номер телефона</li>
+                        <li>Содержание комментария/обращения (если указано)</li>
+                    </ul>
+                </div>
+
+                <div class="privacy_section">
+                    <h2>2. Цель обработки</h2>
+                    <p>Мои персональные данные обрабатываются в целях:</p>
+                    <ul>
+                        <li>Обработки и рассмотрения моей заявки/обращения</li>
+                        <li>Связи со мной для уточнения деталей заявки</li>
+                        <li>Консультирования по вопросам продукции и услуг Оператора</li>
+                    </ul>
+                </div>
+
+                <div class="privacy_section">
+                    <h2>3. Способы и сроки обработки</h2>
+                    <p>3.1. Обработка персональных данных осуществляется как с использованием средств автоматизации, так и без их использования.</p>
+                    <p>3.2. Оператор осуществляет следующие действия с персональными данными: сбор, запись, систематизацию, накопление, хранение, уточнение (обновление, изменение), извлечение, использование, передачу (только для целей исполнения заявки), обезличивание, блокирование, удаление, уничтожение.</p>
+                    <p>3.3. Срок обработки персональных данных — до достижения целей обработки, но не более 1 года с момента последнего обращения. По истечении срока или при отзыве согласия персональные данные подлежат уничтожению.</p>
+                </div>
+
+                <div class="privacy_section">
+                    <h2>4. Передача персональных данных</h2>
+                    <p>Я согласен с тем, что мои персональные данные могут быть переданы третьим лицам (транспортным компаниям, службам доставки, партнерам) исключительно для целей исполнения моей заявки. Оператор обязуется обеспечить конфиденциальность переданных данных.</p>
+                </div>
+
+                <div class="privacy_section">
+                    <h2>5. Отзыв согласия</h2>
+                    <p>Я ознакомлен с тем, что могу отозвать свое согласие на обработку персональных данных в любое время, направив письменное уведомление на электронный адрес Оператора: <strong>intechlight@yandex.ru</strong> с пометкой «Отзыв согласия на обработку персональных данных».</p>
+                    <p>В случае отзыва согласия Оператор обязан прекратить обработку моих персональных данных и уничтожить их в срок не более 30 дней с даты получения отзыва.</p>
+                </div>
+
+                <div class="privacy_section">
+                    <h2>6. Подтверждение</h2>
+                    <p>Настоящим я подтверждаю, что:</p>
+                    <ul>
+                        <li>ознакомлен с <a href="{{ url_for('feedback.privacy_policy') }}" target="_blank">Политикой конфиденциальности</a> Оператора;</li>
+                        <li>предоставляемые мной персональные данные достоверны и актуальны;</li>
+                        <li>мне известно о праве отозвать согласие в любое время;</li>
+                        <li>я достиг(ла) 18-летнего возраста (либо имею разрешение законных представителей).</li>
+                    </ul>
+                </div>
+
+                <div class="privacy_section">
+                    <p><strong>Дата актуальной версии:</strong> 21 апреля 2026 г.</p>
+                    <p><strong>Оператор:</strong> ООО «ИнТехЛайт»<br>
+                    <strong>Email:</strong> intechlight@yandex.ru<br>
+                    <strong>Адрес:</strong> г. Ростов-на-Дону, ул. Буквенная д. 25</p>
+                </div>
+            </div>
+
+            <div class="privacy_back">
+                <a href="{{ url_for('main.index') }}" class="but_back">Вернуться на главную</a>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="footer_column">
+            <h3 class="footer_title">Меню сайта</h3>
+            <nav>
+                <ul class="footer_menu">
+                    <li><a href="{{ url_for('main.index') }}">Главная страница</a></li>
+                    <li><a href="{{ url_for('main.index') }}#about_company">О компании</a></li>
+                    <li><a href="{{ url_for('main.index') }}#advantages">Наши преимущества</a></li>
+                    <li><a href="{{ url_for('main.index') }}#order_problems">Проблемы с заказом</a></li>
+                    <li><a href="{{ url_for('main.catalog') }}">Каталог</a></li>
+                </ul>
+            </nav>
+        </div>
+        
+        <div class="footer_column">
+            <h3 class="footer_title">Контактная информация</h3>
+            <ul class="footer_menu">
+                <li><p>г. Ростов-на-Дону, ул. Буквенная д. 25, / <br/>
+                    ДНР, г. Донецк, ул. Баумана, д. 11</p></li>
+                <li><a href="tel:+79498256121">+7 ХХХ ХХХ-ХХ-ХХ</a></li>
+                <li><a href="tel:+79281242620">+7 ХХХ ХХХ-ХХ-ХХ</a></li>
+                <li><a href="mailto:sgpz-bearings@mail.ru">Эл. почта: eeeeeee@mail.ru</a></li>
+            </ul>
+        </div>
+        <div class="footer_column" id="politika">
+            <div class="footer_bottom_content">
+                <p>© ООО «ИнТехЛайт»</p>
+                <a href="{{ url_for('feedback.privacy_policy') }}">Политика конфиденциальности</a>
+            </div>
+        </div>
+    </footer>
+
+    <div class="flash-messages"></div>
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/application.js') }}"></script>
+</body>
+</html>
