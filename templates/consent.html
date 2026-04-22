@@ -17,13 +17,13 @@
     <header>
         <div class="header_inner">
             <div class="header_logo">
-                <a href="{{ url_for('main.index') }}"><img src="{{ url_for('static', filename='img/small/icons.svg') }}" alt="Логотип"/></a>
+                <a href="{{ url_for('main.index') }}"><img src="{{ url_for('static', filename='img/small/icons.svg') }}" alt="Логотип ИнТехЛайт"/></a>
             </div>
             <div class="header_link_icons">
                 <a href="{{ url_for('main.catalog') }}" class="link_catalog"><img src="{{ url_for('static', filename='img/small/cat.svg') }}"/>Каталог</a>
-                <a href="{{ url_for('cart.cart_page') }}" class="link_cart">
+                <a href="{{ url_for('cart.cart_page') }}" class="link_cart" id="cart-link">
                     <img src="{{ url_for('static', filename='img/small/cart.svg') }}" alt="Корзина"/>
-                    <span id="cart_count" class="cart_badge">{{ total_cart_items }}</span>
+                    <span id="cart_count" class="cart_badge {% if total_cart_items > 0 %}visible{% endif %}">{{ total_cart_items }}</span>
                     Корзина
                 </a>
                 <button onclick="openFeedbackModal()" class="but_request"><img src="{{ url_for('static', filename='img/small/quest.svg') }}"/>Помощь</button>

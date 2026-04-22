@@ -53,4 +53,7 @@ def privacy_policy():
 @feedback_bp.route('/consent')
 def consent():
     """Страница с согласием на обработку персональных данных"""
-    return render_template('consent.html')
+    # Получаем количество товаров в корзине
+    total_cart_items = get_cart_count()
+    
+    return render_template('consent.html', total_cart_items=total_cart_items)
