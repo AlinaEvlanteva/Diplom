@@ -7,9 +7,10 @@ from .cart import get_cart_count
 @feedback_bp.route('/send_feedback', methods=['POST'])
 def send_feedback():
     try:
+        name = request.form.get('name')
         phone = request.form.get('phone')
         comment = request.form.get('comment', '')
-        consent = request.form.get('consent')  # ДОБАВИТЬ ЭТУ СТРОКУ
+        consent = request.form.get('consent') 
         
         # ПРОВЕРКА СОГЛАСИЯ
         if not consent:
@@ -18,6 +19,7 @@ def send_feedback():
         subject = 'Новая заявка с сайта'
         body = f"""
         Поступила новая заявка!
+        Имя: {name}
         Телефон: {phone}
         Комментарий: {comment if comment else 'Не указан'}
         Дата: {datetime.now().strftime('%d.%m.%Y %H:%M')}
@@ -46,14 +48,11 @@ def send_feedback():
 
 @feedback_bp.route('/privacy_policy')
 def privacy_policy():
-    """Страница политики конфиденциальности"""
     total_cart_items = get_cart_count()
     return render_template('privacy_policy.html', total_cart_items=total_cart_items)
 
 @feedback_bp.route('/consent')
 def consent():
-    """Страница с согласием на обработку персональных данных"""
-    # Получаем количество товаров в корзине
     total_cart_items = get_cart_count()
     
     return render_template('consent.html', total_cart_items=total_cart_items)
