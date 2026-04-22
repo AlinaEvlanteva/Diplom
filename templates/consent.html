@@ -109,12 +109,12 @@
             <h3 class="footer_title">Меню сайта</h3>
             <nav>
                 <ul class="footer_menu">
-                    <li><a href="{{ url_for('main.index') }}">Главная страница</a></li>
+                    <li><a href="#">Главная страница</a></li>
                     <li><a href="{{ url_for('main.index') }}#about_company">О компании</a></li>
                     <li><a href="{{ url_for('main.index') }}#advantages">Наши преимущества</a></li>
                     <li><a href="{{ url_for('main.index') }}#order_problems">Проблемы с заказом</a></li>
                     <li><a href="{{ url_for('main.catalog') }}">Каталог</a></li>
-                </ul>
+            </ul>
             </nav>
         </div>
         
@@ -125,7 +125,7 @@
                     ДНР, г. Донецк, ул. Баумана, д. 11</p></li>
                 <li><a href="tel:+79498256121">+7 ХХХ ХХХ-ХХ-ХХ</a></li>
                 <li><a href="tel:+79281242620">+7 ХХХ ХХХ-ХХ-ХХ</a></li>
-                <li><a href="mailto:sgpz-bearings@mail.ru">Эл. почта: eeeeeee@mail.ru</a></li>
+                <li><a href="mailto:sgpz-bearings@mail.ru">Почта: eeeeeee@mail.ru</a></li>
             </ul>
         </div>
         <div class="footer_column" id="politika">
@@ -135,6 +135,44 @@
             </div>
         </div>
     </footer>
+
+    <!-- Модальное окно обратной связи -->
+    <div id="feedbackModal" class="modal">
+        <form id="feedbackForm" class="form_req">
+            <h3 class="form_title">Оставить заявку</h3>
+            <div class="form_group">
+                <label class="form_label">
+                    Как к вам обращаться? 
+                    <input type="text" name="name" id="feedbackName" class="form_input" placeholder="Иван Иванов" required>
+                </label>
+            </div>
+            <div class="form_group">
+                <label class="form_label">
+                    Телефон для связи 
+                    <input type="tel" name="phone" id="feedbackPhone" class="form_input" placeholder="+7 (XXX) XXX-XX-XX" required>
+                </label>
+            </div>
+            
+            <div class="form_group">
+                <label class="form_label">
+                    Комментарий
+                    <textarea name="comment" class="form_input" rows="4" placeholder="Что вас интересует?"></textarea>
+                </label>
+            </div>
+            
+            <div class="form_group">
+                <label class="checkbox_label">
+                    <input type="checkbox" name="consent" required>
+                    <div>Я принимаю условия <a href="{{ url_for('feedback.privacy_policy') }}" target="_blank">Политики конфиденциальности</a> и даю <a href="{{ url_for('feedback.consent') }}" target="_blank">согласие на обработку персональных данных</a>.</div>
+                </label>
+            </div>
+            
+            <div class="form_actions">
+                <button type="submit" class="but_save">Отправить</button>
+                <button type="button" class="but_cancel" onclick="closeFeedbackModal()">Отмена</button>
+            </div>
+        </form>
+    </div>
 
     <div class="flash-messages"></div>
     <script src="{{ url_for('static', filename='js/main.js') }}"></script>
