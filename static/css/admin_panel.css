@@ -84,6 +84,7 @@ header {
     border: none;
     font-size: 20px;
     color: #42546E;
+    border: 1px solid #93acce;
 }
 
 /* Интро */
@@ -101,6 +102,8 @@ main {
     /* background-color: aqua; */
     margin-top: 30px;
     align-items: center;
+    padding-bottom: 10px;
+    border-bottom: 3px solid #E2E2E2;
 }
 
 .nav_admin_list{
@@ -119,15 +122,7 @@ main {
     cursor: pointer;
     padding: 0;
 }
-.line{
-    width: 80%;
-    height: 3px;
-    background-color: #E2E2E2;
-    margin-top: 10px;
-    content: "";
-    display: block;
-    overflow: hidden;
-}
+
 .tab_content {
     display: none;  /* все вкладки скрыты по умолчанию */
     width: 100%;
@@ -162,6 +157,7 @@ main {
     border: none;
     color: #42546E;
     font-size: 20px;
+    border: 1px solid #93acce;
 }
 .section_panel_data h2{
     color: #42546E;
@@ -176,6 +172,7 @@ main {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    margin-bottom: 55px;
 }
 
 .category_header{
