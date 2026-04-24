@@ -173,24 +173,29 @@ main {
     height: auto;
     border: 2px solid #42546E;
     padding: 25px 40px 25px 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+}
+.description_title{
+    width: 85%;
 }
 
 .description_title h3{
     margin: 0;
     font-size: 25px;
     color: #42546E;
-    margin-left: 100px;
 }
 
 .description_content{
-    width: 80%;
+    width: 85%;
     height: auto;
     margin: 0;
     white-space: pre-line;
     color: #6C6767;
     font-size: 18px;
     word-break: break-word;
-    margin-left: 100px;
 }
 
 /* Анимация появления страницы */
@@ -451,7 +456,7 @@ main {
     }
 
     .description {
-        width: 90%;
+        width: 100%;
         padding: 15px 15px;
     }
 
