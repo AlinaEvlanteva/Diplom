@@ -169,9 +169,8 @@ main {
     align-items: center;
 }
 .description{
-    width: 85%;
+    width: 100%;
     height: auto;
-    border-radius: 45px;
     border: 2px solid #42546E;
     padding: 25px 40px 25px 40px;
 }
@@ -180,16 +179,18 @@ main {
     margin: 0;
     font-size: 25px;
     color: #42546E;
+    margin-left: 100px;
 }
 
 .description_content{
-    width: 100%;
+    width: 80%;
     height: auto;
     margin: 0;
     white-space: pre-line;
     color: #6C6767;
     font-size: 18px;
     word-break: break-word;
+    margin-left: 100px;
 }
 
 /* Анимация появления страницы */

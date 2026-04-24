@@ -38,7 +38,7 @@
                 <section class="checkout_form">
                     <!-- ФОРМА -->
                     <form id="requestForm" method="POST" action="/submit_request" class="form_req_prod">
-                        <div class="form_section">
+                        <div class="form_section" >
                             <h3 class="form_title">Контактные данные</h3>
                             
                             <div class="form_group">
@@ -62,7 +62,7 @@
                                 </label>
                             </div>
                         </div>
-                        <div class="form_group">
+                        <div class="form_group" id="block_checkbox">
                             <label class="checkbox_label">
                                 <input type="checkbox" name="consent" required>
                                 <div>Я принимаю условия <a href="{{ url_for('feedback.privacy_policy') }}" target="_blank">Политики конфиденциальности</a> и даю <a href="{{ url_for('feedback.consent') }}" target="_blank">согласие на обработку персональных данных</a>.</div>
