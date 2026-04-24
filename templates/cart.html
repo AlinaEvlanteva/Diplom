@@ -85,7 +85,7 @@
             
             {% else %}
             <section class="empty_cart">
-                <div class="empty_cart_icon">🛒</div>
+                <img src="{{ url_for('static', filename='img/small/cart.svg') }}" class="empty_cart_icon" alt="Корзина"/>
                 <p>Ваша корзина пуста</p>
                 <button data-href="{{ url_for('main.catalog') }}" class="but_continue" onclick="window.location.href=this.dataset.href">Перейти в каталог</button>
             </section>

@@ -242,7 +242,9 @@ main {
 }
 
 .empty_cart_icon {
-    font-size: 64px;
+    width: 100px;
+    height: auto;
+    object-fit: contain;
 }
 
 .empty_cart p {
@@ -602,7 +604,9 @@ main {
 
     /* Пустая корзина */
     .empty_cart_icon {
-        font-size: 48px;
+        width: 60px;
+        height: auto;
+        object-fit: contain;
     }
 
     .empty_cart p {
