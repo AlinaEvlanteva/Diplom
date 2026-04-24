@@ -185,6 +185,31 @@ textarea.form_input {
     cursor: pointer;
 }
 
+
+
+.post {
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.post:hover {
+    transform: translateY(-5px);
+}
+
+.post a {
+    transition: all 0.3s ease;
+}
+
+.post img {
+    transition: all 0.3s ease;
+}
+
+.post:hover img {
+    transform: scale(1.02);
+}
+
+
+
 /*АДАПТИВНОСТЬ*/
 @media (max-width: 992px) {
     .info_list {
