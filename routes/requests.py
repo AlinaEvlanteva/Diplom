@@ -5,6 +5,11 @@ from models.request_item import RequestItem
 from . import requests_bp
 from .cart import get_cart
 
+# ========== ВСПОМОГАТЕЛЬНАЯ ФУНКЦИЯ ДЛЯ СОРТИРОВКИ ==========
+def get_order(item):
+    """Вспомогательная функция для сортировки по полю order"""
+    return item.get('order', 0)
+
 @requests_bp.route('/submit_request', methods=['POST'])
 def submit_request():
     """Оформление заявки с корзиной"""
@@ -57,6 +62,8 @@ def checkout():
     """Страница оформления заявки"""
     cart = get_cart()
     cart_items = list(cart.values())
+
+    cart_items.sort(key=get_order, reverse=True)
     
     if not cart_items:
         return redirect(url_for('cart.cart_page'))

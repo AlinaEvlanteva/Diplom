@@ -593,7 +593,7 @@ input[type="file"].form_input {
     border-top: 1px solid #E2E2E2;
 }
 
-.btn_view_items {
+.but_view_items {
     width: 100%;
     height: 40px;
     background-color: #42546E;
@@ -605,9 +605,7 @@ input[type="file"].form_input {
     text-align: center;
 }
 
-.btn_view_items:hover {
-    background-color: #218838;
-}
+
 .request_status{
     width: 100%;
 
@@ -626,7 +624,7 @@ input[type="file"].form_input {
 
 }
 
-.btn_delete_request {
+.but_delete_request {
     width: 100%;
     height: 40px;
     background-color: #42546E;
@@ -640,9 +638,7 @@ input[type="file"].form_input {
     border-bottom-right-radius: 17px;
 }
 
-.btn_delete_request:hover {
-    background-color: #c82333;
-}
+
 
 .empty_requests {
     text-align: center;
@@ -874,4 +870,92 @@ input[type="file"].form_input {
     border: 1.5px solid #42546E;
     border-radius: 15px;
     box-sizing: border-box;
+}
+
+/* ===== АНИМАЦИИ КАК НА ВКЛАДКЕ ЗАЯВКИ ===== */
+
+/* Общая плавность для всех кнопок */
+button,
+.but_save,
+.but_cancel,
+.but_del,
+.but_view_items,
+.but_delete_request,
+.admin_logout button,
+.section_panel_data button,
+.card_inner_button button,
+#but_delete,
+.but_add,
+.status_select,
+.but_attributes {
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.but_view_items:hover {
+    background-color: #28a745;
+    color: white;
+}
+
+
+.but_delete_request:hover {
+    background-color: #dc3545;
+    color: white;
+}
+
+
+#but_delete:hover,
+.card_inner_button button:last-child:hover {
+    background-color: #dc3545;
+    color: white;
+}
+
+
+.admin_logout button:hover {
+    background-color: #dc3545;
+    color: white;
+}
+
+
+.section_panel_data button:hover,
+.but_add:hover {
+    background-color: #28a745;
+    color: white;
+}
+
+.card_inner_button button:first-child:hover {
+    background-color: #28a745;
+    color: white;
+}
+
+
+.but_attributes:hover {
+    background-color: #17a2b8;
+    color: white;
+}
+
+
+.but_save:hover {
+    background-color: #28a745;
+    color: white;
+}
+
+.but_cancel:hover {
+    background-color: #eaeaea;
+}
+
+
+.but_del:hover {
+    background-color: #dc3545;
+    color: white;
+}
+
+
+.status_select:hover {
+    background-color: #e9ecef;
+    border-color: #42546E;
+}
+
+.nav_admin_list button:hover {
+    background-color: #e0ecff;
 }

@@ -346,26 +346,16 @@ main {
 /*АНИМАЦИИ ДЛЯ КНОПОК*/
 .main_intro_inner_rectangle a,
 .sotrudnichestvo_container_post button,
-.section_end_intro_info button,
-.but_save,
-.but_cancel {
+.section_end_intro_info button{
     transition: all 0.3s ease;
     cursor: pointer;
 }
 
 .main_intro_inner_rectangle a:hover,
-.sotrudnichestvo_container_post button:hover,
-.section_end_intro_info button:hover,
-.but_save:hover {
+.sotrudnichestvo_container_post button:hover{
     transform: scale(1.05);
     background-color: #2a3a4e;
     box-shadow: 0 4px 12px rgba(66, 84, 110, 0.3);
-}
-
-.but_cancel:hover {
-    transform: scale(1.05);
-    background-color: #f5f5f5;
-    border-color: #2a3a4e;
 }
 
 /*АНИМАЦИИ ДЛЯ КАРТОЧЕК*/
@@ -398,10 +388,6 @@ main {
 .advantages_post:hover {
     box-shadow: 0 12px 28px rgba(0, 0, 0, 0.15);
     border-color: #5275A7;
-}
-
-.advantages_post:hover .advantages_post_header h3 {
-    color: #5275A7;
 }
 
 .advantages_post p {

@@ -492,9 +492,9 @@ def get_request_items(request_id):
             'price': float(item.product.price),
             'quantity': item.quantity,
             'image': item.product.image,
-            'unit': item.product.unit or 'шт'
+            'unit': item.product.unit or 'шт',
         })
-    
+        
     return jsonify({
         'items': items,
         'total_sum': float(request_obj.total_sum),

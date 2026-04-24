@@ -142,3 +142,27 @@ main {
     color: #0c5460;
     border-left: 4px solid #17a2b8;
 }
+
+/* ===== АНИМАЦИИ ДЛЯ СТРАНИЦЫ ВХОДА ===== */
+
+/* Кнопка "Войти" */
+.but_vhod {
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.but_vhod:hover {
+    background-color: #28a745;
+    transform: scale(1.05);
+    box-shadow: 0 4px 12px rgba(40, 167, 69, 0.3);
+}
+
+/* Ссылка "На главную" */
+.back_link {
+    transition: all 0.3s ease;
+}
+
+.back_link:hover {
+    color: #42546E;
+    text-decoration: underline;
+}

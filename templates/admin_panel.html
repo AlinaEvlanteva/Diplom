@@ -215,7 +215,7 @@
                             </div>
                         </div>
                         <div class="request_card_actions">
-                            <button class="btn_view_items" onclick="viewRequestItems('{{ req.id }}')">
+                            <button class="but_view_items" onclick="viewRequestItems('{{ req.id }}')">
                                 Просмотр товаров ({{ req.items|length }})
                             </button>
                             
@@ -227,7 +227,7 @@
                                     <option value="cancelled" {% if req.status == 'cancelled' %}selected{% endif %}>Отменена</option>
                                 </select>
                             </div>
-                            <button class="btn_delete_request" onclick="deleteRequest('{{ req.id }}')">
+                            <button class="but_delete_request" onclick="deleteRequest('{{ req.id }}')">
                                 Удалить
                             </button>
                         </div>

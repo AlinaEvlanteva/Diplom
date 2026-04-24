@@ -17,6 +17,10 @@ def get_cart_count():
     cart = get_cart()
     return sum(item['quantity'] for item in cart.values())
 
+def get_order(item):
+    """Вспомогательная функция для сортировки по полю order"""
+    return item.get('order', 0)
+
 # ========== МАРШРУТЫ КОРЗИНЫ ==========
 
 @cart_bp.route('/add_to_cart/<int:product_id>', methods=['POST'])
@@ -37,7 +41,8 @@ def add_to_cart(product_id):
             'price': float(product.price),
             'quantity': 1,
             'image': product.image,
-            'unit': product.unit or 'шт'
+            'unit': product.unit or 'шт',
+            'order': len(cart) + 1
         }
     
     save_cart(cart)
@@ -55,6 +60,7 @@ def cart_page():
     """Страница корзины"""
     cart = get_cart()
     cart_items = list(cart.values())
+    cart_items.sort(key=get_order, reverse=True)  # ← сортировка по order (новые сверху)
     
     # Для старых товаров, у которых нет unit
     for item in cart_items:
