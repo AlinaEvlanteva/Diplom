@@ -80,7 +80,7 @@ document.getElementById('feedbackForm')?.addEventListener('submit', function(e) 
     const formData = new FormData(this);
     closeFeedbackModal();
     
-    showFlashMessage('📩 Отправляем заявку...', 'info');
+    showFlashMessage('Отправляем заявку...', 'info');
     
     fetch('/send_feedback', {
         method: 'POST',
@@ -89,14 +89,14 @@ document.getElementById('feedbackForm')?.addEventListener('submit', function(e) 
     .then(r => r.json())
     .then(data => {
         if (data.success) {
-            showFlashMessage('✅ Заявка отправлена! Менеджер свяжется с вами.', 'success');
+            showFlashMessage('Заявка отправлена! Менеджер свяжется с вами.', 'success');
         } else {
-            showFlashMessage('❌ Ошибка: ' + data.error, 'error');
+            showFlashMessage('Ошибка: ' + data.error, 'error');
         }
     })
     .catch(error => {
         console.error('Ошибка:', error);
-        showFlashMessage('❌ Ошибка при отправке. Попробуйте позже.', 'error');
+        showFlashMessage('Ошибка при отправке. Попробуйте позже.', 'error');
     })
 });
 
@@ -135,12 +135,12 @@ document.getElementById('requestForm')?.addEventListener('submit', function(e) {
         if (data.success) {
             openSuccessModal();
         } else {
-            showFlashMessage('❌ Ошибка: ' + data.error, 'error');
+            showFlashMessage('Ошибка: ' + data.error, 'error');
         }
     })
     .catch(error => {
         console.error('Ошибка:', error);
-        showFlashMessage('❌ Ошибка при отправке заявки', 'error');
+        showFlashMessage('Ошибка при отправке заявки', 'error');
     })
 });
 

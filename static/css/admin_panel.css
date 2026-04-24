@@ -4,8 +4,6 @@ body{
     height: auto;
     margin: 0;
     padding: 0;
-    /* scrollbar-gutter: stable; */
-    /* overflow-y: scroll; */
     overflow-x: hidden;
     max-width: 100%;
 }
@@ -27,10 +25,10 @@ header {
 }
 
 .header_inner {
-    width: 90%;              /* вместо 100% + отступы */
+    width: 90%;              
     height: 100px;
     display: flex;
-    justify-content: space-between;  /* равномерное распределение */
+    justify-content: space-between;  
     align-items: center;
    
 }
