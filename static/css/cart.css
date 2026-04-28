@@ -266,6 +266,50 @@ main {
     background-color: #2a3a4e;
 }
 
+.modal_success {
+    width: 30%;
+    background: white;
+    border: 2px solid #42546E;
+    border-radius: 25px;
+    padding: 20px 20px;
+    text-align: center;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+
+.success_icon_modal {
+    width: 60px;
+    height: 60px;
+    background-color: #28a745;
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 30px;
+    margin: 15px 0;
+}
+
+.modal_title {
+    font-size: 24px;
+    font-weight: bold;
+    color: #42546E;
+    margin: 0 0 15px;
+}
+
+.modal_success p {
+    font-size: 16px;
+    color: #666;
+    margin: 0;
+}
+
+.modal_actions{
+    margin-top: 20px;
+}
+
 /*АДАПТИВ*/
 
 @media (max-width: 992px) {

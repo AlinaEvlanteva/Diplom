@@ -248,6 +248,22 @@ header {
     margin-bottom: 15px;
 }
 
+.form_group_info{
+    width: 100%;
+    height: auto;
+    display: flex;
+    justify-content: center;
+    color: #42546E;
+    margin-top: 20px;
+    padding: 0;
+}
+
+.form_group_info p{
+    margin: 0;
+    padding: 0;
+    text-align: center;
+}
+
 .form_label {
     font-size: 16px;
     font-weight: bold;
@@ -344,6 +360,45 @@ textarea.form_input {
     }
 }
 
+/* доп*/
+@media (max-width: 1260px) {
+    .form_req {
+        width: 40%;
+    }
+    
+    .but_save,
+    .but_cancel {
+        width: 180px;
+        height: 48px;
+        font-size: 15px;
+    }
+}
+@media (max-width: 992px) {
+    .form_req {
+        width: 60%;
+    }
+    
+    .but_save,
+    .but_cancel {
+        width: 200px;
+        height: 45px;
+        font-size: 15px;
+    }
+}
+
+@media (max-width: 850px) {
+    .form_req {
+        width: 70%;
+    }
+    
+    .but_save,
+    .but_cancel {
+        width: 140px;
+        height: 42px;
+        font-size: 14px;
+    }
+}
+
 
 @media (max-width: 768px) {
     .header_inner {
@@ -399,7 +454,7 @@ textarea.form_input {
         font-size: 14px;
     }
 
-        .form_req {
+    .form_req {
         width: 70%;
         max-width: 100%;
         padding: 20px 15px;
@@ -481,6 +536,25 @@ textarea.form_input {
         width: 100%;
         max-width: 100%;
         padding: 20px 15px;
+    }
+    /* Модальное окно успеха */
+    .modal_success {
+        width: 90%;
+        padding: 0 15px;
+    }
+
+    .success_icon_modal {
+        width: 50px;
+        height: 50px;
+        font-size: 25px;
+    }
+
+    .modal_title {
+        font-size: 20px;
+    }
+
+    .modal_success p {
+        font-size: 14px;
     }
 }
 

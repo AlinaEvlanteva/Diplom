@@ -12,13 +12,13 @@ def get_order(item):
 
 @requests_bp.route('/submit_request', methods=['POST'])
 def submit_request():
-    """Оформление заявки с корзиной"""
     try:
         name = request.form.get('name')
         phone = request.form.get('phone')
         comment = request.form.get('comment', '')
         consent = request.form.get('consent') == 'on'
         
+        # Получаем корзину из сессии
         cart = get_cart()
         
         if not cart:
@@ -57,22 +57,3 @@ def submit_request():
         db.session.rollback()
         return jsonify({'success': False, 'error': str(e)})
 
-@requests_bp.route('/checkout')
-def checkout():
-    """Страница оформления заявки"""
-    cart = get_cart()
-    cart_items = list(cart.values())
-
-    cart_items.sort(key=get_order, reverse=True)
-    
-    if not cart_items:
-        return redirect(url_for('cart.cart_page'))
-    
-    total_sum = sum(item['price'] * item['quantity'] for item in cart_items)
-    total_items = sum(item['quantity'] for item in cart_items)
-    
-    return render_template('checkout.html',
-                         cart_items=cart_items,
-                         total_sum=total_sum,
-                         total_items=total_items,
-                         total_cart_items=total_items)

@@ -26,7 +26,7 @@
                     <span id="cart_count" class="cart_badge {% if total_cart_items > 0 %}visible{% endif %}">{{ total_cart_items }}</span>
                     Корзина
                 </a>
-                <button onclick="openFeedbackModal()" class="but_request"><img src="{{ url_for('static', filename='img/small/quest.svg') }}"/>Помощь</button>
+                <button onclick="openModal('feedbackModal')" class="but_request"><img src="{{ url_for('static', filename='img/small/quest.svg') }}"/>Помощь</button>
             </div>
         </div>
     </header>
@@ -160,7 +160,7 @@
             
             <div class="form_actions">
                 <button type="submit" class="but_save">Отправить</button>
-                <button type="button" class="but_cancel" onclick="closeFeedbackModal()">Отмена</button>
+                <button type="button" class="but_cancel" onclick="closeModal('feedbackModal')">Отмена</button>
             </div>
         </form>
     </div>

@@ -1,28 +1,20 @@
-// ========== application.js - ОБЪЕДИНЁННЫЙ ФАЙЛ ==========
-
-// ========== 1. МОДАЛЬНЫЕ ОКНА ==========
-function openFeedbackModal() {
-    document.getElementById('feedbackModal').style.display = 'flex';
-}
-
-function closeFeedbackModal() {
-    document.getElementById('feedbackModal').style.display = 'none';
-    document.getElementById('feedbackForm').reset();
-}
-
-function openSuccessModal() {
-    document.getElementById('successModal').style.display = 'flex';
-}
-
-function closeSuccessModal() {
-    document.getElementById('successModal').style.display = 'none';
-}
 
 function goToHome() {
     window.location.href = '/';
 }
 
-// ========== 2. ВАЛИДАЦИЯ ТЕЛЕФОНА (ЕДИНАЯ) ==========
+// УНИВЕРСАЛЬНОЕ ОТКРЫТИЕ/ЗАКРЫТИЕ МОДАЛЬНЫХ ОКОН
+function openModal(modalId) {
+    const modal = document.getElementById(modalId);
+    if (modal) modal.style.display = 'flex';
+}
+
+function closeModal(modalId) {
+    const modal = document.getElementById(modalId);
+    if (modal) modal.style.display = 'none';
+}
+
+// ВАЛИДАЦИЯ ТЕЛЕФОНА (ЕДИНАЯ)
 function validatePhone(phone) {
     const digits = phone.replace(/[^0-9]/g, '');
     if (digits.length !== 11) return false;
@@ -33,7 +25,7 @@ function validatePhone(phone) {
     return true;
 }
 
-// ========== 3. ФОРМАТИРОВАНИЕ ТЕЛЕФОНА (ЕДИНАЯ) ==========
+// ФОРМАТИРОВАНИЕ ТЕЛЕФОНА (ЕДИНАЯ) 
 function formatPhone(input) {
     let digits = input.value.replace(/[^0-9]/g, '');
     if (digits.length > 11) digits = digits.slice(0, 11);
@@ -54,7 +46,7 @@ function formatPhone(input) {
     }
 }
 
-// ========== 4. ЗАПРЕТ ВВОДА ЦИФР В ПОЛЕ ИМЕНИ ==========
+// 4. ЗАПРЕТ ВВОДА ЦИФР В ПОЛЕ ИМЕНИ 
 const nameInputBlock = document.getElementById('feedbackName');
 if (nameInputBlock) {
     nameInputBlock.addEventListener('input', function(e) {
@@ -63,14 +55,14 @@ if (nameInputBlock) {
     });
 }
 
-// ========== 5. ФОРМА ОБРАТНОЙ СВЯЗИ ==========
+
 document.getElementById('feedbackForm')?.addEventListener('submit', function(e) {
     e.preventDefault();  
     const phoneInput = document.getElementById('feedbackPhone');
     const phone = phoneInput.value;
     
     if (!validatePhone(phone)) {
-        showFlashMessage('❌ Введите корректный номер телефона в формате +7 (XXX) XXX-XX-XX', 'error');
+        showFlashMessage('Введите корректный номер телефона в формате +7 (XXX) XXX-XX-XX', 'error');
         phoneInput.style.border = '2px solid #dc3545'; 
         phoneInput.focus();
         return;
@@ -78,7 +70,8 @@ document.getElementById('feedbackForm')?.addEventListener('submit', function(e) 
     
     phoneInput.style.borderColor = '#42546E';
     const formData = new FormData(this);
-    closeFeedbackModal();
+    closeModal('feedbackModal');
+    document.getElementById('feedbackForm').reset();
     
     showFlashMessage('Отправляем заявку...', 'info');
     
@@ -100,7 +93,7 @@ document.getElementById('feedbackForm')?.addEventListener('submit', function(e) 
     })
 });
 
-// ========== 6. ФОРМАТИРОВАНИЕ ТЕЛЕФОНА ДЛЯ FEEDBACK ==========
+//ФОРМАТИРОВАНИЕ ТЕЛЕФОНА ДЛЯ FEEDBACK
 const phoneInput = document.getElementById('feedbackPhone');
 if (phoneInput) {
     phoneInput.addEventListener('input', function() {
@@ -109,23 +102,35 @@ if (phoneInput) {
     });
 }
 
-// ========== 7. ФОРМА ОФОРМЛЕНИЯ ЗАЯВКИ ==========
-document.getElementById('requestForm')?.addEventListener('submit', function(e) {
+
+document.getElementById('checkoutForm')?.addEventListener('submit', function(e) {
     e.preventDefault();
+     
+    // Проверяем имя
+    const nameInput = document.getElementById('checkoutName');
+    if (!nameInput || !nameInput.value.trim()) {
+        showFlashMessage('Пожалуйста, представьтесь', 'error');
+        if (nameInput) nameInput.style.border = '2px solid #dc3545';
+        nameInput.focus();
+        return;
+    }
     
-    const phoneInput = document.getElementById('phoneInput');
-    const phone = phoneInput.value;
-    
-    if (!validatePhone(phone)) {
-        showFlashMessage('❌ Введите корректный номер телефона в формате +7 (XXX) XXX-XX-XX', 'error');
-        phoneInput.style.border = '2px solid #dc3545'; 
+    // Проверяем телефон
+    const phoneInput = document.getElementById('checkoutPhone');
+    if (!phoneInput || !validatePhone(phoneInput.value)) {
+        showFlashMessage('Введите корректный номер телефона в формате +7 (XXX) XXX-XX-XX', 'error');
+        if (phoneInput) phoneInput.style.border = '2px solid #dc3545';
         phoneInput.focus();
         return;
     }
     
-    phoneInput.style.borderColor = '#42546E';
+    // Восстанавливаем стиль
+    if (nameInput) nameInput.style.borderColor = '#42546E';
+    if (phoneInput) phoneInput.style.borderColor = '#42546E';
+    
+    // Получаем данные из формы (автоматически)
     const formData = new FormData(this);
-      
+        
     fetch('/submit_request', {
         method: 'POST',
         body: formData
@@ -133,26 +138,38 @@ document.getElementById('requestForm')?.addEventListener('submit', function(e) {
     .then(response => response.json())
     .then(data => {
         if (data.success) {
-            openSuccessModal();
+            // Закрываем модальное окно оформления заказа
+            closeModal('checkoutModal');
+            // Открываем модальное окно успеха
+            openModal('successModal');
         } else {
             showFlashMessage('Произошла ошибка: ' + data.error, 'error');
         }
     })
     .catch(error => {
-        console.error('Произошла ошибка:', error);
+        console.error('Ошибка:', error);
         showFlashMessage('Ошибка при отправке заявки', 'error');
-    })
+    });
 });
 
-// ========== 8. ИНИЦИАЛИЗАЦИЯ ДЛЯ СТРАНИЦЫ CHECKOUT ==========
+// Настройка форматирования телефона и валидации имени в модалке
 document.addEventListener('DOMContentLoaded', function() {
-    const phoneInput = document.getElementById('phoneInput');
-    if (phoneInput) {
-        phoneInput.addEventListener('input', function() {
+    const checkoutPhone = document.getElementById('checkoutPhone');
+    if (checkoutPhone) {
+        checkoutPhone.addEventListener('input', function() {
             formatPhone(this);
             this.style.borderColor = '#42546E';
         });
     }
+    
+    const checkoutName = document.getElementById('checkoutName');
+    if (checkoutName) {
+        checkoutName.addEventListener('input', function() {
+            this.value = this.value.replace(/[^A-Za-zА-Яа-яёЁ\s-]/g, '');
+            this.style.borderColor = '#42546E';
+        });
+    }
 });
+
 
 console.log('application.js загружен');

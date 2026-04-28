@@ -25,7 +25,7 @@
                     <span id="cart_count" class="cart_badge {% if total_cart_items > 0 %}visible{% endif %}">{{ total_cart_items }}</span>
                     Корзина
                 </a>
-                <button onclick="openFeedbackModal()" class="but_request"><img src="{{ url_for('static', filename='img/small/quest.svg') }}"/>Помощь</button>
+                <button onclick="openModal('feedbackModal')" class="but_request"><img src="{{ url_for('static', filename='img/small/quest.svg') }}"/>Помощь</button>
             </div>
         </div>
     </header>
@@ -79,7 +79,7 @@
                         <div class="summa_label">Итого</div>
                         <div class="summa_value" id="grand-total">{{ "%.2f"|format(total_sum) }} ₽</div>
                     </div>
-                    <button data-href="{{ url_for('requests.checkout') }}" class="but_check" onclick="window.location.href=this.dataset.href">Перейти к оформлению</button>
+                    <button class="but_check" onclick="openModal('checkoutModal')">Оформить заказ</button>
                 </aside>
             </div>
             
@@ -158,9 +158,61 @@
             
             <div class="form_actions">
                 <button type="submit" class="but_save">Отправить</button>
-                <button type="button" class="but_cancel" onclick="closeFeedbackModal()">Отмена</button>
+                <button type="button" class="but_cancel" onclick="closeModal('feedbackModal')">Отмена</button>
             </div>
         </form>
+    </div>
+    
+    <!-- Модальное окно оформления заказа -->
+    <div id="checkoutModal" class="modal">
+        <form id="checkoutForm" class="form_req">
+            <h3 class="form_title">Оформление заказа</h3>
+            <div class="form_group">
+                <label class="form_label">
+                    Как к вам обращаться?
+                    <input type="text" name="name" id="checkoutName" class="form_input" placeholder="Иван Иванов" required>
+                </label>
+            </div>
+            
+            <div class="form_group">
+                <label class="form_label">
+                    Телефон для связи
+                    <input type="tel" name="phone" id="checkoutPhone" class="form_input" placeholder="+7 (XXX) XXX-XX-XX" required>
+                </label>
+            </div>
+            
+            <div class="form_group">
+                <label class="form_label">
+                    Комментарий к заказу
+                    <textarea name="comment" id="checkoutComment" class="form_input" rows="4" placeholder="Уточните детали, если нужно..."></textarea>
+                </label>
+            </div>
+            
+            <div class="form_group">
+                <label class="checkbox_label">
+                    <input type="checkbox" name="consent" required>
+                    <div>Я принимаю условия <a href="{{ url_for('feedback.privacy_policy') }}" target="_blank">Политики конфиденциальности</a> и даю <a href="{{ url_for('feedback.consent') }}" target="_blank">согласие на обработку персональных данных</a>.</div>
+                </label>
+            </div>
+            <div class="form_actions">
+                <button type="submit" class="but_save">Отправить заявку</button>
+                <button type="button" class="but_cancel" onclick="closeModal('checkoutModal')">Отмена</button>
+            </div>
+            <div class="form_group_info">
+                <p>После отправки заказа с вами свяжется менеджер.</p>
+            </div>
+        </form>
+    </div>
+
+    <div id="successModal" class="modal">
+        <div class="modal_success">
+            <div class="success_icon_modal">✓</div>
+            <h3 class="modal_title">Заявка отправлена!</h3>
+            <p>Спасибо за ваш заказ. Наш менеджер свяжется с вами в ближайшее время для подтверждения деталей.</p>
+            <div class="modal_actions">
+                <button class="but_save" onclick="goToHome()">На главную</button>
+            </div>
+        </div>
     </div>
 
     <div class="flash-messages"></div>
