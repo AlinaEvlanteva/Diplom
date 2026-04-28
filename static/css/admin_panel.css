@@ -504,7 +504,7 @@ input[type="file"].form_input {
     margin-top: 5px;
 }
 
-/* ===== ЗАЯВКИ (карточки) ===== */
+/*ЗАЯВКИ (карточки) */
 .request_card {
     width: 21.5%;
     height: auto;
@@ -803,69 +803,6 @@ input[type="file"].form_input {
     color: #42546E;
 }
 
-/* Стили только для шкивов и втулок */
-.pulley_bushing_modal .form_cat {
-    width: 52%;
-    max-width: 90vw;
-}
-
-.pulley_bushing_modal #attributesList {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
-    width: 100%;
-}
-
-.pulley_bushing_modal .form_label {
-    display: flex;
-    flex-direction: column;
-    width: 48%;
-    margin-bottom: 0;
-    text-align: left;
-    align-items: flex-start;
-    box-sizing: border-box;
-}
-
-.pulley_bushing_modal .form_input {
-    width: 100%;
-    padding: 10px;
-    font-size: 14px;
-    border: 1.5px solid #42546E;
-    border-radius: 15px;
-    box-sizing: border-box;
-}
-
-/* Стили для колец, манжет и сальников */
-.seals_modal .form_cat {
-    width: 45%;
-    max-width: 90vw;
-}
-
-.seals_modal #attributesList {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
-    width: 100%;
-}
-
-.seals_modal .form_label {
-    display: flex;
-    flex-direction: column;
-    width: 48%;
-    margin-bottom: 0;
-    text-align: left;
-    align-items: flex-start;
-    box-sizing: border-box;
-}
-
-.seals_modal .form_input {
-    width: 100%;
-    padding: 10px;
-    font-size: 14px;
-    border: 1.5px solid #42546E;
-    border-radius: 15px;
-    box-sizing: border-box;
-}
 
 /* ===== АНИМАЦИИ КАК НА ВКЛАДКЕ ЗАЯВКИ ===== */
 

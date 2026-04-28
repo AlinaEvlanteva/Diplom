@@ -127,7 +127,7 @@ def delete_category(category_id):
     
     category = Category.query.get_or_404(category_id)
 
-    # ===== ПРОВЕРКА: есть ли товары этой категории в заказах? =====
+    # ПРОВЕРКА есть ли товары этой категории в заказах?
     # Находим все товары категории
     products_in_category = Product.query.filter_by(category_id=category_id).all()
     product_ids = [p.id for p in products_in_category]
@@ -141,10 +141,10 @@ def delete_category(category_id):
             session['active_tab'] = 'categories'
             return redirect(url_for('admin.admin_panel'))
     
-    # ===== 1. Сначала получаем все товары категории =====
+    #Сначала получаем все товары категории 
     products = Product.query.filter_by(category_id=category_id).all()
     
-    # ===== 2. Удаляем файлы изображений КАЖДОГО товара =====
+    #Удаляем файлы изображений КАЖДОГО товара
     for product in products:
         if product.image and product.image != 'default.png':
             try:
@@ -160,17 +160,17 @@ def delete_category(category_id):
             except Exception as e:
                 print(f"Ошибка при удалении файлов товара {product.id}: {e}")
     
-    # ===== 3. Удаляем значения характеристик товаров =====
+    #Удаляем значения характеристик товаров
     for product in products:
         ProductAttribute.query.filter_by(product_id=product.id).delete()
     
-    # ===== 4. Удаляем сами товары из БД =====
+    #Удаляем сами товары из БД
     Product.query.filter_by(category_id=category_id).delete()
     
-    # ===== 5. Удаляем характеристики (типы) категории =====
+    #Удаляем характеристики (типы) категории
     Attribute.query.filter_by(category_id=category_id).delete()
     
-    # ===== 6. Удаляем файл изображения категории =====
+    #Удаляем файл изображения категории
     if category.image and category.image != 'default_category.png':
         try:
             img_path = os.path.join(UPLOAD_FOLDER_SMALL, category.image)
@@ -180,7 +180,7 @@ def delete_category(category_id):
         except Exception as e:
             print(f"Ошибка при удалении файла категории: {e}")
     
-    # ===== 7. Удаляем саму категорию =====
+    #Удаляем саму категорию 
     db.session.delete(category)
     db.session.commit()
 
@@ -297,9 +297,7 @@ def delete_product(product_id):
     
     product = Product.query.get_or_404(product_id)
 
-        # ===== ПРОВЕРКА: есть ли товар в заказах? =====
-    from models.request_item import RequestItem
-    
+    #ПРОВЕРКА есть ли товар в заказах? 
     item_in_orders = RequestItem.query.filter_by(product_id=product_id).first()
     
     if item_in_orders:
@@ -447,7 +445,7 @@ def save_product_attributes():
                     )
                     db.session.add(new_attr)
             else:
-                # Если значение пустое — удаляем запись
+                # Если значение пустое удаляем запись
                 if existing:
                     db.session.delete(existing)
         
@@ -515,7 +513,6 @@ def update_request_status():
 
 @admin_bp.route('/delete_request/<int:request_id>')
 def delete_request(request_id):
-    """Удалить заявку"""
     if not session.get('admin_logged_in'):
         return redirect(url_for('admin.admin_login'))
     

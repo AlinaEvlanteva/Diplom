@@ -172,7 +172,6 @@ main {
         font-size: 24px;
     }
 
-    /* Сетка товаров — 2 колонки */
     .section_products_podship {
         width: 95%;
         gap: 20px;
@@ -216,7 +215,6 @@ main {
         font-size: 20px;
     }
 
-    /* Сетка товаров — 1 колонка */
     .section_products_podship {
         width: 95%;
         gap: 20px;

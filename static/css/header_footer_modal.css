@@ -10,8 +10,6 @@ body{
     height: auto;
     margin: 0;
     padding: 0;
-    /* scrollbar-gutter: stable; */
-    /* overflow-y: scroll; */
     overflow-x: hidden;
     max-width: 100%;
 }

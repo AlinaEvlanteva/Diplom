@@ -143,9 +143,9 @@ main {
     border-left: 4px solid #17a2b8;
 }
 
-/* ===== АНИМАЦИИ ДЛЯ СТРАНИЦЫ ВХОДА ===== */
+/*АНИМАЦИИ ДЛЯ СТРАНИЦЫ ВХОДА*/
 
-/* Кнопка "Войти" */
+
 .but_vhod {
     transition: all 0.3s ease;
     cursor: pointer;
@@ -157,7 +157,6 @@ main {
     box-shadow: 0 4px 12px rgba(40, 167, 69, 0.3);
 }
 
-/* Ссылка "На главную" */
 .back_link {
     transition: all 0.3s ease;
 }

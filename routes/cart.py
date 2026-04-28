@@ -2,30 +2,27 @@ from flask import session, jsonify, redirect, url_for, render_template, request
 from models.product import Product
 from . import cart_bp
 
-# ========== ВСПОМОГАТЕЛЬНЫЕ ФУНКЦИИ ==========
-
+# ВСПОМОГАТЕЛЬНЫЕ ФУНКЦИИ
+#Получить корзину из сессии
 def get_cart():
-    """Получить корзину из сессии"""
     return session.get('cart', {})
 
 def save_cart(cart):
-    """Сохранить корзину в сессию"""
     session['cart'] = cart
 
+#Получить количество товаров в корзине
 def get_cart_count():
-    """Получить количество товаров в корзине"""
     cart = get_cart()
     return sum(item['quantity'] for item in cart.values())
 
+#Вспомогательная функция для сортировки по полю order
 def get_order(item):
-    """Вспомогательная функция для сортировки по полю order"""
     return item.get('order', 0)
 
-# ========== МАРШРУТЫ КОРЗИНЫ ==========
+# МАРШРУТЫ КОРЗИНЫ
 
 @cart_bp.route('/add_to_cart/<int:product_id>', methods=['POST'])
 def add_to_cart(product_id):
-    """Добавить товар в корзину"""
     product = Product.query.get_or_404(product_id)
     
     cart = get_cart()
@@ -57,10 +54,9 @@ def add_to_cart(product_id):
 
 @cart_bp.route('/cart')
 def cart_page():
-    """Страница корзины"""
     cart = get_cart()
     cart_items = list(cart.values())
-    cart_items.sort(key=get_order, reverse=True)  # ← сортировка по order (новые сверху)
+    cart_items.sort(key=get_order, reverse=True)  #сортировка по order (новые сверху)
     
     # Для старых товаров, у которых нет unit
     for item in cart_items:
@@ -79,7 +75,6 @@ def cart_page():
 
 @cart_bp.route('/update_cart/<int:product_id>', methods=['POST'])
 def update_cart(product_id):
-    """Обновить количество"""
     cart = get_cart()
     product_key = str(product_id)
     quantity = int(request.form.get('quantity', 0))
@@ -95,7 +90,6 @@ def update_cart(product_id):
 
 @cart_bp.route('/remove_from_cart/<int:product_id>', methods=['POST', 'GET'])
 def remove_from_cart(product_id):
-    """Удалить из корзины"""
     cart = get_cart()
     product_key = str(product_id)
     

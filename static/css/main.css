@@ -310,7 +310,6 @@ main {
 .section_end_intro_info{
     width: 80%;
     height: 275px;
-    /* background-color: #5275A7; */
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -462,7 +461,6 @@ main {
         border-radius: 42px;
     }
 
-    /* Последняя секция */
     .section_end_intro_info h2 {
         font-size: 32px;
     }
@@ -477,7 +475,6 @@ main {
         height: 60px;
     }
 
-    /* О компании */
     .about_products {
         width: 90%;
     }
@@ -510,8 +507,6 @@ main {
         width: 95%;
     }
 
-
-    /* Интро */
     .main_intro_inner {
         width: 95%;
         display: flex;
@@ -541,7 +536,6 @@ main {
         height: 200px;
     }
 
-    /* Заголовки секций */
     .section_info {
         gap: 20px;
         height: 150px;
@@ -556,7 +550,6 @@ main {
         font-size: 24px;
     }
 
-    /* Преимущества */
     .advantages_post {
         width: 90%;
         min-height: 220px;
@@ -572,7 +565,6 @@ main {
         margin-top: 20px;
     }
 
-    /* Блок с контактами */
     .section_sotrudnichestvo_header {
         height: 150px;
         font-size: 24px;
@@ -595,7 +587,6 @@ main {
         font-size: 18px;
     }
 
-    /* Последняя секция */
     .section_end_intro {
         margin-top: 100px;
     }
@@ -620,7 +611,6 @@ main {
         height: 55px;
     }
 
-    /* О компании */
     .about_text {
         font-size: 16px;
         width: 95%;
@@ -645,7 +635,6 @@ main {
 
 @media (max-width: 480px) {
     
-    /* Интро */
     #title_intro_big {
         font-size: 28px;
     }
@@ -658,8 +647,6 @@ main {
         font-size: 16px;
         height: 45px;
     }
-
-    /* Преимущества */
     .section_info h2 {
         font-size: 20px;
     }
@@ -680,7 +667,6 @@ main {
         margin-top: 25px;
     }
 
-    /* Блок с контактами */
     .sotrudnichestvo_container_post h3 {
         font-size: 22px;
     }
@@ -690,7 +676,6 @@ main {
         height: 48px;
     }
 
-    /* Последняя секция */
     .section_end_intro_info h2 {
         font-size: 24px;
     }
@@ -699,7 +684,6 @@ main {
         font-size: 16px;
     }
 
-    /* О компании */
     .about_product_link {
         width: 120px;
         font-size: 12px;

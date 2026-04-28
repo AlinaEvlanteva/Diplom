@@ -12,7 +12,6 @@ def send_feedback():
         comment = request.form.get('comment', '')
         consent = request.form.get('consent') 
         
-        # ПРОВЕРКА СОГЛАСИЯ
         if not consent:
             return jsonify({'success': False, 'error': 'Необходимо согласие на обработку персональных данных'})
         

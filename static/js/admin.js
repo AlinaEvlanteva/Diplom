@@ -1,4 +1,4 @@
-// ===== ПЕРЕКЛЮЧЕНИЕ ВКЛАДОК =====
+//ПЕРЕКЛЮЧЕНИЕ ВКЛАДОК
 function showTab(tabId, element) {
     document.querySelectorAll('.tab_content').forEach(tab => {
         tab.classList.remove('active');
@@ -12,17 +12,17 @@ function showTab(tabId, element) {
     element.classList.add('active');
 }
 
-// ===== ПЕРЕМЕННЫЕ ДЛЯ УДАЛЕНИЯ =====
+//ПЕРЕМЕННЫЕ ДЛЯ УДАЛЕНИЯ
 let currentDeleteId = null;
 let currentDeleteProductId = null;
 let currentDeleteAttributeId = null;
 
-// ===== МОДАЛЬНОЕ ОКНО ДЛЯ ДОБАВЛЕНИЯ КАТЕГОРИИ =====
+//МОДАЛЬНОЕ ОКНО ДЛЯ ДОБАВЛЕНИЯ КАТЕГОРИИ
 function openAddCategoryModal() {
     document.getElementById('addCategoryModal').style.display = 'flex';
 }
 
-// ===== УНИВЕРСАЛЬНОЕ ПРЕВЬЮ ДЛЯ ЛЮБЫХ МОДАЛЬНЫХ ОКОН =====
+//УНИВЕРСАЛЬНОЕ ПРЕВЬЮ ДЛЯ ЛЮБЫХ МОДАЛЬНЫХ ОКОН
 function previewImage(input, previewContainerId, previewImageId) {
     const previewContainer = document.getElementById(previewContainerId);
     const preview = document.getElementById(previewImageId);
@@ -42,7 +42,7 @@ function previewImage(input, previewContainerId, previewImageId) {
     }
 }
 
-// ===== МОДАЛЬНОЕ ОКНО ДЛЯ РЕДАКТИРОВАНИЯ КАТЕГОРИИ =====
+//МОДАЛЬНОЕ ОКНО ДЛЯ РЕДАКТИРОВАНИЯ КАТЕГОРИИ 
 function openEditCategoryModal(id, name, image) {
     document.getElementById('editCategoryModal').style.display = 'flex';
     document.getElementById('edit_category_id').value = id;
@@ -70,7 +70,7 @@ function openEditCategoryModal(id, name, image) {
     if (fileInput) fileInput.value = '';
 }
 
-// ===== ПРЕВЬЮ ДЛЯ РЕДАКТИРОВАНИЯ (универсальная) =====
+//ПРЕВЬЮ ДЛЯ РЕДАКТИРОВАНИЯ (универсальная)
 function previewEditImage(input, currentImgId, previewContainerId, previewImgId) {
     const currentImg = document.getElementById(currentImgId);
     const previewContainer = document.getElementById(previewContainerId);
@@ -93,7 +93,7 @@ function previewEditImage(input, currentImgId, previewContainerId, previewImgId)
     }
 }
 
-// ===== МОДАЛЬНОЕ ОКНО ДЛЯ УДАЛЕНИЯ КАТЕГОРИИ (ОБНОВЛЕНО) =====
+//МОДАЛЬНОЕ ОКНО ДЛЯ УДАЛЕНИЯ КАТЕГОРИИ 
 function deleteCategory(id) {
     // Сначала проверяем, есть ли у категории характеристики
     fetch('/admin/check_category_attributes/' + id)
@@ -128,14 +128,13 @@ function confirmDelete() {
     }
 }
 
-// ===== МОДАЛЬНОЕ ОКНО ДЛЯ ДОБАВЛЕНИЯ ТОВАРА =====
+
 function openAddProductModal() {
     document.getElementById('addProductModal').style.display = 'flex';
     // Сброс перенесен в closeModal
 }
 
-// ===== МОДАЛЬНОЕ ОКНО ДЛЯ РЕДАКТИРОВАНИЯ ТОВАРА (РАЗБИТО НА ЧАСТИ) =====
-
+//МОДАЛЬНОЕ ОКНО ДЛЯ РЕДАКТИРОВАНИЯ ТОВАРА (РАЗБИТО НА ЧАСТИ)
 // Заполнение основных полей
 function fillProductFormFields(id, name, article, price, unit, specs, fullDesc, oldPrice, categoryId) {
     document.getElementById('edit_product_id').value = id;
@@ -190,7 +189,7 @@ function resetProductImagePreview() {
     if (fileInput) fileInput.value = '';
 }
 
-// Основная функция редактирования товара (теперь короткая)
+// Основная функция редактирования товара
 function openEditProductModal(id, name, image, specs, price, unit, article, categoryId, fullDesc, oldPrice) {
     document.getElementById('editProductModal').style.display = 'flex';
     document.getElementById('editProductForm').action = '/admin/edit_product/' + id;
@@ -200,7 +199,7 @@ function openEditProductModal(id, name, image, specs, price, unit, article, cate
     resetProductImagePreview();
 }
 
-// ===== МОДАЛЬНОЕ ОКНО ДЛЯ УДАЛЕНИЯ ТОВАРА =====
+
 function deleteProduct(id) {
     currentDeleteProductId = id;
     document.getElementById('delete_message').innerText = 'Вы действительно хотите удалить этот товар?';
@@ -213,7 +212,6 @@ function confirmDeleteProduct() {
     }
 }
 
-// ===== УПРАВЛЕНИЕ ХАРАКТЕРИСТИКАМИ (ТИПЫ) =====
 function openAddAttributeModal() {
     document.getElementById('addAttributeModal').style.display = 'flex';
 }
@@ -245,7 +243,7 @@ function confirmDeleteAttribute() {
     }
 }
 
-// ===== ФИЛЬТР ДЛЯ ХАРАКТЕРИСТИК =====
+//ФИЛЬТР ДЛЯ ХАРАКТЕРИСТИК
 function filterAttributes() {
     const filter = document.getElementById('category_filter').value;
     const cards = document.querySelectorAll('#attributes_card_container .attribute_card');
@@ -263,11 +261,9 @@ function filterAttributes() {
     });
 }
 
-// ===== НОВЫЕ ФУНКЦИИ ДЛЯ УПРАВЛЕНИЯ ЗНАЧЕНИЯМИ ХАРАКТЕРИСТИК ТОВАРОВ =====
+//ДЛЯ УПРАВЛЕНИЯ ЗНАЧЕНИЯМИ ХАРАКТЕРИСТИК ТОВАРОВ
 
-/**
- * Открывает модальное окно для редактирования характеристик конкретного товара
- */
+//Открывает модальное окно для редактирования характеристик конкретного товара
 function openProductAttributesModal(productId) {
     document.getElementById('productAttributesModal').style.display = 'flex';
     document.getElementById('attributesLoading').style.display = 'block';
@@ -281,21 +277,7 @@ function openProductAttributesModal(productId) {
 
             document.getElementById('attributesForm').dataset.categoryId = data.category_id;
             document.getElementById('attributesForm').dataset.productId = productId;
-            
-            // ===== ПРОВЕРКА ДЛЯ КАТЕГОРИЙ =====
-            const modal = document.getElementById('productAttributesModal');
-            
-            // Удаляем все старые классы
-            modal.classList.remove('pulley_bushing_modal', 'seals_modal');
-            
-            // Добавляем класс в зависимости от категории
-            if (data.category_id === 4) {  // Шкивы, втулки
-                modal.classList.add('pulley_bushing_modal');
-            } else if (data.category_id === 5) {  // Кольца, манжеты, сальники
-                modal.classList.add('seals_modal');
-            }
-            // ===== КОНЕЦ ПРОВЕРКИ =====
-            
+              
             const attributesList = document.getElementById('attributesList');
             attributesList.innerHTML = '';
             
@@ -345,11 +327,8 @@ function openProductAttributesModal(productId) {
         });
 }
 
-/**
- * Переход на вкладку "Типы характеристик"
- */
+//Переход на вкладку "Типы характеристик"
 function goToAttributesTab() {
-    // Закрываем текущее модальное окно
     closeModal('productAttributesModal');
     
     // Находим кнопку вкладки "Типы характеристик" и переключаемся на нее
@@ -361,9 +340,7 @@ function goToAttributesTab() {
     // Показываем flash-сообщение
     showFlashMessage('Перейдите в раздел "Типы характеристик", чтобы создать характеристики для этой категории', 'info');
 }
-/**
- * Сохраняет значения характеристик товара
- */
+//Сохраняет значения характеристик товара
 function saveProductAttributes() {
     const form = document.getElementById('attributesForm');
     const productId = form.dataset.productId;
@@ -402,9 +379,8 @@ function saveProductAttributes() {
     });
 }
 
-/**
- * Показывает flash-сообщение
- */
+//Показывает flash-сообщение
+
 function showFlashMessage(message, category) {
     const flashContainer = document.querySelector('.flash_messages');
     if (!flashContainer) return;
@@ -423,14 +399,14 @@ function showFlashMessage(message, category) {
     }, 3000);
 }
 
-// ===== ЗАКРЫТИЕ МОДАЛЬНЫХ ОКОН =====
+//ЗАКРЫТИЕ МОДАЛЬНЫХ ОКОН
 function closeModal(modalId) {
     const modal = document.getElementById(modalId);
     if (modal) {
         modal.style.display = 'none';
     }
     
-    // ===== ДЛЯ ДОБАВЛЕНИЯ (сбрасываем ВСЁ) =====
+    //сбрасываем все
     
     // Добавление категории
     if (modalId === 'addCategoryModal') {
@@ -464,7 +440,7 @@ function closeModal(modalId) {
         if (form) form.reset();
     }
        
-    // ===== ДЛЯ УДАЛЕНИЯ (очищаем переменные) =====
+    //ДЛЯ УДАЛЕНИЯ (очищаем переменные)
     
     // Удаление категории
     if (modalId === 'deleteCategoryModal') {
@@ -481,7 +457,7 @@ function closeModal(modalId) {
         currentDeleteAttributeId = null;
     }
     
-    // ===== ХАРАКТЕРИСТИКИ ТОВАРА (очищаем список и сбрасываем состояние) =====
+    //ХАРАКТЕРИСТИКИ ТОВАРА (очищаем список и сбрасываем состояние)
     
     if (modalId === 'productAttributesModal') {
         const attributesList = document.getElementById('attributesList');
@@ -494,15 +470,8 @@ function closeModal(modalId) {
     }
 }
 
-// ===== ЗАКРЫТИЕ ПО КЛИКУ ВНЕ МОДАЛЬНОГО ОКНА =====
-// window.onclick = function(event) {
-//     if (event.target.classList.contains('modal')) {
-//         const modalId = event.target.id;
-//         closeModal(modalId);
-//     }
-// }
 
-// ===== ЗАКРЫТИЕ ПО ESC =====
+//ЗАКРЫТИЕ ПО ESC
 document.addEventListener('keydown', function(e) {
     if (e.key === 'Escape') {
         document.querySelectorAll('.modal').forEach(modal => {
@@ -513,7 +482,7 @@ document.addEventListener('keydown', function(e) {
     }
 });
 
-// ===== АВТОМАТИЧЕСКОЕ СКРЫТИЕ FLASH-СООБЩЕНИЙ =====
+//АВТО СКРЫТИЕ FLASH-СООБЩЕНИЙ
 setTimeout(function() {
     document.querySelectorAll('.flash').forEach(function(msg) {
         msg.style.transition = 'opacity 0.5s';
@@ -522,8 +491,8 @@ setTimeout(function() {
     });
 }, 3000);
 
-// ===== ЗАЯВКИ =====
 
+// ЗАЯВКИ 
 // Просмотр товаров заявки
 function viewRequestItems(requestId) {
     fetch('/admin/get_request_items/' + requestId)
@@ -626,7 +595,7 @@ function openEditProductModalFromData(btn) {
     openEditProductModal(id, name, image, specs, price, unit, article, categoryId, fullDesc, oldPrice);
 }
 
-// Фильтрация заявок по статусу (выпадающий список)
+// выпадающий список
 const statusFilter = document.getElementById('statusFilter');
 if (statusFilter) {
     statusFilter.addEventListener('change', function() {

@@ -113,14 +113,12 @@ main {
     font-size: 17px;
 }
 
-/* Контейнер для кнопок */
 .product_actions {
     display: flex;
     justify-content: center;
     margin-top: 20px;
 }
 
-/* Селектор количества */
 .quantity_selector {
     display: flex;
     align-items: center;
@@ -129,7 +127,6 @@ main {
     border-radius: 44px;
 }
 
-/* Скрытый класс */
 .quantity_selector.hidden {
     display: none;
 }
@@ -303,7 +300,6 @@ main {
         margin-left: 50px;
     }
 
-    /* Карточка товара — фото + характеристики */
     .section_detali_tovara_post {
         flex-direction: column;
         align-items: center;
@@ -342,7 +338,6 @@ main {
         font-size: 24px;
     }
 
-    /* Карточка товара */
     .section_detali_tovara_post_photo {
         width: 200px;
         height: 160px;
@@ -361,7 +356,6 @@ main {
         margin: 0 5px;
     }
 
-    /* Кнопки + и - */
     .minus, .plus {
         width: 36px;
         height: 36px;
@@ -379,7 +373,6 @@ main {
         font-size: 15px;
     }
 
-    /* Описание товара */
     .description {
         width: 95%;
         padding: 20px 20px;
@@ -407,7 +400,6 @@ main {
         font-size: 20px;
     }
 
-    /* Карточка товара */
     .section_detali_tovara_post_photo {
         width: auto;
 

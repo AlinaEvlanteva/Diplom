@@ -5,7 +5,7 @@ from models.request_item import RequestItem
 from . import requests_bp
 from .cart import get_cart
 
-# ========== ВСПОМОГАТЕЛЬНАЯ ФУНКЦИЯ ДЛЯ СОРТИРОВКИ ==========
+#ВСПОМОГАТЕЛЬНАЯ ФУНКЦИЯ ДЛЯ СОРТИРОВКИ
 def get_order(item):
     """Вспомогательная функция для сортировки по полю order"""
     return item.get('order', 0)

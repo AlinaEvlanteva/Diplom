@@ -6,7 +6,6 @@ main {
 .section_katalog{
     width: 100%;
     height: auto;
-    /* height: 963px; */
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -87,8 +86,6 @@ main {
     font-weight: bold;
 } 
 
-
-/* Модальное окно */
 .modal {
     display: none;
     position: fixed;
@@ -220,7 +217,6 @@ textarea.form_input {
         margin-left: 50px;
     }
 
-    /* Сетка товаров */
     .section_products_post {
         width: 90%;
         gap: 30px;
@@ -249,7 +245,6 @@ textarea.form_input {
         font-size: 24px;
     }
 
-    /* Сетка товаров — 2 колонки */
     .section_products_post {
         width: 95%;
         gap: 20px;
@@ -283,7 +278,6 @@ textarea.form_input {
         font-size: 20px;
     }
 
-    /* Сетка товаров — 1 колонка */
     .section_products_post {
         width: 95%;
         gap: 20px;
