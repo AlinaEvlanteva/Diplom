@@ -27,10 +27,10 @@ def send_email(subject, body, to_email):
         return True, "Письмо отправлено"
         
     except Exception as e:
-        print(f"❌ Ошибка: {e}")
+        print(f"Произошла ошибка: {e}")
         # Логируем письмо
         print("=" * 60)
-        print("📧 ЗАЯВКА СОХРАНЕНА В ЛОГАХ")
+        print("ЗАЯВКА СОХРАНЕНА В ЛОГАХ")
         print(body)
         print("=" * 60)
-        return True, "Заявка принята (письмо сохранено в логах)"
+        return False, "Попробуйте позже"

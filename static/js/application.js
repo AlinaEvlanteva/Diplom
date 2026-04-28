@@ -91,7 +91,7 @@ document.getElementById('feedbackForm')?.addEventListener('submit', function(e) 
         if (data.success) {
             showFlashMessage('Заявка отправлена! Менеджер свяжется с вами.', 'success');
         } else {
-            showFlashMessage('Ошибка: ' + data.error, 'error');
+            showFlashMessage('Произошла ошибка: ' + data.error, 'error');
         }
     })
     .catch(error => {
@@ -135,11 +135,11 @@ document.getElementById('requestForm')?.addEventListener('submit', function(e) {
         if (data.success) {
             openSuccessModal();
         } else {
-            showFlashMessage('Ошибка: ' + data.error, 'error');
+            showFlashMessage('Произошла ошибка: ' + data.error, 'error');
         }
     })
     .catch(error => {
-        console.error('Ошибка:', error);
+        console.error('Произошла ошибка:', error);
         showFlashMessage('Ошибка при отправке заявки', 'error');
     })
 });

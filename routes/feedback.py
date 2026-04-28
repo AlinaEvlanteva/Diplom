@@ -43,7 +43,7 @@ def send_feedback():
             return jsonify({'success': False, 'error': message})
             
     except Exception as e:
-        print(f"Ошибка: {e}")
+        print(f"Произошла ошибка: {e}")
         return jsonify({'success': False, 'error': str(e)})
 
 @feedback_bp.route('/privacy_policy')
