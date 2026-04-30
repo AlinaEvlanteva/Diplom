@@ -39,11 +39,11 @@ header {
 }
 
 .header_logo {
-
     margin-right: 20px;
 }
 
-.header_logo img {              
+.header_logo img {   
+    height: 70px;           
     object-fit: contain;
 }
 
@@ -139,7 +139,7 @@ header {
 }
 
 .footer_column{
-    width: 23%;
+    width: 25.5%;
     height: auto;
     padding: 50px 0;
 }
@@ -400,19 +400,18 @@ textarea.form_input {
 
 @media (max-width: 768px) {
     .header_inner {
-        width: 100%;     
+        width: 95%;     
         justify-content: space-between;
         gap: 15px;
     }
 
     .header_logo {
-        width: 100%;
         text-align: center;
         margin-right: 0;
+        background-color: #42546E;
     }
 
     .header_link_icons {
-        width: 100%;
         justify-content: center;
         gap: 25px;
     }
@@ -511,7 +510,16 @@ textarea.form_input {
 
 @media (max-width: 480px) {
     .header_inner {
-        width: 100%;
+        width: 90%;
+        justify-content: space-between;
+    }
+
+    .header_logo{
+        height: 60px;
+    }
+
+    .header_logo img{
+        height: 60px;
     }
     .header_link_icons {
         gap: 15px;
@@ -558,8 +566,13 @@ textarea.form_input {
 
 
 @media (max-width: 380px) {
+    header{
+        height: 140px;
+    }
     .header_inner {
+        height: 100%;
         flex-wrap: wrap;
+        justify-content: center;
     }
     .header_link_icons {
         gap: 15px;

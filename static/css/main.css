@@ -179,7 +179,6 @@ main {
 }
 .advantages_post_header{
     width: 100%;
-    height: 85px;
     display: flex;
     gap: 20px;
 }
@@ -552,16 +551,14 @@ main {
 
     .advantages_post {
         width: 90%;
-        min-height: 220px;
     }
 
     .advantages_post_header h3 {
-        font-size: 22px;
-        margin-top: 25px;
+        font-size: 26px;
     }
 
     .advantages_post p {
-        font-size: 18px;
+        font-size: 20px;
         margin-top: 20px;
     }
 
@@ -579,7 +576,11 @@ main {
     }
 
     .sotrudnichestvo_container_post h3 {
-        font-size: 26px;
+        font-size: 27px;
+    }
+
+    #sotrudnichestvo_container_post2 h3 {
+        font-size: 27px;
     }
 
     .sotrudnichestvo_container_post p,
@@ -652,23 +653,21 @@ main {
     }
 
     .advantages_post_header h3 {
-        font-size: 18px;
+        font-size: 25px;
         margin-left: 15px;
     }
 
     .advantages_post p {
-        font-size: 16px;
+        font-size: 18px;
         margin-left: 15px;
     }
 
-    .advantages_post_header img {
-        width: 35px;
-        height: 35px;
-        margin-top: 25px;
+    .sotrudnichestvo_container_post h3 {
+        font-size: 26px;
     }
 
-    .sotrudnichestvo_container_post h3 {
-        font-size: 22px;
+    #sotrudnichestvo_container_post2 h3 {
+        font-size: 26px;
     }
 
     .sotrudnichestvo_container_post button {
