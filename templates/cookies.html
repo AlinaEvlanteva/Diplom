@@ -1,0 +1,11 @@
+<link rel="stylesheet" href="{{ url_for('static', filename='css/cookies.css') }}">
+<!-- Баннер cookie -->
+<div id="cookie_banner" class="cookie_banner">
+    <div class="cookie_banner_text">
+        Мы используем куки, чтобы ваша корзина не пустела и сайт работал правильно.
+        <a href="{{ url_for('feedback.privacy_policy') }}" class="cookie_banner_link">Политика конфиденциальности</a>
+    </div>
+    <button id="accept_cookies" class="cookie_banner_button">Ок</button>
+</div>
+
+<script src="{{ url_for('static', filename='js/cookies.js') }}"></script>
