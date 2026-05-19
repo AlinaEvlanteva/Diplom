@@ -1,3 +1,5 @@
+
+
 // функция обновления счетчика корзины на всех стр
 function updateCartCounter(totalItems) {
     const cartCount = document.getElementById('cart_count');

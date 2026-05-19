@@ -12,7 +12,7 @@
     <meta name="keywords" content="подшипники, шкивы, ремни, цепи, РТИ">
     <meta property="og:title" content="ИнТехЛайт - Поставщик комплектующих">
     <meta property="og:description" content="Широкий ассортимент. Доставка по России.">
-    <meta property="og:image" content="https://intehlite.ru/og-image.png">
+    <meta property="og:image" content="{{ url_for('static', filename='img/small/logo_intx1 1.png', _external=True) }}">
 </head>
 <body>
     <header>
@@ -32,6 +32,7 @@
         </div>
     </header>
     <main>
+        
         <!-- Интро -->
         <section class="main_intro_inner">
             <div class="main_intro_inner_rectangle">
@@ -152,11 +153,6 @@
             </div>
         </section>
     </main>
-
-    <!-- ВРЕМЕННАЯ ССЫЛКА ДЛЯ АДМИНА (удалить потом) -->
-    <div style="position: fixed; bottom: 10px; right: 10px; opacity: 0.3; font-size: 12px; background: #333; padding: 5px 10px; border-radius: 5px; z-index: 9999;">
-        <a href="{{ url_for('admin.admin_login') }}" style="color: white; text-decoration: none;">Админка</a>
-    </div>
 
     <footer class="footer">
         <div class="footer_column">

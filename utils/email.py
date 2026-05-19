@@ -23,7 +23,7 @@ def send_email(subject, body, to_email):
                         current_app.config['MAIL_PASSWORD'])
             server.send_message(msg)
         
-        print("✅ Письмо отправлено")
+        print("Письмо отправлено")
         return True, "Письмо отправлено"
         
     except Exception as e:

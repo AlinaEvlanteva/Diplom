@@ -10,6 +10,7 @@
 
     <meta name="description" content="Каталог промышленных комплектующих ИнТехЛайт. Подшипники, шкивы, ремни, цепи, уплотнения, силиконовые материалы.">
     <meta property="og:title" content="Каталог - ИнТехЛайт">
+    <meta property="og:image" content="{{ url_for('static', filename='img/podship_skf.png', _external=True) }}">
     <meta property="og:description" content="Выберите необходимые комплектующие из широкого ассортимента.">
 </head>
 <body>
@@ -132,6 +133,7 @@
     </div>
 
     <div class="flash-messages"></div>
+    {% include 'cookies.html' %}
     <script src="{{ url_for('static', filename='js/main.js') }}"></script>
     <script src="{{ url_for('static', filename='js/application.js') }}"></script>
 </body>

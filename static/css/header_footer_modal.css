@@ -566,13 +566,9 @@ textarea.form_input {
 
 
 @media (max-width: 380px) {
-    header{
-        height: 140px;
-    }
     .header_inner {
-        height: 100%;
-        flex-wrap: wrap;
-        justify-content: center;
+        width: 90%;
+        justify-content: space-between;
     }
     .header_link_icons {
         gap: 15px;

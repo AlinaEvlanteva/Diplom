@@ -107,28 +107,28 @@ document.getElementById('checkoutForm')?.addEventListener('submit', function(e) 
     e.preventDefault();
      
     // Проверяем имя
-    const nameInput = document.getElementById('checkoutName');
-    if (!nameInput || !nameInput.value.trim()) {
-        showFlashMessage('Пожалуйста, представьтесь', 'error');
-        if (nameInput) nameInput.style.border = '2px solid #dc3545';
-        nameInput.focus();
-        return;
-    }
+    // const nameInput = document.getElementById('checkoutName');
+    // if (!nameInput || !nameInput.value.trim()) {
+    //     showFlashMessage('Пожалуйста, представьтесь', 'error');
+    //     if (nameInput) nameInput.style.border = '2px solid #dc3545';
+    //     nameInput.focus();
+    //     return;
+    // }
     
     // Проверяем телефон
     const phoneInput = document.getElementById('checkoutPhone');
-    if (!phoneInput || !validatePhone(phoneInput.value)) {
+    const phone = phoneInput.value;
+
+    if (!validatePhone(phone)) {
         showFlashMessage('Введите корректный номер телефона в формате +7 (XXX) XXX-XX-XX', 'error');
-        if (phoneInput) phoneInput.style.border = '2px solid #dc3545';
+        phoneInput.style.border = '2px solid #dc3545';
         phoneInput.focus();
         return;
     }
     
     // Восстанавливаем стиль
-    if (nameInput) nameInput.style.borderColor = '#42546E';
-    if (phoneInput) phoneInput.style.borderColor = '#42546E';
-    
-    // Получаем данные из формы (автоматически)
+    // if (nameInput) nameInput.style.borderColor = '#42546E';
+    phoneInput.style.borderColor = '#42546E';
     const formData = new FormData(this);
         
     fetch('/submit_request', {
