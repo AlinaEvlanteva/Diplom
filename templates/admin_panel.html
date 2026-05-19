@@ -254,7 +254,7 @@
             <div class="form_group">
                 <label class="form_label">
                     Изображение:
-                    <input type="file" name="image" id="addCategoryImage" class="form_input" accept="image/*" onchange="previewImage(this, 'addImagePreviewContainer', 'addImagePreview')">
+                    <input type="file" name="image" id="addCategoryImage" class="form_input" accept="image/*" onchange="universalPreviewImage(this, null, 'addImagePreviewContainer', 'addImagePreview')">
                 </label>
             </div>
             <div id="addImagePreviewContainer" class="previiew">
@@ -284,7 +284,7 @@
 
             <div class="form_group">
                 <label class="form_label">
-                    <input type="file" name="image" id="editCategoryImage" class="form_input" accept="image/*" onchange="previewEditImage(this, 'current_category_image', 'editImagePreviewContainer', 'editImagePreview')">
+                    <input type="file" name="image" id="editCategoryImage" class="form_input" accept="image/*" onchange="universalPreviewImage(this, 'current_category_image', 'editImagePreviewContainer', 'editImagePreview')">
                 </label>
             </div>
 
@@ -393,7 +393,7 @@
             <div class="form_group">
                 <label class="form_label">
                     Изображение:
-                    <input type="file" name="image" id="addProductImage" class="form_input" accept="image/*" onchange="previewImage(this, 'addProductImagePreviewContainer', 'addProductImagePreview')">
+                    <input type="file" name="image" id="addProductImage" class="form_input" accept="image/*" onchange="universalPreviewImage(this, null, 'addProductImagePreviewContainer', 'addProductImagePreview')">
                 </label>
             </div>
             
@@ -441,7 +441,7 @@
                     </label>
                     <label class="form_label">
                         Новое изображение:
-                        <input type="file" name="image" id="editProductImage" class="form_input" accept="image/*" onchange="previewEditImage(this, 'edit_product_current_image', 'editProductImagePreviewContainer', 'editProductImagePreview')">
+                        <input type="file" name="image" id="editProductImage" class="form_input" accept="image/*" onchange="universalPreviewImage(this, 'edit_product_current_image', 'editProductImagePreviewContainer', 'editProductImagePreview')">
                     </label>
                 </div>
             </div>

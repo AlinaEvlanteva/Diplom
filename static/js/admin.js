@@ -22,10 +22,14 @@ function openAddCategoryModal() {
     document.getElementById('addCategoryModal').style.display = 'flex';
 }
 
-//УНИВЕРСАЛЬНОЕ ПРЕВЬЮ ДЛЯ ЛЮБЫХ МОДАЛЬНЫХ ОКОН
-function previewImage(input, previewContainerId, previewImageId) {
+
+// УНИВЕРСАЛЬНАЯ ФУНКЦИЯ ПРЕДПРОСМОТРА КАРТИНКИ
+// - Для добавления: передаём currentImgId = null
+// - Для редактирования: передаём ID текущей картинки (она скроется при выборе новой)
+function universalPreviewImage(input, currentImgId, previewContainerId, previewImgId) {
     const previewContainer = document.getElementById(previewContainerId);
-    const preview = document.getElementById(previewImageId);
+    const preview = document.getElementById(previewImgId);
+    const currentImg = currentImgId ? document.getElementById(currentImgId) : null;
     
     if (input.files && input.files[0]) {
         const reader = new FileReader();
@@ -33,12 +37,14 @@ function previewImage(input, previewContainerId, previewImageId) {
         reader.onload = function(e) {
             preview.src = e.target.result;
             previewContainer.style.display = 'block';
+            if (currentImg) currentImg.style.display = 'none';
         }
         
         reader.readAsDataURL(input.files[0]);
     } else {
-        preview.src = '#';
         previewContainer.style.display = 'none';
+        preview.src = '#';
+        if (currentImg) currentImg.style.display = 'block';
     }
 }
 
@@ -70,28 +76,6 @@ function openEditCategoryModal(id, name, image) {
     if (fileInput) fileInput.value = '';
 }
 
-//ПРЕВЬЮ ДЛЯ РЕДАКТИРОВАНИЯ (универсальная)
-function previewEditImage(input, currentImgId, previewContainerId, previewImgId) {
-    const currentImg = document.getElementById(currentImgId);
-    const previewContainer = document.getElementById(previewContainerId);
-    const preview = document.getElementById(previewImgId);
-    
-    if (input.files && input.files[0]) {
-        const reader = new FileReader();
-        
-        reader.onload = function(e) {
-            preview.src = e.target.result;
-            previewContainer.style.display = 'block';
-            currentImg.style.display = 'none';
-        }
-        
-        reader.readAsDataURL(input.files[0]);
-    } else {
-        previewContainer.style.display = 'none';
-        preview.src = '#';
-        currentImg.style.display = 'block';
-    }
-}
 
 //МОДАЛЬНОЕ ОКНО ДЛЯ УДАЛЕНИЯ КАТЕГОРИИ 
 function deleteCategory(id) {
@@ -166,8 +150,13 @@ function fillProductFormFields(id, name, article, price, unit, specs, fullDesc, 
     }
 }
 
-// Показ текущего изображения
-function displayCurrentProductImage(image) {
+// Основная функция редактирования товара
+function openEditProductModal(id, name, image, specs, price, unit, article, categoryId, fullDesc, oldPrice) {
+    document.getElementById('editProductModal').style.display = 'flex';
+    document.getElementById('editProductForm').action = '/admin/edit_product/' + id;
+    
+    fillProductFormFields(id, name, article, price, unit, specs, fullDesc, oldPrice, categoryId);
+    // Показываем текущее изображение (оно будет скрыто при выборе нового)
     const currentImg = document.getElementById('edit_product_current_image');
     if (image && image != 'default.png' && image != 'default_category.png') {
         currentImg.src = '/static/img/small/' + image;
@@ -176,10 +165,8 @@ function displayCurrentProductImage(image) {
         currentImg.src = '';
         currentImg.style.display = 'none';
     }
-}
-
-// Сброс превью и файла
-function resetProductImagePreview() {
+    
+    // Сбрасываем превью новой картинки
     const previewContainer = document.getElementById('editProductImagePreviewContainer');
     const preview = document.getElementById('editProductImagePreview');
     const fileInput = document.getElementById('editProductImage');
@@ -188,17 +175,6 @@ function resetProductImagePreview() {
     if (preview) preview.src = '#';
     if (fileInput) fileInput.value = '';
 }
-
-// Основная функция редактирования товара
-function openEditProductModal(id, name, image, specs, price, unit, article, categoryId, fullDesc, oldPrice) {
-    document.getElementById('editProductModal').style.display = 'flex';
-    document.getElementById('editProductForm').action = '/admin/edit_product/' + id;
-    
-    fillProductFormFields(id, name, article, price, unit, specs, fullDesc, oldPrice, categoryId);
-    displayCurrentProductImage(image);
-    resetProductImagePreview();
-}
-
 
 function deleteProduct(id) {
     currentDeleteProductId = id;
